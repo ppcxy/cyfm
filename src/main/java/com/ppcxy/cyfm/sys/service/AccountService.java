@@ -7,6 +7,7 @@ package com.ppcxy.cyfm.sys.service;
 
 import com.google.common.collect.Maps;
 import com.ppcxy.common.exception.ServiceException;
+import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.showcase.demos.jms.simple.NotifyMessageProducer;
 import com.ppcxy.cyfm.showcase.demos.jmx.ApplicationStatistics;
 import com.ppcxy.cyfm.sys.entity.Role;
@@ -14,7 +15,6 @@ import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.cyfm.sys.repository.jpa.AccountDao;
 import com.ppcxy.cyfm.sys.repository.jpa.RoleDao;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.javasimon.aop.Monitored;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,6 @@ import org.springside.modules.persistence.Hibernates;
 import org.springside.modules.persistence.SearchFilter;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
-import org.springside.modules.utils.Reflections;
 
 import java.util.List;
 import java.util.Map;
@@ -189,7 +188,7 @@ public class AccountService {
      * 取出Shiro中的当前用户LoginName.
      */
     private String getCurrentUserName() {
-        return Reflections.getFieldValue(SecurityUtils.getSubject().getPrincipal(), "loginName").toString();
+        return ShiroUserInfoUtils.getLoginName();
     }
 
     // --------------------//

@@ -48,4 +48,32 @@ jQuery(document).ready(function () {
             alert("请选择一条记录.");
         }
     });
-})
+
+
+
+    // 组建初始化
+    $("[data-format]").each(function(index,obj){
+        var format=$(obj).data("format");
+        var istime=true;
+        if(format=='both'){
+            format = "YYYY-MM-DD hh:mm:ss";
+        } else  if(format=='date'){
+            format='YYYY-MM-DD';
+            istime=false;
+        } else  if(format=='time'){
+            format='HH:mm:SS';
+        } else {
+            format = "YYYY-MM-DD hh:mm:ss";
+        }
+
+        laydate({
+            elem: this,
+            istime: istime,
+            format: format,
+            istoday: true,
+            isclear: true, //是否显示清空
+            issure: true,
+            //festival: true
+        });
+    })
+});

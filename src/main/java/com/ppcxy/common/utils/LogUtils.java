@@ -137,7 +137,7 @@ public class LogUtils {
 
 
     protected static String getUsername() {
-        return Reflections.getFieldValue(SecurityUtils.getSubject().getPrincipal(), "loginName").toString();
+        return ShiroUserInfoUtils.getLoginName();
     }
 
     public static Logger getAccessLog() {

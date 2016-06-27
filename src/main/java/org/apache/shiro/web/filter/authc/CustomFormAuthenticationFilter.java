@@ -1,6 +1,8 @@
 
 package org.apache.shiro.web.filter.authc;
 
+import com.ppcxy.common.utils.ShiroUserInfoUtils;
+import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.cyfm.sys.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
@@ -67,12 +69,12 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     public String getSuccessUrl() {
-        //String username = (String) SecurityUtils.getSubject().getPrincipal();
-        //User user = userService.findByLoginName(username);
+        String username = ShiroUserInfoUtils.getLoginName();
+        User user = userService.findByLoginName(username);
         //TODO 区分登录成功页面
-        //if (user != null && Boolean.TRUE.equals(user.getAdmin())) {
-        //    return getAdminDefaultSuccessUrl();
-        //}
+        if (user != null && Boolean.TRUE.equals(user.getRoleNames().indexOf("Admin")!=-1)) {
+            return getAdminDefaultSuccessUrl();
+        }
         return getDefaultSuccessUrl();
     }
 

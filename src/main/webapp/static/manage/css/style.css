@@ -146,7 +146,7 @@ h2{font-weight:normal;}
 .ibox{clear:both; padding-left:40px; padding-top:18px; overflow:hidden; padding-bottom:18px;}
 .ibtn{background:url(../images/ibtnbg.png) repeat-x;border:solid 1px #bfcfe1; height:23px; line-height:23px; display:block; float:left; padding:0 15px; cursor:pointer;}
 .ibtn img{margin-top:5px; float:left; padding-right:7px;}
-.box{height:15px;}
+/*.box{height:15px;}*/
 .infolist{padding-left:40px; padding-bottom:15px;}
 .infolist li{ line-height:23px; height:23px; margin-bottom:8px;}
 .infolist li span{float:left; display:block; margin-right:10px;}
@@ -179,9 +179,9 @@ h2{font-weight:normal;}
 
 
 /*form*/
-.formbody{padding:10px 18px;}
-.formtitle{border-bottom:solid 1px #d0dee5; line-height:35px; position:relative; height:35px; margin-bottom:28px;}
-.formtitle span{font-weight:bold;font-size:14px; border-bottom:solid 3px #66c9f3;float:left; position:absolute; z-index:100; bottom:-1px; padding:0 3px; height:30px; line-height:30px;}
+.box.editBox{ border: 1px solid #ccc !important;}
+.editBox .portlet-title{padding:0px !important;margin: 0px 10px 0px 10px;border-bottom:solid 1px #d0dee5 !important; line-height:35px; position:relative; height:35px}
+.editBox .portlet-title span{color:#000;font-weight:bold;font-size:14px; border-bottom:solid 3px #66c9f3;float:left; position:absolute; z-index:100; bottom:-1px; padding:0 3px; height:30px; line-height:30px;}
 .forminfo{padding-left:23px;}
 .forminfo li{margin-bottom:13px; clear:both;}
 .forminfo li label{width:86px;line-height:34px; display:block; float:left;}
