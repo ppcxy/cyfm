@@ -35,6 +35,7 @@
 <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/laydate/laydate.dev.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js"></script>
 <!-- 插件扩展区 end-->
 
 <script src="${ctx}/static/js/common.js?3" type="text/javascript"></script>

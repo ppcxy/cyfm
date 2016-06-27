@@ -67,5 +67,17 @@
 		</form:form>
 	</div>
 </div>
+<script>
+	//在这里面输入任何合法的js语句
+//	layer.open({
+//		type: 1, //page层
+//		area: ['500px', '300px'],
+//		title: '你好，layer。',
+//		shade: 0.6, //遮罩透明度
+//		moveType: 1, //拖拽风格，0是默认，1是传统拖动
+//		shift: 1, //0-6的动画形式，-1不开启
+//		content: $("#inputForm")
+//	});
+</script>
 </body>
 </html>
