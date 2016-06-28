@@ -1,16 +1,11 @@
-<%@ page session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="false"%>
 <%@ page import="com.ppcxy.common.entity.search.exception.SearchException" %>
 <%@ page import="com.ppcxy.common.exception.ServiceException" %>
 <%@ page import="com.ppcxy.common.utils.LogUtils" %>
-<%@ page import="org.apache.shiro.SecurityUtils" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/WEB-INF/views/common/taglibs.jspf" %>
-<script>
-    //错误页面将当前url地址切换回上一个地址
-    currentURL = preHref;
-</script>
+
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <div class="tabbable-line">
     <%
         LogUtils.logPageError(request);
@@ -26,9 +21,7 @@
         Throwable exception = (Throwable) request.getAttribute("javax.servlet.error.exception");
         request.setAttribute("exception", exception);
         request.setAttribute("baseException", exception instanceof ServiceException);
-        request.setAttribute("searchException",  exception instanceof SearchException);
-
-        System.out.println(SecurityUtils.getSubject().hasRole("dev_user"));
+        request.setAttribute("searchException", exception instanceof SearchException);
 
     %>
 

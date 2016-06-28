@@ -34,9 +34,10 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
 
     private static final Logger log = LoggerFactory.getLogger(OnlineWebSessionManager.class);
 
-    @Autowired
+
     private UserOnlineService userOnlineService;
 
+    @Autowired
     public void setUserOnlineService(UserOnlineService userOnlineService) {
         this.userOnlineService = userOnlineService;
     }

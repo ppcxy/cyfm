@@ -168,12 +168,25 @@
 	</filter-mapping>
 
 	<!-- 出错页面定义 -->
+	<!-- 错误页面映射 -->
 	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
-		<location>/WEB-INF/views/error/500.jsp</location>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/WEB-INF/views/error/error.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/error/500.jsp</location>
+		<location>/WEB-INF/views/error/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>503</error-code>
+		<location>/WEB-INF/views/error/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/views/error/error.jsp</location>
 	</error-page>
 </web-app>

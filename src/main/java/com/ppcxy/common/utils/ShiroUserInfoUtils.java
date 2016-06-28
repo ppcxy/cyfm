@@ -8,6 +8,10 @@ import org.springside.modules.utils.Reflections;
  */
 public class ShiroUserInfoUtils {
     public static String getLoginName() {
-        return Reflections.getFieldValue(SecurityUtils.getSubject().getPrincipal(), "loginName").toString();
+        if (SecurityUtils.getSubject().getPrincipal() != null) {
+            return Reflections.getFieldValue(SecurityUtils.getSubject().getPrincipal(), "loginName").toString();
+
+        }
+        return null;
     }
 }

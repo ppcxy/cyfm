@@ -15,19 +15,17 @@
 <body>
 	<h1>登录页</h1>
 	<form id="loginForm" action="${ctx}/login" method="post">
-		<%
-            Object object = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
-            if (object != null) {
-                if (object instanceof Exception) {
-                    Exception exception = (Exception)object;
-                    exception.printStackTrace();
-                } else {
-                    System.out.println(object);
-                }
-            }
-
-
-		%>
+		<%--<%--%>
+            <%--Object object = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);--%>
+            <%--if (object != null) {--%>
+                <%--if (object instanceof Exception) {--%>
+                    <%--Exception exception = (Exception)object;--%>
+                    <%--exception.printStackTrace();--%>
+                <%--} else {--%>
+                    <%--System.out.println(object);--%>
+                <%--}--%>
+            <%--}--%>
+		<%--%>--%>
 		<%--<%--%>
 			<%--String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);--%>
 			<%--if(error != null){--%>

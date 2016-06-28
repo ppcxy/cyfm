@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<!-- 自动扫描且只扫描@Controller -->
-	<context:component-scan base-package="com.ppcxy.cyfm,com.ppcxy.common" use-default-filters="false">
+	<context:component-scan base-package="com.ppcxy.cyfm" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
@@ -97,14 +97,14 @@
 	</bean>
 
 	<!-- 将Controller抛出的异常转到特定View, 保持SiteMesh的装饰效果 -->
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
-		<property name="exceptionMappings">  
+	<bean class="com.ppcxy.common.exception.web.DefaultExceptionHandler"/>
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
 			<props>
-				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
-				<prop key="java.lang.Throwable">error/500</prop>
-            </props>  
-		</property>  
-    </bean> 
+				<prop key="java.lang.Throwable">error/error</prop>
+            </props>
+		</property>
+    </bean>
     
 	<!-- 支持 Shiro对Controller的方法级AOP安全控制  begin-->
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
