@@ -6,8 +6,8 @@ import com.ppcxy.cyfm.sys.repository.jpa.UserOnlineDao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class UserOnlineService extends BaseService<UserOnline, String> {
+public class TestService extends BaseService<UserOnline, String> {
 
     private UserOnlineDao getUserOnlineRepository() {
         return (UserOnlineDao) baseRepository;
@@ -67,5 +67,6 @@ public class UserOnlineService extends BaseService<UserOnline, String> {
     public Page<UserOnline> findExpiredUserOnlineList(Date expiredDate, Pageable pageable) {
         return getUserOnlineRepository().findExpiredUserOnlineList(expiredDate, pageable);
     }
+
 
 }
