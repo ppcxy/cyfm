@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
  * <p>Date: 13-3-11 下午8:19
  * <p>Version: 1.0
  */
-public class ServiceException extends RuntimeException {
+public class BaseException extends RuntimeException {
 
     //所属模块
     private String module;
@@ -29,38 +29,38 @@ public class ServiceException extends RuntimeException {
     private String message;
 
 
-    public ServiceException(String module, String code, Object[] args, String message) {
+    public BaseException(String module, String code, Object[] args, String message) {
         this.module = module;
         this.code = code;
         this.args = args;
         this.message = message;
     }
 
-    public ServiceException(String module, String code, Object[] args) {
+    public BaseException(String module, String code, Object[] args) {
         this(module, code, args, null);
     }
 
-    public ServiceException(String module, String message) {
+    public BaseException(String module, String message) {
         this(module, null, null, message);
     }
 
-    public ServiceException(String code, Object[] args) {
+    public BaseException(String code, Object[] args) {
         this(null, code, args, null);
     }
 
-    public ServiceException(String message) {
+    public BaseException(String message) {
         this(null, null, null, message);
     }
 
-    public ServiceException(Throwable cause) {
+    public BaseException(Throwable cause) {
         super(cause);
     }
 
-    public ServiceException(String message, Throwable cause) {
+    public BaseException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ServiceException() {
+    public BaseException() {
         super();
     }
 

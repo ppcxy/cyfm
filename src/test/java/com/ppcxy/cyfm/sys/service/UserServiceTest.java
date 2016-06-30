@@ -20,10 +20,10 @@ import org.springside.modules.test.security.shiro.ShiroTestUtils;
 
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
-public class AccountServiceTest {
+public class UserServiceTest {
 
 	@InjectMocks
-	private AccountService accountService;
+	private UserService userService;
 
 	@Mock
 	private UserDao mockUserDao;
@@ -52,11 +52,11 @@ public class AccountServiceTest {
 		user.setPlainPassword("123");
 
 		// 正常保存用户.
-		accountService.saveUser(user);
+		userService.save(user);
 
 		// 保存超级管理用户抛出异常.
 		try {
-			accountService.saveUser(admin);
+			userService.save(admin);
 			failBecauseExceptionWasNotThrown(ServiceException.class);
 		} catch (ServiceException e) {
 			// expected exception
