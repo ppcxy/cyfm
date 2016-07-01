@@ -7,6 +7,7 @@ package com.ppcxy.cyfm.sys.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.common.repository.jpa.support.annotation.EnableQueryCache;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Cache;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ss_role")
+@EnableQueryCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Role extends IdEntity {
 

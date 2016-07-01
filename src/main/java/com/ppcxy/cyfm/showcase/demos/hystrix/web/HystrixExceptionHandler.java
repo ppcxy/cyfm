@@ -5,27 +5,25 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.hystrix.web;
 
+import com.netflix.hystrix.exception.HystrixBadRequestException;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
+import com.netflix.hystrix.exception.HystrixRuntimeException.FailureType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springside.modules.utils.Exceptions;
 import org.springside.modules.web.MediaTypes;
 
-import com.netflix.hystrix.exception.HystrixBadRequestException;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
-import com.netflix.hystrix.exception.HystrixRuntimeException.FailureType;
-
 /**
  * 自定义ExceptionHandler，专门处理Hystrix异常.
- * 
+ *
  * @author calvin
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class HystrixExceptionHandler extends ResponseEntityExceptionHandler {
 
 	/**

@@ -5,7 +5,7 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.schedule;
 
-import com.ppcxy.cyfm.sys.service.AccountService;
+import com.ppcxy.cyfm.sys.service.UserService;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
@@ -42,10 +42,10 @@ public class QuartzClusterableJob extends QuartzJobBean {
 	 */
 	@Override
 	protected void executeInternal(JobExecutionContext ctx) throws JobExecutionException {
-		AccountService accountService = applicationContext.getBean(AccountService.class);
+		UserService accountService = applicationContext.getBean(UserService.class);
 		Map config = (Map) applicationContext.getBean("timerJobConfig");
 
-		long userCount = accountService.getUserCount();
+		long userCount = accountService.count();
 		String nodeName = (String) config.get("nodeName");
 
 		logger.info("There are {} user in database, on node {}.", userCount, nodeName);

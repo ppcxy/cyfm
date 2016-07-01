@@ -5,13 +5,10 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.cache.memcached;
 
-import com.ppcxy.cyfm.sys.service.AccountService;
 
 /**
  * 统一定义Memcached中存储的各种对象的Key前缀和超时时间.
- * 
- * @see AccountService#getInitializedUser(String)
- * 
+ *
  * @author calvin
  */
 public enum MemcachedObjectType {

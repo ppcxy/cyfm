@@ -1,12 +1,38 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- ================================= Css 区域 ========================================== -->
+    <link type="image/x-icon" href="${ctx}/static/images/favicon.ico" rel="shortcut icon">
+
+    <!-- 插件扩展区 bengin-->
+    <link href="${ctx}/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/font-wesome/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.3.custom.css" type="text/css" rel="stylesheet" />
+    <link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/layout-default-1.3.0.css" type="text/css" rel="stylesheet" />
+    <%@include file="/WEB-INF/views/common/import-zTree-css.jspf"%>
+    <!-- 插件扩展区 end-->
+
+    <link href="${ctx}/static/styles/default.min.css" type="text/css" rel="stylesheet" />
+    <link href="${ctx}/static/styles/components.css" type="text/css" rel="stylesheet" />
+
+    <!-- ================================= JS 区域 ========================================== -->
+    <!-- 插件扩展区 bengin-->
+    <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="${ctx}/static/plugins/jquery-ui-bootstrap/js/jquery-ui-1.10.3.custom.js"></script>
+    <script src="${ctx}/static/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${ctx}/static/plugins/laydate/laydate.dev.js" type="text/javascript"></script>
+    <script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js"></script>
+    <!-- 插件扩展区 end-->
+
+    <script src="${ctx}/static/js/common.js?3" type="text/javascript"></script>
+
 <title>无标题文档</title>
 <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
-
 <script type="text/javascript">
 $(function(){	
 	//导航切换
@@ -29,10 +55,22 @@ $(function(){
 </head>
 
 <body style="background:#f0f9fd;">
-	<div class="lefttop"><span></span>通讯录</div>
+
+	<div class="lefttop"><span></span>系统设置</div>
     
     <dl class="leftmenu">
-        
+        <c:forEach items="${menus}" var="m">
+        <dd>
+            <div class="title">
+                <span><i class="${m.icon}"></i></span>${m.name}
+            </div>
+            <ul class="menuson">
+                <c:forEach items="${m.children}" var="c">
+                    <cy:submenu menu="${c}" parentName="${m.name}"/>
+                </c:forEach>
+            </ul>
+        </dd>
+        </c:forEach>
     <dd>
     <div class="title">
     <span><img src="${ctx}/static/manage/images/leftico01.png" /></span>管理信息

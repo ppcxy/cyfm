@@ -14,7 +14,6 @@ public class PreSiteMeshFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        //request.setAttribute("com.opensymphony.sitemesh.APPLIED_ONCE",false);
         chain.doFilter(request, response);
     }
 

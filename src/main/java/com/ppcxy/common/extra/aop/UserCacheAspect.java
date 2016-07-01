@@ -1,15 +1,15 @@
 package com.ppcxy.common.extra.aop;
 
-import com.tx.common.cache.BaseCacheAspect;
-import com.tx.sys.user.entity.User;
+import com.ppcxy.common.cache.BaseCacheAspect;
+import com.ppcxy.cyfm.sys.entity.User;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
- * 用户缓存切面
+ * 用户缓存切面,补充jpa缓存
  * 缓存实现
- * 1、username/email/mobilePhoneNumber------>id
+ * 1、loginName/email/tel------>id
  * 2、id------->Model
  * <p>Date: 13-3-22 下午9:00
  * <p>Version: 1.0
@@ -23,9 +23,9 @@ public class UserCacheAspect extends BaseCacheAspect {
     }
 
     private String idKeyPrefix = "id-";
-    private String usernameKeyPrefix = "username-";
+    private String loginNameKeyPrefix = "loginName-";
     private String emailKeyPrefix = "email-";
-    private String mobilePhoneNumberKeyPrefix = "mobilePhoneNumber-";
+    private String telKeyPrefix = "tel-";
 
     ////////////////////////////////////////////////////////////////////////////////
     ////切入点
@@ -34,7 +34,7 @@ public class UserCacheAspect extends BaseCacheAspect {
     /**
      * 匹配用户Service
      */
-    @Pointcut(value = "target(com.tx.sys.user.service.UserService)")
+    @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.UserService)")
     private void userServicePointcut() {
     }
 
@@ -65,9 +65,9 @@ public class UserCacheAspect extends BaseCacheAspect {
      * 比如查询
      */
     @Pointcut(value =
-            "(execution(* findByUsername(*)) " +
+            "(execution(* findByLoginName(*)) " +
                     "|| execution(* findByEmail(*)) " +
-                    "|| execution(* findByMobilePhoneNumber(*)) " +
+                    "|| execution(* findByTel(*)) " +
                     "|| execution(* findOne(*)))")
     private void cacheablePointcut() {
     }
@@ -125,12 +125,12 @@ public class UserCacheAspect extends BaseCacheAspect {
         if ("findOne".equals(methodName)) {
             key = idKey(String.valueOf(arg));
             isIdKey = true;
-        } else if ("findByUsername".equals(methodName)) {
-            key = usernameKey((String) arg);
+        } else if ("findByLoginName".equals(methodName)) {
+            key = loginNameKey((String) arg);
         } else if ("findByEmail".equals(methodName)) {
             key = emailKey((String) arg);
-        } else if ("findByMobilePhoneNumber".equals(methodName)) {
-            key = mobilePhoneNumberKey((String) arg);
+        } else if ("findByTel".equals(methodName)) {
+            key = telKey((String) arg);
         }
 
         User user = null;
@@ -164,16 +164,16 @@ public class UserCacheAspect extends BaseCacheAspect {
         return idKeyPrefix + id;
     }
 
-    private String usernameKey(String username) {
-        return usernameKeyPrefix + username;
+    private String loginNameKey(String loginName) {
+        return loginNameKeyPrefix + loginName;
     }
 
     private String emailKey(String email) {
         return emailKeyPrefix + email;
     }
 
-    private String mobilePhoneNumberKey(String mobilePhoneNumber) {
-        return mobilePhoneNumberKeyPrefix + mobilePhoneNumber;
+    private String telKey(String tel) {
+        return telKeyPrefix + tel;
     }
 
 
@@ -185,10 +185,10 @@ public class UserCacheAspect extends BaseCacheAspect {
             return;
         }
         Long id = user.getId();
-        //username email mobilePhoneNumber ---> id
-        put(usernameKey(user.getUsername()), id);
+        //loginName email tel ---> id
+        put(loginNameKey(user.getLoginName()), id);
         put(emailKey(user.getEmail()), id);
-        put(mobilePhoneNumberKey(user.getMobilePhoneNumber()), id);
+        put(telKey(user.getTel()), id);
         // id ---> user
         put(idKey(String.valueOf(id)), user);
     }
@@ -204,9 +204,9 @@ public class UserCacheAspect extends BaseCacheAspect {
         }
         Long id = user.getId();
         evict(idKey(String.valueOf(id)));
-        evict(usernameKey(user.getUsername()));
+        evict(loginNameKey(user.getLoginName()));
         evict(emailKey(user.getEmail()));
-        evict(mobilePhoneNumberKey(user.getMobilePhoneNumber()));
+        evict(telKey(user.getTel()));
     }
 
 

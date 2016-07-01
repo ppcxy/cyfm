@@ -8,6 +8,7 @@ import com.ppcxy.common.entity.search.SearchOperator;
 import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.repository.jpa.RoleDao;
 import com.ppcxy.cyfm.sys.repository.jpa.UserDao;
 import com.ppcxy.common.service.UserLogUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +43,9 @@ public class UserService extends BaseService<User, Long> {
     }
 
     @Autowired
+    private RoleDao roleDao;
+
+    @Autowired
     private PasswordService passwordService;
 
     @Override
@@ -50,7 +54,9 @@ public class UserService extends BaseService<User, Long> {
             user.setCreateDate(new Date());
         }
         user.randomSalt();
-        user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
+        if (StringUtils.isNotBlank(user.getPlainPassword() )) {
+            user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPlainPassword(), user.getSalt()));
+        }
 
         User resultUser = super.save(user);
         return resultUser;
@@ -222,5 +228,9 @@ public class UserService extends BaseService<User, Long> {
                         }
                 )
         );
+    }
+
+    public Object getAllRole() {
+        return roleDao.findAll();
     }
 }

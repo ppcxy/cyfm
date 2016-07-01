@@ -1,6 +1,6 @@
 package com.ppcxy.common.web.form;
 
-import com.tx.common.web.form.bind.SearchBindStatus;
+import com.ppcxy.common.web.form.bind.SearchBindStatus;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.ObjectUtils;

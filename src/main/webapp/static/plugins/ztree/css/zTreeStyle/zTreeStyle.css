@@ -8,7 +8,7 @@ website:	http://code.google.com/p/jquerytree/
 
 -------------------------------------*/
 
-.ztree * {padding:0; margin:0; font-size:12px; font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif}
+.ztree * {padding:0; margin:0; font-size:12px; /* TODO WEEP 影响ICON font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif*/}
 .ztree {margin:0; padding:5px; color:#333}
 .ztree li{padding:0; margin:0; list-style:none; line-height:14px; text-align:left; white-space:nowrap; outline:0}
 .ztree li ul{ margin:0; padding:0 0 0 18px}
@@ -73,6 +73,7 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
 .ztree li span.button.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
 .ztree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.add {margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
 .ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
 .ztree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
 

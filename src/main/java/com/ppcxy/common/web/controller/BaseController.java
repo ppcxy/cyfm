@@ -48,6 +48,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
      * @param model
      */
     protected void preResponse(Model model) {
+        model.addAttribute("viewPrefix", viewPrefix);
         model.addAttribute("modelName", modelName);
     }
 

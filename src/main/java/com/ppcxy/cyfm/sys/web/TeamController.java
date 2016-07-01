@@ -6,6 +6,7 @@ import com.ppcxy.cyfm.sys.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -17,11 +18,18 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @RequestMapping(value = {"list",""})
+    @RequestMapping(value = {"list", ""})
     @PageableDefaults(sort = "id=desc")
-    public String list(Searchable searchable,Model model) {
+    public String list(Searchable searchable, Model model) {
         model.addAttribute("page", teamService.test(searchable));
         return "team/list";
     }
 
+
+    @RequestMapping(value = "delete/{id}")
+    public String delete(@PathVariable(value = "id") Long id) {
+
+        teamService.deleteOne(id);
+        return "redirect:/team";
+    }
 }

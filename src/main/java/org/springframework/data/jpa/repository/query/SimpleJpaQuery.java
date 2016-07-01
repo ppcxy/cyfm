@@ -67,7 +67,7 @@ final class SimpleJpaQuery extends AbstractJpaQuery {
         if (!method.isNativeQuery()) {
             try {
                 target = em.getEntityManagerFactory().createEntityManager();
-                target.createQuery(query.getQuery());
+                target.createQuery(query.getQueryString());
             } catch (RuntimeException e) {
                 // Needed as there's ambiguities in how an invalid query string shall be expressed by the persistence provider
                 // http://java.net/projects/jpa-spec/lists/jsr338-experts/archive/2012-07/message/17
@@ -102,7 +102,7 @@ final class SimpleJpaQuery extends AbstractJpaQuery {
     public Query doCreateQuery(Object[] values) {
 
         ParameterAccessor accessor = new ParametersParameterAccessor(method.getParameters(), values);
-        String sortedQueryString = QueryUtils.applySorting(query.getQuery(), accessor.getSort(), query.getAlias());
+        String sortedQueryString = QueryUtils.applySorting(query.getQueryString(), accessor.getSort(), query.getAlias());
         EntityManager em = getEntityManager();
 
         Query query = null;
@@ -123,7 +123,7 @@ final class SimpleJpaQuery extends AbstractJpaQuery {
      */
     @Override
     protected TypedQuery<Long> doCreateCountQuery(Object[] values) {
-        return createBinder(values).bind(getEntityManager().createQuery(countQuery.getQuery(), Long.class));
+        return createBinder(values).bind(getEntityManager().createQuery(countQuery.getQueryString(), Long.class));
     }
 
     /**

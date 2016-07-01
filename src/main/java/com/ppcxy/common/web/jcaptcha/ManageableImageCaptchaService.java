@@ -1,5 +1,6 @@
 package com.ppcxy.common.web.jcaptcha;
 
+
 import com.octo.captcha.service.image.DefaultManageableImageCaptchaService;
 
 /**

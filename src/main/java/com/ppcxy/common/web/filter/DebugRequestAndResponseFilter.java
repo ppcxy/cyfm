@@ -19,7 +19,7 @@ import java.util.Enumeration;
  * <p>Version: 1.0
  */
 public final class DebugRequestAndResponseFilter extends BaseFilter {
-    private static final Logger log = LoggerFactory.getLogger("debugRequest");
+    private static final Logger log = LoggerFactory.getLogger(DebugRequestAndResponseFilter.class);
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {

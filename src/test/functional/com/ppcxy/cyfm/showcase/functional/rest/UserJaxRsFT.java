@@ -5,13 +5,14 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.functional.rest;
 
-import static org.assertj.core.api.Assertions.*;
-
 import com.ppcxy.cyfm.showcase.functional.BaseFunctionalTestCase;
 import com.ppcxy.cyfm.sys.webservice.rest.UserDTO;
 import org.junit.Test;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * 对基于JAX-RS的实现Restful的测试

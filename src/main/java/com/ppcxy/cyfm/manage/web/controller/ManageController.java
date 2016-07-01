@@ -1,9 +1,15 @@
 package com.ppcxy.cyfm.manage.web.controller;
 
-import com.ppcxy.cyfm.sys.service.TeamService;
+import com.ppcxy.common.web.bind.annotation.CurrentUser;
+import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.dto.Menu;
+import com.ppcxy.cyfm.sys.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * Created by weep on 2016-5-16.
@@ -12,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/manage")
 public class ManageController {
     @Autowired
-    private TeamService teamService;
+    private ResourceService resourceService;
 
     @RequestMapping
     public String main() {
@@ -20,7 +26,10 @@ public class ManageController {
     }
 
     @RequestMapping(value = "left")
-    public String left() {
+    public String left(@CurrentUser User user,Model model) {
+
+        List<Menu> menus = resourceService.findMenus(user);
+        model.addAttribute("menus", menus);
         return "manage/left";
     }
 

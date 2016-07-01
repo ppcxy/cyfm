@@ -1,6 +1,6 @@
 package com.ppcxy.common.web.form;
 
-import com.tx.common.web.form.bind.SearchBindStatus;
+import com.ppcxy.common.web.form.bind.SearchBindStatus;
 import org.springframework.web.servlet.support.BindStatus;
 
 import javax.servlet.jsp.JspException;

@@ -119,7 +119,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
         preResponse(model);
         model.addAttribute("m", m);
         model.addAttribute(Constants.OPTION_NAME, "查看");
-        return viewName("editForm");
+        return viewName("form");
     }
 
     @RequestMapping(value = "{id}/update", method = RequestMethod.GET)
@@ -139,7 +139,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
         preResponse(model);
         model.addAttribute("m", m);
         model.addAttribute(Constants.OPTION_NAME, "修改");
-        return viewName("editForm");
+        return viewName("form");
     }
 
     @RequestMapping(value = "{id}/update", method = RequestMethod.POST)
@@ -173,7 +173,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
         preResponse(model);
         model.addAttribute("m", m);
         model.addAttribute(Constants.OPTION_NAME, "删除");
-        return viewName("editForm");
+        return viewName("form");
     }
 
     @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)

@@ -8,7 +8,7 @@ import org.springside.modules.utils.Reflections;
  */
 public class ShiroUserInfoUtils {
     public static String getLoginName() {
-        if (SecurityUtils.getSubject().getPrincipal() != null) {
+        if (SecurityUtils.getSubject() != null && SecurityUtils.getSubject().getPrincipal() != null) {
             return Reflections.getFieldValue(SecurityUtils.getSubject().getPrincipal(), "loginName").toString();
 
         }

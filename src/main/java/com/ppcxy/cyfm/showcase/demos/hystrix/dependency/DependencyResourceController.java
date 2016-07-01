@@ -18,6 +18,7 @@ import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.cyfm.sys.webservice.rest.RestException;
 import org.springside.modules.mapper.BeanMapper;
 import org.springside.modules.utils.Threads;
+import org.springside.modules.web.MediaTypes;
 
 /**
  * 模拟被Service所依赖的Resource.
@@ -34,7 +35,7 @@ public class DependencyResourceController {
 	/**
 	 * 根据控制器中的状态而演示不同的行为，如正常返回，30秒后返回或直接报错
 	 */
-	@RequestMapping(value = "/hystrix/resource/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/hystrix/resource/{id}", method = RequestMethod.GET,produces = MediaTypes.APPLICATION_XML_UTF_8)
 	@ResponseBody
 	public UserDTO getUser(@PathVariable("id") Long id) {
 		// 正常返回.

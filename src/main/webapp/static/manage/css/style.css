@@ -83,20 +83,30 @@ h2{font-weight:normal;}
 .menuson {line-height:30px; font-weight:normal; }
 .menuson li{cursor:pointer;}
 .menuson li.active{position:relative; background:url(../images/libg.png) repeat-x; line-height:30px; color:#fff;}
-.menuson li cite{display:block; float:left; margin-left:32px; background:url(../images/list.gif) no-repeat; width:16px; height:16px; margin-top:7px;}
-.menuson li.active cite{background:url(../images/list1.gif) no-repeat;}
+.menuson li cite{ font-size: 12px;display:block; float:left; margin-left:32px; /*background:url(../images/list.gif) no-repeat; */width:17px; height:14px; margin-top:8px; margin-right: 4px;}
+.menuson li.active cite{/*background:url(../images/list1.gif) no-repeat;*/}
 .menuson li.active i{display:block; background:url(../images/sj.png) no-repeat; width:6px; height:11px; position:absolute; right:0;z-index:10000; top:9px; right:-1px;}
 .menuson li a{ display:block; *display:inline; *padding-top:5px;}
 .menuson li.active a{color:#fff;}
 .title{cursor:pointer;}
+.title i {
+    font-size: 18px;
+    color: #45b5d2;
+}
 
 
 /*right.html*/
-.place{height:40px; background:url(../images/righttop.gif) repeat-x;}
+.place {
+    position: fixed;
+    width: 100%;
+    z-index: 200;
+    height: 40px;
+    background: url(../images/righttop.gif) repeat-x;
+}
 .place span{line-height:40px; font-weight:bold;float:left; margin-left:12px;}
 .placeul li{float:left; line-height:40px; padding-left:7px; padding-right:12px; background:url(../images/rlist.gif) no-repeat right;}
 .placeul li:last-child{background:none;}
-.rightinfo{padding:8px;}
+.rightinfo{padding:45px 8px;}
 .tools{clear:both; height:35px; margin-bottom:8px;}
 .toolbar{float:left;}
 .toolbar li.click{background:url(../images/toolbg.gif) repeat-x; line-height:33px; height:33px; border:solid 1px #d3dbde; float:left; padding-right:10px; margin-right:5px;border-radius: 3px; behavior:url(../js/PIE.htc); cursor:pointer;}
@@ -104,6 +114,7 @@ h2{font-weight:normal;}
 .toolbar-right {float:right;}
 .toolbar-right li{background:url(../images/toolbg.gif) repeat-x; line-height:33px; height:33px; border:solid 1px #d3dbde; float:left; padding-right:10px; margin-left:5px;border-radius: 3px; behavior:url(../js/PIE.htc);}
 .toolbar-right li span{float:left; margin-left:10px; margin-right:5px; margin-top:5px;}
+.toolbar-right li span img{vertical-align:inherit}
 
 .tablelist{border:solid 1px #cbcbcb; width:100%; clear:both;}
 .tablelist th{background:url(../images/th.gif) repeat-x;background-size:100px auto; height:34px; line-height:34px; border-bottom:solid 1px #b6cad2;text-indent:11px; text-align:left;}
@@ -112,6 +123,8 @@ h2{font-weight:normal;}
 .tablelink{color:#056dae;}
 .tablelist tbody tr.odd{background:#f5f8fa;}
 .tablelist tbody tr:hover{background:#e5ebee;}
+.tablelist td.check,.tablelist th.check{width:45px}
+.tablelist td.action,.tablelist th.action{width:130px}
 .sort{padding-left:3px;}
 
 /*page*/
@@ -294,3 +307,29 @@ h2{font-weight:normal;}
 .seachform li label{padding-right:10px; float:left; line-height:32px;}
 .scinput{width:150px; height:32px; line-height:32px; border-top:solid 1px #a7b5bc; border-left:solid 1px #a7b5bc; border-right:solid 1px #ced9df; border-bottom:solid 1px #ced9df; background:url(../images/inputbg.gif) repeat-x; text-indent:10px;}
 .scbtn{width:85px;height:35px; background:url(../images/btnbg.png) no-repeat center; font-size:14px;font-weight:bold;color:#fff; cursor:pointer;border-radius:3px; behavior:url(../js/PIE.htc);}
+
+
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: #2b3643;*/
+    -webkit-border-radius: 10px;
+    border-radius: 0px;
+    background: #006da6;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 0px;
+    background: rgba(230, 226, 212, 0.8);
+    /*-webkit-box-shadow: #2b3643;*/
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.4);
+}

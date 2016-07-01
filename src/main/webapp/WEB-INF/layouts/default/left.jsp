@@ -28,13 +28,13 @@
 	</div>
 </div>
 <script>
-	$.ajax({
-		url:"${ctx}/resource/load",
-		type:"get",
-	}).done(function(datas){
-		$.each(datas, function (index, obj) {
-			$('div.submenu.custom').append('<a id="'+obj.identity+'-tab"href="${ctx}' + obj.url + '">'+obj.name+'</a>')
-		});
-	})
+	<%--$.ajax({--%>
+		<%--url:"${ctx}/resource/load",--%>
+		<%--type:"get",--%>
+	<%--}).done(function(datas){--%>
+		<%--$.each(datas, function (index, obj) {--%>
+			<%--$('div.submenu.custom').append('<a id="'+obj.identity+'-tab"href="${ctx}' + obj.url + '">'+obj.name+'</a>')--%>
+		<%--});--%>
+	<%--})--%>
 
 </script>

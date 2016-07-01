@@ -1,15 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
-<%@ page import="org.apache.shiro.authc.LockedAccountException "%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@ page import="org.apache.shiro.SecurityUtils"%>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
+<%
+	if (SecurityUtils.getSubject().isAuthenticated()) {
+		if ("".equals(request.getContextPath())) {
+			response.sendRedirect("/");
+		} else {
+			response.sendRedirect(request.getContextPath());
+		}
+	}
+%>
 <html>
 <head>
 	<title>登录页</title>
-	<script src="${ctx}/static/jquery-validation/1.11.1/jquery.validate.min.js" type="text/javascript"></script>
-	<script src="${ctx}/static/jquery-validation/1.11.1/messages_bs_zh.js" type="text/javascript"></script>
-	<link href="${ctx}/static/jquery-validation/1.11.1/validate.css" type="text/css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -56,6 +60,19 @@
 				<input type="password" id="password" name="password" class="input-medium required"/>
 			</div>
 		</div>
+			<c:if test="${jcaptchaEbabled}">
+				<div class="control-group">
+					<label for="jcaptchaCode">验证码</label>
+					<div class="input-prepend">
+						<span class="add-on icon-circle-blank"></span>
+						<input type="text" id="jcaptchaCode" name="jcaptchaCode"
+							   class="input-medium validate[required,ajax[ajaxJcaptchaCall]]" placeholder="请输入验证码">
+					</div>
+					<img class="jcaptcha-btn jcaptcha-img" style="margin-left: 10px;" src="${ctx}/jcaptcha.jpg" title="点击更换验证码">
+					<a class="jcaptcha-btn btn btn-link">换一张</a>
+				</div>
+			</c:if>
+
 		<div class="control-group">
 			<div class="controls">
 				<label class="checkbox inline" for="rememberMe"> <input type="checkbox" id="rememberMe" name="rememberMe"/> 记住我</label>

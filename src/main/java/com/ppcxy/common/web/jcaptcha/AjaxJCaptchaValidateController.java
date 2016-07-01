@@ -1,6 +1,6 @@
 package com.ppcxy.common.web.jcaptcha;
 
-import com.tx.common.web.validate.ValidateResponse;
+import com.ppcxy.common.web.validate.ValidateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;

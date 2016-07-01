@@ -71,6 +71,23 @@ public class ExceptionResponse {
         return exceptionResponse;
     }
 
+    public static ExceptionResponse from(String title, Throwable e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+
+        String errorMessage = String.format("<h3 style='display: inline;'>%s</h3><br/>错误信息：", title) + convertMessage(e);
+
+        exceptionResponse.setMessage(errorMessage);
+
+        exceptionResponse.setException(e.getClass().getName());
+
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        e.printStackTrace(printWriter);
+        exceptionResponse.setStackTrace(stringWriter.toString());
+
+        return exceptionResponse;
+    }
+
     private static String convertMessage(Throwable e) {
 
         String errorMessage = e.getMessage();

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/layouts/">
 	<excludes>
+		<pattern>/admin/monitor/druid/*</pattern>
 		<pattern>/login*</pattern>
+		<pattern>/resource/*</pattern>
 		<pattern>/static/*</pattern>
 		<pattern>/manage/*</pattern>
 		<pattern>/cxf/*</pattern>

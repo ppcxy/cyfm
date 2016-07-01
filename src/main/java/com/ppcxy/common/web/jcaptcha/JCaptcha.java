@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
  * <p>Version: 1.0
  */
 public class JCaptcha {
-    public static final MMManageableImageCaptchaService captchaService
-            = new MMManageableImageCaptchaService(new FastHashMapCaptchaStore(), new GMailEngine(), 180, 100000, 75000);
+    public static final ManageableImageCaptchaService captchaService
+            = new ManageableImageCaptchaService(new FastHashMapCaptchaStore(), new ImageCaptchaEngineExtend(), 180, 100000, 75000);
 
 
     public static boolean validateResponse(HttpServletRequest request, String userCaptchaResponse) {

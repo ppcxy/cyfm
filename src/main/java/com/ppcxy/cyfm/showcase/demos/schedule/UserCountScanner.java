@@ -5,11 +5,11 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.schedule;
 
+import com.ppcxy.cyfm.sys.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.ppcxy.cyfm.sys.service.AccountService;
 
 /**
  * 被Spring各种Scheduler反射调用的Service POJO.
@@ -20,7 +20,7 @@ import com.ppcxy.cyfm.sys.service.AccountService;
 public class UserCountScanner {
 
 	@Autowired
-	private AccountService accountService;
+	private UserService userService;
 
 	public void executeByJdk() {
 		execute("jdk timer job");
@@ -50,7 +50,7 @@ public class UserCountScanner {
 	 */
 	private void execute(String by) {
 		Logger logger = LoggerFactory.getLogger(UserCountScanner.class.getName() + "." + by);
-		long userCount = accountService.getUserCount();
+		long userCount = userService.count();
 		logger.info("There are {} user in database.", userCount);
 	}
 }

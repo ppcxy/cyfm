@@ -1,17 +1,12 @@
 <%@tag pageEncoding="UTF-8" description="构建子菜单" %>
-<%@ attribute name="menu" type="com.tx.sys.resource.entity.tmp.Menu" required="true" description="当前菜单" %>
+<%@ attribute name="menu" type="com.ppcxy.cyfm.sys.entity.dto.Menu" required="true" description="当前菜单" %>
 <%@ attribute name="parentName" type="java.lang.String" required="true" description="父菜单名" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="mm" tagdir="/WEB-INF/tags" %>
 <c:choose>
     <c:when test="${!menu.hasChildren}">
-        <li>
-            <a href="javascript:;" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}">
-                <i class="${menu.icon}"></i>
-                <span class="title">${menu.name}</span>
-            </a>
-        </li>
+        <li><cite class="${menu.icon}"></cite><a href="<%=menuUrl(request, menu.getUrl())%>" target="rightFrame" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}">${menu.name}</a><i></i></li>
     </c:when>
     <c:otherwise>
         <li>

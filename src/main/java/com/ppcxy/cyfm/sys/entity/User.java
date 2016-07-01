@@ -8,6 +8,7 @@ package com.ppcxy.cyfm.sys.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.common.repository.jpa.support.annotation.EnableQueryCache;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -15,6 +16,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Collections3;
 import org.springside.modules.utils.Encodes;
@@ -30,6 +32,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ss_user")
+@EnableQueryCache
 // 默认的缓存策略.
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User extends IdEntity {
@@ -135,7 +138,7 @@ public class User extends IdEntity {
     }
 
     // 多对多定义
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ss_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     // Fecth策略定义
     @Fetch(FetchMode.SUBSELECT)

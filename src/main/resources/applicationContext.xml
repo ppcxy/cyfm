@@ -18,9 +18,10 @@
     <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
 
     <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-    <context:component-scan base-package="com.ppcxy.cyfm">
+    <context:component-scan base-package="com.ppcxy.cyfm,com.ppcxy.common.extra">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
     <!-- 开启AOP监听 只对当前配置文件有效 -->
@@ -32,11 +33,24 @@
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
 
         <property name="packagesToScan" value="com.ppcxy.cyfm"/>
+        <property name="jpaPropertyMap">
+            <map>
+                <!-- 使用自定义的validator进行jsr303验证 -->
+                <entry key="javax.persistence.validation.factory" value-ref="validator"/>
+                <!-- jsr303验证模式 因为其要么验证 要么不验证 不能按照规则走 所以此处禁用 -->
+                <!-- #http://docs.jboss.org/hibernate/entitymanager/3.6/reference/en/html/configuration.html -->
+                <entry key="javax.persistence.validation.mode" value="NONE"></entry>
+            </map>
+        </property>
         <property name="jpaProperties">
             <props>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.SingletonEhCacheProvider</prop>
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
                 <prop key="net.sf.ehcache.configurationResourceName">cache/ehcache-hibernate-local.xml</prop>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <prop key="hibernate.cache.use_structured_entries">true</prop>
             </props>
         </property>
     </bean>
@@ -59,9 +73,12 @@
 
     -->
     <!-- Spring Data Jpa配置, 扫描base-package下所有继承于Repository<T,ID>的接口 -->
-    <jpa:repositories base-package="com.ppcxy.cyfm" repository-impl-postfix="Impl"
+    <jpa:repositories base-package="com.ppcxy.cyfm.**.repository.jpa" repository-impl-postfix="Impl"
                       factory-class="com.ppcxy.common.repository.jpa.support.SimpleBaseRepositoryFactoryBean"
-                      transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager">
+
+    </jpa:repositories>
 
     <!-- MyBatis配置 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -108,7 +125,8 @@
 
     <aop:config expose-proxy="true" proxy-target-class="true">
         <!-- 只对业务逻辑层实施事务 -->
-        <aop:pointcut id="txPointcut" expression="execution(* com.ppcxy..service..*+.*(..)) or execution(* com.ppcxy..task..*+.*(..))"/>
+        <aop:pointcut id="txPointcut"
+                      expression="execution(* com.ppcxy..service..*+.*(..)) or execution(* com.ppcxy..task..*+.*(..))"/>
         <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
 
@@ -119,7 +137,12 @@
     <bean class="com.ppcxy.common.spring.SpringContextHolder" lazy-init="false"></bean>
 
     <!-- hibernate validator -->
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
 
     <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -137,10 +160,21 @@
 
 
     <!-- 类型转换及数据格式化 -->
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" lazy-init="false" />
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"
+          lazy-init="false"/>
     <!-- 直接把id转换为entity 必须非lazy否则无法注册-->
-    <bean id="domainClassConverter" class="org.springframework.data.repository.support.DomainClassConverter"  lazy-init="false">
+    <bean id="domainClassConverter" class="org.springframework.data.repository.support.DomainClassConverter"
+          lazy-init="false">
         <constructor-arg ref="conversionService"/>
+    </bean>
+
+    <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+        <property name="conversionService" ref="conversionService"/>
+        <property name="validator" ref="validator"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="webBindingInitializer" ref="webBindingInitializer"/>
     </bean>
 
     <!--设置查询字符串转换器的conversion service-->

@@ -5,23 +5,22 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.cache.guava;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import com.ppcxy.cyfm.sys.entity.User;
-import com.ppcxy.cyfm.sys.service.AccountService;
 import org.springside.modules.test.data.DataFixtures;
 import org.springside.modules.test.log.LogbackListAppender;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 import org.springside.modules.utils.Threads;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * 本地缓存演示，使用GuavaCache.
@@ -32,7 +31,7 @@ import com.google.common.cache.LoadingCache;
 public class GuavaCacheDemo extends SpringTransactionalTestCase {
 
 	@Autowired
-	private AccountService accountService;
+	private UserService accountService;
 
 	@Test
 	public void demo() throws Exception {
@@ -42,7 +41,7 @@ public class GuavaCacheDemo extends SpringTransactionalTestCase {
 					@Override
 					public User load(Long key) throws Exception {
 						logger.info("fetch from database");
-						return accountService.getUser(key);
+						return accountService.findOne(key);
 					}
 
 				});

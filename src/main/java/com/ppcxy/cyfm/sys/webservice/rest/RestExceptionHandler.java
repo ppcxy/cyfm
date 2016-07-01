@@ -5,15 +5,10 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.webservice.rest;
 
-import java.util.Map;
-
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -21,12 +16,15 @@ import org.springside.modules.beanvalidator.BeanValidators;
 import org.springside.modules.mapper.JsonMapper;
 import org.springside.modules.web.MediaTypes;
 
+import javax.validation.ConstraintViolationException;
+import java.util.Map;
+
 /**
  * 自定义ExceptionHandler，专门处理Restful异常.
  * 
  * @author calvin
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private JsonMapper jsonMapper = new JsonMapper();

@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
   <title>资源管理</title>
@@ -64,6 +61,6 @@
   </c:forEach>
   </tbody>
 </table>
-<tags:pagination page="${page}" paginationSize="5"></tags:pagination>
+<cy:pagination page="${page}" paginationSize="5"></cy:pagination>
 </body>
 </html>

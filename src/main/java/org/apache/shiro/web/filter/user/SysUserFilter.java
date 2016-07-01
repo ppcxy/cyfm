@@ -71,7 +71,7 @@ public class SysUserFilter extends AccessControlFilter {
             return true;
         }
 
-        String loginName = (String) Reflections.getFieldValue(subject.getPrincipal(), "name");
+        String loginName = (String) Reflections.getFieldValue(subject.getPrincipal(), "loginName");
         //此处注意缓存 防止大量的查询db
         User user = userService.findByLoginName(loginName);
         //把当前用户放到session中

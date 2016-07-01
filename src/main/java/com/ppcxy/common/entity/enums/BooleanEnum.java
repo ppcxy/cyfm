@@ -1,9 +1,5 @@
 package com.ppcxy.common.entity.enums;
 
-/**
- * <p>Date: 13-2-7 上午11:44
- * <p>Version: 1.0
- */
 public enum BooleanEnum {
     TRUE(Boolean.TRUE, "是"), FALSE(Boolean.FALSE, "否");
 

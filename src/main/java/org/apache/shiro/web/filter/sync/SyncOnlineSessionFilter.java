@@ -36,7 +36,6 @@ public class SyncOnlineSessionFilter extends PathMatchingFilter {
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
         OnlineSession session = (OnlineSession) request.getAttribute(ShiroConstants.ONLINE_SESSION);
         //如果session stop了 也不同步
-        //System.out.println("访问地址："+((HttpServletRequest)request).getRequestURL());
         if (session != null && session.getStopTimestamp() == null) {
             onlineSessionDAO.syncToDb(session);
         }

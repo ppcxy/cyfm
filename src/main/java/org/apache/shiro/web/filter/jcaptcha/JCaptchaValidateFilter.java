@@ -1,7 +1,7 @@
 
 package org.apache.shiro.web.filter.jcaptcha;
 
-import com.tx.common.web.jcaptcha.JCaptcha;
+import com.ppcxy.common.web.jcaptcha.JCaptcha;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 
@@ -69,7 +69,7 @@ public class JCaptchaValidateFilter extends AccessControlFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         redirectToLogin(request, response);
-        return true;
+        return false;
     }
 
 

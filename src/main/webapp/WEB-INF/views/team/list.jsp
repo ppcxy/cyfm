@@ -7,7 +7,6 @@
   <title>team crud</title>
   <script>
     $(document).ready(function() {
-      $("#team-tab").addClass("active");
     });
   </script>
 </head>

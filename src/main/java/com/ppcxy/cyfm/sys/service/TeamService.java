@@ -1,6 +1,7 @@
 package com.ppcxy.cyfm.sys.service;
 
 import com.ppcxy.common.entity.search.Searchable;
+import com.ppcxy.common.service.BaseService;
 import com.ppcxy.cyfm.sys.entity.Team;
 import com.ppcxy.cyfm.sys.repository.jpa.TeamDao;
 import org.javasimon.aop.Monitored;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional
 @Monitored
-public class TeamService {
+public class TeamService extends BaseService<Team, Long> {
     @Autowired
     private TeamDao teamDao;
 
@@ -23,4 +24,7 @@ public class TeamService {
         return teamDao.findAll(searchable);
     }
 
+    public void deleteOne(Long id) {
+        teamDao.deleteById(id);
+    }
 }

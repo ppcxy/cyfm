@@ -8,7 +8,6 @@ import net.sf.ehcache.Element;
 import org.apache.shiro.exception.UserPasswordNotMatchException;
 import org.apache.shiro.exception.UserPasswordRetryLimitExceedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springside.modules.security.utils.Digests;
@@ -26,7 +25,7 @@ public class PasswordService {
     public static final int HASH_INTERATIONS = 1024;
 
     @Autowired
-    private CacheManager ehcacheManager;
+    private CacheManager cacheManager;
 
     private Cache loginRecordCache;
 
@@ -39,7 +38,7 @@ public class PasswordService {
 
     @PostConstruct
     public void init() {
-        loginRecordCache = ehcacheManager.getCache("loginRecordCache");
+        loginRecordCache = cacheManager.getCache("loginRecordCache");
     }
 
     public void validate(User user, String password) {

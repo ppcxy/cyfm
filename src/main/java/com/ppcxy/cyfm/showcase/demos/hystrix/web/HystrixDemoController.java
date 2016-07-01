@@ -39,6 +39,7 @@ public class HystrixDemoController {
 	@RequestMapping(value = "/hystrix/user/{id}", method = RequestMethod.GET, produces = MediaTypes.JSON_UTF_8)
 	@ResponseBody
 	public UserDTO getUser(@PathVariable("id") Long id) throws Exception {
+
 		return hystrixUserService.getUser(id);
 	}
 

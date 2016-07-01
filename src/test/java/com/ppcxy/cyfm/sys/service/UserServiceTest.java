@@ -5,7 +5,7 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.service;
 
-import com.ppcxy.common.exception.ServiceException;
+import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.cyfm.sys.repository.jpa.UserDao;
 import com.ppcxy.common.utils.ShiroUser;
@@ -57,8 +57,8 @@ public class UserServiceTest {
 		// 保存超级管理用户抛出异常.
 		try {
 			userService.save(admin);
-			failBecauseExceptionWasNotThrown(ServiceException.class);
-		} catch (ServiceException e) {
+			failBecauseExceptionWasNotThrown(BaseException.class);
+		} catch (BaseException e) {
 			// expected exception
 		}
 		Mockito.verify(mockUserDao, Mockito.never()).delete(1L);

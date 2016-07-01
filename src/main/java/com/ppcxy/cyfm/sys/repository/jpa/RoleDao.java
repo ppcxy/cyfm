@@ -5,9 +5,9 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.repository.jpa;
 
+import com.ppcxy.common.repository.jpa.BaseRepository;
 import com.ppcxy.cyfm.sys.entity.Role;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface RoleDao extends PagingAndSortingRepository<Role, Long> {
+public interface RoleDao extends BaseRepository<Role, Long> {
 
 }

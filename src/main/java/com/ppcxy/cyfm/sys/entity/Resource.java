@@ -1,6 +1,9 @@
 package com.ppcxy.cyfm.sys.entity;
 
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.common.extend.entity.Treeable;
+import com.ppcxy.common.repository.jpa.support.annotation.EnableQueryCache;
+import com.ppcxy.cyfm.sys.entity.dto.MenuType;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -13,13 +16,18 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ss_resource")
+@EnableQueryCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Resource extends IdEntity {
+public class Resource extends IdEntity implements Treeable<Long> {
 
     /**
      * 标题
      */
     private String name;
+    /**
+     * 菜单打开类型
+     */
+    private MenuType resourceType = MenuType.ajax;
     /**
      * 资源标识符 用于权限匹配的 如sys:resource
      */
@@ -59,6 +67,14 @@ public class Resource extends IdEntity {
         this.name = name;
     }
 
+    public MenuType getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(MenuType resourceType) {
+        this.resourceType = resourceType;
+    }
+
     public String getIdentity() {
         return identity;
     }
@@ -89,6 +105,17 @@ public class Resource extends IdEntity {
 
     public void setParentIds(String parentIds) {
         this.parentIds = parentIds;
+    }
+
+    @Override
+    @Transient
+    public String getSeparator() {
+        return "/";
+    }
+
+    @Override
+    public String makeSelfAsNewParentIds() {
+        return getParentIds() + getId() + getSeparator();
     }
 
     public Integer getWeight() {
@@ -164,6 +191,7 @@ public class Resource extends IdEntity {
     public String getLeafDefaultIcon() {
         return "ztree_file";
     }
+
     @Transient
     public boolean isRoot() {
         if (getParentId() != null && getParentId() == 0) {

@@ -44,7 +44,7 @@ public class GetUserCommand extends HystrixCommand<UserDTO> {
 	protected UserDTO run() throws Exception {
 		try {
 			logger.info("Access restful resource");
-			return restTemplate.getForObject("http://localhost:8080/cyfm/hystrix/resource/{id}", UserDTO.class, id);
+			return restTemplate.getForObject("http://localhost:8080/cyfm/hystrix/resource/{id}.xml", UserDTO.class, id);
 		} catch (HttpStatusCodeException e) {
 			throw handleException(e);
 		}
