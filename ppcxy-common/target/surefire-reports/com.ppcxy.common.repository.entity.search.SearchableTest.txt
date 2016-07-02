@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ppcxy.common.repository.entity.search.SearchableTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.332 sec - in com.ppcxy.common.repository.entity.search.SearchableTest
