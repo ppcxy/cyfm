@@ -1,4 +1,4 @@
-package com.ppcxy.common.extra.aop;
+package com.ppcxy.cyfm.extra.aop;
 
 import com.ppcxy.common.cache.BaseCacheAspect;
 import com.ppcxy.cyfm.sys.entity.User;
