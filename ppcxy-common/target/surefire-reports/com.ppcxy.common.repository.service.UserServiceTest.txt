@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ppcxy.common.repository.service.UserServiceTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.428 sec - in com.ppcxy.common.repository.service.UserServiceTest
