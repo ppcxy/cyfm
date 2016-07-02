@@ -1,8 +1,8 @@
 package com.ppcxy.common.entity;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 
-import javax.persistence.MappedSuperclass;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -21,6 +21,6 @@ public abstract class AbstractEntity<ID extends Serializable> {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return  ToStringBuilder.reflectionToString(this);
     }
 }

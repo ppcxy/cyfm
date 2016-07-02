@@ -379,7 +379,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
     @RequestMapping(value = "ajax/load")
     @PageableDefaults(sort = {"parentIds=asc", "weight=asc"})
     @ResponseBody
-    public Object load(
+    public List<ZTree<ID>> load(
             HttpServletRequest request,
             @RequestParam(value = "async", defaultValue = "true") boolean async,
             @RequestParam(value = "asyncLoadAll", defaultValue = "false") boolean asyncLoadAll,

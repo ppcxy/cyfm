@@ -1,5 +1,6 @@
 package com.ppcxy.common.repository.test;
 
+import com.ppcxy.common.repository.entity.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.sql.Timestamp;

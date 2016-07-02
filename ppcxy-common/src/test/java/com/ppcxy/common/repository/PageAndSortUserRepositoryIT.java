@@ -1,5 +1,6 @@
 package com.ppcxy.common.repository;
 
+import com.ppcxy.common.repository.entity.*;
 import com.ppcxy.common.repository.test.BaseUserIT;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;

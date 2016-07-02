@@ -4,7 +4,6 @@ import com.netflix.hystrix.exception.HystrixBadRequestException;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.ppcxy.common.exception.web.entity.ExceptionResponse;
 import com.ppcxy.common.utils.LogUtils;
-import com.ppcxy.cyfm.sys.webservice.rest.RestException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
