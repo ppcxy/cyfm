@@ -31,6 +31,9 @@ public class UserServiceTest {
 	@Mock
 	private BusinessLogger businessLogger;
 
+	@Mock
+	private PasswordService passwordService;
+
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);

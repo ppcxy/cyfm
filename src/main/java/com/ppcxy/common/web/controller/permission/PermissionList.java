@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * <p>Date: 13-5-7 下午2:37
- * <p>Version: 1.0
  */
 public class PermissionList implements Serializable {
 

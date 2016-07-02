@@ -13,8 +13,6 @@ import java.io.Serializable;
 
 /**
  * 基础控制器
- * <p>Date: 13-2-23 下午3:56
- * <p>Version: 1.0
  */
 public abstract class BaseController<T extends AbstractEntity, ID extends Serializable> {
 

@@ -6,8 +6,6 @@ import com.ppcxy.common.entity.search.Searchable;
 import javax.persistence.Query;
 
 /**
- * <p>Date: 13-1-16 下午4:01
- * <p>Version: 1.0
  */
 public interface SearchCallback {
 

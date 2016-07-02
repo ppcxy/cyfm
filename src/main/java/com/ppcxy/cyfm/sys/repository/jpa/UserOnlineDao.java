@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>Date: 13-2-4 下午3:00
- * <p>Version: 1.0
  */
 public interface UserOnlineDao extends BaseRepository<UserOnline, String> {
 

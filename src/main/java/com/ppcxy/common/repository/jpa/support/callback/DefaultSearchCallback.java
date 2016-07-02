@@ -13,8 +13,6 @@ import org.springframework.util.StringUtils;
 import javax.persistence.Query;
 
 /**
- * <p>Date: 13-1-16 下午4:20
- * <p>Version: 1.0
  */
 public class DefaultSearchCallback implements SearchCallback {
 

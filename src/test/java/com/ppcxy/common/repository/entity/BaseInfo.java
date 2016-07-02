@@ -8,8 +8,6 @@ import java.util.Date;
 
 /**
  * <p>用户基本信息</p>
- * <p>Date: 13-1-14 下午2:08
- * <p>Version: 1.0
  */
 @Entity
 @Table(name = "user_baseinfo")

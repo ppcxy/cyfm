@@ -4,8 +4,6 @@ import javax.persistence.criteria.JoinType;
 import java.lang.annotation.*;
 
 /**
- * <p>Date: 13-10-18
- * <p>Version: 1.0
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

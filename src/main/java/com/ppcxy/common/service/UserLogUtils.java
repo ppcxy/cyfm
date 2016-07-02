@@ -9,8 +9,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * <p>Date: 13-5-20 下午3:46
- * <p>Version: 1.0
  */
 public class UserLogUtils {
 

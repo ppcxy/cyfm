@@ -21,8 +21,6 @@ import java.util.Date;
 
 /**
  * 基础CRUD 控制器
- * <p>Date: 13-2-23 下午1:20
- * <p>Version: 1.0
  */
 public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Serializable>
         extends BaseController<T, ID> {

@@ -59,8 +59,6 @@ import java.util.*;
  *     public void fail(Pageable page1, Pageable page2);
  * </pre>
  * <p/>
- * <p>Date: 13-1-23 下午1:34
- * <p>Version: 1.0
  */
 public class PageableMethodArgumentResolver extends BaseMethodArgumentResolver {
 

@@ -7,8 +7,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * <p>Date: 13-1-14 下午5:09
- * <p>Version: 1.0
  */
 public abstract class BaseUserIT extends BaseIT {
 

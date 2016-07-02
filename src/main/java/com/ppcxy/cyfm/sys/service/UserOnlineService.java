@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>Date: 13-2-4 下午3:01
- * <p>Version: 1.0
  */
 @Service
 @Transactional(value = "transactionManager")

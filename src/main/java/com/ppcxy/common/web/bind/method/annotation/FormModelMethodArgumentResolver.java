@@ -38,8 +38,6 @@ import java.util.regex.Pattern;
 
 /**
  * <p>用于绑定@FormModel的方法参数解析器
- * <p>Date: 13-1-12 下午5:01
- * <p>Version: 1.0
  *
  * @since 3.1
  */

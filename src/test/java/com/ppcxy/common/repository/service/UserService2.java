@@ -8,8 +8,6 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>Date: 13-1-17 下午7:52
- * <p>Version: 1.0
  */
 @DependsOn("userRepository2")
 @Service()

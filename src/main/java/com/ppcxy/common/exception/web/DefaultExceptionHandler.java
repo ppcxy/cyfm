@@ -26,8 +26,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.Map;
 
 /**
- * 异常定制
- * <p>Date: 2016年7月1日 15:53:02
+ * @version 1.0
  */
 @ControllerAdvice
 public class DefaultExceptionHandler {
@@ -103,7 +102,7 @@ public class DefaultExceptionHandler {
      * 一类是Command内部抛出异常(返回500).
      * 一类是Hystrix已进入保护状态(返回503).
      */
-    @ExceptionHandler(value = { HystrixRuntimeException.class })
+    @ExceptionHandler(value = {HystrixRuntimeException.class})
     public final ResponseEntity<?> handleException(HystrixRuntimeException ex, WebRequest request) {
         HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
         String message = ex.getMessage();
@@ -121,7 +120,7 @@ public class DefaultExceptionHandler {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(MediaTypes.TEXT_PLAIN_UTF_8));
 
-        if(HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
+        if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute("javax.servlet.error.exception", ex, 0);
         }
 
@@ -132,7 +131,7 @@ public class DefaultExceptionHandler {
      * 处理Hystrix ClientException异常(返回404).
      * ClientException表明是客户端请求参数本身的问题, 不计入异常次数统计。
      */
-    @ExceptionHandler(value = { HystrixBadRequestException.class })
+    @ExceptionHandler(value = {HystrixBadRequestException.class})
     public final ResponseEntity<?> handleException(HystrixBadRequestException ex, WebRequest request) {
         String message = Exceptions.getErrorMessageWithNestedException(ex);
         LogUtils.logError(message, ex);

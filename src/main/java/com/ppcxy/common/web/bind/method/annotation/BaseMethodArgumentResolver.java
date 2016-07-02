@@ -11,8 +11,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * <p>Date: 13-1-23 下午3:28
- * <p>Version: 1.0
  */
 public abstract class BaseMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

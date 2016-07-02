@@ -15,8 +15,6 @@ import java.sql.Types;
  * Object序列化/反序列化
  * 数据库中以hex字符串存储
  * 参考http://jinnianshilongnian.iteye.com/blog/1497791
- * <p>Date: 13-3-20 下午4:46
- * <p>Version: 1.0
  */
 public class ObjectSerializeUserType implements UserType, Serializable {
 

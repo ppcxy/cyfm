@@ -17,8 +17,6 @@ import java.util.List;
  * <p/>
  * <p>泛型 ： entity 表示实体类型；ID表示主键类型
  * <p/>
- * <p>Date: 13-1-12 下午4:43
- * <p>Version: 1.0
  */
 public abstract class BaseService<T extends AbstractEntity, ID extends Serializable> {
 

@@ -7,8 +7,6 @@ import java.util.List;
 
 /**
  * 界面是那个使用的菜单对象
- * <p>Date: 13-4-9 下午4:20
- * <p>Version: 1.0
  */
 public class Menu implements Serializable {
     private Long id;

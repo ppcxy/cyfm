@@ -16,8 +16,6 @@ import java.sql.SQLException;
 
 /**
  * 根据 jpa api 获取hibernate相关api
- * <p>Date: 13-5-23 下午6:24
- * <p>Version: 1.0
  */
 public class HibernateUtils {
 

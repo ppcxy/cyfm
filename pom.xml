@@ -12,9 +12,11 @@
 	<artifactId>cyfm</artifactId>
 	<packaging>war</packaging>
 	<name>ppcxy :: cyfm</name>
+	<version>1.0-Snapshot</version>
 
 	<!-- 项目属性 -->
 	<properties>
+		<spring.version>4.2.6.RELEASE</spring.version>
 		<jcaptcha.version>2.0-alpha-1</jcaptcha.version>
 		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
@@ -586,6 +588,26 @@
 						</wsdlOption>
 					</wsdlOptions>
 				</configuration>
+			</plugin>
+
+			<!--自动生成MyBatis代码插件 -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+				</configuration>
+				<dependencies>
+					<!-- 数据库驱动  -->
+				<dependency>
+					<groupId>${jdbc.driver.groupId}</groupId>
+					<artifactId>${jdbc.driver.artifactId}</artifactId>
+					<version>${jdbc.driver.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

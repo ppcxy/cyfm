@@ -18,8 +18,6 @@ import java.util.Properties;
 
 /**
  * 将List转换为指定分隔符分隔的字符串存储 List的元素类型只支持常见的数据类型 可参考{@link org.apache.commons.beanutils.ConvertUtilsBean}
- * <p>Date: 13-4-16 上午8:32
- * <p>Version: 1.0
  */
 public class HashMapToStringUserType implements UserType, ParameterizedType, Serializable {
 

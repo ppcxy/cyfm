@@ -12,8 +12,6 @@ import javax.servlet.ServletResponse;
 /**
  * 同步当前会话数据到数据库
  * <p/>
- * <p>Date: 13-3-21 下午5:53
- * <p>Version: 1.0
  */
 public class SyncOnlineSessionFilter extends PathMatchingFilter {
 

@@ -19,8 +19,6 @@ import java.util.List;
 
 /**
  * 仓库辅助类
- * <p>Date: 13-4-14 下午5:28
- * <p>Version: 1.0
  */
 public class RepositoryHelper {
 

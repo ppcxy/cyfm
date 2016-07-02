@@ -1,14 +1,13 @@
 package com.ppcxy.cyfm.sys.service;
 
-import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.common.service.UserLogUtils;
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
+import com.ppcxy.cyfm.sys.entity.User;
 import org.apache.shiro.exception.UserPasswordNotMatchException;
 import org.apache.shiro.exception.UserPasswordRetryLimitExceedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
@@ -16,8 +15,6 @@ import org.springside.modules.utils.Encodes;
 import javax.annotation.PostConstruct;
 
 /**
- * <p>Date: 13-3-12 上午7:18
- * <p>Version: 1.0
  */
 @Service
 public class PasswordService {
@@ -41,26 +38,29 @@ public class PasswordService {
         loginRecordCache = cacheManager.getCache("loginRecordCache");
     }
 
+
     public void validate(User user, String password) {
         String loginName = user.getLoginName();
 
         int retryCount = 0;
 
-        Element cacheElement = loginRecordCache.get(loginName);
-        if (cacheElement != null) {
-            retryCount = (Integer) cacheElement.getObjectValue();
-            if (retryCount >= maxRetryCount) {
-                UserLogUtils.log(
-                        loginName,
-                        "passwordError",
-                        "password error, retry limit exceed! password: {},max retry count {}",
-                        password, maxRetryCount);
-                throw new UserPasswordRetryLimitExceedException(maxRetryCount);
-            }
+        Cache.ValueWrapper value = loginRecordCache.get(loginName);
+        if (value != null) {
+            retryCount = (Integer)value.get();
+        }
+
+
+        if (retryCount >= maxRetryCount) {
+            UserLogUtils.log(
+                    loginName,
+                    "passwordError",
+                    "password error, retry limit exceed! password: {},max retry count {}",
+                    password, maxRetryCount);
+            throw new UserPasswordRetryLimitExceedException(maxRetryCount);
         }
 
         if (!matches(user, password)) {
-            loginRecordCache.put(new Element(loginName, ++retryCount));
+            loginRecordCache.put(loginName, ++retryCount);
             UserLogUtils.log(
                     loginName,
                     "passwordError",
@@ -73,15 +73,15 @@ public class PasswordService {
     }
 
     public boolean matches(User user, String newPassword) {
-        return user.getPassword().equals(encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
+        return user.getPassword().equals(encryptPassword(newPassword, user.getSalt()));
     }
 
     public void clearLoginRecordCache(String username) {
-        loginRecordCache.remove(username);
+        loginRecordCache.evict(username);
     }
 
 
-    public String encryptPassword(String loginName, String password, String salt) {
+    public String encryptPassword(String password, String salt) {
         byte[] saltByts = Encodes.decodeHex(salt);
         byte[] hashPassword = Digests.sha1(password.getBytes(), saltByts, HASH_INTERATIONS);
         return Encodes.encodeHex(hashPassword);

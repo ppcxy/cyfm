@@ -4,8 +4,6 @@ package com.ppcxy.common.web.jcaptcha;
 import com.octo.captcha.service.image.DefaultManageableImageCaptchaService;
 
 /**
- * <p>Date: 13-3-22 下午3:38
- * <p>Version: 1.0
  */
 public class ManageableImageCaptchaService extends DefaultManageableImageCaptchaService {
 

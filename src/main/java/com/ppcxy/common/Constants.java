@@ -1,8 +1,6 @@
 package com.ppcxy.common;
 
 /**
- * <p>Date: 13-2-7 下午5:14
- * <p>Version: 1.0
  */
 public interface Constants {
     /**

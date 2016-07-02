@@ -49,6 +49,10 @@
 <body>
 <div class="tabbable-line">
     <%
+        Integer status = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        String reason = (String) request.getAttribute("javax.servlet.error.message");
+
+
         LogUtils.logPageError(request);
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         pageContext.setAttribute("statusCode", statusCode);

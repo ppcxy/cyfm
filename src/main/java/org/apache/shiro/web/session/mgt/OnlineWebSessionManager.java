@@ -27,8 +27,6 @@ import java.util.List;
  * 为OnlineSession定制的Web Session Manager
  * 主要是在此如果会话的属性修改了 就标识下其修改了 然后方便 OnlineSessionDao同步
  * <p/>
- * <p>Date: 13-3-21 下午2:28
- * <p>Version: 1.0
  */
 public class OnlineWebSessionManager extends DefaultWebSessionManager {
 

@@ -24,8 +24,6 @@ import java.util.Map;
 
 /**
  * <p>测试查询条件</p>
- * <p>Date: 13-1-15 下午12:21
- * <p>Version: 1.0
  */
 public class SearchUserRepositoryIT extends BaseUserIT {
 

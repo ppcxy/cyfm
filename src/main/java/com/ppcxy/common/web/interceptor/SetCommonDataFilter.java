@@ -15,8 +15,6 @@ import java.io.IOException;
  * <p/>
  * 1、ctx---->request.contextPath
  * 2、currentURL---->当前地址
- * <p>Date: 13-1-22 下午4:35
- * <p>Version: 1.0
  */
 public class SetCommonDataFilter extends BaseFilter {
 

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
  * 缓存实现
  * 1、loginName/email/tel------>id
  * 2、id------->Model
- * <p>Date: 13-3-22 下午9:00
- * <p>Version: 1.0
  */
 @Component
 @Aspect

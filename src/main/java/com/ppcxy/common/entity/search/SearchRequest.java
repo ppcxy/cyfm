@@ -17,8 +17,6 @@ import java.util.Map;
 
 /**
  * <p>查询条件（包括分页和排序）</p>
- * <p>Date: 13-1-15 上午7:29
- * <p>Version: 1.0
  */
 
 public final class SearchRequest extends Searchable {

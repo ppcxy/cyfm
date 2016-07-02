@@ -2,8 +2,6 @@
 package org.apache.shiro;
 
 /**
- * <p>Date: 13-3-22 上午7:44
- * <p>Version: 1.0
  */
 public interface ShiroConstants {
     /**

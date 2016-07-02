@@ -1,8 +1,6 @@
 package com.ppcxy.common.web.validate;
 
 /**
- * <p>Date: 13-2-8 上午11:10
- * <p>Version: 1.0
  */
 public class AjaxResponse {
     private Boolean success;

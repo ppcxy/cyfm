@@ -22,8 +22,6 @@ import static org.junit.Assert.assertEquals;
 /**
  * <p>User Repository集成测试</p>
  * <p>测试时使用内嵌的HSQL内存数据库完成</p>
- * <p>Date: 13-1-14 下午2:36
- * <p>Version: 1.0
  */
 
 public class UserRepository2ImplForDefaultSearchIT extends BaseUserIT {

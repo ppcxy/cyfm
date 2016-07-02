@@ -20,8 +20,6 @@ import javax.servlet.ServletResponse;
  * 2.2、如果有SavedRequest 则返回到SavedRequest
  * 2.3、否则根据当前登录的用户决定返回到管理员首页/前台首页
  * <p/>
- * <p>Date: 13-3-19 下午2:11
- * <p>Version: 1.0
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 

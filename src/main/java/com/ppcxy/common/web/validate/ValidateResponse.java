@@ -6,8 +6,6 @@ import java.util.List;
 
 /**
  * //验证结果
- * <p>Date: 13-2-7 下午7:11
- * <p>Version: 1.0
  */
 public class ValidateResponse {
     /**

@@ -6,8 +6,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * <p>Date: 13-5-7 下午4:05
- * <p>Version: 1.0
  */
 public class ExceptionResponse {
 

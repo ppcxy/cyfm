@@ -17,8 +17,6 @@ import java.util.List;
 
 /**
  * <p>用户仓库</p>
- * <p>Date: 13-1-14 下午2:18
- * <p>Version: 1.0
  */
 public interface UserRepository extends BaseRepository<User, Long>, JpaSpecificationExecutor<User> {
 

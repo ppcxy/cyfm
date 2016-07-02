@@ -14,8 +14,6 @@ import java.util.Date;
 /**
  * 对于db的操作 考虑使用 异步+队列机制
  * <p/>
- * <p>Date: 13-3-19 下午4:49
- * <p>Version: 1.0
  */
 public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
     /**

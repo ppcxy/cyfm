@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * <p>Date: 13-5-6 下午12:05
- * <p>Version: 1.0
  */
 public class SearchableTest {
 

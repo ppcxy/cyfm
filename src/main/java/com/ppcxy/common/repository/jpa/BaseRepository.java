@@ -18,8 +18,6 @@ import java.util.List;
  * factory-class="SimpleBaseRepositoryFactoryBean"
  * <p/>
  * <p>泛型 ： M 表示实体类型；ID表示主键类型
- * <p>Date: 13-1-12 下午4:46
- * <p>Version: 1.0
  */
 @NoRepositoryBean
 public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {

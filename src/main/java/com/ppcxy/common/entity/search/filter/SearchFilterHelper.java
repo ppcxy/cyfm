@@ -7,8 +7,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Arrays;
 
 /**
- * <p>Date: 13-5-24 下午4:10
- * <p>Version: 1.0
  */
 public final class SearchFilterHelper {
     /**

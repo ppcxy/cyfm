@@ -15,8 +15,6 @@ import java.util.Enumeration;
 
 /**
  * <p>输出请求信息：URI、参数、header、cookie等</p>
- * <p>Date: 13-1-18 上午7:22
- * <p>Version: 1.0
  */
 public final class DebugRequestAndResponseFilter extends BaseFilter {
     private static final Logger log = LoggerFactory.getLogger(DebugRequestAndResponseFilter.class);

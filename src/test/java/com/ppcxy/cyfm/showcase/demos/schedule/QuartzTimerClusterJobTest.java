@@ -5,8 +5,6 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.schedule;
 
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,6 +16,8 @@ import org.springside.modules.test.log.LogbackListAppender;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 import org.springside.modules.utils.Threads;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Quartz可集群Timer Job测试.
  * 
@@ -25,7 +25,7 @@ import org.springside.modules.utils.Threads;
  */
 @Category(UnStable.class)
 @DirtiesContext
-@ContextConfiguration(locations = { "/applicationContext.xml", "/schedule/applicationContext-quartz-timer-cluster.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml", "/cache/applicationContext-ehcache.xml","/schedule/applicationContext-quartz-timer-cluster.xml" })
 public class QuartzTimerClusterJobTest extends SpringTransactionalTestCase {
 
 	private static LogbackListAppender appender;

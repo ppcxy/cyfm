@@ -9,8 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * <p>Date: 13-1-14 下午4:25
- * <p>Version: 1.0
  */
 @ContextConfiguration({ "classpath:spring-test.xml"})
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)

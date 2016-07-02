@@ -38,8 +38,6 @@ import static org.springframework.data.jpa.repository.query.QueryUtils.toOrders;
 
 /**
  * <p>抽象基础Custom Repository 实现</p>
- * <p>Date: 13-1-15 下午7:33
- * <p>Version: 1.0
  */
 public class SimpleBaseRepository<M, ID extends Serializable> extends SimpleJpaRepository<M, ID>
         implements BaseRepository<M, ID> {

@@ -4,8 +4,6 @@ package com.ppcxy.common.entity.search.exception;
 import com.ppcxy.common.entity.search.SearchOperator;
 
 /**
- * <p>Date: 13-1-17 上午11:59
- * <p>Version: 1.0
  */
 public final class InvlidSearchOperatorException extends SearchException {
 

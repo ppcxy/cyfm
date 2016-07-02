@@ -14,8 +14,6 @@ import java.util.Date;
 
 /**
  * 当前在线会话
- * <p>Date: 13-3-20 下午3:10
- * <p>Version: 1.0
  */
 @Entity
 @Table(name = "ss_user_online")

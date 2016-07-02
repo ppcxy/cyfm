@@ -5,8 +5,6 @@ import org.springframework.util.StringUtils;
 
 /**
  * 基础异常
- * <p>Date: 13-3-11 下午8:19
- * <p>Version: 1.0
  */
 public class BaseException extends RuntimeException {
 

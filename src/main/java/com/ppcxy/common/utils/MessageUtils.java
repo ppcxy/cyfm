@@ -4,8 +4,6 @@ import com.ppcxy.common.spring.SpringContextHolder;
 import org.springframework.context.MessageSource;
 
 /**
- * <p>Date: 13-2-9 下午8:49
- * <p>Version: 1.0
  */
 public class MessageUtils {
 

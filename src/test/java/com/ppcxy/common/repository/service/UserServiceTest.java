@@ -17,8 +17,6 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
- * <p>Date: 13-1-17 下午7:55
- * <p>Version: 1.0
  */
 public class UserServiceTest extends BaseUserIT {
 

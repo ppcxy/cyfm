@@ -20,7 +20,9 @@
         password varchar(255),
         salt varchar(64),
         email varchar(128),
+        tel VARCHAR (20),
         status varchar(32),
+        create_date date,
         team_id bigint,
         primary key (id)
     );

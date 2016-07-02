@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 缓存及清理菜单缓存
- * <p>Date: 13-5-16 下午3:49
- * <p>Version: 1.0
  */
 @Component
 @Aspect

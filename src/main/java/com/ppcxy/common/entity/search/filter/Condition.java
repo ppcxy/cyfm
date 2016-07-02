@@ -11,8 +11,6 @@ import java.util.List;
 
 /**
  * <p>查询过滤条件</p>
- * <p>Date: 13-1-15 上午7:12
- * <p>Version: 1.0
  */
 public final class Condition implements SearchFilter {
 

@@ -6,8 +6,6 @@ import java.util.List;
 
 /**
  * or 条件
- * <p>Date: 13-5-24 下午2:51
- * <p>Version: 1.0
  */
 public class OrCondition implements SearchFilter {
 

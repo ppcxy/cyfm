@@ -19,8 +19,6 @@ import java.io.IOException;
  * 验证用户过滤器
  * 1、用户是否删除
  * 2、用户是否锁定
- * <p>Date: 13-3-19 下午3:09
- * <p>Version: 1.0
  */
 public class SysUserFilter extends AccessControlFilter {
 

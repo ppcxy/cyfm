@@ -10,8 +10,6 @@ import java.util.Set;
 
 /**
  * <p>用户信息</p>
- * <p>Date: 13-1-14 下午2:06
- * <p>Version: 1.0
  */
 @Entity
 @Table(name = "user")

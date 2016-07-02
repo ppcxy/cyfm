@@ -6,7 +6,9 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.ppcxy.common.entity.search.SearchOperator;
 import com.ppcxy.common.entity.search.Searchable;
+import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.service.BaseService;
+import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.cyfm.sys.repository.jpa.RoleDao;
 import com.ppcxy.cyfm.sys.repository.jpa.UserDao;
@@ -26,8 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>Date: 13-2-4 下午3:01
- * <p>Version: 1.0
  */
 @Service
 @Transactional
@@ -45,17 +45,28 @@ public class UserService extends BaseService<User, Long> {
     @Autowired
     private RoleDao roleDao;
 
-    @Autowired
     private PasswordService passwordService;
+
+    /**
+     * 判断是否超级管理员.
+     */
+    private boolean isSupervisor(User user) {
+        return ((user.getId() != null) && (user.getId() == 1L));
+    }
 
     @Override
     public User save(User user) {
+        if (isSupervisor(user)) {
+            logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getLoginName());
+            throw new BaseException("不能修改超级管理员用户");
+        }
+
         if (user.getCreateDate() == null) {
             user.setCreateDate(new Date());
         }
         user.randomSalt();
-        if (StringUtils.isNotBlank(user.getPlainPassword() )) {
-            user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPlainPassword(), user.getSalt()));
+        if (StringUtils.isNotBlank(user.getPlainPassword())) {
+            user.setPassword(passwordService.encryptPassword(user.getPlainPassword(), user.getSalt()));
         }
 
         User resultUser = super.save(user);
@@ -98,7 +109,7 @@ public class UserService extends BaseService<User, Long> {
 
     public User changePassword(User user, String newPassword) {
         user.randomSalt();
-        user.setPassword(passwordService.encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
+        user.setPassword(passwordService.encryptPassword(newPassword, user.getSalt()));
         update(user);
         return user;
     }

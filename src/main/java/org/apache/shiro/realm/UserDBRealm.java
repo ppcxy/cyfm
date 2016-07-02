@@ -21,8 +21,6 @@ import org.springside.modules.utils.Reflections;
 import javax.annotation.PostConstruct;
 
 /**
- * <p>Date: 13-3-12 下午9:05
- * <p>Version: 1.0
  */
 public class UserDBRealm extends AuthorizingRealm {
 

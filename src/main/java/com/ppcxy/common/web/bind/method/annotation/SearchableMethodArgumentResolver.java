@@ -37,8 +37,6 @@ import java.util.Map;
  *     3.1、禁用查询时分页及排序
  *          public void test(@Search(page = false, sort = false) Searchable searchable);
  * </pre>
- * <p>Date: 13-1-22 下午8:48
- * <p>Version: 1.0
  *
  * @since 3.1
  */

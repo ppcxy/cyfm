@@ -13,8 +13,6 @@ import java.io.IOException;
 
 /**
  * 生成验证码
- * <p>Date: 13-3-22 下午3:36
- * <p>Version: 1.0
  */
 public class JCaptchaFilter extends OncePerRequestFilter {
 

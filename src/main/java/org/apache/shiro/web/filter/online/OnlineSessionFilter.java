@@ -16,8 +16,6 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
- * <p>Date: 13-3-20 下午3:17
- * <p>Version: 1.0
  */
 public class OnlineSessionFilter extends AccessControlFilter {
 

@@ -12,8 +12,6 @@ import java.util.Map;
 
 /**
  * <p>查询条件接口</p>
- * <p>Date: 13-1-16 上午8:47
- * <p>Version: 1.0
  */
 public abstract class Searchable {
 
