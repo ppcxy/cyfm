@@ -29,7 +29,9 @@
 			<th>电邮</th>
 			<th>角色</th>
 			<th>状态</th>
+            <shiro:hasPermission name="user:delete or user:update">
 			<th>操作</th>
+	        </shiro:hasPermission>
 		</tr>
 		</thead>
 		<tbody>
@@ -41,15 +43,19 @@
 				<td>${user.email}&nbsp;</td>
 				<td>${user.roleNames}&nbsp;</td>
 				<td>${allStatus[user.status]}&nbsp;</td>
-				<td class="action">
-					<shiro:hasPermission name="user:edit">
-						<a href="${ctx}/account/user/update/${user.id}" id="editLink-${user.team.name}" class="btn btn-xs purple"><i class="fa fa-edit"></i> 修改</a>
-						<a href="${ctx}/account/user/update/${user.id}" id="editLink-${user.team.name}" class="btn btn-xs red"><i class="fa fa-trash"></i> 删除</a>
-					</shiro:hasPermission>
+				<shiro:hasPermission name="user:delete or user:update">
+				<td		 class="action">
+                    <shiro:hasPermission name="user:update">
+						<a href="${ctx}/account/user/update/${user.id}" id="editLink-${user.loginName}" class="btn btn-xs purple"><i class="fa fa-edit"></i> 修改</a>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="user:delete">
+						<a href="${ctx}/account/user/delete/${user.id}" id="deleteLink-${user.loginName}" class="btn btn-xs red"><i class="fa fa-trash"></i> 删除</a>
+                    </shiro:hasPermission>
 				</td>
+				</shiro:hasPermission>
 			</tr>
 		</c:forEach>
-		</tbody>		
+		</tbody>
 	</table>
 	<cy:pagination page="${page}" paginationSize="5"></cy:pagination>
 </body>
