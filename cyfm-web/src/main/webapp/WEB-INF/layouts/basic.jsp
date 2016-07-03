@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 
@@ -9,7 +8,7 @@
 <html lang="en" class="no-js">
 <!--<![endif]-->
 <head>
-<title>Showcase示例:<sitemesh:title/></title>
+<title>cyfm:<sitemesh:title/></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
@@ -52,57 +51,6 @@
 <sitemesh:head />
 </head>
 <body>
-	<div class="place">
-		<span>位置：</span>
-		<ul class="placeul">
-			<li><a href="#">首页</a></li>
-			<li><a href="#">数据表</a></li>
-			<li><a href="#">基本内容</a></li>
-		</ul>
-	</div>
-	<div class="rightinfo">
-		<c:if test="${not empty message}">
-			<div id="message" class="alert alert-success"><button data-dismiss="alert" class="close">×</button>${message}</div>
-		</c:if>
-		<c:if test="${not empty page}">
-			<div class="tools">
-				<div class="btn-group">
-					<a class="btn btn-primary create" href="${ctx}/${viewPrefix}/create"><i class="fa fa-plus"></i> 添加</a>
-					<a class="btn btn-success update" data-baseurl="${ctx}/${viewPrefix}/update/{id}"><i class="fa fa-pencil"></i> 修改</a>
-					<a class="btn btn-warning delete" data-baseurl="${ctx}/${viewPrefix}/delete/{id}"><i class="fa fa-trash-o"></i> 删除</a>
-					<a class="btn btn-default more"><i class="fa fa-bars"></i> 更多</a>
-				</div>
-				<ul class="toolbar-right">
-					<li><span><img src="${ctx}/static/manage/images/t05.png" /></span>设置</li>
-				</ul>
-			</div>
-		</c:if>
-
-		<sitemesh:body />
-	</div>
-<script>
-	function refreshPage(){
-		window.location.reload();
-	}
-	$("body").keydown(function(e){
-		var ev = window.event || e;
-		var code = ev.keyCode || ev.which;
-
-		if (code==116) {
-			// 阻止默认的F5事件
-			if(ev.preventDefault) {
-				ev.preventDefault();
-			}else {
-				ev.keyCode=0;
-				ev.returnValue=false;
-			}
-
-			refreshPage();
-			return false;
-		}
-		return true;
-	});
-	<cy:showFieldError commandName="entity"/>
-</script>
+	<sitemesh:body />
 </body>
 </html>
