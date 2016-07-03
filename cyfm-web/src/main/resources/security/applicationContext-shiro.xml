@@ -144,8 +144,10 @@
             <value>
                 /static/** = anon
                 /jcaptcha* = anon
+                /cxf/** = anon
                 /login = jCaptchaValidate,authc
                 /logout = logout
+                /jolokia/** = authc,roles[admin]
                 /api/secure/** = authcBasic
                 /admin/polling = user,sysUser
                 /WEB-INF/views/error/** = anon
