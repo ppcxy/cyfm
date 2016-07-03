@@ -9,8 +9,9 @@
         <version>1.0-Snapshot</version>
     </parent>
 
-    <groupId>com.ppcxy</groupId>
     <artifactId>cyfm-web</artifactId>
+    <packaging>war</packaging>
+    <name>ppcxy :: Module :: web</name>
 
     <!-- 项目属性 -->
     <properties>

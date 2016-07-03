@@ -10,7 +10,7 @@
     <script type="text/javascript" src="${ctx}/static/plugins/jquery.cokie.min.js"></script>
     <script>
         $(document).ready(function(){
-            $.cookie('skin', 'basic');
+            $.cookie('skin', 'content');
         })
     </script>
 </head>

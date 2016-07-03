@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
+<%@include file="/WEB-INF/views/common/import-zTree-css.jspf"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
@@ -52,7 +52,7 @@
 		<!-- BEGIN SAMPLE FORM PORTLET-->
 		<div class="portlet-body form">
 			<form:form id="editForm" method="post" commandName="m"  role="form" enctype="multipart/form-data">
-				<mm:showGlobalError commandName="m"/>
+				<cy:showGlobalError commandName="m"/>
 
 				<form:hidden path="id"/>
 				<form:hidden path="parentId"/>
