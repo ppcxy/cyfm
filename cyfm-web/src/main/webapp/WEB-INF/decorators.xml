@@ -14,6 +14,9 @@
 	<decorator name="basic" page="basic.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+	<decorator name="content" page="content.jsp">
+		<pattern>/*</pattern>
+	</decorator>
 	<decorator name="senior">
 		<pattern>/*</pattern>
 	</decorator>
