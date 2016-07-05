@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.apache.shiro.SecurityUtils"%>
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
+<script>
+	if(top != window){
+		top.location.href = "${ctx}/login";
+	}
+</script>
 <%
 	if (SecurityUtils.getSubject().isAuthenticated()) {
 		if ("".equals(request.getContextPath())) {

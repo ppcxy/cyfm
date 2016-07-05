@@ -21,15 +21,10 @@ public class AjaxFT extends BaseSeleniumTestCase {
     @Test
     public void mashup() {
         s.open("/");
-        if (s.isTextPresent("登录")) {
-            s.click(By.linkText("登录"));
-        } else {
-            s.refresh();
-        }
+        s.click(By.linkText("Web演示"));
 
         loginAsAdminIfNecessary();
 
-        s.click(By.linkText("Web演示"));
         s.click(By.linkText("跨域名Mashup演示"));
 
         s.click(By.xpath("//input[@value='获取内容']"));

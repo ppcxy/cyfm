@@ -41,6 +41,13 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         this.baseService = baseService;
     }
 
+
+    @Override
+    protected void preResponse(Model model) {
+        super.preResponse(model);
+        model.addAttribute("resourceIdentity", permissionList.getResourceIdentity());
+    }
+
     /**
      * 列表也设置common data
      */
@@ -148,7 +155,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         return viewName("form");
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(
             Model model, @Valid @ModelAttribute("entity") T entity, BindingResult result,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,

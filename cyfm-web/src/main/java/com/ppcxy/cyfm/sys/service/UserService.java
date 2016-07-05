@@ -169,8 +169,8 @@ public class UserService extends BaseService<User, Long> {
                     username,
                     "loginError",
                     "user is blocked!");
-            //userStatusHistoryService.getLastReason(user)
-            throw new UserBlockedException("cccc");
+            //TODO WEEP 锁定原因 userStatusHistoryService.getLastReason(user)
+            throw new UserBlockedException("异常锁定.");
         }
 
         UserLogUtils.log(

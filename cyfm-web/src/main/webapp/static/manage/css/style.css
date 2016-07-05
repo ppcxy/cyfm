@@ -320,16 +320,60 @@ h2{font-weight:normal;}
     /*-webkit-box-shadow: #2b3643;*/
     -webkit-border-radius: 10px;
     border-radius: 0px;
-    background: #006da6;
+    background: #edf6fa;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 0px;
-    background: rgba(230, 226, 212, 0.8);
+    background: rgba(16, 122, 255, 0.4);
     /*-webkit-box-shadow: #2b3643;*/
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(255, 255, 255, 0.4);
+    background: #edf6fa;
+}
+
+
+
+/* begin list table column resize*/
+.columnResize {
+    width: 5px;
+    float: right;
+    cursor: e-resize;
+    height: 95%;
+}
+
+div.listTableWrap {
+    overflow-x: auto;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+div.listTableWrap .table-advance{
+    margin-bottom: 0px !important;
+}
+div.listTableWrap .table-advance tr th {
+    background: #f0f5f7;
+}
+
+div.listTableWrap table {
+    margin-bottom: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 0px !important;
+}
+
+div.listTableWrap table td:last-child, div.listTableWrap table th:last-child {
+    border-right: 0px;
+}
+
+div.listTableWrap table td:first-child, div.listTableWrap table th:first-child {
+    border-left: 0px;
+}
+
+/* end list table column resize*/
+
+.cs{
+    border-top: 1px solid #cccccc;
+    border-bottom: 2px solid red;
 }

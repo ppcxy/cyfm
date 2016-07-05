@@ -67,7 +67,7 @@ public class UserController extends BaseCRUDController<User, Long> {
     /**
      * 演示自行绑定表单中的checkBox roleList到对象中.
      */
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result,
                          @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
 
