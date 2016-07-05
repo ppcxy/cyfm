@@ -3,11 +3,6 @@
 <html>
 <head>
 	<title>Home</title>
-	<script>
-		$(document).ready(function() {
-			$("#index-tab").addClass("active");
-		});
-	</script>
 </head>
 <body>
 	<h1>What is it?</h1>
@@ -32,9 +27,5 @@
 	</ul>
 	<script type="text/javascript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="${ctx}/static/plugins/jquery.cokie.min.js"></script>
-	<script>
-		$.cookie('skin', 'default');
-		console.debug($.cookie('skin'))
-	</script>
 </body>
 </html>

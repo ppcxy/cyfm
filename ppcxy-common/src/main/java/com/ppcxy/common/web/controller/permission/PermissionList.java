@@ -166,4 +166,7 @@ public class PermissionList implements Serializable {
         return "no.permission";
     }
 
+    public String getResourceIdentity() {
+        return resourceIdentity;
+    }
 }

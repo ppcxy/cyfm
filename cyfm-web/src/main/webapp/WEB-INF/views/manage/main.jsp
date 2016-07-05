@@ -8,11 +8,6 @@
     <title>信息管理系统界面</title>
     <script type="text/javascript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="${ctx}/static/plugins/jquery.cokie.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.cookie('skin', 'content');
-        })
-    </script>
 </head>
 <frameset rows="88,*" cols="*" frameborder="no" border="0" framespacing="0">
     <frame src="${ctx}/manage/top" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame"/>

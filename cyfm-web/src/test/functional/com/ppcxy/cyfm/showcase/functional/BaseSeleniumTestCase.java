@@ -31,7 +31,6 @@ public class BaseSeleniumTestCase extends BaseFunctionalTestCase {
 	@BeforeClass
 	public static void createSeleniumOnce() throws Exception {
 		if (s == null) {
-			System.setProperty("webdriver.firefox.bin","E:\\soft\\firefox\\firefox.exe");
 			// 根据配置创建Selenium driver.
 			String driverName = propertiesLoader.getProperty("selenium.driver");
 

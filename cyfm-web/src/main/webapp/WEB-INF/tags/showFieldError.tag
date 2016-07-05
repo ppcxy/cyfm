@@ -11,9 +11,14 @@
     <c:forEach items="${errors.fieldErrors}" var="error">
         <spring:message var="message" code="${error.code}" arguments="${error.arguments}" text="${error.defaultMessage}"/>
         <c:if test="${not empty message}">
-            layer.tips('${message}', '[for=${error.field}]', {
+            var message = "${message}";
+            if($("[for='${error.field}']").size()>0){
+                layer.tips(message, "[for='${error.field}']", {
                 tipsMore: true
-            });
+                });
+            } else {
+                layer.msg("[${error.field}] " + message);
+            }
             //${errorPosition}
         </c:if>
     </c:forEach>
