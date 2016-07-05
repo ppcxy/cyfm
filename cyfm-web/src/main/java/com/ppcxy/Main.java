@@ -21,7 +21,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		String contextPath = "/showcase";
+		String contextPath = "/";
 		int port = Integer.getInteger("port", 8080);
 
 		Server server = createServer(contextPath, port);

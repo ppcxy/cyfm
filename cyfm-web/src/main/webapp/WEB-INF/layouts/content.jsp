@@ -30,6 +30,8 @@
 	<link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/layout-default-1.3.0.css" type="text/css" rel="stylesheet" />
 	<link href="${ctx}/static/plugins/uniform/css/uniform.default.css" type="text/css" rel="stylesheet" />
 
+	<link href="${ctx}/static/plugins/table-drag-sort-resize/table-drag-sort-resize.css" rel="stylesheet" type="text/css" />
+
 	<%@include file="/WEB-INF/views/common/import-zTree-css.jspf"%>
 	<!-- 插件扩展区 end-->
 
@@ -46,7 +48,8 @@
 	<script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js"></script>
 	<script src="${ctx}/static/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 	<!-- 插件扩展区 end-->
-
+	<script src="${ctx}/static/js/table.custom.js" type="text/javascript"></script>
+	<script src="${ctx}/static/plugins/table-drag-sort-resize/table-drag-sort-resize.js" type="text/javascript"></script>
 	<script src="${ctx}/static/js/common.js?3" type="text/javascript"></script>
 	<sitemesh:head />
 </head>
@@ -65,15 +68,7 @@
 	</c:if>
 	<c:if test="${not empty page}">
 		<div class="tools">
-			<div class="btn-group">
-				<a class="btn btn-primary create" href="${ctx}/${viewPrefix}/create"><i class="fa fa-plus"></i> 添加</a>
-				<a class="btn btn-success update" data-baseurl="${ctx}/${viewPrefix}/update/{id}"><i class="fa fa-pencil"></i> 修改</a>
-				<a class="btn btn-warning delete" data-baseurl="${ctx}/${viewPrefix}/delete/{id}"><i class="fa fa-trash-o"></i> 删除</a>
-				<a class="btn btn-default more"><i class="fa fa-bars"></i> 更多</a>
-			</div>
-			<ul class="toolbar-right">
-				<li><span><img src="${ctx}/static/manage/images/t05.png" /></span>设置</li>
-			</ul>
+			<cy:listToolBarActions/>
 		</div>
 	</c:if>
 
@@ -100,6 +95,13 @@
 			return false;
 		}
 		return true;
+	});
+	$(function () {
+		if ($("table").find("td.action").size() > 0 && $("table").find("table thead tr").size() == 0) {
+			$('table thead tr').append('<th class="action">操作</th>');
+		}
+		$("#contentTable").parent("div.listTableWrap").css("width", $(".tools").css("width"));
+		new TableDragSortResize(document.getElementById('contentTable'), {cidAttrName: "data-tid"});
 	});
 	<cy:showFieldError commandName="entity"/>
 </script>

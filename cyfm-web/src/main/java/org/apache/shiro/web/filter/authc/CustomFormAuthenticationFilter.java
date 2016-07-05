@@ -70,7 +70,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
         String username = ShiroUserInfoUtils.getLoginName();
         User user = userService.findByLoginName(username);
         //TODO 区分登录成功页面
-        if (user != null && Boolean.TRUE.equals(user.getRoleNames().indexOf("Admin")!=-1)) {
+        if (haveAdminRole()) {
             return getAdminDefaultSuccessUrl();
         }
         return getDefaultSuccessUrl();
@@ -78,13 +78,30 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 
     /**
      * 覆盖父类避免登录后跳转到记录的前一个访问链接
+     *
      * @param request
      * @param response
      * @throws Exception
      */
     @Override
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
-        ((ShiroHttpServletRequest) request).getSession().removeAttribute(WebUtils.SAVED_REQUEST_KEY);
+        //TODO 区分登录成功页面
+        if (haveAdminRole()) {
+            ((ShiroHttpServletRequest) request).getSession().removeAttribute(WebUtils.SAVED_REQUEST_KEY);
+        }
+
         super.issueSuccessRedirect(request, response);
     }
+
+    private boolean haveAdminRole() {
+        String username = ShiroUserInfoUtils.getLoginName();
+
+        User user = userService.findByLoginName(username);
+        if (user != null && Boolean.TRUE.equals(user.getRoleNames().indexOf("Admin") != -1)) {
+            return true;
+
+        }
+        return false;
+    }
+
 }

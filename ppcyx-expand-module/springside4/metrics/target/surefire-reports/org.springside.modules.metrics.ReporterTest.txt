@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.springside.modules.metrics.ReporterTest
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 2.173 sec - in org.springside.modules.metrics.ReporterTest
