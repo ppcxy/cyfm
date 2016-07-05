@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@include file="/WEB-INF/views/common/import-zTree-css.jspf"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
 	<style>

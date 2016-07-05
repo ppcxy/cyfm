@@ -11,7 +11,6 @@ import com.ppcxy.common.web.controller.BaseCRUDController;
 import com.ppcxy.cyfm.sys.entity.Role;
 import com.ppcxy.cyfm.sys.entity.User;
 import com.ppcxy.cyfm.sys.service.UserService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,8 +67,7 @@ public class UserController extends BaseCRUDController<User, Long> {
     /**
      * 演示自行绑定表单中的checkBox roleList到对象中.
      */
-    @RequiresPermissions("user:edit")
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result,
                          @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
 

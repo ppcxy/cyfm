@@ -5,6 +5,7 @@
 <div id="leftbar" class="span2">
 	<h1>独立演示</h1>
 	<div class="submenu">
+		<a id="user-tab" href="${ctx}/account/user">帐号管理</a>
 		<a id="web-tab" href="${ctx}/story/web">Web演示</a>
 		<a id="webservice-tab"href="${ctx}/story/webservice">WebService演示</a>
 		<a id="hystrix-tab" href="${ctx}/hystrix">Hystrix演示</a>
