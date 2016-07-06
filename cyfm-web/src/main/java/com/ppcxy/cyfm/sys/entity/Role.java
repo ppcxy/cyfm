@@ -24,7 +24,7 @@ import java.util.List;
  * @author calvin
  */
 @Entity
-@Table(name = "ss_role")
+@Table(name = "cy_sys_role")
 @EnableQueryCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Role extends IdEntity {

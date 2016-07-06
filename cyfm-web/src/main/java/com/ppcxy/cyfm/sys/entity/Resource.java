@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "ss_resource")
+@Table(name = "cy_sys_resource")
 @EnableQueryCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Resource extends IdEntity implements Treeable<Long> {
@@ -143,7 +143,7 @@ public class Resource extends IdEntity implements Treeable<Long> {
         this.icon = icon;
     }
 
-    @Formula(value = "(select count(*) from ss_resource f_t where f_t.parent_id = id)")
+    @Formula(value = "(select count(*) from cy_sys_resource f_t where f_t.parent_id = id)")
     public boolean isHasChildren() {
         return hasChildren;
     }

@@ -1,41 +1,76 @@
-drop table if exists ss_user_role;
+DROP TABLE IF EXISTS CY_SYS_USER_ROLE;
 
-drop table if exists ss_role;
+DROP TABLE IF EXISTS CY_SYS_ROLE;
 
-drop table if exists ss_user;
+DROP TABLE IF EXISTS CY_SYS_USER;
 
-drop table if exists ss_team;
+DROP TABLE IF EXISTS CY_SYS_TEAM;
 
-create table ss_role (
-  id bigint  not null AUTO_INCREMENT,
-  name varchar(255) not null unique,
-  permissions varchar(255),
-  primary key (id)
+DROP TABLE IF EXISTS CY_SYS_RESOURCE;
+
+DROP TABLE IF EXISTS CY_SYS_USER_ONLINE;
+
+CREATE TABLE CY_SYS_ROLE (
+  ID BIGINT  NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(255) NOT NULL UNIQUE,
+  PERMISSIONS VARCHAR(255),
+  PRIMARY KEY (ID)
 );
 
-create table ss_user (
-  id bigint not null AUTO_INCREMENT,
-  login_name varchar(255) not null unique,
-  name varchar(64),
-  password varchar(255),
-  salt varchar(64),
-  email varchar(128),
-  tel VARCHAR (20),
-  status varchar(32),
-  create_date date,
-  team_id bigint,
-  primary key (id)
+CREATE TABLE CY_SYS_USER (
+  ID BIGINT NOT NULL AUTO_INCREMENT,
+  LOGIN_NAME VARCHAR(255) NOT NULL UNIQUE,
+  NAME VARCHAR(64),
+  PASSWORD VARCHAR(255),
+  SALT VARCHAR(64),
+  EMAIL VARCHAR(128),
+  TEL VARCHAR (20) UNIQUE,
+  STATUS VARCHAR(32),
+  TEAM_ID BIGINT,
+  CREATE_DATE DATETIME ,
+  DELETED TINYINT DEFAULT 0,
+  PRIMARY KEY (ID)
 );
 
-create table ss_user_role (
-  user_id bigint not null,
-  role_id bigint not null,
-  primary key (user_id, role_id)
+CREATE TABLE CY_SYS_USER_ROLE (
+  USER_ID BIGINT NOT NULL,
+  ROLE_ID BIGINT NOT NULL,
+  PRIMARY KEY (USER_ID, ROLE_ID)
 );
 
-create table ss_team (
-  id bigint not null AUTO_INCREMENT,
-  name varchar(255) not null unique,
-  master_id bigint,
-  primary key (id)
+CREATE TABLE CY_SYS_TEAM (
+  ID BIGINT NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(255) NOT NULL UNIQUE,
+  MASTER_ID BIGINT,
+  PRIMARY KEY (ID)
 );
+
+CREATE TABLE CY_SYS_RESOURCE
+(
+  ID BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(255),
+  ICON VARCHAR(255),
+  IDENTITY VARCHAR(255),
+  PARENT_ID BIGINT,
+  PARENT_IDS VARCHAR(255),
+  URL VARCHAR(255),
+  WEIGHT INT,
+  IS_SHOW BIT,
+  RESOURCE_TYPE INT
+);
+
+CREATE TABLE CY_SYS_USER_ONLINE
+(
+  ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  HOST VARCHAR(255),
+  LAST_ACCESS_TIME DATETIME,
+  ONLINE_SESSION LONGTEXT,
+  START_TIMESTAMP DATETIME,
+  STATUS VARCHAR(255),
+  SYSTEM_HOST VARCHAR(255),
+  TIMEOUT BIGINT,
+  USER_AGENT VARCHAR(255),
+  USER_ID BIGINT,
+  USERNAME VARCHAR(255)
+);
+

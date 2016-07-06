@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TeamController extends BaseCRUDController<Team, Long> {
     public TeamController() {
         setResourceIdentity("team");
-        setModelName("team");
+        //和资源一致可以不处理
+        //setModelName("team");
     }
 }

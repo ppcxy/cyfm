@@ -1,4 +1,6 @@
-;
+/**
+ * 定制版本,适用于本框架.
+ */
 (function () {
     "use strict";
 
@@ -559,7 +561,7 @@
                 backHeight = table.rows[0].offsetHeight,
                 zIndex = numericProperty(table.style.zIndex),
                 zIndex = zIndex ? zIndex + 1 : 1,
-                //TODO 找到的不是TH
+            //TODO 找到的不是TH
                 initialColumn = eventTarget(event).parentNode.parentNode.cellIndex,
                 width = elementStyleProperty(eventTarget(event).parentNode.parentNode, 'width'),
                 height = elementStyleProperty(eventTarget(event).parentNode.parentNode, 'height'),
@@ -619,7 +621,7 @@
                 element.style.top = 0;
                 //element.style.height = computedCellHeight + 'px';
                 //TODO 为了让出下边线,且遮住整个TH
-                element.style.height = backHeight-1 + 'px';
+                element.style.height = backHeight - 1 + 'px';
                 element.style.borderLeftWidth = borderLeftWidth + 'px';
                 element.style.borderTopWidth = borderTopWidth + 'px';
                 //element.style.borderRightWidth = borderRightWidth + 'px';
@@ -819,13 +821,19 @@
                 width = [];
             for (var i = 0; i < 2; i++) {
                 cell[i] = this.hr.cells[initialColumn + (i ? fixed : i)];
-                width[i] = numericProperty(cell[i].style.width);
+                //TODO 最后一列拖动问题
+                if (cell[i]) {
+                    width[i] = numericProperty(cell[i].style.width);
+                }
             }
 
             for (var i = 0; i < this.nr; i++) {
                 for (var j = 0; j <= fixed; j++) {
                     cell = this.table.rows[i].cells[initialColumn + j];
-                    cell.style.maxWidth = cell.style.width = width[j] + 'px';
+                    //TODO 最后一列拖动问题
+                    if (cell != undefined) {
+                        cell.style.maxWidth = cell.style.width = width[j] + 'px';
+                    }
                 }
             }
 
@@ -843,7 +851,10 @@
                 width = [];
             for (var i = 0; i < 2; i++) {
                 cell[i] = this.hr.cells[initialColumn + (i ? fixed : i)];
-                width[i] = numericProperty(cell[i].style.width);
+                //TODO 最后一列拖动问题
+                if (cell[i]) {
+                    width[i] = numericProperty(cell[i].style.width);
+                }
             }
 
             if (width[0] <= -dist || width[1] <= dist) {
@@ -912,7 +923,7 @@
 
         // attach handlers to each cell of the header row.
         //for (var i = 0; i < ((options.fixed) ? (dragSortHandler.nc - 1) : dragSortHandler.nc); i++) {
-        for (var i = 0; i <  dragSortHandler.nc; i++) {
+        for (var i = 0; i < dragSortHandler.nc; i++) {
             var cell = dragSortHandler.hr.cells[i];
 
             // check and set space for sort order image

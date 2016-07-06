@@ -71,7 +71,6 @@ public class UserController extends BaseCRUDController<User, Long> {
     public String update(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result,
                          @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
 
-        // bind roleList
         user.getRoleList().clear();
         for (Long roleId : checkedRoleList) {
             Role role = new Role(roleId);
