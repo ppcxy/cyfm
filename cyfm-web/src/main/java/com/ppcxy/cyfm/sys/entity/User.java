@@ -30,7 +30,7 @@ import java.util.List;
  * @author calvin
  */
 @Entity
-@Table(name = "ss_user")
+@Table(name = "cy_sys_user")
 @EnableQueryCache
 // 默认的缓存策略.
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -138,7 +138,7 @@ public class User extends IdEntity {
 
     // 多对多定义
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ss_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @JoinTable(name = "cy_sys_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     // Fecth策略定义
     @Fetch(FetchMode.SUBSELECT)
     // 集合按id排序

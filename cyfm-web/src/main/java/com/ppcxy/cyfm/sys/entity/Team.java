@@ -20,7 +20,7 @@ import java.util.List;
  * @author calvin
  */
 @Entity
-@Table(name = "ss_team")
+@Table(name = "cy_sys_team")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Team extends IdEntity {
 

@@ -49,7 +49,7 @@
 	<script src="${ctx}/static/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 	<!-- 插件扩展区 end-->
 	<script src="${ctx}/static/js/table.custom.js" type="text/javascript"></script>
-	<script src="${ctx}/static/plugins/table-drag-sort-resize/table-drag-sort-resize.js" type="text/javascript"></script>
+	<script src="${ctx}/static/plugins/table-drag-sort-resize/table-drag-sort-resize.dev.js" type="text/javascript"></script>
 	<script src="${ctx}/static/js/common.js?3" type="text/javascript"></script>
 	<sitemesh:head />
 </head>

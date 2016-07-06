@@ -1,4 +1,7 @@
-delete from ss_team;
-delete from ss_user_role;
-delete from ss_role;
-delete from ss_user;
+DELETE FROM  CY_SYS_TEAM;
+DELETE FROM  CY_SYS_USER_ROLE;
+DELETE FROM  CY_SYS_ROLE;
+DELETE FROM  CY_SYS_USER;
+DELETE FROM CY_SYS_RESOURCE;
+--清除登录状态会造成测试中断
+--DELETE FROM CY_SYS_USER_ONLINE;

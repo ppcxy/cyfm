@@ -18,7 +18,7 @@
         min: '1900-01-01 00:00:00', //最小日期
         max: '2099-12-31 23:59:59', //最大日期
         isv: false,
-        init: true
+        init: false
     };
 
     var Dates = {}, doc = document, creat = 'createElement', byid = 'getElementById', tags = 'getElementsByTagName';
@@ -329,6 +329,12 @@
         Y < (Dates.mins[0]|0) && (Y = (Dates.mins[0]|0));
         Y > (Dates.maxs[0]|0) && (Y = (Dates.maxs[0]|0));
 
+        // 如果切换月份的时候，D大于切换后月份的天数，setFullYear计算结果会发生跨月的情况
+        // 这里将可能跨月的参数D重写为切换后月份的最后一天
+        // 例如当前5.31，切换月份到2月，自动设置为2月最后一天
+        Dates.months[1] = Dates.isleap(Y) ? 29 : 28;
+        D=(Dates.months[M]<D) ? (Dates.months[M]) : D;
+
         De.setFullYear(Y, M, D);
         log.ymd = [De.getFullYear(), De.getMonth(), De.getDate()];
 
@@ -395,9 +401,9 @@
 
         //定位时分秒
         log.times = [
-            Dates.inymd[3]|0 || 0,
-            Dates.inymd[4]|0 || 0,
-            Dates.inymd[5]|0 || 0
+            Dates.inymd[Dates.elemIndexMap.hour]|0 || 0,
+            Dates.inymd[Dates.elemIndexMap.minute]|0 || 0,
+            Dates.inymd[Dates.elemIndexMap.second]|0 || 0
         ];
         Dates.each(new Array(3), function(i){
             Dates.hmsin[i].value = Dates.digit(Dates.timeVoid(log.times[i], i) ? Dates.mins[i+3]|0 : log.times[i]|0);
@@ -406,6 +412,29 @@
         //确定按钮状态
         Dates[Dates.valid ? 'removeClass' : 'addClass'](as.ok, as[1]);
     };
+
+    Dates.getEachElementIndex = function (format) {
+        var components = {};
+        var currentIndex = 0;
+        format.replace(/YYYY|MM|DD|hh|mm|ss/g, function (str, index) {
+            if (str === 'YYYY') {
+                components['year'] = currentIndex++;
+            } else if (str === 'MM') {
+                components['month'] = currentIndex++;
+            } else if (str === 'DD') {
+                components['day'] = currentIndex++;
+            } else if (str === 'hh') {
+                components['hour'] = currentIndex++;
+            } else if (str === 'mm') {
+                components['minute'] = currentIndex++;
+            } else if (str === 'ss') {
+                components['second'] = currentIndex++;
+            }
+            return "";
+        });
+        return components;
+    };
+
 
 //节日
     Dates.festival = function(td, md){
@@ -461,18 +490,23 @@
     };
 
 //初始化面板数据
-    Dates.initDate = function(){
+    Dates.initDate = function (format) {
         var S = Dates.query, log = {}, De = new Date();
         var ymd = Dates.elem[as.elemv].match(/\d+/g) || [];
-        if(ymd.length < 3){
+        var elemIndexMap = Dates.getEachElementIndex(format);
+        Dates.elemIndexMap = elemIndexMap;
+        if (ymd.length < 3) {
             ymd = Dates.options.start.match(/\d+/g) || [];
-            if(ymd.length < 3){
-                ymd = [De.getFullYear(), De.getMonth()+1, De.getDate()];
+            if (ymd.length < 3) {
+                ymd = [De.getFullYear(), De.getMonth() + 1, De.getDate()];
             }
         }
         Dates.inymd = ymd;
-        Dates.viewDate(ymd[0], ymd[1]-1, ymd[2]);
+        -Dates.viewDate(ymd[0], ymd[1] - 1, ymd[2]);
+        +Dates.viewDate(ymd[elemIndexMap.year], ymd[elemIndexMap.month] - 1, ymd[elemIndexMap.day]);
     };
+
+
 
 //是否显示零件
     Dates.iswrite = function(){
@@ -622,7 +656,7 @@
         options.zIndex ? Dates.box.style.zIndex = options.zIndex : Dates.removeCssAttr(Dates.box, 'z-index');
         Dates.stopMosup('click', Dates.box);
 
-        Dates.initDate();
+        Dates.initDate(options.format);
         Dates.iswrite();
         Dates.check();
     };
@@ -643,14 +677,31 @@
     };
 
 //转换日期格式
-    Dates.parse = function(ymd, hms, format){
-        ymd = ymd.concat(hms);
+    Dates.parse = function (ymd, hms, format) {
+        ymd = ymd.concat(hms); // [year, month, day, hour, minute, second]
         format = format || (Dates.options ? Dates.options.format : config.format);
-        return format.replace(/YYYY|MM|DD|hh|mm|ss/g, function(str, index){
-            ymd.index = ++ymd.index|0;
-            return Dates.digit(ymd[ymd.index]);
+        return format.replace(/YYYY|MM|DD|hh|mm|ss/g, function (str, index) {
+            //-        ymd.index = ++ymd.index|0;
+            //-        return Dates.digit(ymd[ymd.index]);
+            var pos = -1;
+            if (str === 'YYYY') {
+                pos = 0;
+            } else if (str === 'MM') {
+                pos = 1;
+            } else if (str === 'DD') {
+                pos = 2;
+            } else if (str === 'hh') {
+                pos = 3;
+            } else if (str === 'mm') {
+                pos = 4;
+            } else if (str === 'ss') {
+                pos = 5;
+            }
+            return Dates.digit(ymd[pos]);
         });
     };
+
+
 
 //返回最终日期
     Dates.creation = function(ymd, hide){
@@ -679,6 +730,7 @@
         //显示更多年月
         Dates.each(S(log.box + ' .laydate_ym'), function(i, elem){
             Dates.on(elem, 'click', function(ev){
+                console.log($(this).attr("class"))
                 Dates.stopmp(ev).reshow();
                 Dates.addClass(this[tags]('div')[0], 'laydate_show');
                 if(!i){
@@ -767,6 +819,8 @@
         Dates.on(as.oclear, 'click', function(){
             Dates.elem[as.elemv] = '';
             Dates.close();
+            //加上这行，在设置options时就可以和choose一样写回调函数了
+            typeof Dates.options.clear === 'function' && Dates.options.clear(getDates);
         });
 
         //今天

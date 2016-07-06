@@ -28,7 +28,7 @@
 		u.id as user_id,
 		u.name as user_name,
 		u.email as user_email
-		from ss_team t, ss_user m, ss_user u
+		from cy_sys_team t, cy_sys_user m, cy_sys_user u
 		where t.master_id=m.id and t.id=u.team_id
 		and t.id=#{id}
 	</select>

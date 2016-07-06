@@ -16,7 +16,7 @@ import java.util.Date;
  * 当前在线会话
  */
 @Entity
-@Table(name = "ss_user_online")
+@Table(name = "cy_sys_user_online")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserOnline extends AbstractEntity<String> {
 
