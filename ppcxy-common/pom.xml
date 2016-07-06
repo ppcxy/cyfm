@@ -12,6 +12,7 @@
     <artifactId>ppcxy-common</artifactId>
     <packaging>jar</packaging>
     <name>ppcxy :: Module :: common</name>
+
     <dependencies>
         <!-- SPRINGSIDE begin -->
         <dependency>
