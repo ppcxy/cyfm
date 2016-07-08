@@ -34,7 +34,7 @@
 <title>无标题文档</title>
 <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-$(function(){	
+$(function(){
 	//导航切换
 	$(".menuson li").click(function(){
 		$(".menuson li.active").removeClass("active")
@@ -77,9 +77,9 @@ $(function(){
     </div>
     	<ul class="menuson">
         <li class="active"><cite></cite><a href="index.html" target="rightFrame">首页模版</a><i></i></li>
-        <li><cite></cite><a href="${ctx}/team" target="rightFrame">团队管理</a><i></i></li>
-        <li><cite></cite><a href="${ctx}/account/user" target="rightFrame">用户管理</a><i></i></li>
-        <li><cite></cite><a href="${ctx}/resource" target="rightFrame">资源管理</a><i></i></li>
+        <li><cite></cite><a href="${ctx}/sys/team" target="rightFrame">团队管理</a><i></i></li>
+        <li><cite></cite><a href="${ctx}/sys/user" target="rightFrame">用户管理</a><i></i></li>
+        <li><cite></cite><a href="${ctx}/sys/resource" target="rightFrame">资源管理</a><i></i></li>
         <li><cite></cite><a href="right.html" target="rightFrame">数据列表</a><i></i></li>
         <li><cite></cite><a href="imgtable.html" target="rightFrame">图片数据表</a><i></i></li>
         <li><cite></cite><a href="form.html" target="rightFrame">添加编辑</a><i></i></li>

@@ -10,7 +10,7 @@ import com.netflix.hystrix.HystrixCommand.Setter;
 import com.netflix.hystrix.HystrixCommandMetrics.HealthCounts;
 import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
 import com.netflix.hystrix.util.HystrixRollingNumberEvent;
-import com.ppcxy.cyfm.sys.webservice.rest.UserDTO;
+import com.ppcxy.cyfm.sys.webservice.rest.dto.UserDTO;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

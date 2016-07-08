@@ -6,7 +6,7 @@
 package com.ppcxy.cyfm.showcase.functional.rest;
 
 import com.ppcxy.cyfm.showcase.functional.BaseFunctionalTestCase;
-import com.ppcxy.cyfm.sys.webservice.rest.UserDTO;
+import com.ppcxy.cyfm.sys.webservice.rest.dto.UserDTO;
 import org.junit.Test;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;

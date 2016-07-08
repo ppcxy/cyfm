@@ -1,7 +1,7 @@
 package org.apache.shiro.session.mgt.eis;
 
-import com.ppcxy.cyfm.sys.entity.UserOnline;
-import com.ppcxy.cyfm.sys.service.UserOnlineService;
+import com.ppcxy.cyfm.sys.entity.user.UserOnline;
+import com.ppcxy.cyfm.sys.service.user.UserOnlineService;
 import org.apache.shiro.ShiroConstants;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.OnlineSession;

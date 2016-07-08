@@ -5,7 +5,7 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.schedule;
 
-import com.ppcxy.cyfm.sys.service.UserService;
+import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;

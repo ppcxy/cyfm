@@ -5,8 +5,8 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.data;
 
-import com.ppcxy.cyfm.sys.entity.Role;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.permission.Role;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.test.data.RandomData;
 
 /**

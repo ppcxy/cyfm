@@ -2,8 +2,8 @@ package org.apache.shiro.web.session.mgt;
 
 import com.google.common.collect.Lists;
 import com.ppcxy.common.Constants;
-import com.ppcxy.cyfm.sys.entity.UserOnline;
-import com.ppcxy.cyfm.sys.service.UserOnlineService;
+import com.ppcxy.cyfm.sys.entity.user.UserOnline;
+import com.ppcxy.cyfm.sys.service.user.UserOnlineService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.shiro.ShiroConstants;
 import org.apache.shiro.session.ExpiredSessionException;

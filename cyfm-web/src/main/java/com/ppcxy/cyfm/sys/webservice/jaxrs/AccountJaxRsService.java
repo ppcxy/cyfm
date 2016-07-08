@@ -13,12 +13,12 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.ppcxy.cyfm.sys.service.AccountEffectiveService;
-import com.ppcxy.cyfm.sys.webservice.rest.UserDTO;
+import com.ppcxy.cyfm.sys.service.user.AccountEffectiveService;
+import com.ppcxy.cyfm.sys.webservice.rest.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.mapper.BeanMapper;
 import org.springside.modules.web.MediaTypes;
 

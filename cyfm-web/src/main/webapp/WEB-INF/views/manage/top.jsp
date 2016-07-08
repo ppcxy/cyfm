@@ -5,6 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
+<style>
+    .nav{float:left;}
+    .nav li{float:left;width:87px;height:88px; text-align:center;}
+    .nav li a{display:block;width:87px;height:88px;-moz-transition: none; transition: background-color 0.3s linear; -moz-transition: background-color 0.3s linear; -webkit-transition: background-color 0.3s linear; -o-transition: background-color 0.3s linear; }
+    .nav li a.selected{background:url(${ctx}/static/manage/images/navbg.png) no-repeat;}
+    .nav li a:hover{display:block;background:#000;color:#fff;background: none repeat scroll 0% 0% rgb(43, 127, 181);}
+    .nav li img{margin-top:10px;}
+    .nav li a{display:block;}
+    .nav a h2{font-size:14px;color:#d6e8f1;}
+    .nav a:hover h2{color:#fff;}
+</style>
 <script language="JavaScript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 $(function(){	
@@ -17,9 +28,7 @@ $(function(){
 
 </script>
 </head>
-
 <body style="background:url(${ctx}/static/manage/images/topbg.gif) repeat-x;">
-
     <div class="topleft">
     <a href="${ctx}/manage" target="_parent"><img src="${ctx}/static/manage/images/logo.png" title="系统首页" /></a>
     </div>

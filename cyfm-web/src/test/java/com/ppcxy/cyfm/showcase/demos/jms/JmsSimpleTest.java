@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import com.ppcxy.cyfm.showcase.demos.jms.simple.NotifyMessageListener;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.test.category.UnStable;
 import org.springside.modules.test.log.LogbackListAppender;
 import org.springside.modules.test.spring.SpringContextTestCase;

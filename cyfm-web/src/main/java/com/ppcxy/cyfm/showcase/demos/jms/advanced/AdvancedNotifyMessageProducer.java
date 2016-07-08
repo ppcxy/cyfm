@@ -13,7 +13,7 @@ import javax.jms.Session;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 
 /**
  * JMS用户变更消息生产者.
