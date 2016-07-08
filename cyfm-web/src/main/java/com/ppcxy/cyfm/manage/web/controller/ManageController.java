@@ -1,9 +1,9 @@
 package com.ppcxy.cyfm.manage.web.controller;
 
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
-import com.ppcxy.cyfm.sys.entity.User;
-import com.ppcxy.cyfm.sys.entity.dto.Menu;
-import com.ppcxy.cyfm.sys.service.ResourceService;
+import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.entity.resource.dto.Menu;
+import com.ppcxy.cyfm.sys.service.resource.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +39,11 @@ public class ManageController {
     @RequestMapping(value = "/manage/top")
     public String top() {
         return "manage/top";
+    }
+
+    @RequestMapping(value = {"/manage/place"})
+    public String place() {
+        return "manage/place";
     }
 
     @RequestMapping(value = "/manage/index")

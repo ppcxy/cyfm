@@ -8,7 +8,7 @@
 			<a href="${ctx}/${viewPrefix}/update/${id}" id="editLink-${name}" class="btn btn-xs purple"><i class="fa fa-edit"></i> 修改</a>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="user:delete">
-			<a href="${ctx}/${viewPrefix}/delete/${id}" id="deleteLink-${name}" class="btn btn-xs red"><i class="fa fa-trash"></i> 删除</a>
+			<a href="${ctx}/${viewPrefix}/delete/${id}" id="deleteLink-${name}" class="btn btn-xs red deleteRow"><i class="fa fa-trash"></i> 删除</a>
 		</shiro:hasPermission>
 	</td>
 </shiro:hasPermission>

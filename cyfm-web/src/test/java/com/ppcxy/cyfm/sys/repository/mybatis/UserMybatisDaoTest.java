@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import com.ppcxy.cyfm.showcase.data.UserData;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import com.google.common.collect.Maps;
@@ -46,18 +46,18 @@ public class UserMybatisDaoTest extends SpringTransactionalTestCase {
 	@Test
 	public void createAndDeleteUser() throws Exception {
 		// create
-		int count = countRowsInTable("ss_user");
+		int count = countRowsInTable("cy_sys_user");
 		User user = UserData.randomUser();
 		userDao.save(user);
 		Long id = user.getId();
 
-		assertThat(countRowsInTable("ss_user")).isEqualTo(count + 1);
+		assertThat(countRowsInTable("cy_sys_user")).isEqualTo(count + 1);
 		User result = userDao.get(id);
 		assertThat(result.getLoginName()).isEqualTo(user.getLoginName());
 
 		// delete
 		userDao.delete(id);
-		assertThat(countRowsInTable("ss_user")).isEqualTo(count);
+		assertThat(countRowsInTable("cy_sys_user")).isEqualTo(count);
 		assertThat(userDao.get(id)).isNull();
 	}
 

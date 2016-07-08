@@ -142,10 +142,6 @@
             <artifactId>jcaptcha</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.octo.captcha</groupId>
-            <artifactId>jcaptcha-integration-simple-servlet</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>

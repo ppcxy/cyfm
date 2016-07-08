@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.List;
 import java.util.Map;
 
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.junit.Test;
 import org.springside.modules.utils.Collections3;
 

@@ -6,9 +6,11 @@
 package com.ppcxy.cyfm.sys.service;
 
 import com.ppcxy.common.exception.BaseException;
-import com.ppcxy.cyfm.sys.entity.User;
-import com.ppcxy.cyfm.sys.repository.jpa.UserDao;
+import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.repository.jpa.user.UserDao;
 import com.ppcxy.common.utils.ShiroUser;
+import com.ppcxy.cyfm.sys.service.user.PasswordService;
+import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -85,13 +85,13 @@
         <bean class="com.ppcxy.common.web.interceptor.SetCommonDataInterceptor">
             <property name="excludeUrlPatterns">
                 <value>
-                    /admin/polling
+                    /polling
                 </value>
             </property>
         </bean>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/admin/polling"/>
+            <mvc:exclude-mapping path="/polling"/>
             <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor"/>
         </mvc:interceptor>
         <!--<mvc:interceptor>-->

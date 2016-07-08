@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.jms.Destination;
 
 import org.springframework.jms.core.JmsTemplate;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 
 /**
  * JMS用户变更消息生产者.

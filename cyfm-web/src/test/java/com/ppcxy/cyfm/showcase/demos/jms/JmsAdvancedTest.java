@@ -23,7 +23,7 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import com.ppcxy.cyfm.showcase.demos.jms.advanced.AdvancedNotifyMessageListener;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.test.category.UnStable;
 import org.springside.modules.test.log.LogbackListAppender;
 import org.springside.modules.test.spring.SpringContextTestCase;

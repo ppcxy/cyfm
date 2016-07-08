@@ -17,7 +17,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import com.ppcxy.cyfm.showcase.data.UserData;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.showcase.functional.BaseFunctionalTestCase;
 import com.ppcxy.cyfm.sys.webservice.soap.AccountSoapService;
 import com.ppcxy.cyfm.sys.webservice.soap.response.GetUserResult;

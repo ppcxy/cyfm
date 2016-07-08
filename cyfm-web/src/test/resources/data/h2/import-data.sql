@@ -13,11 +13,15 @@ insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status
 
 INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'icon-th-large', 'root', 0, '0', '/', 1, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (26, '系统管理', 'fa fa-cogs', '', 1, '01/', '', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (27, '用户管理', 'fa fa-user', 'user', 26, '01/26/', '/account/user', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (28, '团队管理', 'fa fa-users', 'team', 26, '01/26/', '/team', 2, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (29, '资源管理', 'icon-refresh', 'resource', 26, '01/26/', '/resource', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (27, '用户管理', 'fa fa-user', 'user', 26, '01/26/', '/sys/user', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (28, '团队管理', 'fa fa-users', 'team', 26, '01/26/', '/sys/team', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (29, '资源管理', 'icon-refresh', 'resource', 26, '01/26/', '/sys/resource', 3, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (30, '监控维护', 'fa fa-cogs', '', 1, '01/', '', 2, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (31, 'Druid监控', 'ztree_file', '', 30, '01/30/', '/admin/monitor/druid/index.html', 1, true, 0);
+INSERT INTO cy_sys_resource (id,NAME, ICON, IDENTITY, PARENT_ID, PARENT_IDS, URL, WEIGHT, IS_SHOW, RESOURCE_TYPE) VALUES (31,'Druid监控', 'ztree_file', '', 30, '01/30/', '/manage/monitor/druid/index.html', 1, true, 0);
+INSERT INTO cy_sys_resource (id,NAME, ICON, IDENTITY, PARENT_ID, PARENT_IDS, URL, WEIGHT, IS_SHOW, RESOURCE_TYPE) VALUES (32,'JVM监控', 'ztree_file', 'monitor:jvm', 30, '01/30/', '/manage/monitor/jvm', 2, true, 0);
+INSERT INTO cy_sys_resource (id,NAME, ICON, IDENTITY, PARENT_ID, PARENT_IDS, URL, WEIGHT, IS_SHOW, RESOURCE_TYPE) VALUES (33,'SQL/JPQL操作', 'ztree_file', '', 30, '01/30/', '/manage/monitor/db/sql', 3, true, 0);
+INSERT INTO cy_sys_resource (id,NAME, ICON, IDENTITY, PARENT_ID, PARENT_IDS, URL, WEIGHT, IS_SHOW, RESOURCE_TYPE) VALUES (34,'Ehcache监控', 'ztree_file', '', 30, '01/30/', '/manage/monitor/ehcache', 4, true, 0);
+INSERT INTO cy_sys_resource (id,NAME, ICON, IDENTITY, PARENT_ID, PARENT_IDS, URL, WEIGHT, IS_SHOW, RESOURCE_TYPE) VALUES (35,'Hibernate监控', 'ztree_file', 'monitor:hibernate', 30, '01/30/', '/manage/monitor/hibernate', 5, true, 0);
 
 
 

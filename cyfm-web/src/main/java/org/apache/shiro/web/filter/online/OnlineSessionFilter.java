@@ -2,7 +2,7 @@
 package org.apache.shiro.web.filter.online;
 
 import com.ppcxy.common.Constants;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.apache.shiro.ShiroConstants;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.OnlineSession;
