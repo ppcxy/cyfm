@@ -5,15 +5,6 @@
  *******************************************************************************/
 package org.springside.modules.nosql.redis.service.elector;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.security.SecureRandom;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springside.modules.nosql.redis.JedisTemplate;
@@ -22,8 +13,16 @@ import org.springside.modules.nosql.redis.JedisUtils;
 import org.springside.modules.nosql.redis.pool.JedisPool;
 import org.springside.modules.utils.Threads;
 import org.springside.modules.utils.Threads.WrapExceptionRunnable;
-
 import redis.clients.jedis.Jedis;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.security.SecureRandom;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Master选举实现, 基于setNx()与expire()两大API.
@@ -71,7 +70,7 @@ public class MasterElector implements Runnable {
 	 */
 	public void start() {
 		internalScheduledThreadPool = Executors.newScheduledThreadPool(1,
-				Threads.buildJobFactory("Master-Elector-" + masterKey + "-%d"));
+				Threads.buildThreadFactory("Master-Elector-" + masterKey + "-%d"));
 		start(internalScheduledThreadPool);
 	}
 
@@ -98,7 +97,7 @@ public class MasterElector implements Runnable {
 		electorJob.cancel(false);
 
 		if (internalScheduledThreadPool != null) {
-			Threads.normalShutdown(internalScheduledThreadPool, 5, TimeUnit.SECONDS);
+			Threads.gracefulShutdown(internalScheduledThreadPool, 5, TimeUnit.SECONDS);
 		}
 	}
 

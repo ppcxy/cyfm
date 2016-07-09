@@ -14,7 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springside.modules.beanvalidator.BeanValidators;
 import org.springside.modules.mapper.JsonMapper;
-import org.springside.modules.web.MediaTypes;
+import org.springside.modules.constants.MediaTypes;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Map;
