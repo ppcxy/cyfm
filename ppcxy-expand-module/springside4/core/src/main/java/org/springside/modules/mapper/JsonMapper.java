@@ -64,9 +64,7 @@ public class JsonMapper {
 	}
 
 	/**
-	 * Object可以是POJO，也可以是Collection或数组。
-	 * 如果对象为Null, 返回"null".
-	 * 如果集合为空集合, 返回"[]".
+	 * Object可以是POJO，也可以是Collection或数组。 如果对象为Null, 返回"null". 如果集合为空集合, 返回"[]".
 	 */
 	public String toJson(Object object) {
 
@@ -81,8 +79,7 @@ public class JsonMapper {
 	/**
 	 * 反序列化POJO或简单Collection如List<String>.
 	 * 
-	 * 如果JSON字符串为Null或"null"字符串, 返回Null.
-	 * 如果JSON字符串为"[]", 返回空集合.
+	 * 如果JSON字符串为Null或"null"字符串, 返回Null. 如果JSON字符串为"[]", 返回空集合.
 	 * 
 	 * 如需反序列化复杂Collection如List<MyBean>, 请使用fromJson(String, JavaType)
 	 * 
@@ -102,7 +99,7 @@ public class JsonMapper {
 	}
 
 	/**
-	 * 反序列化复杂Collection如List<Bean>, 先使用createCollectionType()或contructMapType()构造类型, 然后调用本函数.
+	 * 反序列化复杂Collection如List<Bean>, contructCollectionType()或contructMapType()构造类型, 然后调用本函数.
 	 * 
 	 * @see #createCollectionType(Class, Class...)
 	 */
@@ -154,9 +151,7 @@ public class JsonMapper {
 	}
 
 	/**
-	 * 設定是否使用Enum的toString函數來讀寫Enum,
-	 * 為False時時使用Enum的name()函數來讀寫Enum, 默認為False.
-	 * 注意本函數一定要在Mapper創建後, 所有的讀寫動作之前調用.
+	 * 設定是否使用Enum的toString函數來讀寫Enum, 為False時時使用Enum的name()函數來讀寫Enum, 默認為False. 注意本函數一定要在Mapper創建後, 所有的讀寫動作之前調用.
 	 */
 	public void enableEnumUseToString() {
 		mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springside.modules.utils.Exceptions;
-import org.springside.modules.web.MediaTypes;
+import org.springside.modules.constants.MediaTypes;
 
 /**
  * 自定义ExceptionHandler，专门处理Hystrix异常.

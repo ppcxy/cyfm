@@ -5,12 +5,7 @@
  *******************************************************************************/
 package org.springside.modules.nosql.redis.service.scheduler;
 
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springside.modules.nosql.redis.JedisScriptExecutor;
@@ -18,7 +13,11 @@ import org.springside.modules.nosql.redis.pool.JedisPool;
 import org.springside.modules.utils.Threads;
 import org.springside.modules.utils.Threads.WrapExceptionRunnable;
 
-import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 定时分发任务的管理器。
@@ -67,7 +66,7 @@ public class JobDispatcher implements Runnable {
 	 */
 	public void start() {
 		internalScheduledThreadPool = Executors.newScheduledThreadPool(1,
-				Threads.buildJobFactory("Job-Dispatcher-" + jobName + "-%d"));
+				Threads.buildThreadFactory("Job-Dispatcher-" + jobName + "-%d"));
 
 		start(internalScheduledThreadPool);
 	}
@@ -89,7 +88,7 @@ public class JobDispatcher implements Runnable {
 		dispatchJob.cancel(false);
 
 		if (internalScheduledThreadPool != null) {
-			Threads.normalShutdown(internalScheduledThreadPool, 5, TimeUnit.SECONDS);
+			Threads.gracefulShutdown(internalScheduledThreadPool, 5, TimeUnit.SECONDS);
 		}
 	}
 
