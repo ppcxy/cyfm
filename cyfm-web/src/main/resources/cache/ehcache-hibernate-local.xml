@@ -8,14 +8,14 @@
 		overflowToDisk="true" maxEntriesLocalDisk="100000" />
 
 	<!-- Special objects setting. -->
-	<cache name="com.ppcxy.cyfm.sys.entity.User" maxEntriesLocalHeap="1000" eternal="true"
-		overflowToDisk="true" maxEntriesLocalDisk="10000" />
-	<cache name="com.ppcxy.cyfm.sys.entity.User.roleList" maxEntriesLocalHeap="1000" eternal="true"
-		overflowToDisk="true" maxEntriesLocalDisk="10000" />
-	<cache name="com.ppcxy.cyfm.sys.entity.Team" maxEntriesLocalHeap="100" eternal="true"
-		overflowToDisk="true" maxEntriesLocalDisk="1000" />
-	<cache name="com.ppcxy.cyfm.sys.entity.Role" maxEntriesLocalHeap="100"
-		eternal="true" overflowToDisk="true" maxEntriesLocalDisk="1000" />
+	<cache name="com.ppcxy.cyfm.sys.entity.user.User" maxEntriesLocalHeap="1000" eternal="true"
+		   overflowToDisk="true" maxEntriesLocalDisk="10000" />
+	<cache name="com.ppcxy.cyfm.sys.entity.user.User.roleList" maxEntriesLocalHeap="1000" eternal="true"
+		   overflowToDisk="true" maxEntriesLocalDisk="10000" />
+	<cache name="com.ppcxy.cyfm.sys.entity.team.Team" maxEntriesLocalHeap="100" eternal="true"
+		   overflowToDisk="true" maxEntriesLocalDisk="1000" />
+	<cache name="com.ppcxy.cyfm.sys.entity.permission.Role" maxEntriesLocalHeap="100"
+		   eternal="true" overflowToDisk="true" maxEntriesLocalDisk="1000" />
 	<cache name="com.ppcxy.cyfm.sys.entity.SysResource" maxEntriesLocalHeap="10000"
 		   eternal="true" overflowToDisk="true" maxEntriesLocalDisk="100000" />
 </ehcache>

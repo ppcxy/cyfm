@@ -2,10 +2,10 @@
 package org.apache.shiro.realm;
 
 import com.ppcxy.common.utils.ShiroUser;
-import com.ppcxy.cyfm.sys.entity.Role;
-import com.ppcxy.cyfm.sys.entity.User;
-import com.ppcxy.cyfm.sys.service.PasswordService;
-import com.ppcxy.cyfm.sys.service.UserService;
+import com.ppcxy.cyfm.sys.entity.permission.Role;
+import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.service.user.PasswordService;
+import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -58,7 +58,7 @@ public class UserDBRealm extends AuthorizingRealm {
             //已锁定
             throw new LockedAccountException(e.getMessage(), e);
         } catch (Exception e) {
-            log.error("login error", e);
+            log.error("user error", e);
             throw new AuthenticationException(new UserException("user.unknown.error", null));
         }
 

@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import com.ppcxy.cyfm.sys.entity.Team;
+import com.ppcxy.cyfm.sys.entity.team.Team;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 @DirtiesContext

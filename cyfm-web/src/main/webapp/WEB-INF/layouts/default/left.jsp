@@ -1,11 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<div id="leftbar" class="span2">
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
+<div id="leftbar" class="col-md-2">
 	<h1>独立演示</h1>
 	<div class="submenu">
-		<a id="user-tab" href="${ctx}/account/user">帐号管理</a>
+		<a id="user-tab" href="${ctx}/sys/user">帐号管理</a>
 		<a id="web-tab" href="${ctx}/story/web">Web演示</a>
 		<a id="webservice-tab"href="${ctx}/story/webservice">WebService演示</a>
 		<a id="hystrix-tab" href="${ctx}/hystrix">Hystrix演示</a>
@@ -28,14 +26,3 @@
 	<div class="submenu custom">
 	</div>
 </div>
-<script>
-	<%--$.ajax({--%>
-		<%--url:"${ctx}/resource/load",--%>
-		<%--type:"get",--%>
-	<%--}).done(function(datas){--%>
-		<%--$.each(datas, function (index, obj) {--%>
-			<%--$('div.submenu.custom').append('<a id="'+obj.identity+'-tab"href="${ctx}' + obj.url + '">'+obj.name+'</a>')--%>
-		<%--});--%>
-	<%--})--%>
-
-</script>

@@ -61,7 +61,7 @@
                 <constructor-arg ref="dataSource"/>
             </bean>
         </property>
-        <property name="generateDdl" value="true"/>
+        <property name="generateDdl" value="false"/>
         <property name="showSql" value="true"/>
     </bean>
 
@@ -309,12 +309,12 @@
           			  classpath*:/application.functional-local.properties"/>
 
         <!-- Tomcat JDBC连接池 -->
-        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-            <property name="driverClassName" value="${jdbc.driver}"/>
-            <property name="url" value="${jdbc.url}"/>
-            <property name="username" value="${jdbc.username}"/>
-            <property name="password" value="${jdbc.password}"/>
-            <property name="defaultAutoCommit" value="false"/>
+        <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+            <property name="driverClassName" value="${jdbc.driver}" />
+            <property name="url" value="${jdbc.url}" />
+            <property name="username" value="${jdbc.username}" />
+            <property name="password" value="${jdbc.password}" />
+            <property name="defaultAutoCommit" value="false" />
         </bean>
 
         <!-- Spring Simple连接池 for quartz -->

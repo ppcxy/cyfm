@@ -12,6 +12,7 @@
     <artifactId>ppcxy-common</artifactId>
     <packaging>jar</packaging>
     <name>ppcxy :: Module :: common</name>
+
     <dependencies>
         <!-- SPRINGSIDE begin -->
         <dependency>
@@ -68,12 +69,6 @@
             <artifactId>jcaptcha</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.octo.captcha</groupId>
-            <artifactId>jcaptcha-integration-simple-servlet</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- Security begin -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -140,6 +135,18 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eweb4j</groupId>
+            <artifactId>fel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ocpsoft.prettytime</groupId>
+            <artifactId>prettytime</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

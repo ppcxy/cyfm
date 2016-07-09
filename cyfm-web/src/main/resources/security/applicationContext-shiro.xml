@@ -149,7 +149,7 @@
                 /logout = logout
                 /jolokia/** = authc,roles[admin]
                 /api/secure/** = authcBasic
-                /admin/polling = user,sysUser
+                /polling = user,sysUser
                 /WEB-INF/views/error/** = anon
                 /hystrix/** = anon
                 / = anon

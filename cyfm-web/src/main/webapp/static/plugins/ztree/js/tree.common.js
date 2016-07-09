@@ -132,9 +132,10 @@ $.zTree = {
         function beforeRename(treeId, treeNode, newName) {
             var oldName = treeNode.name;
             if (newName.length == 0) {
-                $.app.warn("节点名称不能为空。");
+                $cy.warn("节点名称不能为空。");
                 return false;
             }
+            //TODO 重命名逻辑需要修改
             if(!confirm("确认重命名吗？")) {
                 var zTree = $.fn.zTree.getZTreeObj(treeId);
                 zTree.cancelEditName(treeNode.name);
@@ -150,9 +151,9 @@ $.zTree = {
          */
         function onRename(e, treeId, treeNode) {
             var url = config.renameUrl.replace("{id}", treeNode.id).replace("{newName}",treeNode.name);
-            $.app.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function (data) {
-                $.app.waitingOver();
+                $cy.waitingOver();
             });
         }
         /**
@@ -163,9 +164,9 @@ $.zTree = {
          */
         function onRemove(e, treeId, treeNode) {
             var url = config.removeUrl.replace("{id}", treeNode.id);
-            $.app.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function (data) {
-                $.app.waitingOver();
+                $cy.waitingOver();
             });
         }
 
@@ -177,7 +178,7 @@ $.zTree = {
          */
         function onAdd(e, treeId, treeNode) {
             var url = config.addUrl.replace("{id}", treeNode.id);
-            $.app.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function(newNode) {
                 var node = { id:newNode.id, pId:newNode.pId, name:newNode.name, iconSkin:newNode.iconSkin, open: true,
                     click : newNode.click, root :newNode.root,isParent:newNode.isParent};
@@ -185,7 +186,7 @@ $.zTree = {
 //                zTree.selectNode(newNode);
                 $("#" + newNode.tId + "_a").click();
 
-                $.app.waitingOver();
+                $cy.waitingOver();
             });
         }
 
@@ -206,9 +207,9 @@ $.zTree = {
             var targetId = targetNode.id;
             var moveType = moveType;
             var url = config.moveUrl.replace("{sourceId}", sourceId).replace("{targetId}", targetId).replace("{moveType}", moveType);
-            $.app.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function (newNode) {
-                $.app.waitingOver();
+                $cy.waitingOver();
             });
         }
 
@@ -249,7 +250,7 @@ $.zTree = {
                   (config.onlyDisplayShow ? "&search.show_eq=true" : "");
 
             config.treeId = treeSelect;
-            $.app.initAutocomplete(config.autocomplete);
+            $cy.initAutocomplete(config.autocomplete);
         }
 
         return treeSelect;
@@ -422,7 +423,7 @@ $.zTree = {
                        (config.onlyDisplayShow ? "&search.show_eq=true" : "");
 
                 config.treeId = treeSelect;
-                $.app.initAutocomplete(config.autocomplete);
+                $cy.initAutocomplete(config.autocomplete);
             }
         };
         var initialize = false;
@@ -473,7 +474,7 @@ $.zTree = {
             }
 
             if(checkbox.filter("[root='true']").length) {
-                $.app.warn("根节点不能移动！");
+                $cy.warn("根节点不能移动！");
                 return;
             }
             window.location.href = moveTreeUrl.replace("{id}", checkbox.val()) + "&BackURL=" + $.table.encodeTableURL(table);
@@ -497,10 +498,10 @@ $.zTree = {
             }
 
             if(checkbox.filter("[root='true']").length) {
-                $.app.warn("您删除的数据中包含根节点，根节点不能删除！");
+                $cy.warn("您删除的数据中包含根节点，根节点不能删除！");
                 return;
             }
-            $.app.confirm({
+            $cy.confirm({
                 width:500,
                 message : "确认删除吗？",
                 ok : function() {

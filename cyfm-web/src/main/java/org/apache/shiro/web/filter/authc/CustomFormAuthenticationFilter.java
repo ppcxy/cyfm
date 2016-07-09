@@ -2,8 +2,8 @@
 package org.apache.shiro.web.filter.authc;
 
 import com.ppcxy.common.utils.ShiroUserInfoUtils;
-import com.ppcxy.cyfm.sys.entity.User;
-import com.ppcxy.cyfm.sys.service.UserService;
+import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.util.WebUtils;

@@ -84,6 +84,6 @@
 	<!-- root -->
 	<root level="WARN">
 		<appender-ref ref="console" />
-		<appender-ref ref="defaultLogFile" />
+		<appender-ref ref="defaultlogFile" />
 	</root>
 </configuration>

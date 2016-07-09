@@ -8,7 +8,7 @@ package com.ppcxy.cyfm.showcase.demos.hystrix.web;
 import com.google.common.collect.Maps;
 import com.ppcxy.cyfm.showcase.demos.hystrix.dependency.DependencyResourceController;
 import com.ppcxy.cyfm.showcase.demos.hystrix.service.HystrixUserService;
-import com.ppcxy.cyfm.sys.webservice.rest.UserDTO;
+import com.ppcxy.cyfm.sys.webservice.rest.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

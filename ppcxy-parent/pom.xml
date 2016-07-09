@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.ppcxy</groupId>
     <artifactId>ppcxy-parent</artifactId>
     <version>1.0-Snapshot</version>
@@ -39,6 +40,7 @@
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-io.version>2.4</commons-io.version>
         <guava.version>17.0</guava.version>
+        <prettytime.version>3.2.3.Final</prettytime.version>
         <joda-time.version>2.3</joda-time.version>
         <dozer.version>5.5.1</dozer.version>
         <freemarker.version>2.3.20</freemarker.version>
@@ -230,19 +232,6 @@
                 <version>${jcaptcha.version}</version>
                 <scope>runtime</scope>
             </dependency>
-            <dependency>
-                <groupId>com.octo.captcha</groupId>
-                <artifactId>jcaptcha-integration-simple-servlet</artifactId>
-                <version>${jcaptcha.version}</version>
-                <scope>runtime</scope>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>servlet-api</artifactId>
-                        <groupId>javax.servlet</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
             <!-- j2ee web spec -->
             <!-- update to servlet 3.0 for spring 4.0 MockHttpServletRequest  -->
             <!-- j2ee web spec -->
@@ -544,6 +533,16 @@
 
             <!-- GENERAL UTILS begin -->
             <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>2.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eweb4j</groupId>
+                <artifactId>fel</artifactId>
+                <version>0.8</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
@@ -578,6 +577,11 @@
             </dependency>
 
             <!-- joda -->
+            <dependency>
+                <groupId>org.ocpsoft.prettytime</groupId>
+                <artifactId>prettytime</artifactId>
+                <version>${prettytime.version}</version>
+            </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>

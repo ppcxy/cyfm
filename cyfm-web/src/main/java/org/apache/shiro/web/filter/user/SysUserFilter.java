@@ -2,8 +2,8 @@
 package org.apache.shiro.web.filter.user;
 
 import com.ppcxy.common.Constants;
-import com.ppcxy.cyfm.sys.entity.User;
-import com.ppcxy.cyfm.sys.service.UserService;
+import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;

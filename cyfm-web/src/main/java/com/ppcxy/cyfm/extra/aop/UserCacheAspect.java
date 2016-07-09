@@ -1,7 +1,7 @@
 package com.ppcxy.cyfm.extra.aop;
 
 import com.ppcxy.common.cache.BaseCacheAspect;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class UserCacheAspect extends BaseCacheAspect {
     /**
      * 匹配用户Service
      */
-    @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.UserService)")
+    @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.user.UserService)")
     private void userServicePointcut() {
     }
 
@@ -193,7 +193,12 @@ public class UserCacheAspect extends BaseCacheAspect {
 
 
     public void evictId(String id) {
-        evict(idKey(id));
+        //取出cache的user,根据cache的user弹出缓存。
+        User cacheUer = get(idKey(String.valueOf(id)));
+        evict(idKey(String.valueOf(id)));
+        evict(loginNameKey(cacheUer.getLoginName()));
+        evict(emailKey(cacheUer.getEmail()));
+        evict(telKey(cacheUer.getTel()));
     }
 
     public void evict(User user) {
@@ -201,10 +206,12 @@ public class UserCacheAspect extends BaseCacheAspect {
             return;
         }
         Long id = user.getId();
+        //取出cache的user,根据cache的user弹出缓存。
+        User cacheUer = get(idKey(String.valueOf(id)));
         evict(idKey(String.valueOf(id)));
-        evict(loginNameKey(user.getLoginName()));
-        evict(emailKey(user.getEmail()));
-        evict(telKey(user.getTel()));
+        evict(loginNameKey(cacheUer.getLoginName()));
+        evict(emailKey(cacheUer.getEmail()));
+        evict(telKey(cacheUer.getTel()));
     }
 
 

@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/layouts/">
-	<excludes>
-		<pattern>/admin/monitor/druid/*</pattern>
-		<pattern>/login*</pattern>
-		<pattern>/resource/*</pattern>
-		<pattern>/static/*</pattern>
-		<pattern>/manage/*</pattern>
-		<pattern>/cxf/*</pattern>
-		<pattern>/api/*</pattern>
-		<pattern>/javasimon/*</pattern>
-	</excludes>
+    <excludes>
+        <pattern>/manage/*/</pattern>
+        <pattern>*/druid/*</pattern>
+        <pattern>/static/*</pattern>
+        <pattern>/login*</pattern>
+        <pattern>/cxf/*</pattern>
+        <pattern>/api/*</pattern>
+        <pattern>/javasimon/*</pattern>
+        <pattern>/**/tree?*</pattern>
+    </excludes>
 
-	<decorator name="basic" page="basic.jsp">
-		<pattern>/*</pattern>
-	</decorator>
-	<decorator name="content" page="content.jsp">
-		<pattern>/*</pattern>
-	</decorator>
-	<decorator name="senior">
-		<pattern>/*</pattern>
-	</decorator>
-	<decorator name="printable">
-		<pattern>/*</pattern>
-	</decorator>
-	<decorator name="default" page="default.jsp">
-		<pattern>/*</pattern>
-	</decorator>
+    <decorator name="basic" page="basic.jsp"></decorator>
+    <decorator name="content" page="content.jsp"></decorator>
+    <decorator name="default" page="default.jsp">
+        <pattern>/*</pattern>
+    </decorator>
 </decorators>

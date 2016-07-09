@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ppcxy.common.repository.mybatis.MyBatisRepository;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 
 /**
  * 通过@MapperScannerConfigurer扫描目录中的所有接口, 动态在Spring Context中生成实现.
