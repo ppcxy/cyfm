@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
-import com.ppcxy.cyfm.sys.webservice.rest.UserDTO;
+import com.ppcxy.cyfm.sys.webservice.rest.dto.UserDTO;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.exception.HystrixBadRequestException;

@@ -7,7 +7,9 @@ package com.ppcxy.cyfm.sys.webservice.rest;
 
 import javax.annotation.PostConstruct;
 
-import com.ppcxy.cyfm.sys.service.AccountEffectiveService;
+import com.ppcxy.common.exception.web.RestException;
+import com.ppcxy.cyfm.sys.service.user.AccountEffectiveService;
+import com.ppcxy.cyfm.sys.webservice.rest.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.mapper.BeanMapper;
 import org.springside.modules.metrics.Timer;
 import org.springside.modules.metrics.Timer.TimerContext;

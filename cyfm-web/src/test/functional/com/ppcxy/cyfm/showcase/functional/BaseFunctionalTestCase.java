@@ -8,7 +8,7 @@ package com.ppcxy.cyfm.showcase.functional;
 import java.net.URL;
 import java.sql.Driver;
 
-import com.ppcxy.ShowcaseServer;
+import com.ppcxy.QuickstartServer;
 import org.eclipse.jetty.server.Server;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
@@ -64,8 +64,8 @@ public class BaseFunctionalTestCase {
 			// 设定Spring的profile
 			Profiles.setProfileAsSystemProperty(Profiles.FUNCTIONAL_TEST);
 
-			jettyServer = JettyFactory.createServerInSource(new URL(baseUrl).getPort(), ShowcaseServer.CONTEXT);
-			JettyFactory.setTldJarNames(jettyServer, ShowcaseServer.TLD_JAR_NAMES);
+			jettyServer = JettyFactory.createServerInSource(new URL(baseUrl).getPort(), QuickstartServer.CONTEXT);
+			JettyFactory.setTldJarNames(jettyServer, QuickstartServer.TLD_JAR_NAMES);
 			jettyServer.start();
 
 			logger.info("Jetty Server started at {}", baseUrl);

@@ -46,7 +46,7 @@
 
 
         <!--对应数据库表名 -->
-        <table tableName="ss_resource" domainObjectName="Resource" enableCountByExample="false"
+        <table tableName="cy_sys_resource" domainObjectName="Resource" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"

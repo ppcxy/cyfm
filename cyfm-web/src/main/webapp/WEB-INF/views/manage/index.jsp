@@ -11,14 +11,6 @@
 
 
 <body>
-
-	<div class="place">
-    <span>位置：</span>
-    <ul class="placeul">
-    <li><a href="#">首页</a></li>
-    </ul>
-    </div>
-    
     <div class="mainindex">
     
     

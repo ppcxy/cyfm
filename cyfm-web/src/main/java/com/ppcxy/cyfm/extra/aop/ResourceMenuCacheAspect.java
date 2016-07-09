@@ -1,7 +1,7 @@
 package com.ppcxy.cyfm.extra.aop;
 
 import com.ppcxy.common.cache.BaseCacheAspect;
-import com.ppcxy.cyfm.sys.entity.User;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,7 +23,7 @@ public class ResourceMenuCacheAspect extends BaseCacheAspect {
     private String menusKeyPrefix = "menus-";
 
 
-    @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.ResourceService)")
+    @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.resource.ResourceService)")
     private void resourceServicePointcut() {
     }
 

@@ -33,7 +33,6 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
     protected PermissionList permissionList = null;
 
 
-
     @Autowired
     public void setBaseService(BaseTreeableService<M, ID> baseService) {
         this.baseService = baseService;
@@ -159,7 +158,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
 
         baseService.update(m);
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改成功");
-        return redirectToUrl(viewName("success"));
+        return redirectToUrl(viewName("/success"));
     }
 
     @RequestMapping(value = "{id}/delete", method = RequestMethod.GET)

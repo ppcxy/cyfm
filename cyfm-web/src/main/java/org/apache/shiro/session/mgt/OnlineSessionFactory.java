@@ -2,7 +2,7 @@
 package org.apache.shiro.session.mgt;
 
 import com.ppcxy.common.utils.IpUtils;
-import com.ppcxy.cyfm.sys.entity.UserOnline;
+import com.ppcxy.cyfm.sys.entity.user.UserOnline;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.web.session.mgt.WebSessionContext;
 

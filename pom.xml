@@ -11,7 +11,7 @@
 
     <modules>
         <module>ppcxy-common</module>
-        <module>ppcyx-expand-module</module>
+        <module>ppcxy-expand-module</module>
         <module>ppcxy-parent</module>
         <module>cyfm-web</module>
     </modules>

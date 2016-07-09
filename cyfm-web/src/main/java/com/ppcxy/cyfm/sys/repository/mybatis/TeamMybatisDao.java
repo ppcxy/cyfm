@@ -6,7 +6,7 @@
 package com.ppcxy.cyfm.sys.repository.mybatis;
 
 import com.ppcxy.common.repository.mybatis.MyBatisRepository;
-import com.ppcxy.cyfm.sys.entity.Team;
+import com.ppcxy.cyfm.sys.entity.team.Team;
 
 /**
  * 通过@MapperScannerConfigurer扫描目录中的所有接口, 动态在Spring Context中生成实现.

@@ -10,7 +10,7 @@
 		select id, name, email,
 		login_name as loginName,
 		team_id as "team.id"
-		from ss_user
+		from cy_sys_user
 		where id=#{id}
 	</select>
 
@@ -19,7 +19,7 @@
 		select id, name, email,
 		login_name as loginName,
 		team_id as "team.id"
-		from ss_user
+		from cy_sys_user
 		<where>
 			<if test="loginName != null">
 				login_name=#{loginName}
@@ -32,7 +32,7 @@
 
 	<!-- 插入用户： 1.由数据库生成id并赋值到user对象 2.输入用对象, 嵌套属性表达式#{team.id} -->
 	<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-		insert into ss_user (
+		insert into cy_sys_user (
 		login_name, name, password, email, team_id)
 		values (
 		#{loginName}, #{name}, #{password}, #{email},
@@ -41,6 +41,6 @@
 	
 	<!-- 删除用户 -->
 	<delete id="delete" parameterType="long">
-	     delete from ss_user where id=#{id}
+	     delete from cy_sys_user where id=#{id}
 	</delete>
 </mapper> 
