@@ -5,17 +5,16 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.web;
 
-import java.util.Collections;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springside.modules.constants.MediaTypes;
 import org.springside.modules.mapper.JsonMapper;
-import org.springside.modules.web.MediaTypes;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * 输出JsonP格式的Mashup 服务端, 支持被跨域调用.

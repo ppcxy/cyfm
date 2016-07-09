@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springside.modules.web.MediaTypes;
+import org.springside.modules.constants.MediaTypes;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;

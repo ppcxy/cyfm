@@ -18,7 +18,7 @@ import org.springside.modules.metrics.utils.Clock;
 public class Counter {
 	public static Clock clock = Clock.DEFAULT;
 
-	public CounterMetric snapshot;
+	public CounterMetric latestMetric;
 
 	private AtomicLong counter;
 
@@ -47,41 +47,41 @@ public class Counter {
 	}
 
 	public CounterMetric calculateMetric() {
-		long lastCount = counter.getAndSet(0);
+		long latestCount = counter.getAndSet(0);
 		long currentTime = clock.getCurrentTime();
 
 		CounterMetric metric = new CounterMetric();
 
-		totalCount += lastCount;
+		totalCount += latestCount;
 		long totalElapsed = currentTime - startTime;
 		metric.meanRate = (totalCount * 1000) / totalElapsed;
 
-		metric.lastCount = lastCount;
+		metric.latestCount = latestCount;
 		metric.totalCount = totalCount;
 
 		long elapsed = currentTime - lastReportTime;
 		if (elapsed > 0) {
-			metric.lastRate = (lastCount * 1000) / elapsed;
+			metric.latestRate = (latestCount * 1000) / elapsed;
 		}
 
 		lastReportTime = currentTime;
 
-		snapshot = metric;
+		latestMetric = metric;
 
 		return metric;
 	}
 
 	public void reset() {
-		snapshot = new CounterMetric();
+		latestMetric = new CounterMetric();
 		counter = new AtomicLong(0);
 		totalCount = 0L;
 		startTime = clock.getCurrentTime();
-		lastReportTime = 0L;
+		lastReportTime = startTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Counter [counter=" + counter + ", totalCount=" + totalCount + ", startTime=" + startTime
-				+ ", lastReportTime=" + lastReportTime + "]";
+		return "Counter [latestMetric=" + latestMetric + ", counter=" + counter + ", totalCount=" + totalCount
+				+ ", startTime=" + startTime + ", lastReportTime=" + lastReportTime + "]";
 	}
 }
