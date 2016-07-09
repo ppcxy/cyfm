@@ -135,6 +135,7 @@ $.zTree = {
                 $cy.warn("节点名称不能为空。");
                 return false;
             }
+            //TODO 重命名逻辑需要修改
             if(!confirm("确认重命名吗？")) {
                 var zTree = $.fn.zTree.getZTreeObj(treeId);
                 zTree.cancelEditName(treeNode.name);
@@ -150,7 +151,7 @@ $.zTree = {
          */
         function onRename(e, treeId, treeNode) {
             var url = config.renameUrl.replace("{id}", treeNode.id).replace("{newName}",treeNode.name);
-            $cy.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function (data) {
                 $cy.waitingOver();
             });
@@ -163,7 +164,7 @@ $.zTree = {
          */
         function onRemove(e, treeId, treeNode) {
             var url = config.removeUrl.replace("{id}", treeNode.id);
-            $cy.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function (data) {
                 $cy.waitingOver();
             });
@@ -177,7 +178,7 @@ $.zTree = {
          */
         function onAdd(e, treeId, treeNode) {
             var url = config.addUrl.replace("{id}", treeNode.id);
-            $cy.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function(newNode) {
                 var node = { id:newNode.id, pId:newNode.pId, name:newNode.name, iconSkin:newNode.iconSkin, open: true,
                     click : newNode.click, root :newNode.root,isParent:newNode.isParent};
@@ -206,7 +207,7 @@ $.zTree = {
             var targetId = targetNode.id;
             var moveType = moveType;
             var url = config.moveUrl.replace("{sourceId}", sourceId).replace("{targetId}", targetId).replace("{moveType}", moveType);
-            $cy.waiting("操作中...", true);
+            $cy.waiting();
             $.getJSON(url, function (newNode) {
                 $cy.waitingOver();
             });

@@ -38,33 +38,6 @@
 		<%@ include file="/WEB-INF/layouts/default/footer.jsp"%>
 	</div>
 	<script>
-		function refreshPage(){
-			window.location.reload();
-		}
-		$("body").keydown(function(e){
-			var ev = window.event || e;
-			var code = ev.keyCode || ev.which;
-
-			if (code==116) {
-				// 阻止默认的F5事件
-				if(ev.preventDefault) {
-					ev.preventDefault();
-				}else {
-					ev.keyCode=0;
-					ev.returnValue=false;
-				}
-
-				refreshPage();
-				return false;
-			}
-			return true;
-		});
-		$(function () {
-			if ($("table").find("td.action").size() > 0 && $("table").find("table thead tr").size() == 0) {
-				$('table thead tr').append('<th class="action">操作</th>');
-			}
-			new TableDragSortResize(document.getElementById('contentTable'), {cidAttrName: "data-tid"});
-		});
 		<cy:showFieldError commandName="entity"/>
 	</script>
 </body>

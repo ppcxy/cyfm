@@ -105,7 +105,7 @@
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
 
-    <mvc:view-controller path="/" view-name="index"/>
+    <!--<mvc:view-controller path="/" view-name="index"/>-->
     <mvc:view-controller path="/web/mashup-client" view-name="/web/mashup-client"/>
 
     <!-- ========================= VIEW定义 ========================= -->

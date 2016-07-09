@@ -29,21 +29,18 @@
             <param name="match.Mozilla/" value="ns"/>
         </mapper>
         <!-- Mapper for printable -->
-        <mapper
-                class="com.opensymphony.module.sitemesh.mapper.PrintableDecoratorMapper">
+        <mapper class="com.opensymphony.module.sitemesh.mapper.PrintableDecoratorMapper">
             <param name="decorator" value="printable"/>
             <param name="parameter.name" value="printable"/>
             <param name="parameter.value" value="true"/>
         </mapper>
         <!-- Mapper for printable parameter-->
-        <mapper
-                class="com.opensymphony.module.sitemesh.mapper.ParameterDecoratorMapper">
+        <mapper class="com.opensymphony.module.sitemesh.mapper.ParameterDecoratorMapper">
             <param name="decorator.parameter" value="decorator"/>
             <param name="parameter.name" value="confirm"/>
             <param name="parameter.value" value="true"/>
         </mapper>
-        <mapper
-                class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
+        <mapper class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
             <param name="config" value="${decorators-file}"/>
         </mapper>
     </decorator-mappers>

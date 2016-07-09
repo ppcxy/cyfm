@@ -11,21 +11,9 @@
         <pattern>/**/tree?*</pattern>
     </excludes>
 
+    <decorator name="basic" page="basic.jsp"></decorator>
+    <decorator name="content" page="content.jsp"></decorator>
     <decorator name="default" page="default.jsp">
         <pattern>/*</pattern>
     </decorator>
-
-    <decorator name="basic" page="basic.jsp">
-        <pattern>/*</pattern>
-    </decorator>
-    <decorator name="content" page="content.jsp">
-        <pattern>/*</pattern>
-    </decorator>
-    <decorator name="senior">
-        <pattern>/*</pattern>
-    </decorator>
-    <decorator name="printable">
-        <pattern>/*</pattern>
-    </decorator>
-
 </decorators>

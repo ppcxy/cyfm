@@ -1,27 +1,120 @@
-﻿﻿<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>后台管理首页</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="meta.decorator" content="content" />
+    <meta name="decorator" content="content" />
+    <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        body{
+            overflow: hidden;
+        }
+        div {
+            width: 100%;
+        }
+        div.rightinfo{
+            margin: 0;
+            padding: 0;
+        }
+        div.manage-main{
+            display: none;
+        }
+
+        .manage-main * {
+            box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            -webkit-box-sizing: content-box;
+            overflow: hidden;
+        }
+
+        div.manage-main iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        div.top, div.top iframe {
+            height: 88px;
+        }
+
+        div.content div{
+            float: left;
+            display: inline;
+        }
+
+        div.content div.left {
+            width: 187px;
+            height: 100%;
+        }
+
+        div.content div.right  {
+            height: 100%;
+        }
+        div.content div.right iframe {
+            width: 100%;
+        }
+        div.place{
+            position: relative;
+        }
+    </style>
     <title>信息管理系统界面</title>
     <script type="text/javascript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
+    <script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js" type="text/javascript"></script>
     <script type="text/javascript" src="${ctx}/static/plugins/jquery.cokie.min.js"></script>
+    <script>
+
+
+        function layoutManageMain(){
+            var width = $(window).width();
+            var height = $(window).height();
+
+            $("div.content").css({"width":width,"height": height - 88 + "px"});
+            $("div.right").css("width", width - 187 + "px");
+        }
+        $(function () {
+            $("#leftFrame").on("load", function () {
+                $cy.waitingOver();
+                $("#rightFrame").on("load", function () {
+                    $cy.waitingOver();
+                });
+                $(".manage-main").css("display", "block");
+            });
+
+            $cy.waiting();
+            layoutManageMain();
+            $(window).resize(function () {
+                layoutManageMain();
+            });
+        })
+    </script>
 </head>
-<frameset rows="88,*" cols="*" frameborder="no" border="0" framespacing="0">
-    <frame src="${ctx}/manage/top/" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame"/>
-    <frameset cols="187,*" frameborder="no" border="0" framespacing="0">
-        <frame src="${ctx}/manage/left/" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame"
-               title="leftFrame"/>
-        <frameset rows="40,*" cols="*" frameborder="no" border="0" framespacing="0">
-            <frame src="${ctx}/manage/place/" name="place" id="place" title="rightFrame"/>
-            <frame src="${ctx}/manage/index/" name="rightFrame" id="rightFrame" title="rightFrame"/>
-        </frameset>
-    </frameset>
-</frameset>
-<noframes>
-    <body>
-    </body>
-</noframes>
+<body>
+<div class="manage-main">
+    <div class="top"><iframe src="${ctx}/manage/top/" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame"></iframe></div>
+    <div class="content">
+        <div class="left">
+            <iframe src="${ctx}/manage/left/" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame"
+                    title="leftFrame"></iframe>
+        </div>
+        <div class="right">
+            <div class="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="#">首页</a></li>
+                </ul>
+            </div>
+            <iframe src="${ctx}/manage/index/" name="rightFrame" id="rightFrame" title="rightFrame"></iframe>
+        </div>
+    </div>
+</div>
+</body>
 </html>

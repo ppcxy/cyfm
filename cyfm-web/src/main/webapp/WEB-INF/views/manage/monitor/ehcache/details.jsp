@@ -43,8 +43,9 @@
 <script type="text/javascript">
     $(function () {
         $("#searchText").keyup(function (event) {
+            var currentUrl = window.location.href;
             if (event.keyCode == 13) {
-                loadContent($.table.formatUrlPrefix(currentURL) + "?searchText=" + this.value + "&BackURL=<mm:BackURL/>");
+                window.location.href = currentUrl.substring(0,currentUrl.indexOf("?"))+"?searchText=" + this.value + "&BackURL=<cy:BackURL/>";
             }
         });
 
