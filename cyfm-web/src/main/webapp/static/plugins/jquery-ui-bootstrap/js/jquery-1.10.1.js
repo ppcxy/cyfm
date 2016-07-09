@@ -4775,7 +4775,7 @@ jQuery.event = {
 			handler.guid = jQuery.guid++;
 		}
 
-		// Init the element's event role and main handler, if this is the first
+		// Init the element's event structure and main handler, if this is the first
 		if ( !(events = elemData.events) ) {
 			events = elemData.events = {};
 		}
@@ -8683,7 +8683,7 @@ if ( xhrSupported ) {
 						xhr = s.xhr();
 
 					// Open the socket
-					// Passing null username, generates a user popup on Opera (#2865)
+					// Passing null username, generates a login popup on Opera (#2865)
 					if ( s.username ) {
 						xhr.open( s.type, s.url, s.async, s.username, s.password );
 					} else {

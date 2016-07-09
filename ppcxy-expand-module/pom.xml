@@ -8,7 +8,6 @@
         <groupId>com.ppcxy</groupId>
         <version>1.0-Snapshot</version>
     </parent>
-
     <artifactId>ppcxy-expand-module</artifactId>
     <packaging>pom</packaging>
 

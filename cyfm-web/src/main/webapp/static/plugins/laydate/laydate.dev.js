@@ -502,8 +502,7 @@
             }
         }
         Dates.inymd = ymd;
-        -Dates.viewDate(ymd[0], ymd[1] - 1, ymd[2]);
-        +Dates.viewDate(ymd[elemIndexMap.year], ymd[elemIndexMap.month] - 1, ymd[elemIndexMap.day]);
+        Dates.viewDate(ymd[elemIndexMap.year], ymd[elemIndexMap.month] - 1, ymd[elemIndexMap.day]);
     };
 
 

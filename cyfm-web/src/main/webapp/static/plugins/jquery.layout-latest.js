@@ -1987,7 +1987,7 @@
             ,	initOptions = function () {
                 var data, d, pane, key, val, i, c, o;
 
-                // reprocess user's layout-options to have correct options sub-key role
+                // reprocess user's layout-options to have correct options sub-key structure
                 opts = $.layout.transformData( opts, true ); // panes = default subkey
 
                 // auto-rename old options for backward compatibility
