@@ -19,6 +19,7 @@
         <spring-data-jpa.version>1.6.0.RELEASE</spring-data-jpa.version>
         <druid-version>1.0.21</druid-version>
         <jcaptcha.version>2.0-alpha-1</jcaptcha.version>
+        <jsoup.version>1.8.3</jsoup.version>
         <jhlabs.version>2.0.235</jhlabs.version>
         <tomcat-jdbc.version>7.0.54</tomcat-jdbc.version>
         <sitemesh.version>2.4.2</sitemesh.version>
@@ -232,6 +233,14 @@
                 <version>${jcaptcha.version}</version>
                 <scope>runtime</scope>
             </dependency>
+
+            <!-- html处理jar包 -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+
             <!-- j2ee web spec -->
             <!-- update to servlet 3.0 for spring 4.0 MockHttpServletRequest  -->
             <!-- j2ee web spec -->
