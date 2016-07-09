@@ -8,14 +8,6 @@
         <groupId>com.ppcxy</groupId>
         <version>1.0-Snapshot</version>
     </parent>
-<<<<<<< HEAD:ppcyx-expand-module/pom.xml
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.ppcxy</groupId>
-    <artifactId>ppcxy-expand-module</artifactId>
-=======
->>>>>>> develop:ppcxy-expand-module/pom.xml
-
     <artifactId>ppcxy-expand-module</artifactId>
     <packaging>pom</packaging>
 
