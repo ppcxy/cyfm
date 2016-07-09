@@ -69,6 +69,11 @@
             <artifactId>jcaptcha</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!-- html处理jar包 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
         <!-- Security begin -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
