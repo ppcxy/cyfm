@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springside.modules.beanvalidator.BeanValidators;
 import org.springside.modules.mapper.JsonMapper;
 import org.springside.modules.utils.Exceptions;
-import org.springside.modules.web.MediaTypes;
+import org.springside.modules.constants.MediaTypes;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Map;

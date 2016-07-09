@@ -8,8 +8,6 @@ package org.springside.modules.metrics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -24,8 +22,9 @@ public class MetricRegistry {
 
 	public static final MetricRegistry INSTANCE = new MetricRegistry();
 
-	private Double[] defaultPcts = new Double[] { 90d };
+	private Double[] defaultPcts = new Double[] {};
 
+	private ConcurrentMap<String, Gauge> gauges = new ConcurrentHashMap<String, Gauge>();
 	private ConcurrentMap<String, Counter> counters = new ConcurrentHashMap<String, Counter>();
 	private ConcurrentMap<String, Histogram> histograms = new ConcurrentHashMap<String, Histogram>();
 	private ConcurrentMap<String, Timer> timers = new ConcurrentHashMap<String, Timer>();
@@ -48,6 +47,13 @@ public class MetricRegistry {
 	}
 
 	/**
+	 * 在注册中心注册Gauge.
+	 */
+	public void registerGauge(String name, Gauge gauge) {
+		gauges.put(name, gauge);
+	}
+
+	/**
 	 * 在注册中心获取或创建Counter.
 	 */
 	public Counter counter(String name) {
@@ -60,29 +66,15 @@ public class MetricRegistry {
 	}
 
 	/**
-	 * 在注册中心获取或创建Histogram, 使用默认的百分比计算设置(90%).
-	 */
-	public Histogram histogram(String name) {
-		return histogram(name, defaultPcts);
-	}
-
-	/**
 	 * 在注册中心获取或创建Histogram, 并设置所需的百分比计算.
 	 */
 	public Histogram histogram(String name, Double... pcts) {
 		if (histograms.containsKey(name)) {
 			return histograms.get(name);
 		} else {
-			Histogram histogram = new Histogram(pcts);
+			Histogram histogram = new Histogram(((pcts != null) && (pcts.length > 0)) ? pcts : defaultPcts);
 			return register(histograms, name, histogram);
 		}
-	}
-
-	/**
-	 * 在注册中心获取或创建Timer, 使用默认的百分比计算设置(90%).
-	 */
-	public Timer timer(String name) {
-		return timer(name, defaultPcts);
 	}
 
 	/**
@@ -92,12 +84,34 @@ public class MetricRegistry {
 		if (timers.containsKey(name)) {
 			return timers.get(name);
 		} else {
-			Timer timer = new Timer(pcts);
+			Timer timer = new Timer(((pcts != null) && (pcts.length > 0) ? pcts : defaultPcts));
 			return register(timers, name, timer);
 		}
 	}
 
+	/**
+	 * 快速清理注册表中全部Metrics.
+	 */
 	public void clearAll() {
+		for (MetricRegistryListener listener : listeners) {
+			for (String key : gauges.keySet()) {
+				listener.onGaugeRemoved(key);
+			}
+
+			for (String key : counters.keySet()) {
+				listener.onCounterRemoved(key);
+			}
+
+			for (String key : histograms.keySet()) {
+				listener.onHistogramRemoved(key);
+			}
+
+			for (String key : timers.keySet()) {
+				listener.onTimerRemoved(key);
+			}
+		}
+
+		gauges.clear();
 		counters.clear();
 		histograms.clear();
 		timers.clear();
@@ -115,6 +129,9 @@ public class MetricRegistry {
 
 	private void notifyNewMetric(String name, Object newMetric) {
 		for (MetricRegistryListener listener : listeners) {
+			if (newMetric instanceof Gauge) {
+				listener.onGaugeAdded(name, (Gauge) newMetric);
+			}
 			if (newMetric instanceof Counter) {
 				listener.onCounterAdded(name, (Counter) newMetric);
 			}
@@ -124,39 +141,36 @@ public class MetricRegistry {
 			if (newMetric instanceof Timer) {
 				listener.onTimerAdded(name, (Timer) newMetric);
 			}
-
 		}
+	}
+
+	/**
+	 * 返回所有Gauge, 按名称排序.
+	 */
+	public Map<String, Gauge> getGauges() {
+		return gauges;
 	}
 
 	/**
 	 * 返回所有Counter, 按名称排序.
 	 */
-	public SortedMap<String, Counter> getCounters() {
-		return getMetrics(counters);
+	public Map<String, Counter> getCounters() {
+		return counters;
 	}
 
 	/**
 	 * 返回所有Histogram, 按名称排序.
 	 */
 
-	public SortedMap<String, Histogram> getHistograms() {
-		return getMetrics(histograms);
+	public Map<String, Histogram> getHistograms() {
+		return histograms;
 	}
 
 	/**
 	 * 返回所有Timer, 按名称排序.
 	 */
-	public SortedMap<String, Timer> getTimers() {
-		return getMetrics(timers);
-	}
-
-	/**
-	 * 返回按metrics name排序的Map.
-	 * 
-	 * 从get的性能考虑，没有使用ConcurrentSkipListMap而是仍然使用ConcurrentHashMap，因此每次报告时需要用TreeMap重新排序.
-	 */
-	private <T> SortedMap<String, T> getMetrics(Map<String, T> metrics) {
-		return new TreeMap<String, T>(metrics);
+	public Map<String, Timer> getTimers() {
+		return timers;
 	}
 
 	/**
