@@ -26,16 +26,18 @@ $cy = {
     },
     waiting: function (message) {
         if (message) {
-            layer.msg(message, {icon: 16, shade: [0.6, '#ccc']});
+            layer.msg(message, {icon: 16, shade: [0.6, '#000']});
         } else {
-            layer.load(1, {
-                shade: [0.6, '#ccc'] //0.1透明度的白色背景
+            layer.load('',{
+                shade: [0.4, '#fff'] //0.1透明度的白色背景
+                ,time:20000
             });
         }
 
     },
     waitingOver: function () {
         layer.closeAll('loading');
+        layer.closeAll('dialog');
     },
     info: function (message, callback) {
         layer.alert(message, {
@@ -80,7 +82,7 @@ $cy = {
         }, callback);
     },
     confirm: function (options) {
-        var options = $.extend({"title": "确认操作", "message": "确定执行操作?", width: "auto", height: "auto"}, options);
+        var options = $.extend({"title": "确认操作", "message": "确定执行操作?", width: "auto", height: "auto",async:false}, options);
         layer.confirm(options.message, {
             area: [options.width, options.height]
             , title: options.title
@@ -287,4 +289,12 @@ $cy = {
 $(function () {
     $cy.initDatePick();
     $cy.initCustomTable();
+
+    $("form").submit(function () {
+        $cy.waiting();
+    });
+    window.onbeforeunload = function() {
+        $cy.waiting();
+    };
+
 });

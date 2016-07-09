@@ -34,7 +34,7 @@
 </div>
 <script>
 
-
+<cy:showFieldError commandName="entity"/>
 </script>
 </body>
 </html>

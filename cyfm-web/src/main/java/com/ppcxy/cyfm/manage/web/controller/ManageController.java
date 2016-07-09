@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springside.modules.web.Servlets;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -22,9 +23,16 @@ public class ManageController {
     @Autowired
     private ResourceService resourceService;
 
-    @RequestMapping(value = {"/manage", "/manage/main"})
-    public String main(HttpServletResponse response) {
-        Servlets.addCookie("skin", "content", response);
+    @RequestMapping
+    public String index(HttpServletRequest request, HttpServletResponse response) {
+        Servlets.changeCookie("skin", "default", request, response);
+        return "index";
+    }
+
+
+    @RequestMapping(value = "/manage")
+    public String main(HttpServletRequest request,HttpServletResponse response) {
+        Servlets.changeCookie("skin", "content", request, response);
         return "manage/main";
     }
 

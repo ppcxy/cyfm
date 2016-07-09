@@ -6,12 +6,12 @@
 </head>
 <body>
 <div>
-    <button onclick="parent.layer.load(2, {time: 20 * 1000}); //又换了种风格，并且设定最长等待20秒">加载20秒</button>
+    <button onclick="$cy.waiting()">加载20秒</button>
 
 
     <button onclick="$cy.waiting('加载中.');setTimeout(function() {
         $cy.waitingOver('这是一段提示信息.')
-    },3000);">等待加载</button>
+    },1000);">等待加载</button>
 
 
     <button onclick="$cy.info('这是一段提示信息.')">提示消息</button>
