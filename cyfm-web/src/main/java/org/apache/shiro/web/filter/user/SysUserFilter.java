@@ -69,13 +69,13 @@ public class SysUserFilter extends AccessControlFilter {
             return true;
         }
 
-        String loginName = (String) Reflections.getFieldValue(subject.getPrincipal(), "loginName");
+        String username = (String) Reflections.getFieldValue(subject.getPrincipal(), "username");
         //此处注意缓存 防止大量的查询db
-        User user = userService.findByLoginName(loginName);
+        User user = userService.findByUsername(username);
         //把当前用户放到session中
         request.setAttribute(Constants.CURRENT_USER, user);
         //druid监控需要
-        ((HttpServletRequest) request).getSession().setAttribute(Constants.CURRENT_USERNAME, loginName);
+        ((HttpServletRequest) request).getSession().setAttribute(Constants.CURRENT_USERNAME, username);
 
         return true;
     }

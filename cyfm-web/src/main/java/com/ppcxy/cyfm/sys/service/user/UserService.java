@@ -58,7 +58,7 @@ public class UserService extends BaseService<User, Long> {
     @Override
     public User save(User user) {
         if (isSupervisor(user)) {
-            logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getLoginName());
+            logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getUsername());
             throw new BaseException("不能修改超级管理员用户");
         }
 
@@ -85,11 +85,11 @@ public class UserService extends BaseService<User, Long> {
     }
 
 
-    public User findByLoginName(String username) {
+    public User findByUsername(String username) {
         if (StringUtils.isEmpty(username)) {
             return null;
         }
-        return getUserRepository().findByLoginName(username);
+        return getUserRepository().findByUsername(username);
     }
 
     public User findByEmail(String email) {
@@ -116,18 +116,18 @@ public class UserService extends BaseService<User, Long> {
     }
 
 
-    public User login(String username, String password) {
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+    public User login(String loginName, String password) {
+        if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(password)) {
             UserLogUtils.log(
-                    username,
+                    loginName,
                     "loginError",
-                    "username is empty");
+                    "loginName is empty");
             throw new UserNotExistsException();
         }
         //密码如果不在指定范围内 肯定错误
         if (password.length() < User.PASSWORD_MIN_LENGTH || password.length() > User.PASSWORD_MAX_LENGTH) {
             UserLogUtils.log(
-                    username,
+                    loginName,
                     "loginError",
                     "password length error! password is between {} and {}",
                     User.PASSWORD_MIN_LENGTH, User.PASSWORD_MAX_LENGTH);
@@ -140,21 +140,21 @@ public class UserService extends BaseService<User, Long> {
         //此处需要走代理对象，目的是能走缓存切面
         //UserService proxyUserService = (UserService) AopContext.currentProxy();
 
-        if (maybeUsername(username)) {
-            user = findByLoginName(username);
+        if (maybeUsername(loginName)) {
+            user = findByUsername(loginName);
         }
 
-        if (user == null && maybeEmail(username)) {
-            user = findByEmail(username);
+        if (user == null && maybeEmail(loginName)) {
+            user = findByEmail(loginName);
         }
 
-        if (user == null && maybeMobilePhoneNumber(username)) {
-            user = findByTel(username);
+        if (user == null && maybeTel(loginName)) {
+            user = findByTel(loginName);
         }
 
         if (user == null) {
             UserLogUtils.log(
-                    username,
+                    loginName,
                     "loginError",
                     "user is not exists!");
 
@@ -165,7 +165,7 @@ public class UserService extends BaseService<User, Long> {
 
         if (user.getStatus() == "disabled") {
             UserLogUtils.log(
-                    username,
+                    loginName,
                     "loginError",
                     "user is blocked!");
             //TODO WEEP 锁定原因 userStatusHistoryService.getLastReason(user)
@@ -173,7 +173,7 @@ public class UserService extends BaseService<User, Long> {
         }
 
         UserLogUtils.log(
-                username,
+                loginName,
                 "loginSuccess",
                 "");
         return user;
@@ -199,7 +199,7 @@ public class UserService extends BaseService<User, Long> {
         return true;
     }
 
-    private boolean maybeMobilePhoneNumber(String username) {
+    private boolean maybeTel(String username) {
         if (!username.matches(User.MOBILE_PHONE_NUMBER_PATTERN)) {
             return false;
         }
@@ -212,17 +212,17 @@ public class UserService extends BaseService<User, Long> {
             User user = findOne(id);
             changePassword(user, newPassword);
             UserLogUtils.log(
-                    user.getLoginName(),
+                    user.getUsername(),
                     "changePassword",
-                    "admin user {} change password!", opUser.getLoginName());
+                    "admin user {} change password!", opUser.getUsername());
 
         }
     }
 
+    //TODO 没用到的组织用户信息方法
+    public Set<Map<String, Object>> findIdAndNames(Searchable searchable, String username) {
 
-    public Set<Map<String, Object>> findIdAndNames(Searchable searchable, String usernme) {
-
-        searchable.addSearchFilter("username", SearchOperator.like, usernme);
+        searchable.addSearchFilter("username", SearchOperator.like, username);
         searchable.addSearchFilter("deleted", SearchOperator.eq, false);
 
         return Sets.newHashSet(
@@ -232,7 +232,7 @@ public class UserService extends BaseService<User, Long> {
                             @Override
                             public Map<String, Object> apply(User input) {
                                 Map<String, Object> data = Maps.newHashMap();
-                                data.put("label", input.getLoginName());
+                                data.put("label", input.getUsername());
                                 data.put("value", input.getId());
                                 return data;
                             }

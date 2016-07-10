@@ -28,9 +28,9 @@ $cy = {
         if (message) {
             layer.msg(message, {icon: 16, shade: [0.6, '#000']});
         } else {
-            layer.load('',{
+            layer.load('', {
                 shade: [0.4, '#fff'] //0.1透明度的白色背景
-                ,time:20000
+                , time: 20000
             });
         }
 
@@ -38,6 +38,7 @@ $cy = {
     waitingOver: function () {
         layer.closeAll('loading');
         layer.closeAll('dialog');
+        layer.closeAll('tips');
     },
     info: function (message, callback) {
         layer.alert(message, {
@@ -82,7 +83,13 @@ $cy = {
         }, callback);
     },
     confirm: function (options) {
-        var options = $.extend({"title": "确认操作", "message": "确定执行操作?", width: "auto", height: "auto",async:false}, options);
+        var options = $.extend({
+            "title": "确认操作",
+            "message": "确定执行操作?",
+            width: "auto",
+            height: "auto",
+            async: false
+        }, options);
         layer.confirm(options.message, {
             area: [options.width, options.height]
             , title: options.title
@@ -281,20 +288,90 @@ $cy = {
         new TableDragSortResize(document.getElementById('contentTable'), {cidAttrName: "data-tid"});
         //Table init 结束
 
+    },
+    validate :{
+        validFiledTips : {},
+        init: function () {
+            var validFiledTips = $cy.validate.validFiledTips;
+            $.validator.setDefaults({
+                focusInvalid: true
+                , focusCleanup: true
+                , onclick: function (element) {
+                    $(element).valid();
+                }
+                , onfocusin: function (element) {
+                    $(element).valid();
+                }
+                , submitHandler: function (form) {
+                    $cy.waiting();
+                    form.submit();
+                }
+                , success: function (label, element) {
+                    var fieldName = element.name;
+
+                    if (validFiledTips[fieldName]) {
+                        layer.close(validFiledTips[fieldName]);
+                        validFiledTips[fieldName] = undefined;
+                    }
+                    $(element).removeClass("has-error").addClass("has-success");
+                }
+                , errorPlacement: function (error, element) {
+                    if ($(error).html()==""){
+                        return true;
+                    }
+                    var point = 1;
+                    var target = element;
+
+                    var fieldName = element[0].name;
+
+                    //如果存在label,则显示在label右侧.
+                    var fieldLabel = $("label[for='" + fieldName + "']");
+                    if (fieldLabel.size() > 0) {
+                        point = 2;
+                        target = fieldLabel;
+                    }
+
+                    if (validFiledTips[fieldName]) {
+                        $("#error-tips-" + fieldName).find(".error").html($(error).html());
+                    } else {
+                        var index = layer.tips($('<div></div>').append(error).html(), target, {
+                            id: "error-tips-" + fieldName
+                            , tipsMore: true
+                            , tips: [point, '#F24100']
+                            , time: 0
+                        });
+                        validFiledTips[fieldName] = index;
+                        console.log(fieldName+" "+index)
+                        $(element).removeClass("has-success").addClass("has-error");
+                    }
+
+                },
+                invalidHandler: function (event, validator) {
+                    // 'this' refers to the form
+                    var errors = validator.numberOfInvalids();
+                    if (errors) {
+                        var message = errors == 1
+                            ? '有一项表单验证未通过.'
+                            : '有 ' + errors + ' 项表单验证未通过. 请处理后提交.';
+                        $cy.warn(message);
+                    } else {
+                        $("div.error").hide();
+                    }
+                }
+            });
+        }
     }
 }
 
+//需要直接初始化的.
+$cy.validate.init();
 
 //初始化页面
 $(function () {
     $cy.initDatePick();
     $cy.initCustomTable();
 
-    $("form").submit(function () {
-        $cy.waiting();
-    });
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
         $cy.waiting();
     };
-
 });

@@ -80,13 +80,13 @@ public class UserController extends BaseCRUDController<User, Long> {
         return super.update(model, user, result, null, redirectAttributes);
     }
 
-    @RequestMapping(value = "checkLoginName")
+    @RequestMapping(value = "checkUsername")
     @ResponseBody
-    public String checkLoginName(@RequestParam("oldLoginName") String oldLoginName,
-                                 @RequestParam("loginName") String loginName) {
-        if (loginName.equals(oldLoginName)) {
+    public String checkUsername(@RequestParam("oldUsername") String oldUsername,
+                                 @RequestParam("username") String username) {
+        if (username.equals(oldUsername)) {
             return "true";
-        } else if (userService.findByLoginName(loginName) == null) {
+        } else if (userService.findByUsername(username) == null) {
             return "true";
         }
 

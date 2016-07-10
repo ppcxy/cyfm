@@ -12,9 +12,9 @@ public interface UserDao extends BaseRepository<User, Long> {
 
     User findByName(String name);
 
-    User findByLoginName(String loginName);
+    User findByUsername(String username);
 
     User findByEmail(String email);
 
-    User findByTel(String mobilePhoneNumber);
+    User findByTel(String tel);
 }

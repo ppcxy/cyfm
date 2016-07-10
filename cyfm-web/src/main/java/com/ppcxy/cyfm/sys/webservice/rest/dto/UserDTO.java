@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class UserDTO {
 
 	private Long id;
-	private String loginName;
+	private String username;
 	private String name;
 	private String email;
 	private Long teamId;
@@ -26,12 +26,12 @@ public class UserDTO {
 		id = value;
 	}
 
-	public String getLoginName() {
-		return loginName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLoginName(String value) {
-		loginName = value;
+	public void setUsername(String value) {
+		username = value;
 	}
 
 	public String getName() {

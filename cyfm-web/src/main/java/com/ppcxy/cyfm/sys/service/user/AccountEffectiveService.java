@@ -73,9 +73,9 @@ public class AccountEffectiveService {
 		}
 	}
 
-	public List<User> searchUser(String loginName, String name) {
+	public List<User> searchUser(String username, String name) {
 		Map<String, Object> parameters = Maps.newHashMap();
-		parameters.put("loginName", loginName);
+		parameters.put("username", username);
 		parameters.put("name", name);
 		return userDao.search(parameters);
 	}
