@@ -16,12 +16,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Collections3;
 import org.springside.modules.utils.Encodes;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.List;
 
@@ -38,16 +41,18 @@ import java.util.List;
 public class User extends IdEntity {
     public static final int SALT_SIZE = 8;
 
-    public static final String USERNAME_PATTERN = "^[\\u4E00-\\u9FA5\\uf900-\\ufa2d_a-zA-Z][\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{1,19}$";
+    public static final String USERNAME_PATTERN = "^[\\u4E00-\\u9FA5\\uf900-\\ufa2d_a-zA-Z][\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w]{3,19}$";
     public static final String EMAIL_PATTERN = "^((([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+(\\.([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+)*)|((\\x22)((((\\x20|\\x09)*(\\x0d\\x0a))?(\\x20|\\x09)+)?(([\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]|\\x21|[\\x23-\\x5b]|[\\x5d-\\x7e]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(\\\\([\\x01-\\x09\\x0b\\x0c\\x0d-\\x7f]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF]))))*(((\\x20|\\x09)*(\\x0d\\x0a))?(\\x20|\\x09)+)?(\\x22)))@((([a-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(([a-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])([a-z]|\\d|-|\\.|_|~|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])*([a-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])))\\.)+(([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])([a-z]|\\d|-|\\.|_|~|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])*([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])))\\.?";
     public static final String MOBILE_PHONE_NUMBER_PATTERN = "^0{0,1}(13[0-9]|15[0-9]|14[0-9]|18[0-9])[0-9]{8}$";
+
+    public static final String PASSWORD_PATTREN = "(.{0}|^[a-zA-Z\\d_]{4,20}$)";
 
     public static final int USERNAME_MIN_LENGTH = 4;
     public static final int USERNAME_MAX_LENGTH = 20;
     public static final int PASSWORD_MIN_LENGTH = 4;
-    public static final int PASSWORD_MAX_LENGTH = 50;
+    public static final int PASSWORD_MAX_LENGTH = 20;
 
-    private String loginName;
+    private String username;
     private String plainPassword;
     private String password;
     private String salt;
@@ -61,16 +66,19 @@ public class User extends IdEntity {
 
     private List<Role> roleList = Lists.newArrayList(); // 有序的关联对象集合
 
-    @NotBlank
-    public String getLoginName() {
-        return loginName;
+
+    @NotNull(message = "{not.null}")
+    @Pattern(regexp = USERNAME_PATTERN, message = "{user.username.not.valid}")
+    public String getUsername() {
+        return username;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Transient
+    @Pattern(regexp = PASSWORD_PATTREN, message = "{user.password.not.valid}")
     public String getPlainPassword() {
         return plainPassword;
     }
@@ -78,6 +86,7 @@ public class User extends IdEntity {
     public void setPlainPassword(String plainPassword) {
         this.plainPassword = plainPassword;
     }
+
 
     public String getPassword() {
         return password;
@@ -141,7 +150,8 @@ public class User extends IdEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "cy_sys_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     // Fecth策略定义
-    @Fetch(FetchMode.SUBSELECT)
+    @Fetch(FetchMode.SELECT)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     // 集合按id排序
     @OrderBy("id ASC")
     // 缓存策略
@@ -178,7 +188,7 @@ public class User extends IdEntity {
     @Override
     public String toString() {
         return "User{" +
-                "loginName='" + loginName + '\'' +
+                "username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", tel='" + tel + '\'' +

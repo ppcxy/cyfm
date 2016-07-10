@@ -16,8 +16,8 @@
 	<div class="toolbar-right">
 		<form class="form-search form-inline" action="#">
 			<div class="form-group">
-				<label>登录名：</label> <input type="text" name="search.loginName_like" class="form-control input-small"
-										   value="${param['search.loginName_like']}">
+				<label>登录名：</label> <input type="text" name="search.username_like" class="form-control input-small"
+										   value="${param['search.username_like']}">
 				<label>邮件名：</label> <input type="text" name="search.email_like" class="form-control input-small"
 										   value="${param['search.email_like']}">
 				<button type="submit" class="btn" id="search_btn">查询</button>
@@ -43,13 +43,13 @@
 		<c:forEach items="${page.content}" var="user">
 			<tr>
 				<td class="check"><input type="checkbox" value="${user.id}"></td>
-				<td>${user.loginName}&nbsp;</td>
+				<td>${user.username}&nbsp;</td>
 				<td>${user.name}&nbsp;</td>
 				<td>${user.email}&nbsp;</td>
 				<td>${user.roleNames}&nbsp;</td>
 				<td>${allStatus[user.status]}&nbsp;</td>
 					<%-- 根据权限显示按钮 --%>
-				<cy:listTableActions id="${user.id}" name="${user.loginName}"/>
+				<cy:listTableActions id="${user.id}" name="${user.username}"/>
 			</tr>
 		</c:forEach>
 		</tbody>

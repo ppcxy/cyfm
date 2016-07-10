@@ -51,7 +51,7 @@ public class AccountWebServiceWithPredefineClientFT extends BaseFunctionalTestCa
 	@Category(Smoke.class)
 	public void getUser() {
 		GetUserResult response = accountWebServiceClient.getUser(1L);
-		assertThat(response.getUser().getLoginName()).isEqualTo("admin");
+		assertThat(response.getUser().getUsername()).isEqualTo("admin");
 	}
 
 	/**
@@ -76,24 +76,24 @@ public class AccountWebServiceWithPredefineClientFT extends BaseFunctionalTestCa
 		IdResult response = accountWebServiceClient.createUser(userDTO);
 		assertThat(response.getId()).isNotNull();
 		GetUserResult response2 = accountWebServiceClient.getUser(response.getId());
-		assertThat(response2.getUser().getLoginName()).isEqualTo(user.getLoginName());
+		assertThat(response2.getUser().getUsername()).isEqualTo(user.getUsername());
 	}
 
 	/**
 	 * 测试创建用户,使用错误的登录名.
 	 */
 	@Test
-	public void createUserWithInvalidLoginName() {
+	public void createUserWithInvalidUsername() {
 		User user = UserData.randomUser();
 		UserDTO userDTO = BeanMapper.map(user, UserDTO.class);
 
 		// 登录名为空
-		userDTO.setLoginName(null);
+		userDTO.setUsername(null);
 		IdResult response = accountWebServiceClient.createUser(userDTO);
 		assertThat(response.getCode()).isEqualTo(WSResult.PARAMETER_ERROR);
 
 		// 登录名重复
-		userDTO.setLoginName("user");
+		userDTO.setUsername("user");
 		response = accountWebServiceClient.createUser(userDTO);
 		assertThat(response.getCode()).isEqualTo(WSResult.PARAMETER_ERROR);
 	}

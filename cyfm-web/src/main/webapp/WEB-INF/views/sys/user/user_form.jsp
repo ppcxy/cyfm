@@ -15,9 +15,9 @@
 				<input type="hidden" name="id" value="${entity.id}"/>
 				<div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
 				<div class="control-group">
-					<label for="loginName" class="control-label">登录名:</label>
+					<label for="username" class="control-label">登录名:</label>
 					<div class="controls">
-						<input type="text" id="loginName" name="loginName" value="${entity.loginName}" class="form-control required"/>
+						<input type="text" id="username" name="username" value="${entity.username}" class="form-control required"/>
 					</div>
 				</div>
 				<div class="control-group">
@@ -35,7 +35,7 @@
 				<div class="control-group">
 					<label for="email" class="control-label">邮箱:</label>
 					<div class="controls">
-						<input type="text" id="email" name="email"  value="${entity.email}" class="form-control required"/>
+						<input type="text" id="email" name="email"  value="${entity.email}" class="form-control required email"/>
 					</div>
 				</div>
 				<div class="control-group">
@@ -47,7 +47,7 @@
 				<div class="control-group">
 					<label for="roleList" class="control-label">角色:</label>
 					<div class="controls">
-						<form:bscheckboxes path="roleList" items="${allRoles}" itemLabel="name" itemValue="id" />
+						<form:bscheckboxes path="roleList" items="${allRoles}" itemLabel="name" itemValue="id" cssClass="required"/>
 						<script>
 							<c:forEach items="${entity.roleList}" var="item">
 								$("[name=roleList][value=${item.id}]").prop("checked", true);
@@ -58,7 +58,7 @@
 				<div class="control-group">
 					<label for="status" class="control-label">状态:</label>
 					<div class="controls">
-						<form:radiobuttons path="status" items="${allStatus}" labelCssClass="inline"/>
+						<form:radiobuttons path="status" items="${allStatus}" labelCssClass="inline" cssClass="required"/>
 					</div>
 				</div>
 				<div class="form-actions">
@@ -71,7 +71,17 @@
 	</div>
 </div>
 <script>
-	$cy.handleUniform();
+	$(function () {
+		$cy.handleUniform();
+		$("#inputForm").validate({
+			rules: {
+				username:{
+					required: true
+					,rangelength:[4,20]
+				}
+			}
+		});
+	})
 </script>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class DynamicSpecificationTest extends SpringTransactionalTestCase {
 		//assertThat(users).hasSize(1);
         //
 		//// LIKE
-		//filter = new SearchFilter("loginName", Operator.LIKE, "min");
+		//filter = new SearchFilter("username", Operator.LIKE, "min");
 		//users = userDao.findAll(DynamicSpecifications.bySearchFilter(Lists.newArrayList(filter), User.class));
 		//assertThat(users).hasSize(1);
         //
@@ -78,12 +78,12 @@ public class DynamicSpecificationTest extends SpringTransactionalTestCase {
         //
 		//// AND 2 Conditions
 		//SearchFilter filter1 = new SearchFilter("name", Operator.EQ, "管理员");
-		//SearchFilter filter2 = new SearchFilter("loginName", Operator.LIKE, "min");
+		//SearchFilter filter2 = new SearchFilter("username", Operator.LIKE, "min");
 		//users = userDao.findAll(DynamicSpecifications.bySearchFilter(Lists.newArrayList(filter1, filter2), User.class));
 		//assertThat(users).hasSize(1);
         //
 		//filter1 = new SearchFilter("name", Operator.EQ, "管理员");
-		//filter2 = new SearchFilter("loginName", Operator.LIKE, "user");
+		//filter2 = new SearchFilter("username", Operator.LIKE, "user");
 		//users = userDao.findAll(DynamicSpecifications.bySearchFilter(Lists.newArrayList(filter1, filter2), User.class));
 		//assertThat(users).isEmpty();
         //

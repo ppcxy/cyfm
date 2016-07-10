@@ -8,11 +8,11 @@ import java.util.Objects;
  */
 public class ShiroUser implements Serializable {
 
-    public String loginName;
+    public String username;
     public String name;
 
-    public ShiroUser(String loginName, String name) {
-        this.loginName = loginName;
+    public ShiroUser(String username, String name) {
+        this.username = username;
         this.name = name;
     }
 
@@ -25,19 +25,19 @@ public class ShiroUser implements Serializable {
      */
     @Override
     public String toString() {
-        return loginName;
+        return username;
     }
 
     /**
-     * 重载hashCode,只计算loginName;
+     * 重载hashCode,只计算username;
      */
     @Override
     public int hashCode() {
-        return Objects.hashCode(loginName);
+        return Objects.hashCode(username);
     }
 
     /**
-     * 重载equals,只计算loginName;
+     * 重载equals,只计算username;
      */
     @Override
     public boolean equals(Object obj) {
@@ -51,11 +51,11 @@ public class ShiroUser implements Serializable {
             return false;
         }
         ShiroUser other = (ShiroUser) obj;
-        if (loginName == null) {
-            if (other.loginName != null) {
+        if (username == null) {
+            if (other.username != null) {
                 return false;
             }
-        } else if (!loginName.equals(other.loginName)) {
+        } else if (!username.equals(other.username)) {
             return false;
         }
         return true;

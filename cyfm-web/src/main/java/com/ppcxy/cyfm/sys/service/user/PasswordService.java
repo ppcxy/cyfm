@@ -40,11 +40,11 @@ public class PasswordService {
 
 
     public void validate(User user, String password) {
-        String loginName = user.getLoginName();
+        String username = user.getUsername();
 
         int retryCount = 0;
 
-        Cache.ValueWrapper value = loginRecordCache.get(loginName);
+        Cache.ValueWrapper value = loginRecordCache.get(username);
         if (value != null) {
             retryCount = (Integer)value.get();
         }
@@ -52,7 +52,7 @@ public class PasswordService {
 
         if (retryCount >= maxRetryCount) {
             UserLogUtils.log(
-                    loginName,
+                    username,
                     "passwordError",
                     "password error, retry limit exceed! password: {},max retry count {}",
                     password, maxRetryCount);
@@ -60,15 +60,15 @@ public class PasswordService {
         }
 
         if (!matches(user, password)) {
-            loginRecordCache.put(loginName, ++retryCount);
+            loginRecordCache.put(username, ++retryCount);
             UserLogUtils.log(
-                    loginName,
+                    username,
                     "passwordError",
                     "password error! password: {} retry count: {}",
                     password, retryCount);
             throw new UserPasswordNotMatchException();
         } else {
-            clearLoginRecordCache(loginName);
+            clearLoginRecordCache(username);
         }
     }
 

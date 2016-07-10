@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 用户缓存切面,补充jpa缓存
  * 缓存实现
- * 1、loginName/email/tel------>id
+ * 1、username/email/tel------>id
  * 2、id------->Model
  */
 @Component
@@ -21,7 +21,7 @@ public class UserCacheAspect extends BaseCacheAspect {
     }
 
     private String idKeyPrefix = "id-";
-    private String loginNameKeyPrefix = "loginName-";
+    private String usernameKeyPrefix = "username-";
     private String emailKeyPrefix = "email-";
     private String telKeyPrefix = "tel-";
 
@@ -63,7 +63,7 @@ public class UserCacheAspect extends BaseCacheAspect {
      * 比如查询
      */
     @Pointcut(value =
-            "(execution(* findByLoginName(*)) " +
+            "(execution(* findByUsername(*)) " +
                     "|| execution(* findByEmail(*)) " +
                     "|| execution(* findByTel(*)) " +
                     "|| execution(* findOne(*)))")
@@ -123,8 +123,8 @@ public class UserCacheAspect extends BaseCacheAspect {
         if ("findOne".equals(methodName)) {
             key = idKey(String.valueOf(arg));
             isIdKey = true;
-        } else if ("findByLoginName".equals(methodName)) {
-            key = loginNameKey((String) arg);
+        } else if ("findByUsername".equals(methodName)) {
+            key = usernameKey((String) arg);
         } else if ("findByEmail".equals(methodName)) {
             key = emailKey((String) arg);
         } else if ("findByTel".equals(methodName)) {
@@ -162,8 +162,8 @@ public class UserCacheAspect extends BaseCacheAspect {
         return idKeyPrefix + id;
     }
 
-    private String loginNameKey(String loginName) {
-        return loginNameKeyPrefix + loginName;
+    private String usernameKey(String username) {
+        return usernameKeyPrefix + username;
     }
 
     private String emailKey(String email) {
@@ -183,8 +183,8 @@ public class UserCacheAspect extends BaseCacheAspect {
             return;
         }
         Long id = user.getId();
-        //loginName email tel ---> id
-        put(loginNameKey(user.getLoginName()), id);
+        //username email tel ---> id
+        put(usernameKey(user.getUsername()), id);
         put(emailKey(user.getEmail()), id);
         put(telKey(user.getTel()), id);
         // id ---> user
@@ -196,7 +196,7 @@ public class UserCacheAspect extends BaseCacheAspect {
         //取出cache的user,根据cache的user弹出缓存。
         User cacheUer = get(idKey(String.valueOf(id)));
         evict(idKey(String.valueOf(id)));
-        evict(loginNameKey(cacheUer.getLoginName()));
+        evict(usernameKey(cacheUer.getUsername()));
         evict(emailKey(cacheUer.getEmail()));
         evict(telKey(cacheUer.getTel()));
     }
@@ -209,7 +209,7 @@ public class UserCacheAspect extends BaseCacheAspect {
         //取出cache的user,根据cache的user弹出缓存。
         User cacheUer = get(idKey(String.valueOf(id)));
         evict(idKey(String.valueOf(id)));
-        evict(loginNameKey(cacheUer.getLoginName()));
+        evict(usernameKey(cacheUer.getUsername()));
         evict(emailKey(cacheUer.getEmail()));
         evict(telKey(cacheUer.getTel()));
     }

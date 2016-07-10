@@ -54,7 +54,7 @@ public class OnlineSessionFilter extends AccessControlFilter {
                 User user = (User) request.getAttribute(Constants.CURRENT_USER);
                 if (user != null) {
                     onlineSession.setUserId(user.getId());
-                    onlineSession.setUsername(user.getLoginName());
+                    onlineSession.setUsername(user.getUsername());
                     onlineSession.markAttributeChanged();
                 }
             }

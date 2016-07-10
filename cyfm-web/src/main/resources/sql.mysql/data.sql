@@ -1,14 +1,14 @@
-insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status, team_id,deleted,create_date) values(1,'admin','管理员','admin@springside.org.cn','13888888888','691b14d79bf0fa2215f155235df5e670b64394cc','7efbd59d9741d34f','enabled',1,0,'2012-01-01 00:00:00');
+insert into cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) values(1,'admin','管理员','admin@springside.org.cn','13888888888','691b14d79bf0fa2215f155235df5e670b64394cc','7efbd59d9741d34f','enabled',1,0,'2012-01-01 00:00:00');
 
-insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status, team_id,deleted,create_date) values(2,'user','Calvin','user@springside.org.cn',
+insert into cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) values(2,'user','Calvin','user@springside.org.cn',
 '13211111112','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status, team_id,deleted,create_date)values(3,'user2','Jack','jack@springside.org.cn',
+insert into cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date)values(3,'user2','Jack','jack@springside.org.cn',
 '13211111113','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status, team_id,deleted,create_date) values(4,'user3','Kate','kate@springside.org.cn',
+insert into cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) values(4,'user3','Kate','kate@springside.org.cn',
 '13211111114','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status, team_id,deleted,create_date) values(5,'user4','Sawyer','sawyer@springside.org.cn',
+insert into cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) values(5,'user4','Sawyer','sawyer@springside.org.cn',
 '13211111115','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-insert into cy_sys_user (id, login_name, name, email,tel, password, salt, status, team_id,deleted,create_date) values(6,'user5','Ben','ben@springside.org.cn',
+insert into cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) values(6,'user5','Ben','ben@springside.org.cn',
 '13211111116','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
 
 INSERT INTO cy_sys_resource (id, name, icon, identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'icon-th-large', 'root', 0, '0', '/', 1, true, 0);
