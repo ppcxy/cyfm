@@ -16,13 +16,13 @@
 			//为inputForm注册validate函数
 			$("#inputForm").validate({
 				rules: {
-					loginName: {
-						remote: "${ctx}/account/user/checkLoginName?oldLoginName=" + encodeURIComponent('${user.loginName}')
+					username: {
+						remote: "${ctx}/account/user/checkUsername?oldUsername=" + encodeURIComponent('${user.username}')
 					},
 					roleList:"required"
 				},
 				messages: {
-					loginName: {
+					username: {
 						remote: "用户登录名已存在"
 					}
 				},
@@ -46,9 +46,9 @@
 			<legend><small>管理用户</small></legend>
 			<div id="messageBox" class="alert alert-error input-large controls" style="display:none">输入有误，请先更正。</div>
 			<div class="control-group">
-				<label for="loginName" class="control-label">登录名:</label>
+				<label for="username" class="control-label">登录名:</label>
 				<div class="controls">
-					<input type="text" id="loginName" name="loginName" value="${user.loginName}" class="input-large required"/>
+					<input type="text" id="username" name="username" value="${user.username}" class="input-large required"/>
 				</div>
 			</div>
 			<div class="control-group">

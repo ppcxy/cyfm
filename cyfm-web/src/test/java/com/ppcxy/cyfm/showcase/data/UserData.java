@@ -20,7 +20,7 @@ public class UserData {
 		String userName = RandomData.randomName("User");
 
 		User user = new User();
-		user.setLoginName(userName);
+		user.setUsername(userName);
 		user.setName(userName);
 		user.setPlainPassword("123456");
 		user.setEmail(userName + "@springside.org.cn");

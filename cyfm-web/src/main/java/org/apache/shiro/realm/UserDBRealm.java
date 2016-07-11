@@ -63,14 +63,14 @@ public class UserDBRealm extends AuthorizingRealm {
         }
 
         byte[] salt = Encodes.decodeHex(user.getSalt());
-        return new SimpleAuthenticationInfo(new ShiroUser(user.getLoginName(), user.getName()), user.getPassword(),
+        return new SimpleAuthenticationInfo(new ShiroUser(user.getUsername(), user.getName()), user.getPassword(),
                 ByteSource.Util.bytes(salt), getName());
     }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String loginName = (String) Reflections.getFieldValue(principals.getPrimaryPrincipal(), "loginName");
-        User user = userService.findByLoginName(loginName);
+        String username = (String) Reflections.getFieldValue(principals.getPrimaryPrincipal(), "username");
+        User user = userService.findByUsername(username);
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         for (Role role : user.getRoleList()) {

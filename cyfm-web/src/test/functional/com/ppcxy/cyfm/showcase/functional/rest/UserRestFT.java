@@ -92,7 +92,7 @@ public class UserRestFT extends BaseFunctionalTestCase {
 		try {
 			HttpEntity<UserDTO> response = jdkTemplate.exchange(resourceUrl + "/{id}.xml", HttpMethod.GET,
 					requestEntity, UserDTO.class, 1L);
-			assertThat(response.getBody().getLoginName()).isEqualTo("admin");
+			assertThat(response.getBody().getUsername()).isEqualTo("admin");
 			assertThat(response.getBody().getName()).isEqualTo("管理员");
 			assertThat(response.getBody().getTeamId()).isEqualTo(1);
 
@@ -114,7 +114,7 @@ public class UserRestFT extends BaseFunctionalTestCase {
 	@Category(Smoke.class)
 	public void getUserAsJson() {
 		UserDTO user = httpClientRestTemplate.getForObject(resourceUrl + "/{id}.json", UserDTO.class, 1L);
-		assertThat(user.getLoginName()).isEqualTo("admin");
+		assertThat(user.getUsername()).isEqualTo("admin");
 		assertThat(user.getName()).isEqualTo("管理员");
 		assertThat(user.getTeamId()).isEqualTo(1);
 
