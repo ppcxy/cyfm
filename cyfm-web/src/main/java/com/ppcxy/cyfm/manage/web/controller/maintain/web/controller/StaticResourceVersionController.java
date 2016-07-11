@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
  * 这样即可扫描这些文件实施版本控制
  */
 @Controller
-@RequestMapping("/maintain/staticResource")
+@RequestMapping("/manage/maintain/staticResource")
 @RequiresPermissions("maintain:staticResource:*")
 public class StaticResourceVersionController extends BaseController {
 
@@ -87,6 +87,7 @@ public class StaticResourceVersionController extends BaseController {
         }
 
         result.put("success", true);
+        result.put("message", "操作成功");
 
         return result;
 
@@ -105,6 +106,7 @@ public class StaticResourceVersionController extends BaseController {
             versionedStaticResourceContent(realPath + fileNames[i], contents[i], null);
         }
         result.put("success", true);
+        result.put("message", "操作成功");
 
         return result;
     }
@@ -115,7 +117,7 @@ public class StaticResourceVersionController extends BaseController {
     public Object compress(@RequestParam("fileName") String fileName, @RequestParam("content") String content) {
         Map<String, Object> result = Maps.newHashMap();
 
-        String rootRealPath = sc.getRealPath("/WEB-INF");
+        String rootRealPath = sc.getRealPath("/");
         String versionedResourceRealPath = sc.getRealPath(versionedResourcePath);
 
         try {
@@ -136,7 +138,7 @@ public class StaticResourceVersionController extends BaseController {
     public Object batchCompress(@RequestParam("fileNames[]") String[] fileNames, @RequestParam("contents[]") String[] contents) throws IOException {
         Map<String, Object> result = Maps.newHashMap();
 
-        String rootRealPath = sc.getRealPath("/WEB-INF");
+        String rootRealPath = sc.getRealPath("/");
         String versionedResourceRealPath = sc.getRealPath(versionedResourcePath);
 
         StringBuilder success = new StringBuilder();
@@ -177,7 +179,7 @@ public class StaticResourceVersionController extends BaseController {
         result.put("message", "切换成功");
 
 
-        String rootRealPath = sc.getRealPath("/WEB-INF");
+        String rootRealPath = sc.getRealPath("/");
         String versionedResourceRealPath = sc.getRealPath(versionedResourcePath);
 
         try {
@@ -211,7 +213,7 @@ public class StaticResourceVersionController extends BaseController {
     ) throws IOException {
         Map<String, Object> result = Maps.newHashMap();
 
-        String rootRealPath = sc.getRealPath("/WEB-INF");
+        String rootRealPath = sc.getRealPath("/");
         String versionedResourceRealPath = sc.getRealPath(versionedResourcePath);
 
         StringBuilder success = new StringBuilder();
