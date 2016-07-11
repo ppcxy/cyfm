@@ -348,6 +348,12 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.yahoo.platform.yui</groupId>
+            <artifactId>yuicompressor</artifactId>
+            <version>2.4.2</version>
+        </dependency>
         <!-- GENERAL UTILS end -->
 
         <!-- OTHER TOOLS begin -->

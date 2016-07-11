@@ -18,6 +18,7 @@
     <table id="contentTable" data-tid="team" class="table table-list table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
+            <th class="check"><input type="checkbox"></th>
             <th>团队id</th>
             <th>团队名称</th>
             <th>团队管理者</th>
@@ -26,6 +27,7 @@
         <tbody>
         <c:forEach items="${page.content}" var="team">
             <tr>
+                <td class="check"><input type="checkbox" value="${team.id}"></td>
                 <td>${team.id}&nbsp;</td>
                 <td>${team.name}&nbsp;</td>
                 <td>${team.master.name}&nbsp;</td>

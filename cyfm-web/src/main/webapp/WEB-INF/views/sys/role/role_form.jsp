@@ -12,13 +12,13 @@
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="name" class="control-label">角色名称:</label>
                 <div class="controls">
                     <input type="text" id="name" name="name" value="${entity.name}" class="form-control required"/>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="permissions" class="control-label">具备权限:</label>
                 <div class="controls">
                     <textarea id="permissions" name="permissions" class="form-control required">${entity.permissions}</textarea>
