@@ -28,7 +28,7 @@ public class UserJaxRsFT extends BaseFunctionalTestCase {
 	@Test
 	public void getUser() {
 		UserDTO user = restTemplate.getForObject(resourceUrl + "/{id}.xml", UserDTO.class, 1L);
-		assertThat(user.getLoginName()).isEqualTo("admin");
+		assertThat(user.getUsername()).isEqualTo("admin");
 		assertThat(user.getName()).isEqualTo("管理员");
 		assertThat(user.getTeamId()).isEqualTo(1);
 
@@ -37,7 +37,7 @@ public class UserJaxRsFT extends BaseFunctionalTestCase {
 		} catch (HttpStatusCodeException e) {
 			fail(e.getMessage());
 		}
-		assertThat(user.getLoginName()).isEqualTo("admin");
+		assertThat(user.getUsername()).isEqualTo("admin");
 		assertThat(user.getName()).isEqualTo("管理员");
 		assertThat(user.getTeamId()).isEqualTo(1);
 	}

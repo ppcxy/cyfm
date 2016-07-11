@@ -137,7 +137,7 @@ public class LogUtils {
 
 
     protected static String getUsername() {
-        return ShiroUserInfoUtils.getLoginName();
+        return ShiroUserInfoUtils.getUsername();
     }
 
     public static Logger getAccessLog() {

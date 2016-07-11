@@ -67,8 +67,8 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     public String getSuccessUrl() {
-        String username = ShiroUserInfoUtils.getLoginName();
-        User user = userService.findByLoginName(username);
+        String username = ShiroUserInfoUtils.getUsername();
+        User user = userService.findByUsername(username);
         //TODO 区分登录成功页面
         if (haveAdminRole()) {
             return getAdminDefaultSuccessUrl();
@@ -94,9 +94,9 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
     }
 
     private boolean haveAdminRole() {
-        String username = ShiroUserInfoUtils.getLoginName();
+        String username = ShiroUserInfoUtils.getUsername();
 
-        User user = userService.findByLoginName(username);
+        User user = userService.findByUsername(username);
         if (user != null && Boolean.TRUE.equals(user.getRoleNames().indexOf("Admin") != -1)) {
             return true;
 
