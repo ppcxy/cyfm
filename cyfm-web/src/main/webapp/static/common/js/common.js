@@ -182,117 +182,132 @@ $cy = {
             });
         })
     },
-    initCustomTable: function () {
-        if ($("table.table-list").size() == 0) return;
-        //Table init 开始
-        $("th input[type=checkbox]").on("click", function () {
-            $("td.check input[type=checkbox]").prop("checked", $(this).is(":checked"))
-        });
-
-        var beginCheck = undefined;
-
-        $("body").keydown(function (e) {
-            var ev = window.event || e;
-            if (ev.shiftKey) {
-                var check = $("tr:hover.selected").find("td.check input[type=checkbox]");
-                if (check.size() != 0) {
-                    beginCheck = $("tr:hover.selected").find("td.check input[type=checkbox]");
-                } else {
-                    beginCheck = "no";
-                }
-
+    table: {
+        getAllSelectedCheckbox: function (table) {
+            if (!table){
+                table = "table.table-list";
             }
-        });
+            var checkboxArray = new Array()
+            $(table).find("td.check input[type=checkbox]:checked").each(function (index, item) {
+                checkboxArray.push(item);
+            })
+            return checkboxArray;
+        },
+        init: function () {
+            if ($("table.table-list").size() == 0) return;
 
-        $("tr td:not(.check):not(.action)").on("click", function (e) {
-            var selectTR = $(this).parents("tr");
-            if (beginCheck == 'no') {
-                beginCheck = $("tr.selected").find("td.check input[type=checkbox]");
+            //给table添加按钮和注册resize table
+            if ($("table.table-list").find("td.action").size() > 0 && $("table.table-list").find("th.action").size() == 0) {
+                $('table thead tr').append('<th class="action">操作</th>');
             }
-            selectTR.addClass("selected").siblings().removeClass("selected");
+            new TableDragSortResize(document.getElementById('contentTable'), {cidAttrName: "data-tid"});
 
-            var tdCheckBox = selectTR.find("td.check").find("input[type=checkbox]");
+            //Table init 开始
+            $("th input[type=checkbox]").on("click", function () {
+                $("td.check input[type=checkbox]").prop("checked", $(this).is(":checked"))
+            });
 
-            if (tdCheckBox.size() > 0) {
-                var checked = tdCheckBox.is(":checked");
+            var beginCheck = undefined;
 
+            $("body").keydown(function (e) {
                 var ev = window.event || e;
                 if (ev.shiftKey) {
-                    var beginChecked = beginCheck.is(":checked")
-                    if (checked != beginChecked) {
-                        tdCheckBox.prop("checked", !checked);
-                        var beginIndex = beginCheck.parents("tr").index();
-                        var endIndex = tdCheckBox.parents("tr").index();
-                        if (beginIndex > endIndex) {
-                            var tem = endIndex;
-                            endIndex = beginIndex;
-                            beginIndex = tem;
-                        }
-                        for (var i = beginIndex + 1; i <= endIndex; i++) {
-                            $("tr").eq(i).find("td.check input[type=checkbox]").prop("checked", !checked);
-                        }
+                    var check = $("tr:hover.selected").find("td.check input[type=checkbox]");
+                    if (check.size() != 0) {
+                        beginCheck = $("tr:hover.selected").find("td.check input[type=checkbox]");
+                    } else {
+                        beginCheck = "no";
                     }
-                    beginCheck = undefined;
-                    return false
+
                 }
+            });
 
-                beginCheck = undefined
-
-                if (ev.ctrlKey) {
-                    tdCheckBox.prop("checked", !checked);
-                    return false
+            $("tr td:not(.check):not(.action)").on("click", function (e) {
+                var selectTR = $(this).parents("tr");
+                if (beginCheck == 'no') {
+                    beginCheck = $("tr.selected").find("td.check input[type=checkbox]");
                 }
+                selectTR.addClass("selected").siblings().removeClass("selected");
 
-                tdCheckBox.prop("checked", !checked).parents("tr").siblings().find("td.check input[type=checkbox]").prop("checked", false);
-                return false;
-            }
-        });
+                var tdCheckBox = selectTR.find("td.check").find("input[type=checkbox]");
 
-        $(".tools a.btn").on("click", function (e) {
-            if ($(this).prop("href")) return;
-            var baseUrl = $(this).data("baseurl");
-            if (!baseUrl) return;
+                if (tdCheckBox.size() > 0) {
+                    var checked = tdCheckBox.is(":checked");
 
-            var checkItemVal = $("tr td.check input:checked").val();
-
-            if (checkItemVal) {
-                if ($(this).hasClass("delete")) {
-                    $cy.confirm({
-                        message: "将要执行删除数据操作,是否继续?", yes: function () {
-                            window.location.href = baseUrl.replace("{id}", checkItemVal);
+                    var ev = window.event || e;
+                    if (ev.shiftKey) {
+                        var beginChecked = beginCheck.is(":checked")
+                        if (checked != beginChecked) {
+                            tdCheckBox.prop("checked", !checked);
+                            var beginIndex = beginCheck.parents("tr").index();
+                            var endIndex = tdCheckBox.parents("tr").index();
+                            if (beginIndex > endIndex) {
+                                var tem = endIndex;
+                                endIndex = beginIndex;
+                                beginIndex = tem;
+                            }
+                            for (var i = beginIndex + 1; i <= endIndex; i++) {
+                                $("tr").eq(i).find("td.check input[type=checkbox]").prop("checked", !checked);
+                            }
                         }
-                    });
+                        beginCheck = undefined;
+                        return false
+                    }
+
+                    beginCheck = undefined
+
+                    if (ev.ctrlKey) {
+                        tdCheckBox.prop("checked", !checked);
+                        return false
+                    }
+
+                    tdCheckBox.prop("checked", !checked).parents("tr").siblings().find("td.check input[type=checkbox]").prop("checked", false);
                     return false;
                 }
+            });
 
-                window.location.href = baseUrl.replace("{id}", checkItemVal);
-            } else {
-                $cy.warn("请选择一条记录.");
-            }
-        });
+            $(".tools a.btn").on("click", function (e) {
+                if ($(this).prop("href")) return;
+                var baseUrl = $(this).data("baseurl");
+                if (!baseUrl) return;
 
-        $(".action a.deleteRow").click(function () {
-            var deleteAction = this;
-            $cy.confirm({
-                message: "将要执行删除数据操作,是否继续?", yes: function () {
-                    window.location.href = deleteAction.href;
+                var checkItemVal = $("tr td.check input:checked").val();
+
+                if (checkItemVal) {
+                    if ($(this).hasClass("delete")) {
+                        $cy.confirm({
+                            message: "将要执行删除数据操作,是否继续?", yes: function () {
+                                window.location.href = baseUrl.replace("{id}", checkItemVal);
+                            }
+                        });
+                        return false;
+                    }
+
+                    window.location.href = baseUrl.replace("{id}", checkItemVal);
+                } else {
+                    $cy.warn("请选择一条记录.");
                 }
-            })
-            return false;
-        });
+            });
 
-        //给table添加按钮和注册resize table
-        if ($("table").find("td.action").size() > 0 && $("table").find("table thead tr").size() == 0) {
-            $('table thead tr').append('<th class="action">操作</th>');
+            $(".action a.deleteRow").click(function () {
+                var deleteAction = this;
+                $cy.confirm({
+                    message: "将要执行删除数据操作,是否继续?", yes: function () {
+                        window.location.href = deleteAction.href;
+                    }
+                })
+                return false;
+            });
+            //Table init 结束
+
         }
-        new TableDragSortResize(document.getElementById('contentTable'), {cidAttrName: "data-tid"});
-        //Table init 结束
-
     },
-    validate :{
-        validFiledTips : {},
+    validate: {
+        submiting: false,
+        validFiledTips: {},
         init: function () {
             var validFiledTips = $cy.validate.validFiledTips;
+            var submiting = $cy.validate.submiting;
             $.validator.setDefaults({
                 focusInvalid: true
                 , focusCleanup: true
@@ -303,6 +318,7 @@ $cy = {
                     $(element).valid();
                 }
                 , submitHandler: function (form) {
+                    submiting = true;
                     $cy.waiting();
                     form.submit();
                 }
@@ -316,7 +332,7 @@ $cy = {
                     $(element).removeClass("has-error").addClass("has-success");
                 }
                 , errorPlacement: function (error, element) {
-                    if ($(error).html()==""){
+                    if ($(error).html() == "") {
                         return true;
                     }
                     var point = 1;
@@ -341,7 +357,6 @@ $cy = {
                             , time: 0
                         });
                         validFiledTips[fieldName] = index;
-                        console.log(fieldName+" "+index)
                         $(element).removeClass("has-success").addClass("has-error");
                     }
 
@@ -368,10 +383,22 @@ $cy.validate.init();
 
 //初始化页面
 $(function () {
-    $cy.initDatePick();
-    $cy.initCustomTable();
+    var nowtime = $('.nowtime');
+    //时间
+    if (nowtime[0]) {
+        var set = setInterval(function () {
+            nowtime.html(laydate.now(0, 'YYYY年MM月DD日 hh:mm:ss'));
+        }, 1000);
+    }
 
+    $cy.initDatePick();
+    $cy.table.init();
+    // $cy.handleUniform();
     window.onbeforeunload = function () {
-        $cy.waiting();
+        if (!$cy.validate.submiting) {
+            setTimeout(function () {
+                $cy.waiting();
+            }, 200);
+        }
     };
 });

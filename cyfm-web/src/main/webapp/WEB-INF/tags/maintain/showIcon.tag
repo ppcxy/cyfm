@@ -1,5 +1,5 @@
 <%@ tag pageEncoding="UTF-8"%>
-<%@ attribute name="icon" type="com.ppcxy.cyfm.maintain.entity.icon.Icon" required="false" description="当前图标" %>
+<%@ attribute name="icon" type="com.ppcxy.cyfm.manage.web.controller.maintain.entity.icon.Icon" required="false" description="当前图标" %>
 <%@ attribute name="iconIdentity" type="java.lang.String" required="false" description="当前图标" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="cy" tagdir="/WEB-INF/tags" %>
