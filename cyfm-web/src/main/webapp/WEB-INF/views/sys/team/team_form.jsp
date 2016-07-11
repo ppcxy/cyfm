@@ -13,14 +13,14 @@
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
-            <div class="control-group">
+            <div class="form-group">
                 <label for="name" class="control-label">团队名称:</label>
                 <div class="controls">
                     <input type="text" id="name" name="name" value="${entity.name}" class="form-control required"/>
                 </div>
             </div>
-            <div class="control-group">
-                <label for="" class="control-label">管理人员:</label>
+            <div class="form-group">
+                <label for="master" class="control-label">管理人员:</label>
                 <div class="controls">
                     <input type="text" id="master" name="master" value="${entity.master.name}" class="form-control required"/>
                 </div>
