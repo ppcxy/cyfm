@@ -207,7 +207,7 @@
             <!-- 配置初始化大小、最小、最大 -->
             <property name="initialSize" value="1"/>
             <property name="minIdle" value="1"/>
-            <property name="maxActive" value="{jdbc.pool.maxActive}"/>
+            <property name="maxActive" value="${jdbc.pool.maxActive}"/>
 
             <property name="defaultAutoCommit" value="false"/>
 
