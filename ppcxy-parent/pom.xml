@@ -61,22 +61,42 @@
         <!-- Plugin的属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <prerequisites>
         <maven>3.0.0</maven>
     </prerequisites>
 
-    <!-- 设定除中央仓库 (repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查询，如有Nexus私服, 取消注释并指向正确的服务器地址
+    <!-- 设定除中央仓库 (repo1.maven.org/maven2/)外的其他仓库,按设定顺序进行查询，如有Nexus私服, 取消注释并指向正确的服务器地址-->
     <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Maven MILESTONE Repository</name>
+            <url>http://repo.springsource.org/libs-milestone</url>
+        </repository>
+        <repository>
+            <id>m2proxy</id>
+            <name>m2proxy.atlassian.com</name>
+            <url>https://m2proxy.atlassian.com/content/groups/public/</url>
+            <!--<releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases>-->
+            <!--<snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>-->
+        </repository>
+        <repository>
+            <id>repo1</id>
+            <name>repo1.maven.org</name>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>JBossRepo</id>
+            <name>Jboss</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
         <repository>
             <id>nexus</id>
             <name>Team Nexus Repository</name>
-            <url>http://localhost:8081/nexus/content/groups/public</url>
+            <url>http://192.168.1.19:8081/nexus/content/groups/public/</url>
         </repository>
-    </repositories>-->
+    </repositories>
 
     <!-- 如有Nexus私服, 取消注释并指向正确的服务器地址
     <pluginRepositories>

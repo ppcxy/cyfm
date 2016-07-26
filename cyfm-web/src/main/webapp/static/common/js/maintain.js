@@ -12,9 +12,9 @@ $cy.maintain = {
                 } else {
                     version = parseInt(version) + 1;
                 }
-                var url = ctx + "/manage/maintain/staticResource/incVersion";
+                var ajaxUrl = ctx + "/manage/maintain/staticResource/incVersion";
                 $.ajax({
-                    url,
+                    url: ajaxUrl,
                     type: "post",
                     dataType: "json",
                     data: {
@@ -133,7 +133,7 @@ $cy.maintain = {
                         $cy.waitingOver();
                         if (data.success) {
                             $cy.info(data.message);
-                        } else{
+                        } else {
                             $cy.error(data.message);
                         }
 
@@ -202,7 +202,7 @@ $cy.maintain = {
                             tr.find("[name='content']").val(data.content);
                             tr.find("[name='url']").text(data.url);
                             $cy.info(data.message);
-                        } else{
+                        } else {
                             $cy.error(data.message);
                         }
 

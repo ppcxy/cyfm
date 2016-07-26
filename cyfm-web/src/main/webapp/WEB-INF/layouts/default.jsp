@@ -22,7 +22,7 @@
 <%@include file="/WEB-INF/views/common/import-css.jspf"%>
 <link href="${ctx}/static/index/layout/css/layout.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/static/index/layout/css/themes/default.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/static/index/layout/css/custom.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css" />
 	<style>
 		.page-sidebar-closed .page-logo{
 			display: none !important
