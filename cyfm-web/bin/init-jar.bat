@@ -1,6 +1,6 @@
 @echo off
-echo [INFO] 使用maven根据pom.xml 复制依赖jar到相应目录。
-echo [INFO] compile,runtime级别到/webapp/WEB-INF/lib, test,provided级别到/lib
+echo [INFO] use maven pom.xml copy jar to folder.
+echo [INFO] compile,runtime level /mvn/runtime/lib, test,provided level/mvn/test/lib
 
 cd ..
 

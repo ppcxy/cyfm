@@ -211,7 +211,7 @@
     <!-- Cache Control Header filter -->
     <filter>
         <filter-name>cacheControlHeaderFilter</filter-name>
-        <filter-class>com.ppcxy.cyfm.showcase.demos.web.CacheControlHeaderFilter</filter-class>
+        <filter-class>com.ppcxy.common.web.filter.CacheControlHeaderFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>cacheControlHeaderFilter</filter-name>
