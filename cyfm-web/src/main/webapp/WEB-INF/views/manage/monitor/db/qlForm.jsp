@@ -2,10 +2,11 @@
 <%@ page import="org.hibernate.SessionFactory" %>
 <%@ page import="org.hibernate.metadata.ClassMetadata" %>
 <%@ page import="org.springframework.beans.BeanWrapperImpl" %>
-<%@ page import="org.springframework.data.domain.Page" %>
+<%@ page import="org.springframework.data.domain.pageimpl" %>
 <%@ page import="java.beans.PropertyDescriptor" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.springframework.data.domain.PageImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <div data-table="table" class="tabbable-line">
@@ -29,7 +30,7 @@
         <c:if test="${resultPage.totalElements gt 0}">
             当前第${resultPage.number+1}页，总共${resultPage.totalPages}页/${resultPage.totalElements}条记录
             <%
-                Page resultPage = (Page)pageContext.findAttribute("resultPage");
+                PageImpl resultPage = (PageImpl) pageContext.findAttribute("resultPage");
             %>
             <% if(resultPage.hasPreviousPage()) { %>
                 <a class="btn btn-link btn-pre-page">上一页</a>

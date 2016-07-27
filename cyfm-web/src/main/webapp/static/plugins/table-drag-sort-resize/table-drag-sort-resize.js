@@ -128,7 +128,7 @@
     // line 280 - 282
     var hasClass = function (el, c) {
         return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
-    }
+    };
 
     // storage functions
     // load state and returns the array
@@ -720,7 +720,7 @@
                 }
                 this._mouseDownEvent = copy;
             }
-        }
+        };
         DragSortHandler.prototype._mouseExecuteClick = function (event) {
             var index = 0,
                 cell = eventTarget(event).parentNode.parentNode;
@@ -747,7 +747,7 @@
                         order: ((hasClass(cell, 'sort-down')) ? 'sort-up' : 'sort-down')
                     });
             }
-        }
+        };
         DragSortHandler.prototype._mouseStopDrag = function (event) {
             // remove overlay
             document.body.removeChild(this.overlay);
@@ -869,7 +869,7 @@
                     }
                 }
             }
-        }
+        };
         ResizeHandler.prototype._mouseStopDrag = function () {
             var temp = new Array(this.nc);
             for (var i = 0; i < this.nc; i++) {

@@ -5,13 +5,14 @@
  *******************************************************************************/
 package org.springside.modules.utils;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 public class PropertiesLoaderTest {
 
@@ -33,6 +34,7 @@ public class PropertiesLoaderTest {
 			assertThat(pl.getProperty("notexist")).isNull();
 			failBecauseExceptionWasNotThrown(NoSuchElementException.class);
 		} catch (NoSuchElementException e) {
+			// No need to deal with
 		}
 		assertThat(pl.getProperty("notexist", "defaultValue")).isEqualTo("defaultValue");
 	}
@@ -46,6 +48,7 @@ public class PropertiesLoaderTest {
 			pl.getInteger("notExist");
 			failBecauseExceptionWasNotThrown(NoSuchElementException.class);
 		} catch (NoSuchElementException e) {
+			// No need to deal with
 		}
 		assertThat(pl.getInteger("notExist", 100)).isEqualTo(new Integer(100));
 
@@ -56,6 +59,7 @@ public class PropertiesLoaderTest {
 			pl.getBoolean("notExist");
 			failBecauseExceptionWasNotThrown(NoSuchElementException.class);
 		} catch (NoSuchElementException e) {
+			// No need to deal with
 		}
 		assertThat(pl.getBoolean("notExist", true)).isEqualTo(new Boolean(true));
 	}

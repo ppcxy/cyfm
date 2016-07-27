@@ -22,16 +22,16 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
 
     @Modifying
     @Query("update BaseInfo bi set bi.realname=?1 where bi.user.id=?2")
-    public void updateRealname(String realname, Long userId);
+    void updateRealname(String realname, Long userId);
 
     @Modifying
     @Query("update BaseInfo bi set bi.realname=:realname where bi.user.id=:userId")
-    public void updateRealnameWithNamedParam(
+    void updateRealnameWithNamedParam(
             @Param("realname") String realname, @Param("userId") Long userId);
 
     @Modifying
     @Query("delete from BaseInfo bi where bi.user.id=?1")
-    public void deleteBaseInfoByUser(Long userId);
+    void deleteBaseInfoByUser(Long userId);
 
     /**
      * 条件查询 自动生成
@@ -39,7 +39,7 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
      * @param username
      * @return
      */
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
 
     /**
@@ -48,11 +48,11 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
      * @param sex
      * @return
      */
-    public User findByBaseInfoSex(Sex sex);
+    User findByBaseInfoSex(Sex sex);
 
-    public Page<User> findByBaseInfoSex(Sex sex, Pageable pageable);
+    Page<User> findByBaseInfoSex(Sex sex, Pageable pageable);
 
-    public List<User> findByBaseInfoSex(Sex sex, Sort sort);
+    List<User> findByBaseInfoSex(Sex sex, Sort sort);
 
     /**
      * 关联查询 和 and逻辑查询
@@ -62,6 +62,6 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
      * @return
      */
     @Query("select u from User u, BaseInfo bi, SchoolInfo si where bi.user=u and si.user=u and bi.sex=?1 and si.type=?2")
-    public User findByBaseInfoSexAndShcoolInfoSetType(Sex sex, SchoolType type);
+    User findByBaseInfoSexAndShcoolInfoSetType(Sex sex, SchoolType type);
 
 }

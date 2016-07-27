@@ -130,7 +130,7 @@
             return elemId;
         } else if(/^\./.test(node[1])){
             var find, child = node[1].substr(1), exp = new RegExp('\\b' + child +'\\b');
-            arr = []
+            arr = [];
             find = doc.getElementsByClassName ? elemId.getElementsByClassName(child) : elemId[tags]('*');
             Dates.each(find, function(ii, that){
                 exp.test(that.className) && arr.push(that);
@@ -729,7 +729,7 @@
         //显示更多年月
         Dates.each(S(log.box + ' .laydate_ym'), function(i, elem){
             Dates.on(elem, 'click', function(ev){
-                console.log($(this).attr("class"))
+                console.log($(this).attr("class"));
                 Dates.stopmp(ev).reshow();
                 Dates.addClass(this[tags]('div')[0], 'laydate_show');
                 if(!i){
@@ -856,7 +856,7 @@
                     Dates.each(new Array(i === 0 ? 24 : 60), function(i){
                         str += '<span>'+ i +'</span>';
                     });
-                    str += '</div>'
+                    str += '</div>';
                     log.hmsarr[i] = str;
                 } else {
                     str = log.hmsarr[i];

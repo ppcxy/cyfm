@@ -9,13 +9,13 @@ package com.ppcxy.common.entity.base;
  */
 public interface LogicDeleteable {
 
-    public Boolean getDeleted();
+    Boolean getDeleted();
 
-    public void setDeleted(Boolean deleted);
+    void setDeleted(Boolean deleted);
 
     /**
      * 标识为已删除
      */
-    public void markDeleted();
+    void markDeleted();
 
 }

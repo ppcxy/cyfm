@@ -177,7 +177,7 @@ public class UserOnline extends AbstractEntity<String> {
     }
 
 
-    public static final UserOnline fromOnlineSession(OnlineSession session) {
+    public static UserOnline fromOnlineSession(OnlineSession session) {
         UserOnline online = new UserOnline();
         online.setId(String.valueOf(session.getId()));
         online.setUserId(session.getUserId());
