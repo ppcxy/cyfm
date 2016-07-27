@@ -73,27 +73,59 @@
 <script>
 	$(function () {
 		$cy.handleUniform();
-		$("#inputForm").validate({
-			rules: {
-				username:{
-					required: true
-					,rangelength:[4,20]
-					,remote:{                               //验证用户名是否存在
-						type:"POST",
-						url:"${ctx}/sys/user/checkUsername",
-						data:{
-							'oldUsername':'${entity.username}'
-							,'username':function(){return $("#username").val();}
-						}
-					}
-				}
-			}
-			,messages: {
-				username:{
-					remote:"用户名已被其他用户使用."
-				}
-			}
-		});
+        $("#inputForm").validate({
+            rules: {
+                username: {
+                    required: true
+                    , rangelength: [4, 20]
+                    , remote: {                               //验证用户名是否存在
+                        type: "POST",
+                        url: "${ctx}/sys/user/checkUsername",
+                        data: {
+                            'oldUsername': '${entity.username}'
+                            , 'username': function () {
+                                return $("#username").val();
+                            }
+                        }
+                    }
+                }
+                , tel: {
+                    remote: {                               //验证用户名是否存在
+                        type: "POST",
+                        url: "${ctx}/sys/user/checkTel",
+                        data: {
+                            'oldTel': '${entity.tel}'
+                            , 'tel': function () {
+                                return $("#tel").val();
+                            }
+                        }
+                    }
+                }
+                , email: {
+                    remote: {                               //验证用户名是否存在
+                        type: "POST",
+                        url: "${ctx}/sys/user/checkEmail",
+                        data: {
+                            'oldEmail': '${entity.email}'
+                            , 'email': function () {
+                                return $("#email").val();
+                            }
+                        }
+                    }
+                }
+            }
+            , messages: {
+                username: {
+                    remote: "用户名已被其他用户使用."
+                }
+                ,email: {
+                    remote: "邮箱已被其他用户使用."
+                }
+                ,tel: {
+                    remote: "手机号码已经被其他用户使用."
+                }
+            }
+        });
 	})
 </script>
 </body>

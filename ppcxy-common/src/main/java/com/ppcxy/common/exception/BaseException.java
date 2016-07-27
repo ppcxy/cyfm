@@ -62,6 +62,7 @@ public class BaseException extends RuntimeException {
         super();
     }
 
+    //TODO 获取消息为空时要显示的值
     @Override
     public String getMessage() {
         String message = null;
@@ -69,7 +70,7 @@ public class BaseException extends RuntimeException {
             message = MessageUtils.message(code, args);
         }
         if (message == null) {
-            message = message;
+            message = "error";
         }
         return message;
     }

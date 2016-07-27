@@ -77,7 +77,7 @@ Layer.prototype.view = function(){
     if(btns === 0 || !config.btn){
       return '';
     }
-    btndom = '<span type="1">'+ config.btn[0] +'</span>'
+    btndom = '<span type="1">' + config.btn[0] + '</span>';
     if(btns === 2){
       btndom = '<span type="0">'+ config.btn[1] +'</span>' + btndom;
     }
@@ -211,7 +211,7 @@ win.layer = {
     var link = doc.createElement('link');
     link.href = path + 'need/layer.css';
     link.type = 'text/css';
-    link.rel = 'styleSheet'
+    link.rel = 'styleSheet';
     link.id = 'layermcss';
     return link;
   }());

@@ -37,6 +37,6 @@
         </tbody>
     </table>
 </div>
- <cy:pagination page="${page}" paginationSize="5"></cy:pagination>
+ <cy:pagination page="${page}" paginationSize="5"/>
 </body>
 </html>

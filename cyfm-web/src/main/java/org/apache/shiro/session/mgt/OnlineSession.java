@@ -25,11 +25,11 @@ public class OnlineSession extends SimpleSession {
     private static final int REMEMBER_ME_BIT_MASK = 1 << bitIndexCounter++;
 
 
-    public static enum OnlineStatus {
+    public enum OnlineStatus {
         on_line("在线"), hidden("隐身"), force_logout("强制退出");
         private final String info;
 
-        private OnlineStatus(String info) {
+        OnlineStatus(String info) {
             this.info = info;
         }
 
