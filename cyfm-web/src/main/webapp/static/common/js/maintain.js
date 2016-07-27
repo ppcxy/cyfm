@@ -12,6 +12,7 @@ $cy.maintain = {
                 } else {
                     version = parseInt(version) + 1;
                 }
+
                 var ajaxUrl = ctx + "/manage/maintain/staticResource/incVersion";
                 $.ajax({
                     url: ajaxUrl,
@@ -134,6 +135,7 @@ $cy.maintain = {
                         if (data.success) {
                             $cy.info(data.message);
                         } else {
+
                             $cy.error(data.message);
                         }
 
