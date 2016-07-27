@@ -34,8 +34,6 @@ import java.util.*;
 
 import static org.springframework.data.jpa.repository.query.QueryUtils.toOrders;
 
-;
-
 /**
  * <p>抽象基础Custom Repository 实现</p>
  */

@@ -1,4 +1,5 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,6 +7,7 @@
 <title>无标题文档</title>
 <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
 <style>
+    a {text-decoration: none;}
     .nav{float:left;}
     .nav li{float:left;width:87px;height:88px; text-align:center;}
     .nav li a{display:block;width:87px;height:88px;-moz-transition: none; transition: background-color 0.3s linear; -moz-transition: background-color 0.3s linear; -webkit-transition: background-color 0.3s linear; -o-transition: background-color 0.3s linear; }
@@ -50,7 +52,7 @@ $(function(){
     </ul>
      
     <div class="user">
-    <span>admin</span>
+    <span><shiro:principal property="name"/> </span>
     <i>消息</i>
     <b>5</b>
     </div>    

@@ -8,7 +8,7 @@
     <c:forEach items="${errors.fieldErrors}" var="error">
         <spring:message var="message" code="${error.code}" arguments="${error.arguments}" text="${error.defaultMessage}"/>
         <c:if test="${not empty message}">
-            var message = "<label id='${error.field}-error' class='error'>${message}</label>";
+            var message = '<label id=${error.field}-error class=error>${message}</label>';
 
             if($cy.validate.validFiledTips[fieldName]){
                 $("#error-tips-" + fieldName).find(".error").after(message);

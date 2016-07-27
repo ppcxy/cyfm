@@ -147,13 +147,12 @@
                 /cxf/** = anon
                 /login = jCaptchaValidate,authc
                 /logout = logout
-                /jolokia/** = authc,roles[admin]
+                /jolokia/** = authc,roles[Admin]
                 /api/secure/** = authcBasic
                 /polling = user,sysUser
                 /WEB-INF/views/error/** = anon
                 /hystrix/** = anon
                 / = anon
-                /WEB-INF/views/error/error = anon
                 /** = user,sysUser,onlineSession,syncOnlineSession,perms,roles
             </value>
         </property>
