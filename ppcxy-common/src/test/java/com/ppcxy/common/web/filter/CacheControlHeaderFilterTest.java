@@ -3,19 +3,18 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *******************************************************************************/
-package com.ppcxy.cyfm.showcase.demos.web;
-
-import static org.assertj.core.api.Assertions.*;
-
-import java.io.IOException;
-
-import javax.servlet.ServletException;
+package com.ppcxy.common.web.filter;
 
 import org.junit.Test;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockFilterConfig;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CacheControlHeaderFilterTest {
 	@Test

@@ -2,22 +2,18 @@ package com.ppcxy.common.repository.jpa.support.hibernate;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Cache;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.dialect.*;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
+import org.springside.modules.persistence.Hibernates;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * 根据 jpa api 获取hibernate相关api
  */
-public class HibernateUtils {
+public class HibernateUtils extends Hibernates {
 
     /**
      * 根据jpa EntityManager 获取 hibernate Session API
@@ -110,55 +106,26 @@ public class HibernateUtils {
         cache.evictNaturalIdRegions();
     }
 
-    /**
-     * Initialize the lazy property value.
-     *
-     * e.g. Hibernates.initLazyProperty(user.getGroups());
-     */
-    public static void initLazyProperty(Object proxyedPropertyValue) {
-        Hibernate.initialize(proxyedPropertyValue);
-    }
 
     /**
      * 从DataSoure中取出connection, 根据connection的metadata中的jdbcUrl判断Dialect类型.
      * 仅支持Oracle, H2, MySql, PostgreSql, SQLServer，如需更多数据库类型，请仿照此类自行编写。
      */
-    public static String getDialect(DataSource dataSource) {
-        String jdbcUrl = getJdbcUrlFromDataSource(dataSource);
-
+    public static String getDatabaseName(String jdbcUrl) {
         // 根据jdbc url判断dialect
         if (StringUtils.contains(jdbcUrl, ":h2:")) {
-            return H2Dialect.class.getName();
+            return "h2";
         } else if (StringUtils.contains(jdbcUrl, ":mysql:")) {
-            return MySQL5InnoDBDialect.class.getName();
+            return "mysql";
         } else if (StringUtils.contains(jdbcUrl, ":oracle:")) {
-            return Oracle10gDialect.class.getName();
+            return "oracle";
         } else if (StringUtils.contains(jdbcUrl, ":postgresql:")) {
-            return PostgreSQL82Dialect.class.getName();
+            return "postgresql";
         } else if (StringUtils.contains(jdbcUrl, ":sqlserver:")) {
-            return SQLServer2008Dialect.class.getName();
+            return "sqlserver";
         } else {
             throw new IllegalArgumentException("Unknown Database of " + jdbcUrl);
         }
     }
 
-    private static String getJdbcUrlFromDataSource(DataSource dataSource) {
-        Connection connection = null;
-        try {
-            connection = dataSource.getConnection();
-            if (connection == null) {
-                throw new IllegalStateException("Connection returned by DataSource [" + dataSource + "] was null");
-            }
-            return connection.getMetaData().getURL();
-        } catch (SQLException e) {
-            throw new RuntimeException("Could not get database url", e);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
-    }
 }

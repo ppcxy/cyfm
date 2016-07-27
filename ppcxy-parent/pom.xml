@@ -16,7 +16,7 @@
         <spring.version>4.2.1.RELEASE</spring.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mybatis.version>3.2.7</mybatis.version>
-        <spring-data-jpa.version>1.6.0.RELEASE</spring-data-jpa.version>
+        <spring-data-jpa.version>1.6.4.RELEASE</spring-data-jpa.version>
         <druid-version>1.0.21</druid-version>
         <jcaptcha.version>2.0-alpha-1</jcaptcha.version>
         <jsoup.version>1.8.3</jsoup.version>
@@ -98,17 +98,17 @@
         </repository>
     </repositories>
 
-    <!-- 如有Nexus私服, 取消注释并指向正确的服务器地址
+    <!-- 如有Nexus私服, 取消注释并指向正确的服务器地址 -->
     <pluginRepositories>
         <pluginRepository>
             <id>nexus</id>
             <name>Team Nexus Repository</name>
-            <url>http://localhost:8081/nexus/content/groups/public</url>
+            <url>http://192.168.1.19:8081/nexus/content/groups/public</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories> -->
+    </pluginRepositories>
 
     <!-- 预定义依赖项的version,scope与exclusions,子项目中只需定义groupId 与  artifactId 即可 -->
     <dependencyManagement>
