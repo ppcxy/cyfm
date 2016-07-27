@@ -109,7 +109,7 @@ div.sort-title, div.sort {
         text-align: center;
     }
     .datepicker-days table th{
-        min-width: 0px;
+        min-width: 0;
     }
     th.check,td.check{
         width: auto;
@@ -177,7 +177,7 @@ body{
 
 
 .table-toolbar{
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 
 .laydate_box, .laydate_box * {
@@ -194,13 +194,13 @@ body{
 ::-webkit-scrollbar-track {
     /*-webkit-box-shadow: #2b3643;*/
     -webkit-border-radius: 10px;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
-    border-radius: 0px;
+    border-radius: 0;
     background: rgba(230, 226, 212, 0.8);
     /*-webkit-box-shadow: #2b3643;*/
 }

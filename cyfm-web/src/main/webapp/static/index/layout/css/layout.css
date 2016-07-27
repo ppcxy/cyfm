@@ -32,14 +32,14 @@
   }
 
   .page-container {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .page-content {
     padding: 0 !important;
     min-height: 300px !important;
-    padding: 0px 20px 20px !important;
+    padding: 0 20px 20px !important;
     margin: 0 !important;
   }
 }
@@ -50,8 +50,8 @@ Page Header
   width: 100%;
   padding: 0 20px 0 20px;
   margin: 0;
-  border: 0px;
-  padding: 0px;
+  border: 0;
+  padding: 0;
   box-shadow: none;
   height: 46px;
   min-height: 46px;
@@ -186,16 +186,16 @@ Page Header
   /* Dark version */
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
-  margin: 0px;
-  padding: 0px 4px;
+  margin: 0;
+  padding: 0 4px;
   height: 46px;
   display: inline-block;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown:last-child {
-  padding-right: 0px;
+  padding-right: 0;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle {
-  margin: 0px;
+  margin: 0;
   padding: 17px 10px 9px 10px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:last-child {
@@ -584,7 +584,7 @@ Horizontal Menu
   display: inline-block;
   margin: 0;
   width: 0;
-  height: 0px;
+  height: 0;
   margin-left: -7px;
   margin-bottom: -6px;
 }
@@ -654,7 +654,7 @@ Horizontal Menu
     width: 236px;
   }
   .page-boxed .page-header.navbar .top-menu .navbar-nav {
-    margin-right: 0px;
+    margin-right: 0;
   }
 
   /* Sidebar closed & logo hidden */
@@ -688,8 +688,8 @@ Horizontal Menu
     width: auto;
     padding: 0;
     margin-right: 10px;
-    margin-left: 0px !important;
-    padding-left: 0px !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
   }
   .page-header.navbar .page-logo img {
     margin-left: 4px !important;
@@ -711,7 +711,7 @@ Horizontal Menu
     display: inline-block;
     position: relative;
     top: 1px;
-    right: 0px;
+    right: 0;
   }
   .page-header.navbar .top-menu .navbar-nav .open .dropdown-menu {
     position: absolute;
@@ -815,7 +815,7 @@ Horizontal Menu
     padding: 14px 4px 12px 2px;
   }
   .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
-    padding: 14px 0px 12px 2px;
+    padding: 14px 0 12px 2px;
   }
 }
 /***
@@ -852,8 +852,8 @@ Pace - Page Progress
 Page container
 ***/
 .page-container {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   position: relative;
   /* Fixed header */
   /* Fixed footer for mobile */
@@ -929,7 +929,7 @@ Page sidebar
   display: block;
   margin: 0;
   padding: 0;
-  border: 0px;
+  border: 0;
 }
 .page-sidebar .page-sidebar-menu > li.sidebar-toggler-wrapper, .page-sidebar .page-sidebar-menu > li.sidebar-search-wrapper,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.sidebar-toggler-wrapper,
@@ -962,7 +962,7 @@ Page sidebar
   display: block;
   position: relative;
   margin: 0;
-  border: 0px;
+  border: 0;
   padding: 10px 15px;
   text-decoration: none;
   font-size: 14px;
@@ -1026,7 +1026,7 @@ Page sidebar
   /* will be set in a theme css file*/
   float: right;
   position: absolute;
-  right: 0px;
+  right: 0;
   top: 8px;
   background: none;
   width: 0;
@@ -1074,20 +1074,20 @@ Page sidebar
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .badge {
   float: right;
   margin-top: 1px;
-  margin-right: 0px;
+  margin-right: 0;
 }
 .page-sidebar .page-sidebar-menu .sub-menu,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu {
   list-style: none;
   display: none;
   padding: 0;
-  margin: 8px 0px 8px 0px;
+  margin: 8px 0 8px 0;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {
   background: none;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   margin-top: 1px !important;
   /* 2nd level sub menu */
 }
@@ -1552,7 +1552,7 @@ Page sidebar
   }
   .page-sidebar-menu.page-sidebar-menu-hover-submenu > li:hover > a > .arrow {
     z-index: 1;
-    right: 0px;
+    right: 0;
     margin-top: -23px;
   }
   .page-sidebar-menu.page-sidebar-menu-hover-submenu > li:hover > a > .selected {
@@ -1667,7 +1667,7 @@ Quick Sidebar Layout
   padding: 17px 10px 9px 10px !important;
 }
 .page-header .top-menu .dropdown-quick-sidebar-toggler > .dropdown-toggle i {
-  top: 0px;
+  top: 0;
 }
 .page-quick-sidebar-open .page-header .top-menu .dropdown-quick-sidebar-toggler > .dropdown-toggle i:before {
   content: "\e066";
@@ -1892,7 +1892,7 @@ Quick Sidebar Content
   margin-left: 270px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav {
-  padding: 15px 10px 0px 10px;
+  padding: 15px 10px 0 10px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item .page-quick-sidebar-nav .page-quick-sidebar-back-to-list {
   vertical-align: middle;
@@ -1964,7 +1964,7 @@ Quick Sidebar Content
   display: inline-block;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages {
-  padding: 0px 10px;
+  padding: 0 10px;
   position: relative;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages .post {
@@ -2069,7 +2069,7 @@ Quick Sidebar Content
   margin-top: -4px;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-settings .page-quick-sidebar-settings-list .list-items li select.form-control {
-  padding: 4px 0px !important;
+  padding: 4px 0 !important;
 }
 
 /***
@@ -2077,18 +2077,18 @@ Page content
 ***/
 /* Page title */
 .page-title {
-  padding: 0px;
+  padding: 0;
   font-size: 28px;
   letter-spacing: -1px;
   display: block;
   color: #666;
-  margin: 0px 0px 15px 0px;
+  margin: 0 0 15px 0;
   font-weight: 300;
   /* subtitle */
 }
 .page-title small {
   font-size: 14px;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   font-weight: 300;
   color: #888;
 }
@@ -2103,7 +2103,7 @@ Page content
 
 /* Page breadcrumb */
 .page-bar {
-  padding: 0px;
+  padding: 0;
   background-color: #f7f7f7;
   margin-bottom: 25px;
   -webkit-border-radius: 4px;
@@ -2168,7 +2168,7 @@ Page content
 }
 .page-container-bg-solid .page-bar {
   position: relative;
-  padding: 0px 20px;
+  padding: 0 20px;
   background-color: #ffffff;
   margin: -25px -20px 0 -20px;
 }
@@ -2193,14 +2193,14 @@ Page content
   margin-top: -2px;
 }
 .page-container-bg-solid .page-bar .page-toolbar .btn.btn-sm {
-  margin-top: 0px;
+  margin-top: 0;
   margin-right:35px;
 }
 
 /* Page content */
 .page-content {
-  margin-top: 0px;
-  padding: 0px;
+  margin-top: 0;
+  padding: 0;
   background-color: #fff;
 }
 .page-container-bg-solid .page-content {
@@ -2210,7 +2210,7 @@ Page content
   border-radius: 0 !important;
 }
 .page-full-width .page-content {
-  margin-left: 0px !important;
+  margin-left: 0 !important;
 }
 
 @media (min-width: 992px) {
@@ -2222,7 +2222,7 @@ Page content
   }
   .page-content-wrapper .page-content {
     margin-left: 235px;
-    margin-top: 0px;
+    margin-top: 0;
     min-height: 600px;
     padding: 25px 20px 10px 20px;
   }
@@ -2254,7 +2254,7 @@ Page content
     margin-right: 0 !important;
   }
   .page-full-width .page-content-wrapper .page-content {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
   }
 }
 @media (max-width: 991px) {
@@ -2273,7 +2273,7 @@ Page content
 
   /* Page content */
   .page-content-wrapper .page-content {
-    margin: 0px !important;
+    margin: 0 !important;
     padding: 20px 20px 20px 20px !important;
     min-height: 280px;
   }
@@ -2397,8 +2397,8 @@ Page footer
   /* 991px */
   /* Boxed Layout */
   .page-boxed .page-footer {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 @media (max-width: 767px) {
@@ -2464,7 +2464,7 @@ Theme Panel
 .theme-panel {
   width: 420px;
   margin-top: -13px;
-  margin-right: 0px;
+  margin-right: 0;
   z-index: 100;
   float: right;
   position: relative;
@@ -2522,8 +2522,8 @@ Theme Panel
   color: #cfcfcf;
   padding: 10px;
   border-top: 1px solid #444;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .theme-panel > .theme-options > .theme-option > span {
   text-transform: uppercase;

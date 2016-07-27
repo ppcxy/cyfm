@@ -70,6 +70,7 @@ public class ObjectSerializeUserType implements UserType, Serializable {
             try {
                 ois.close();
             } catch (IOException e) {
+                // No need to deal with
             }
         }
     }
@@ -100,6 +101,7 @@ public class ObjectSerializeUserType implements UserType, Serializable {
                 try {
                     oos.close();
                 } catch (IOException e) {
+                    // No need to deal with
                 }
             }
         }

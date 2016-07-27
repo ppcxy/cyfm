@@ -160,6 +160,7 @@ public class PageableMethodArgumentResolver extends BaseMethodArgumentResolver {
                     order = Integer.valueOf(orderStr);
                 }
             } catch (Exception e) {
+                // No need to deal with
             }
 
             String property = name.substring(propertyIndex);

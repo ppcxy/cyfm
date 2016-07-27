@@ -54,6 +54,12 @@ public class UserController extends BaseCRUDController<User, Long> {
     //@RequiresRoles(value = {"Admin", "User"}, logical = Logical.OR)
 
     @Override
+    @RequestMapping(value = "create/disabled", method = RequestMethod.POST)
+    public String create(Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result, RedirectAttributes redirectAttributes) {
+        return super.create(model, entity, result, redirectAttributes);
+    }
+
+    @Override
     @RequestMapping(value = "update/disabled", method = RequestMethod.POST)
     public String update(
             Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result,
@@ -63,6 +69,17 @@ public class UserController extends BaseCRUDController<User, Long> {
         //disabled
         return null;
     }
+
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public String create(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result, @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
+        user.getRoleList().clear();
+        for (Long roleId : checkedRoleList) {
+            Role role = new Role(roleId);
+            user.getRoleList().add(role);
+        }
+        return super.create(model, user, result, redirectAttributes);
+    }
+
 
     /**
      * 演示自行绑定表单中的checkBox roleList到对象中.
@@ -83,10 +100,36 @@ public class UserController extends BaseCRUDController<User, Long> {
     @RequestMapping(value = "checkUsername")
     @ResponseBody
     public String checkUsername(@RequestParam("oldUsername") String oldUsername,
-                                 @RequestParam("username") String username) {
+                                @RequestParam("username") String username) {
         if (username.equals(oldUsername)) {
             return "true";
         } else if (userService.findByUsername(username) == null) {
+            return "true";
+        }
+
+        return "false";
+    }
+
+    @RequestMapping(value = "checkEmail")
+    @ResponseBody
+    public String checkEmail(@RequestParam("oldEmail") String oldEmail,
+                             @RequestParam("email") String email) {
+        if (email.equals(oldEmail)) {
+            return "true";
+        } else if (userService.findByEmail(email) == null) {
+            return "true";
+        }
+
+        return "false";
+    }
+
+    @RequestMapping(value = "checkTel")
+    @ResponseBody
+    public String checkTel(@RequestParam("oldTel") String oldTel,
+                           @RequestParam("tel") String tel) {
+        if (tel.equals(oldTel)) {
+            return "true";
+        } else if (userService.findByTel(tel) == null) {
             return "true";
         }
 

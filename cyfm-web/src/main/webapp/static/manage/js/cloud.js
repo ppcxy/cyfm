@@ -30,7 +30,7 @@
 		
         offset1 += 1.1;
 		offset2 += 1;
-        $cloud1.css("background-position", offset1 + "px 100px")
+        $cloud1.css("background-position", offset1 + "px 100px");
 		
 		$cloud2.css("background-position", offset2 + "px 460px")
     }, 70);
@@ -44,4 +44,3 @@
         offsetbg += 0.9;
         $body.css("background-position", -offsetbg + "px 0")
     }, 90 );
-	

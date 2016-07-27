@@ -1,23 +1,24 @@
-<%@tag pageEncoding="UTF-8"%>
-<%@ attribute name="page" type="org.springframework.data.domain.Page" required="true"%>
-<%@ attribute name="paginationSize" type="java.lang.Integer" required="true"%>
+<%@tag pageEncoding="UTF-8" %>
+<%@ attribute name="page" type="org.springframework.data.domain.PageImpl" required="true" %>
+<%@ attribute name="paginationSize" type="java.lang.Integer" required="true" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-int current =  page.getNumber() + 1;
-int begin = Math.max(1, current - paginationSize/2);
-int end = Math.min(begin + (paginationSize - 1), page.getTotalPages());
+    int current = page.getNumber() + 1;
+    int begin = Math.max(1, current - paginationSize / 2);
+    int end = Math.min(begin + (paginationSize - 1), page.getTotalPages());
 
-request.setAttribute("current", current);
-request.setAttribute("begin", begin);
-request.setAttribute("end", end);
+    request.setAttribute("current", current);
+    request.setAttribute("begin", begin);
+    request.setAttribute("end", end);
 %>
 <div class="pagin">
-    <div class="message">共<i class="blue">${page.totalElements}</i>条记录，当前显示第&nbsp;<i class="blue">${current}&nbsp;</i>页</div>
+    <div class="message">共<i class="blue">${page.totalElements}</i>条记录，当前显示第&nbsp;<i class="blue">${current}&nbsp;</i>页
+    </div>
     <ul class="paginList">
         <% if (page.hasPreviousPage()) {%>
-        <li class="paginItem"><a  href="?page.pn=${current-1}"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="?page.pn=${current-1}"><span class="pagepre"></span></a></li>
         <%--<li><a href="?page=1&sortType=${sortType}&${searchParams}">&lt;&lt;</a></li>--%>
         <%--<li><a href="?page=${current-1}&sortType=${sortType}&${searchParams}">&lt;</a></li>--%>
         <%} else {%>
@@ -38,7 +39,7 @@ request.setAttribute("end", end);
         </c:forEach>
 
         <% if (page.hasNextPage()) {%>
-        <li class="paginItem"><a  href="?page.pn=${current+1}"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="?page.pn=${current+1}"><span class="pagenxt"></span></a></li>
         <%--<li><a href="?page=${current+1}&sortType=${sortType}&${searchParams}">&gt;</a></li>--%>
         <%--<li><a href="?page=${page.totalPages}&sortType=${sortType}&${searchParams}">&gt;&gt;</a></li>--%>
         <%} else {%>

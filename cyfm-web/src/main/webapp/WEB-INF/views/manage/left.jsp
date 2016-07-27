@@ -15,7 +15,7 @@ $(function(){
 	//导航切换
 	$(".menuson li").click(function(){
         parent.$cy.waiting();
-		$(".menuson li.active").removeClass("active")
+        $(".menuson li.active").removeClass("active");
 		$(this).addClass("active");
 	});
 	

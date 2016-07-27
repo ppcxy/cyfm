@@ -135,7 +135,6 @@ $cy.maintain = {
                         if (data.success) {
                             $cy.info(data.message);
                         } else {
-
                             $cy.error(data.message);
                         }
 
@@ -253,4 +252,4 @@ $cy.maintain = {
             });
         }
     }
-}
+};

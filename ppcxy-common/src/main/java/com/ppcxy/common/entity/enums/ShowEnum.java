@@ -6,7 +6,7 @@ public enum ShowEnum {
     private final Boolean value;
     private final String info;
 
-    private ShowEnum(Boolean value, String info) {
+    ShowEnum(Boolean value, String info) {
         this.value = value;
         this.info = info;
     }

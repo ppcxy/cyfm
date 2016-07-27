@@ -8,7 +8,7 @@ public enum MenuType {
 
     private final String info;
 
-    private MenuType(String info) {
+    MenuType(String info) {
         this.info = info;
     }
 

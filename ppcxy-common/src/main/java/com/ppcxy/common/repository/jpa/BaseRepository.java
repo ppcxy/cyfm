@@ -27,7 +27,7 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
      *
      * @param ids
      */
-    public void delete(ID[] ids);
+    void delete(ID[] ids);
 
     /*
    * (non-Javadoc)
@@ -57,7 +57,7 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
      * @param searchable
      * @return
      */
-    public Page<T> findAll(Searchable searchable);
+    Page<T> findAll(Searchable searchable);
 
 
     /**
@@ -66,6 +66,6 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
      * @param searchable
      * @return
      */
-    public long count(Searchable searchable);
+    long count(Searchable searchable);
 
 }

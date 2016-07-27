@@ -921,7 +921,7 @@ body {
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > .selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .selected,
 .page-sidebar .page-sidebar-menu > li.active.open > a > .selected,
 .page-sidebar .page-sidebar-menu > li.active > a > .selected {
-  top: 0px;
+  top: 0;
   right: -8px;
   border-top: 20px double transparent;
   border-bottom: 20px double transparent;
