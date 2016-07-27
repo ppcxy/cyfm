@@ -8,7 +8,7 @@ public enum SchoolType {
 
     private final String info;
 
-    private SchoolType(String info) {
+    SchoolType(String info) {
         this.info = info;
     }
 

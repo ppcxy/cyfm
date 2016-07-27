@@ -20,7 +20,7 @@ public class ResourceMenuCacheAspect extends BaseCacheAspect {
         setCacheName("sys-menuCache");
     }
 
-    private String menusKeyPrefix = "menus-";
+    private static final String MENUS_KEY_PREFIX = "menus-";
 
 
     @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.resource.ResourceService)")
@@ -68,7 +68,7 @@ public class ResourceMenuCacheAspect extends BaseCacheAspect {
 
 
     private String menusKey(Long userId) {
-        return this.menusKeyPrefix + userId;
+        return this.MENUS_KEY_PREFIX + userId;
     }
 
 

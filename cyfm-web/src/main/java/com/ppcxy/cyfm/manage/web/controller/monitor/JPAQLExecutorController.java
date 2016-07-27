@@ -69,6 +69,7 @@ public class JPAQLExecutorController extends BaseController {
                         model.addAttribute("updateCount", updateCount);
                         return null;
                     } catch (Exception e) {
+                        // No need to deal with
                     }
                     //2如果失败 尝试执行ql查询
                     String findQL = ql;

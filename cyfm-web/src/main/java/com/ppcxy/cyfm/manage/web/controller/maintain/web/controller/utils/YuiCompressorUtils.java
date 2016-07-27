@@ -68,12 +68,14 @@ public class YuiCompressorUtils {
                 try {
                     in.close();
                 } catch (IOException e) {
+                    // No need to deal with
                 }
             }
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException e) {
+                    // No need to deal with
                 }
             }
         }

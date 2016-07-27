@@ -20,10 +20,10 @@ public class UserCacheAspect extends BaseCacheAspect {
         setCacheName("sys-userCache");
     }
 
-    private String idKeyPrefix = "id-";
-    private String usernameKeyPrefix = "username-";
-    private String emailKeyPrefix = "email-";
-    private String telKeyPrefix = "tel-";
+    private static final String ID_KEY_PREFIX = "id-";
+    private static final String USERNAME_KEY_PREFIX = "username-";
+    private static final String EMAIL_KEY_PREFIX = "email-";
+    private static final String TEL_KEY_PREFIX = "tel-";
 
     ////////////////////////////////////////////////////////////////////////////////
     ////切入点
@@ -159,19 +159,19 @@ public class UserCacheAspect extends BaseCacheAspect {
 
 
     private String idKey(String id) {
-        return idKeyPrefix + id;
+        return ID_KEY_PREFIX + id;
     }
 
     private String usernameKey(String username) {
-        return usernameKeyPrefix + username;
+        return USERNAME_KEY_PREFIX + username;
     }
 
     private String emailKey(String email) {
-        return emailKeyPrefix + email;
+        return EMAIL_KEY_PREFIX + email;
     }
 
     private String telKey(String tel) {
-        return telKeyPrefix + tel;
+        return TEL_KEY_PREFIX + tel;
     }
 
 

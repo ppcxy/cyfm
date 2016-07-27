@@ -6,7 +6,7 @@ public enum ReadEnum {
     private final Boolean value;
     private final String info;
 
-    private ReadEnum(Boolean value, String info) {
+    ReadEnum(Boolean value, String info) {
         this.value = value;
         this.info = info;
     }

@@ -5,22 +5,17 @@
  *******************************************************************************/
 package org.springside.modules.test.selenium;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 融合了Selenium 1.0 API与Selenium 2.0的By选择器的API.
@@ -258,6 +253,7 @@ public class Selenium2 {
 		try {
 			FileUtils.copyFile(srcFile, targetFile);
 		} catch (IOException ioe) {
+			// No need to deal with
 		}
 	}
 

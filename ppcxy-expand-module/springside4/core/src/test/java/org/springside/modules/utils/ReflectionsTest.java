@@ -5,11 +5,12 @@
  *******************************************************************************/
 package org.springside.modules.utils;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 public class ReflectionsTest {
 
@@ -34,14 +35,14 @@ public class ReflectionsTest {
 			Reflections.getFieldValue(bean, "notExist");
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
-
+			// No need to deal with
 		}
 
 		try {
 			Reflections.setFieldValue(bean, "notExist", 2);
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
-
+			// No need to deal with
 		}
 
 	}
@@ -75,7 +76,7 @@ public class ReflectionsTest {
 			Reflections.invokeMethod(bean, "notExistMethod", new Class[] { String.class }, new Object[] { "calvin" });
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
-
+			// No need to deal with
 		}
 
 		// 参数类型错
@@ -83,7 +84,7 @@ public class ReflectionsTest {
 			Reflections.invokeMethod(bean, "privateMethod", new Class[] { Integer.class }, new Object[] { "calvin" });
 			failBecauseExceptionWasNotThrown(RuntimeException.class);
 		} catch (RuntimeException e) {
-
+			// No need to deal with
 		}
 
 		// 函数名错
@@ -91,7 +92,7 @@ public class ReflectionsTest {
 			Reflections.invokeMethodByName(bean, "notExistMethod", new Object[] { "calvin" });
 			failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
 		} catch (IllegalArgumentException e) {
-
+			// No need to deal with
 		}
 
 	}

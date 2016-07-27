@@ -5,8 +5,6 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.redis;
 
-import java.security.SecureRandom;
-
 import org.springside.modules.mapper.JsonMapper;
 import org.springside.modules.nosql.redis.JedisTemplate;
 import org.springside.modules.nosql.redis.JedisTemplate.JedisActionNoResult;
@@ -14,8 +12,9 @@ import org.springside.modules.nosql.redis.pool.JedisPool;
 import org.springside.modules.nosql.redis.pool.JedisPoolBuilder;
 import org.springside.modules.test.benchmark.BenchmarkTask;
 import org.springside.modules.test.benchmark.ConcurrentBenchmark;
-
 import redis.clients.jedis.Jedis;
+
+import java.security.SecureRandom;
 
 /**
  * 测试Redis用于Session管理的setEx()与get()方法性能, 使用JSON格式存储数据.
@@ -28,7 +27,8 @@ public class RedisSessionBenchmark extends ConcurrentBenchmark {
 	private static final int DEFAULT_THREAD_COUNT = 20;
 	private static final long DEFAULT_TOTAL_COUNT = 100000;
 
-	private String keyPrefix = "ss.session:";
+	private static final String KEY_PREFIX = "ss.session:";
+
 	private JsonMapper jsonMapper = new JsonMapper();
 	private JedisPool pool;
 	private JedisTemplate jedisTemplate;
@@ -68,7 +68,7 @@ public class RedisSessionBenchmark extends ConcurrentBenchmark {
 		protected void execute(final int requestSequnce) {
 
 			int randomIndex = random.nextInt((int) loopCount);
-			final String key = new StringBuilder().append(keyPrefix).append(taskSequence).append(":")
+			final String key = new StringBuilder().append(KEY_PREFIX).append(taskSequence).append(":")
 					.append(randomIndex).toString();
 
 			jedisTemplate.execute(new JedisActionNoResult() {

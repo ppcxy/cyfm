@@ -184,13 +184,13 @@ $cy = {
     },
     table: {
         getAllSelectedCheckbox: function (table) {
-            if (!table){
+            if (!table) {
                 table = "table.table-list";
             }
-            var checkboxArray = new Array()
+            var checkboxArray = new Array();
             $(table).find("td.check input[type=checkbox]:checked").each(function (index, item) {
                 checkboxArray.push(item);
-            })
+            });
             return checkboxArray;
         },
         init: function () {
@@ -236,7 +236,7 @@ $cy = {
 
                     var ev = window.event || e;
                     if (ev.shiftKey) {
-                        var beginChecked = beginCheck.is(":checked")
+                        var beginChecked = beginCheck.is(":checked");
                         if (checked != beginChecked) {
                             tdCheckBox.prop("checked", !checked);
                             var beginIndex = beginCheck.parents("tr").index();
@@ -254,7 +254,7 @@ $cy = {
                         return false
                     }
 
-                    beginCheck = undefined
+                    beginCheck = undefined;
 
                     if (ev.ctrlKey) {
                         tdCheckBox.prop("checked", !checked);
@@ -295,7 +295,7 @@ $cy = {
                     message: "将要执行删除数据操作,是否继续?", yes: function () {
                         window.location.href = deleteAction.href;
                     }
-                })
+                });
                 return false;
             });
             //Table init 结束
@@ -376,7 +376,7 @@ $cy = {
             });
         }
     }
-}
+};
 
 //需要直接初始化的.
 $cy.validate.init();

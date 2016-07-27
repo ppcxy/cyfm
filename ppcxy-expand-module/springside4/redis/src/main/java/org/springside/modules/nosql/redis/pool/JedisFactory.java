@@ -55,10 +55,11 @@ public class JedisFactory implements PooledObjectFactory<Jedis> {
 				try {
 					jedis.quit();
 				} catch (Exception e) {
+					// No need to deal with
 				}
 				jedis.disconnect();
 			} catch (Exception e) {
-
+				// No need to deal with
 			}
 		}
 

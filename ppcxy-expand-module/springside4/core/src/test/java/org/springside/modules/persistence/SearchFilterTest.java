@@ -5,14 +5,14 @@
  *******************************************************************************/
 package org.springside.modules.persistence;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.Map;
-
+import com.google.common.collect.Maps;
 import org.junit.Test;
 import org.springside.modules.persistence.SearchFilter.Operator;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class SearchFilterTest {
 
@@ -58,6 +58,7 @@ public class SearchFilterTest {
 			SearchFilter.parse(params);
 			fail("should fail with wrong name");
 		} catch (IllegalArgumentException e) {
+			// No need to deal with
 		}
 
 		try {
@@ -67,6 +68,7 @@ public class SearchFilterTest {
 			SearchFilter.parse(params);
 			fail("should fail with wrong name");
 		} catch (IllegalArgumentException e) {
+			// No need to deal with
 		}
 
 		try {
@@ -76,6 +78,7 @@ public class SearchFilterTest {
 			SearchFilter.parse(params);
 			fail("should fail with wrong operator name");
 		} catch (IllegalArgumentException e) {
+			// No need to deal with
 		}
 	}
 }

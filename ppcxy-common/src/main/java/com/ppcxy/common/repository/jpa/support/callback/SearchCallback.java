@@ -9,8 +9,8 @@ import javax.persistence.Query;
  */
 public interface SearchCallback {
 
-    public static final SearchCallback NONE = new NoneSearchCallback();
-    public static final SearchCallback DEFAULT = new DefaultSearchCallback();
+    SearchCallback NONE = new NoneSearchCallback();
+    SearchCallback DEFAULT = new DefaultSearchCallback();
 
 
     /**
@@ -19,9 +19,9 @@ public interface SearchCallback {
      * @param ql
      * @param search
      */
-    public void prepareQL(StringBuilder ql, Searchable search);
+    void prepareQL(StringBuilder ql, Searchable search);
 
-    public void prepareOrder(StringBuilder ql, Searchable search);
+    void prepareOrder(StringBuilder ql, Searchable search);
 
     /**
      * 根据search给query赋值及设置分页信息
@@ -29,8 +29,8 @@ public interface SearchCallback {
      * @param query
      * @param search
      */
-    public void setValues(Query query, Searchable search);
+    void setValues(Query query, Searchable search);
 
-    public void setPageable(Query query, Searchable search);
+    void setPageable(Query query, Searchable search);
 
 }

@@ -368,66 +368,67 @@ Class.pt.offset = function(){
 };
 
 //Tips
-Class.pt.tips = function(){
-  var that = this, config = that.config, layero = that.layero;
-  var layArea = [layero.outerWidth(), layero.outerHeight()], follow = $(config.follow);
-  if(!follow[0]) follow = $('body');
-  var goal = {
-    width: follow.outerWidth(),
-    height: follow.outerHeight(),
-    top: follow.offset().top,
-    left: follow.offset().left
-  }, tipsG = layero.find('.layui-layer-TipsG');
-  
-  var guide = config.tips[0];
-  config.tips[1] || tipsG.remove();
-  
-  goal.autoLeft = function(){
-    if(goal.left + layArea[0] - win.width() > 0){
-      goal.tipLeft = goal.left + goal.width - layArea[0];
-      tipsG.css({right: 12, left: 'auto'});
-    } else {
-      goal.tipLeft = goal.left;
-    };
-  };
-  
-  //辨别tips的方位
-  goal.where = [function(){ //上        
-    goal.autoLeft();
-    goal.tipTop = goal.top - layArea[1] - 10;
-    tipsG.removeClass('layui-layer-TipsB').addClass('layui-layer-TipsT').css('border-right-color', config.tips[1]);
-  }, function(){ //右
-    goal.tipLeft = goal.left + goal.width + 10;
-    goal.tipTop = goal.top;
-    tipsG.removeClass('layui-layer-TipsL').addClass('layui-layer-TipsR').css('border-bottom-color', config.tips[1]); 
-  }, function(){ //下
-    goal.autoLeft();
-    goal.tipTop = goal.top + goal.height + 10;
-    tipsG.removeClass('layui-layer-TipsT').addClass('layui-layer-TipsB').css('border-right-color', config.tips[1]);
-  }, function(){ //左
-    goal.tipLeft = goal.left - layArea[0] - 10;
-    goal.tipTop = goal.top;
-    tipsG.removeClass('layui-layer-TipsR').addClass('layui-layer-TipsL').css('border-bottom-color', config.tips[1]);
-  }];
-  goal.where[guide-1]();
-  
-  /* 8*2为小三角形占据的空间 */
-  if(guide === 1){
-    goal.top - (win.scrollTop() + layArea[1] + 8*2) < 0 && goal.where[2]();
-  } else if(guide === 2){
-    win.width() - (goal.left + goal.width + layArea[0] + 8*2) > 0 || goal.where[3]()
-  } else if(guide === 3){
-    (goal.top - win.scrollTop() + goal.height + layArea[1] + 8*2) - win.height() > 0 && goal.where[0]();
-  } else if(guide === 4){
-     layArea[0] + 8*2 - goal.left > 0 && goal.where[1]()
-  }
+  Class.pt.tips = function () {
+    var that = this, config = that.config, layero = that.layero;
+    var layArea = [layero.outerWidth(), layero.outerHeight()], follow = $(config.follow);
+    if (!follow[0]) follow = $('body');
+    var goal = {
+      width: follow.outerWidth(),
+      height: follow.outerHeight(),
+      top: follow.offset().top,
+      left: follow.offset().left
+    }, tipsG = layero.find('.layui-layer-TipsG');
 
-  layero.find('.'+doms[5]).css({
-    'background-color': config.tips[1], 
-    'padding-right': (config.closeBtn ? '30px' : '')
-  });
-  layero.css({left: goal.tipLeft, top: goal.tipTop});
-}
+    var guide = config.tips[0];
+    config.tips[1] || tipsG.remove();
+
+    goal.autoLeft = function () {
+      if (goal.left + layArea[0] - win.width() > 0) {
+        goal.tipLeft = goal.left + goal.width - layArea[0];
+        tipsG.css({right: 12, left: 'auto'});
+      } else {
+        goal.tipLeft = goal.left;
+      }
+      ;
+    };
+
+    //辨别tips的方位
+    goal.where = [function () { //上
+      goal.autoLeft();
+      goal.tipTop = goal.top - layArea[1] - 10;
+      tipsG.removeClass('layui-layer-TipsB').addClass('layui-layer-TipsT').css('border-right-color', config.tips[1]);
+    }, function () { //右
+      goal.tipLeft = goal.left + goal.width + 10;
+      goal.tipTop = goal.top;
+      tipsG.removeClass('layui-layer-TipsL').addClass('layui-layer-TipsR').css('border-bottom-color', config.tips[1]);
+    }, function () { //下
+      goal.autoLeft();
+      goal.tipTop = goal.top + goal.height + 10;
+      tipsG.removeClass('layui-layer-TipsT').addClass('layui-layer-TipsB').css('border-right-color', config.tips[1]);
+    }, function () { //左
+      goal.tipLeft = goal.left - layArea[0] - 10;
+      goal.tipTop = goal.top;
+      tipsG.removeClass('layui-layer-TipsR').addClass('layui-layer-TipsL').css('border-bottom-color', config.tips[1]);
+    }];
+    goal.where[guide - 1]();
+
+    /* 8*2为小三角形占据的空间 */
+    if (guide === 1) {
+      goal.top - (win.scrollTop() + layArea[1] + 8 * 2) < 0 && goal.where[2]();
+    } else if (guide === 2) {
+      win.width() - (goal.left + goal.width + layArea[0] + 8 * 2) > 0 || goal.where[3]()
+    } else if (guide === 3) {
+      (goal.top - win.scrollTop() + goal.height + layArea[1] + 8 * 2) - win.height() > 0 && goal.where[0]();
+    } else if (guide === 4) {
+      layArea[0] + 8 * 2 - goal.left > 0 && goal.where[1]()
+    }
+
+    layero.find('.' + doms[5]).css({
+      'background-color': config.tips[1],
+      'padding-right': (config.closeBtn ? '30px' : '')
+    });
+    layero.css({left: goal.tipLeft, top: goal.tipTop});
+  };
 
 //拖拽层
 Class.pt.move = function(){
@@ -887,9 +888,9 @@ layer.photos = function(options, loop, key){
     pushData();
     
     if (data.length === 0) return;
-    
-    loop || parent.on('click', options.img, function(){
-      var othis = $(this), index = othis.attr('layer-index'); 
+
+    loop || parent.on('click', options.img, function () {
+      var othis = $(this), index = othis.attr('layer-index');
       layer.photos($.extend(options, {
         photos: {
           start: index,
@@ -899,7 +900,7 @@ layer.photos = function(options, loop, key){
         full: options.full
       }), true);
       pushData();
-    })
+    });
     
     //不直接弹出
     if(!loop) return;
@@ -928,27 +929,27 @@ layer.photos = function(options, loop, key){
   };
   
   //方向键
-  dict.keyup = function(event){
-    if(!dict.end){
+  dict.keyup = function (event) {
+    if (!dict.end) {
       var code = event.keyCode;
       event.preventDefault();
-      if(code === 37){
+      if (code === 37) {
         dict.imgprev(true);
-      } else if(code === 39) {
+      } else if (code === 39) {
         dict.imgnext(true);
-      } else if(code === 27) {
+      } else if (code === 27) {
         layer.close(dict.index);
       }
     }
-  }
+  };
   
   //切换
-  dict.tabimg = function(key){
-    if(data.length <= 1) return;
+  dict.tabimg = function (key) {
+    if (data.length <= 1) return;
     photos.start = dict.imgIndex - 1;
     layer.close(dict.index);
     layer.photos(options, true, key);
-  }
+  };
   
   //一些动作
   dict.event = function(){
