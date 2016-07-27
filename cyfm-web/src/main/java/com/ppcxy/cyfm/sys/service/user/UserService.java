@@ -8,11 +8,12 @@ import com.ppcxy.common.entity.search.SearchOperator;
 import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.service.BaseService;
+import com.ppcxy.common.service.UserLogUtils;
 import com.ppcxy.common.utils.ShiroUserInfoUtils;
+import com.ppcxy.cyfm.showcase.demos.jmx.ApplicationStatistics;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.repository.jpa.permission.RoleDao;
 import com.ppcxy.cyfm.sys.repository.jpa.user.UserDao;
-import com.ppcxy.common.service.UserLogUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.exception.UserBlockedException;
 import org.apache.shiro.exception.UserNotExistsException;
@@ -20,6 +21,7 @@ import org.apache.shiro.exception.UserPasswordNotMatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,9 @@ public class UserService extends BaseService<User, Long> {
 
     @Autowired
     private PasswordService passwordService;
+
+    @Autowired(required = false)
+    private ApplicationStatistics applicationStatistics;
 
     /**
      * 判断是否超级管理员.
@@ -78,7 +83,9 @@ public class UserService extends BaseService<User, Long> {
 
     @Override
     public User update(User user) {
-
+        if(null != applicationStatistics){
+            applicationStatistics.incrUpdateUserTimes();
+        }
         User resultUser = super.update(user);
 
         return resultUser;
@@ -243,5 +250,13 @@ public class UserService extends BaseService<User, Long> {
 
     public Object getAllRole() {
         return roleDao.findAll();
+    }
+
+    @Override
+    public Page<User> findAll(Searchable searchable) {
+        if(null != applicationStatistics){
+            applicationStatistics.incrListUserTimes();
+        }
+        return super.findAll(searchable);
     }
 }

@@ -28,5 +28,5 @@
 <!-- 插件扩展区 end-->
 
 <!-- cy api封装 -->
-<script src="${ctx}/static/js/common.js" type="text/javascript"></script>
+<script src="${ctx}/static/common/js/common.js" type="text/javascript"></script>
 <!-- ================================= JS 公用区域结束 ========================================== -->

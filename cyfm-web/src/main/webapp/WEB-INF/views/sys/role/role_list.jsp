@@ -19,9 +19,10 @@
    </div>
  </div>
 <div class="listTableWrap">
-    <table id="contentTable" data-tid="team" class="table table-striped table-bordered table-hover table-condensed table-advance">
+    <table id="contentTable" data-tid="team" class="table table-list table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
+            <th class="check"><input type="checkbox"></th>
             <th>角色id</th>
             <th>角色名称</th>
             <th>具备权限</th>
@@ -30,6 +31,7 @@
         <tbody>
         <c:forEach items="${page.content}" var="role">
             <tr>
+                <td class="check"><input type="checkbox" value="${role.id}"></td>
                 <td>${role.id}&nbsp;</td>
                 <td>${role.name}&nbsp;</td>
                 <td>${role.permissions}&nbsp;</td>
