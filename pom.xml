@@ -10,9 +10,10 @@
     <version>1.0-Snapshot</version>
 
     <modules>
-        <module>ppcxy-common</module>
         <module>ppcxy-expand-module</module>
         <module>ppcxy-parent</module>
+        <module>ppcxy-common</module>
+        <module>ppcxy-web-extra</module>
         <module>cyfm-web</module>
     </modules>
 </project>

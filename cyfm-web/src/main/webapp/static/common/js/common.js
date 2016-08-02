@@ -397,6 +397,7 @@ $(function () {
     window.onbeforeunload = function () {
         if (!$cy.validate.submiting) {
             setTimeout(function () {
+                //TODO 暂时不处理
                 $cy.waiting();
             }, 200);
         }
