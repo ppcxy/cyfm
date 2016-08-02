@@ -75,7 +75,7 @@
     </bean>
 
     <!-- 静态资源映射 -->
-    <mvc:resources mapping="/ueditor/**" location="file:///D:/resources/ueditor/"/>
+    <mvc:resources mapping="/ueditor/**" location="file:///D:/tmp/ueditor/"/>
 
     <!-- 拦截器设置 -->
     <mvc:interceptors>
@@ -101,7 +101,6 @@
     </mvc:interceptors>
 
 
-
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
 
@@ -116,8 +115,46 @@
         <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
     </bean>
 
+    <!--freemarker的配置 -->
+    <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver" p:order="1">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="contentType" value="text/html; charset=utf-8"/>
+        <property name="cache" value="true" />
+        <property name="suffix" value=".ftl" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+    </bean>
+
+    <!-- 配置freeMarker的模板路径 -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath">
+            <value>/WEB-INF/ftl/</value>
+        </property>
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>
+            </map>
+        </property>
+        <property name="defaultEncoding">
+            <value>utf-8</value>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">3600</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="number_format">#.##</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+
     <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
-    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1">
+    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:order="2">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="contentType" value="text/html"/>
         <property name="prefix" value="/WEB-INF/views/"/>

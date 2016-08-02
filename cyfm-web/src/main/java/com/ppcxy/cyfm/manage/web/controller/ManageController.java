@@ -23,6 +23,11 @@ public class ManageController {
     @Autowired
     private ResourceService resourceService;
 
+    @RequestMapping("test")
+    public String ceshi(HttpServletRequest request, HttpServletResponse response) {
+        return "ceshi";
+    }
+
     @RequestMapping
     public String index(HttpServletRequest request, HttpServletResponse response) {
         Servlets.changeCookie("skin", "default", request, response);
