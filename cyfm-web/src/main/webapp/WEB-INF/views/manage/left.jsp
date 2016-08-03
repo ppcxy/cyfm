@@ -14,7 +14,8 @@
 $(function(){
 	//导航切换
 	$(".menuson li").click(function(){
-        parent.$cy.waiting();
+        //TODO 导航切换不锁,等待写锁div方案
+        //parent.$cy.waiting();
         $(".menuson li.active").removeClass("active");
 		$(this).addClass("active");
 	});

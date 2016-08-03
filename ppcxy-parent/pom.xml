@@ -118,7 +118,11 @@
                 <artifactId>ppcxy-common</artifactId>
                 <version>${ppcxy.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.ppcxy</groupId>
+                <artifactId>ppcxy-web-extra</artifactId>
+                <version>${ppcxy.version}</version>
+            </dependency>
             <!-- SPRINGSIDE MODULES begin -->
             <dependency>
                 <groupId>org.springside</groupId>

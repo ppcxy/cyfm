@@ -75,6 +75,7 @@ public class Resource extends IdEntity implements Treeable<Long> {
         this.resourceType = resourceType;
     }
 
+    @Column(name = "_identity")
     public String getIdentity() {
         return identity;
     }
@@ -152,7 +153,7 @@ public class Resource extends IdEntity implements Treeable<Long> {
         this.hasChildren = hasChildren;
     }
 
-    @Column(name = "is_show")
+    @Column(name = "IS_SHOW")
     public Boolean getShow() {
         return show;
     }
