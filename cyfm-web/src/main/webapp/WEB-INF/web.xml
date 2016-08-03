@@ -39,7 +39,7 @@
 
     <!-- 自定义监听器 -->
     <listener>
-        <listener-class>com.ppcxy.cyfm.extra.listener.StaticListener</listener-class>
+        <listener-class>com.ppcxy.common.extra.listener.StaticListener</listener-class>
     </listener>
     <!-- 自定义监听器结束-->
 
