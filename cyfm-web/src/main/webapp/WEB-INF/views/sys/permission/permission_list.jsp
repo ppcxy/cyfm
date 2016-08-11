@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>role crud</title>
+  <title>permission crud</title>
 </head>
 
 <body>
@@ -10,7 +10,7 @@
    <div class="toolbar-right">
        <form class="form-search form-inline" action="#">
          <div class="form-group">
-             <label>角色名称：</label>
+             <label>权限名称：</label>
              <input type="text" name="search.name_like" class="form-control input-small" value="${param['search.name_like']}">
              <button type="submit" class="btn btn-default" id="search_btn">查询</button>
          </div>
@@ -23,19 +23,21 @@
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
-            <th>角色id</th>
-            <th>角色名称</th>
-            <th>具备权限</th>
+            <th>主键</th>
+            <th>权限名称</th>
+            <th>权限值</th>
+            <th>详细描述</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${page.content}" var="role">
+        <c:forEach items="${page.content}" var="permission">
             <tr>
-                <td class="check"><input type="checkbox" value="${role.id}"></td>
-                <td>${role.id}&nbsp;</td>
-                <td>${role.name}&nbsp;</td>
-                <td>${role.permissions}&nbsp;</td>
-                <cy:listTableActions name="${role.name}" id="${role.id}"/>
+                <td class="check"><input type="checkbox" value="${permission.id}"></td>
+                <td>${permission.id}&nbsp;</td>
+                <td>${permission.name}&nbsp;</td>
+                <td>${permission.value}&nbsp;</td>
+                <td>${permission.detailed}&nbsp;</td>
+                <cy:listTableActions name="${permission.name}" id="${role.id}"/>
             </tr>
         </c:forEach>
         </tbody>
