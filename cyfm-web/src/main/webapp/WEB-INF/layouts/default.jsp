@@ -43,9 +43,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/layouts/default/header.jsp"%>
-<div class="page-container min-hight">
-	<sitemesh:body/>
-</div>
+<sitemesh:body/>
 <%@ include file="/WEB-INF/layouts/default/footer.jsp"%>
 <script type="text/javascript">
 	$(document).ready(function(){

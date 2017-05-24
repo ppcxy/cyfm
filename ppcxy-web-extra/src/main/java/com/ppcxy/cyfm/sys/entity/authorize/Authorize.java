@@ -3,6 +3,7 @@ package com.ppcxy.cyfm.sys.entity.authorize;
 import com.ppcxy.common.entity.IdEntity;
 import com.ppcxy.cyfm.sys.entity.permission.Permission;
 import com.ppcxy.cyfm.sys.entity.resource.Resource;
+import com.ppcxy.cyfm.sys.entity.user.User;
 
 import javax.persistence.*;
 
@@ -13,32 +14,17 @@ import javax.persistence.*;
 @Table(name = "CY_SYS_AUTHORIZE")
 public class Authorize extends IdEntity {
 
-    private Resource resource;
-    private Permission permission;
+    private Long userId;
     private Long targetId;
 
     private AuthorizeType authType = AuthorizeType.Role;
 
-    @OneToOne(optional = false, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "resource_id", referencedColumnName = "id", unique = false)
-    @OrderBy(value = "id ASC")
-    public Resource getResource() {
-        return resource;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setResource(Resource resource) {
-        this.resource = resource;
-    }
-
-    @OneToOne(optional = false, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "permission_id", referencedColumnName = "id", unique = false)
-    @OrderBy(value = "id ASC")
-    public Permission getPermission() {
-        return permission;
-    }
-
-    public void setPermission(Permission permission) {
-        this.permission = permission;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getTargetId() {
