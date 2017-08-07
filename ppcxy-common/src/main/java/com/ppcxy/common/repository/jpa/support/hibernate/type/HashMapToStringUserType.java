@@ -5,7 +5,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserType;
-import org.springside.modules.mapper.JsonMapper;
+import org.springside.modules.utils.text.JsonMapper;
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -88,7 +88,7 @@ public class HashMapToStringUserType implements UserType, ParameterizedType, Ser
             return newMap();
         }
 
-        Map map = new JsonMapper().fromJson(valueStr,HashMap.class);
+        Map map = JsonMapper.defaultMapper().fromJson(valueStr,HashMap.class);
         Map result = newMap();
         try {
             for(Object key : map.keySet()) {
@@ -112,7 +112,7 @@ public class HashMapToStringUserType implements UserType, ParameterizedType, Ser
         if (value == null) {
             valueStr = "";
         } else {
-            valueStr = new JsonMapper().toJson(value);
+            valueStr = JsonMapper.defaultMapper().toJson(value);
         }
         st.setString(index, valueStr);
     }

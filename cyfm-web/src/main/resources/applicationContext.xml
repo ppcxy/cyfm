@@ -99,12 +99,6 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-
-    <!-- 另一个事务管理器, Jdbc单数据源事务 -->
-    <bean id="quartzTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="quartzDataSource"/>
-    </bean>
-
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -236,14 +230,6 @@
             <property name="filters" value="stat"/>
         </bean>
 
-        <!-- quartz使用的数据源配置 -->
-        <bean id="quartzDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-            <property name="driverClassName" value="${quartz.jdbc.driver}"/>
-            <property name="url" value="${quartz.jdbc.url}"/>
-            <property name="username" value="${quartz.jdbc.username}"/>
-            <property name="password" value="${quartz.jdbc.password}"/>
-            <property name="defaultAutoCommit" value="false"/>
-        </bean>
     </beans>
 
     <!-- local development环境 -->
@@ -295,13 +281,6 @@
         </bean>
         -->
 
-        <!-- Spring Simple连接池 for quartz -->
-        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${quartz.jdbc.driver}"/>
-            <property name="url" value="${quartz.jdbc.url}"/>
-            <property name="username" value="${quartz.jdbc.username}"/>
-            <property name="password" value="${quartz.jdbc.password}"/>
-        </bean>
     </beans>
 
     <!-- functional test环境 -->
@@ -320,22 +299,11 @@
             <property name="defaultAutoCommit" value="false" />
         </bean>
 
-        <!-- Spring Simple连接池 for quartz -->
-        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${quartz.jdbc.driver}"/>
-            <property name="url" value="${quartz.jdbc.url}"/>
-            <property name="username" value="${quartz.jdbc.username}"/>
-            <property name="password" value="${quartz.jdbc.password}"/>
-        </bean>
-
         <!-- 初始化数据结构 -->
         <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
             <jdbc:script location="classpath:sql/${db.type}/schema.sql"/>
         </jdbc:initialize-database>
 
-        <jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
-            <jdbc:script location="classpath:sql/${db.type}/quartz.sql"/>
-        </jdbc:initialize-database>
     </beans>
 
     <!-- unit test环境 -->
@@ -352,22 +320,11 @@
             <property name="password" value="${jdbc.password}"/>
         </bean>
 
-        <!-- Spring Simple连接池 for quartz -->
-        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${quartz.jdbc.driver}"/>
-            <property name="url" value="${quartz.jdbc.url}"/>
-            <property name="username" value="${quartz.jdbc.username}"/>
-            <property name="password" value="${quartz.jdbc.password}"/>
-        </bean>
-
         <!-- 初始化数据结构与默认数据 -->
         <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
             <jdbc:script location="classpath:sql/h2/schema.sql"/>
             <jdbc:script location="classpath:data/h2/import-data.sql" encoding="UTF-8"/>
         </jdbc:initialize-database>
 
-        <jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
-            <jdbc:script location="classpath:sql/h2/quartz.sql"/>
-        </jdbc:initialize-database>
     </beans>
 </beans>

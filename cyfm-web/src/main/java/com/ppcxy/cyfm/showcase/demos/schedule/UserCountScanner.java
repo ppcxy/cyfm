@@ -30,11 +30,6 @@ public class UserCountScanner {
 		execute("spring cron job by java");
 	}
 
-	// 被Spring的Quartz MethodInvokingJobDetailFactoryBean反射执行
-	public void executeByQuartzLocalJob() {
-		execute("quartz local job");
-	}
-
 	// 被Spring的Scheduler namespace 反射构造成ScheduledMethodRunnable
 	public void executeBySpringCronByXml() {
 		execute("spring cron job by xml");

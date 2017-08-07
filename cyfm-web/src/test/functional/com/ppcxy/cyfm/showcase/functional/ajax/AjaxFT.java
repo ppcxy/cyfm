@@ -20,7 +20,9 @@ public class AjaxFT extends BaseSeleniumTestCase {
 
     @Test
     public void mashup() {
-        s.open("/");
+        s.open("/manage");
+        loginAsAdminIfNecessary();
+
         s.click(By.linkText("Web演示"));
 
         loginAsAdminIfNecessary();

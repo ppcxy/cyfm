@@ -7,6 +7,7 @@
         <artifactId>ppcxy-parent</artifactId>
         <groupId>com.ppcxy</groupId>
         <version>1.0-Snapshot</version>
+        <relativePath>../ppcxy-parent</relativePath>
     </parent>
 
     <artifactId>ppcxy-common</artifactId>
@@ -16,6 +17,11 @@
     <dependencies>
         <!-- SPRINGSIDE begin -->
         <dependency>
+            <groupId>io.springside</groupId>
+            <artifactId>springside-utils</artifactId>
+            <scope>compile</scope>
+        </dependency>
+       <!-- <dependency>
             <groupId>org.springside</groupId>
             <artifactId>springside-core</artifactId>
             <optional>true</optional>
@@ -34,7 +40,7 @@
             <groupId>org.springside</groupId>
             <artifactId>springside-redis</artifactId>
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
         <!-- SPRINGSIDE end -->
 
         <!-- PERSISTENCE begin -->
@@ -193,6 +199,11 @@
             <artifactId>dozer</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -242,11 +253,11 @@
             <artifactId>powermock-api-mockito</artifactId>
         </dependency>
 
-        <dependency>
+       <!-- <dependency>
             <groupId>org.springside</groupId>
             <artifactId>springside-core</artifactId>
             <classifier>tests</classifier>
-            <!-- for xxxDemo class -->
+            &lt;!&ndash; for xxxDemo class &ndash;&gt;
             <scope>compile</scope>
         </dependency>
 
@@ -254,16 +265,9 @@
             <groupId>org.springside</groupId>
             <artifactId>springside-extension</artifactId>
             <classifier>tests</classifier>
-            <!-- for xxxDemo class -->
+            &lt;!&ndash; for xxxDemo class &ndash;&gt;
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <!-- for xxxDemo class -->
-            <scope>compile</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- selenium 2.0 -->
         <dependency>
@@ -322,6 +326,7 @@
         </dependencies>
     </dependencyManagement>
 
+
     <build>
         <plugins>
             <!-- source attach plugin -->
@@ -337,6 +342,28 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- 打包测试用的jar包，classfier为tests -->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>org/springside/modules/test/**/*.class</include>
+                                <include>jetty/webdefault-windows.xml</include>
+                            </includes>
+                            <excludes>
+                                <exclude>org/springside/modules/test/**/*Test.class</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- enforcer, 规则统一定义在parent -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

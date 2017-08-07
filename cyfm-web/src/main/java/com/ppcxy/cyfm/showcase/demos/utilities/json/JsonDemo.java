@@ -18,20 +18,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
-import org.springside.modules.mapper.JsonMapper;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -48,6 +40,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.springside.modules.mapper.JsonMapper;
 
 /**
  * 演示Jackson的基本使用方式及大量的特殊Feature.
@@ -142,7 +135,7 @@ public class JsonDemo {
 		TestBean bean = new TestBean("A");
 
 		// 打印全部属性
-		JsonMapper normalMapper = new JsonMapper();
+		JsonMapper normalMapper = JsonMapper.nonDefaultMapper();
 		assertThat(normalMapper.toJson(bean)).isEqualTo(
 				"{\"name\":\"A\",\"defaultValue\":\"hello\",\"nullValue\":null}");
 
@@ -151,7 +144,7 @@ public class JsonDemo {
 		assertThat(nonEmptyMapper.toJson(bean)).isEqualTo("{\"name\":\"A\",\"defaultValue\":\"hello\"}");
 
 		// 不打印默认值未改变的nullValue与defaultValue属性
-		JsonMapper nonDefaultMaper = JsonMapper.nonDefaultMapper();
+		JsonMapper nonDefaultMaper = new JsonMapper(JsonInclude.Include.NON_DEFAULT);
 		assertThat(nonDefaultMaper.toJson(bean)).isEqualTo("{\"name\":\"A\"}");
 	}
 
@@ -170,7 +163,7 @@ public class JsonDemo {
 	 */
 	@Test
 	public void jaxbAnnoation() {
-		JsonMapper newMapper = new JsonMapper();
+		JsonMapper newMapper = JsonMapper.nonDefaultMapper();
 		newMapper.enableJaxbAnnotation();
 		TestBean3 testBean = new TestBean3(1, "foo", 18);
 		// 结果name属性输出在前，且被改名为productName，且age属性被ignore
@@ -223,6 +216,29 @@ public class JsonDemo {
 			this.age = age;
 		}
 
+		public long getId() {
+			return id;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public int getAge() {
+			return age;
+		}
+
+		public void setAge(int age) {
+			this.age = age;
+		}
 	}
 
 	/**
@@ -313,7 +329,7 @@ public class JsonDemo {
 
 		// 使用enum.toString(), 注意配置必須在所有讀寫動作之前調用.
 		// 建议toString()使用index数字属性，比enum.name()节约了空间，比enum.order()则不会有顺序随时改变不确定的问题。
-		JsonMapper newMapper = new JsonMapper();
+		JsonMapper newMapper = JsonMapper.nonDefaultMapper();
 		newMapper.enableEnumUseToString();
 		assertThat(newMapper.toJson(TestEnum.One)).isEqualTo("\"1\"");
 		assertThat(newMapper.fromJson("\"1\"", TestEnum.class)).isEqualTo(TestEnum.One);
