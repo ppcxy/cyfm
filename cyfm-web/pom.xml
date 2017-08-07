@@ -421,7 +421,6 @@
             <artifactId>ppcxy-common</artifactId>
             <classifier>tests</classifier>
             <scope>compile</scope>
-            <version>${ppcxy.version}</version>
         </dependency>
 
        <!-- <dependency>

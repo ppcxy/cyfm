@@ -26,7 +26,6 @@
         <dependency>
             <groupId>io.springside</groupId>
             <artifactId>springside-utils</artifactId>
-            <scope>runtime</scope>
         </dependency>
        <!-- <dependency>
             <groupId>org.springside</groupId>
@@ -359,6 +358,7 @@
         <!-- OTHER TOOLS end -->
 
         <!-- TEST begin -->
+        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -386,6 +386,12 @@
             <artifactId>powermock-api-mockito</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ppcxy</groupId>
+            <artifactId>ppcxy-common</artifactId>
+            <classifier>tests</classifier>
+            <scope>compile</scope>
+        </dependency>
      <!--   <dependency>
             <groupId>org.springside</groupId>
             <artifactId>springside-core</artifactId>
