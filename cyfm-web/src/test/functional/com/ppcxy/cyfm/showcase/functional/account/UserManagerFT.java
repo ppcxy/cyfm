@@ -28,6 +28,7 @@ public class UserManagerFT extends BaseSeleniumTestCase {
     public void list() {
         s.open("/manage");
         loginAsAdminIfNecessary();
+
         s.getDriver().switchTo().frame("leftFrame");
         s.click(By.linkText("用户管理"));
 
