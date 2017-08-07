@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.ResourceUtils;
+import org.springside.modules.test.spring.Profiles;
 import org.springside.modules.utils.PropertiesLoader;
 
 import javax.servlet.ServletContextEvent;
@@ -44,6 +45,14 @@ public class StaticListener implements ServletContextListener {
             propFile = ResourceUtils.getFile("classpath:application.properties");
             fis = new FileInputStream(propFile);
             prop.load(fis);//将属性文件流装载到Properties对象中
+
+            //测试模式启动情况加载test属性文件
+            if(System.getProperty(Profiles.ACTIVE_PROFILE).equals(Profiles.FUNCTIONAL_TEST)){
+                propFile = ResourceUtils.getFile("classpath:application.test.properties");
+                fis = new FileInputStream(propFile);
+                prop.load(fis);
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -60,9 +69,11 @@ public class StaticListener implements ServletContextListener {
 
         if ("init".equals(runModel)) {
             try {
-                initDbMysql();
+                if (dbType.equals("mysql")) {
+                    initDbMysql();
+                }
 
-                prop.setProperty("run.model", "update");
+                prop.setProperty("run.model", "init");
                 FileOutputStream fos = new FileOutputStream(propFile);
                 // 将Properties集合保存到流中
                 prop.store(fos, new Date().toString()+" update run model from init to update.");
