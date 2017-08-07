@@ -11,7 +11,7 @@ call %MVN% clean install
 if errorlevel 1 goto error
 
 cd ..
-call %MVN% clean install -Dmaven.test.skip=true
+call %MVN% clean install
 if errorlevel 1 goto error
 
 echo [Step 2] Initialize schema and data for all example projects.

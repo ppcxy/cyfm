@@ -2,11 +2,9 @@ package com.ppcxy.common.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springside.modules.mapper.JsonMapper;
-import org.springside.modules.utils.Reflections;
+import org.springside.modules.utils.text.JsonMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
@@ -116,7 +114,7 @@ public class LogUtils {
 
     protected static String getParams(HttpServletRequest request) {
         Map<String, String[]> params = request.getParameterMap();
-        return JsonMapper.nonDefaultMapper().toJson(params);
+        return JsonMapper.defaultMapper().toJson(params);
     }
 
 
@@ -132,7 +130,7 @@ public class LogUtils {
             }
             headers.put(name, values);
         }
-        return JsonMapper.nonDefaultMapper().toJson(headers);
+        return JsonMapper.defaultMapper().toJson(headers);
     }
 
 

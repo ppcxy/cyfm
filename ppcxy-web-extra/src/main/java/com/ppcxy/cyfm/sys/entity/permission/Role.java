@@ -31,12 +31,11 @@ import java.util.Set;
 @EnableQueryCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Role extends IdEntity {
-    public static final String CE = "";
     private String name;
 
     private String permissions;
 
-    private Set<Authorize> authorizes = Sets.newHashSet();
+    private Set<RoleResourcePermission> roleResourcePermissions = Sets.newHashSet();
 
     public Role() {
     }
@@ -45,16 +44,17 @@ public class Role extends IdEntity {
         this.id = id;
     }
 
-    @OneToMany()
-    @JoinColumn(name = "targetId")
-    @Where(clause = "auth_type='Role'")
-    public Set<Authorize> getAuthorizes() {
-        return authorizes;
+    @OneToMany(mappedBy = "role")
+    public Set<RoleResourcePermission> getRoleResourcePermissions() {
+        return roleResourcePermissions;
     }
 
-    public void setAuthorizes(Set<Authorize> authorizes) {
-        this.authorizes = authorizes;
+    public void setRoleResourcePermissions(Set<RoleResourcePermission> roleResourcePermissions) {
+        this.roleResourcePermissions = roleResourcePermissions;
     }
+
+
+
 
     public String getName() {
         return name;

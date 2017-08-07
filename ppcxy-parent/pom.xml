@@ -12,7 +12,7 @@
     <properties>
         <!-- 主要依赖库的版本定义 -->
         <ppcxy.version>1.0-Snapshot</ppcxy.version>
-        <springside.version>4.2.3-GA</springside.version>
+        <springside.version>5.0.0-RC1</springside.version>
         <spring.version>4.2.1.RELEASE</spring.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mybatis.version>3.2.7</mybatis.version>
@@ -91,15 +91,15 @@
             <name>Jboss</name>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
         </repository>
-        <repository>
+        <!--<repository>
             <id>nexus</id>
             <name>Team Nexus Repository</name>
             <url>http://192.168.1.19:8081/nexus/content/groups/public/</url>
-        </repository>
+        </repository>-->
     </repositories>
 
     <!-- 如有Nexus私服, 取消注释并指向正确的服务器地址 -->
-    <pluginRepositories>
+    <!--<pluginRepositories>
         <pluginRepository>
             <id>nexus</id>
             <name>Team Nexus Repository</name>
@@ -108,7 +108,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 
     <!-- 预定义依赖项的version,scope与exclusions,子项目中只需定义groupId 与  artifactId 即可 -->
     <dependencyManagement>
@@ -125,6 +125,11 @@
             </dependency>
             <!-- SPRINGSIDE MODULES begin -->
             <dependency>
+                <groupId>io.springside</groupId>
+                <artifactId>springside-utils</artifactId>
+                <version>${springside.version}</version>
+            </dependency>
+            <!--<dependency>
                 <groupId>org.springside</groupId>
                 <artifactId>springside-core</artifactId>
                 <version>${springside.version}</version>
@@ -143,7 +148,7 @@
                 <groupId>org.springside</groupId>
                 <artifactId>springside-redis</artifactId>
                 <version>${springside.version}</version>
-            </dependency>
+            </dependency>-->
             <!-- SPRINGSIDE MODULES end -->
 
             <!-- spring-->
@@ -760,6 +765,12 @@
 
             <!-- springside -->
             <dependency>
+                <groupId>com.ppcxy</groupId>
+                <artifactId>ppcxy-common</artifactId>
+                <classifier>tests</classifier>
+                <version>${ppcxy.version}</version>
+            </dependency>
+          <!--  <dependency>
                 <groupId>org.springside</groupId>
                 <artifactId>springside-core</artifactId>
                 <version>${springside.version}</version>
@@ -772,7 +783,7 @@
                 <version>${springside.version}</version>
                 <classifier>tests</classifier>
                 <scope>test</scope>
-            </dependency>
+            </dependency>-->
 
             <!-- spring -->
             <dependency>

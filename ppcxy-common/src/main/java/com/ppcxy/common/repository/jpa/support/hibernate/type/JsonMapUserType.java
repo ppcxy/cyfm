@@ -3,7 +3,7 @@ package com.ppcxy.common.repository.jpa.support.hibernate.type;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.UserType;
-import org.springside.modules.mapper.JsonMapper;
+import org.springside.modules.utils.text.JsonMapper;
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -76,7 +76,7 @@ public class JsonMapUserType implements UserType, Serializable {
 //        } catch (IOException e) {
 //            throw new HibernateException(e);
 //        }
-        Map<Object, Object> map = new JsonMapper().fromJson(json, HashMap.class);
+        Map<Object, Object> map = JsonMapper.defaultMapper().fromJson(json, HashMap.class);
         return new JsonMap(map);
     }
 
@@ -94,7 +94,7 @@ public class JsonMapUserType implements UserType, Serializable {
 //            } catch (JsonProcessingException e) {
 //                throw new HibernateException(e);
 //            }
-            st.setString(index, new JsonMapper().toJson((((JsonMap) value).getMap())));
+            st.setString(index, JsonMapper.defaultMapper().toJson((((JsonMap) value).getMap())));
         }
     }
 

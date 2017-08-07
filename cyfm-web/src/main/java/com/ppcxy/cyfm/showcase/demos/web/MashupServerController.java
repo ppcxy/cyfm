@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springside.modules.constants.MediaTypes;
-import org.springside.modules.mapper.JsonMapper;
+import org.springside.modules.utils.text.JsonMapper;
+import org.springside.modules.web.MediaTypes;
 
 import java.util.Collections;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class MashupServerController {
 
 	private static final String DEFAULT_JQUERY_JSONP_CALLBACK_PARM_NAME = "callback";
 
-	private JsonMapper mapper = new JsonMapper();
+	private JsonMapper mapper = JsonMapper.defaultMapper();
 
 	@RequestMapping(value = "/web/mashup", produces = MediaTypes.JAVASCRIPT_UTF_8)
 	@ResponseBody

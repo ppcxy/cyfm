@@ -7,6 +7,7 @@
         <artifactId>ppcxy-parent</artifactId>
         <groupId>com.ppcxy</groupId>
         <version>1.0-Snapshot</version>
+        <relativePath>../ppcxy-parent</relativePath>
     </parent>
 
     <artifactId>cyfm-web</artifactId>
@@ -36,6 +37,10 @@
 
         <!-- SPRINGSIDE begin -->
         <dependency>
+            <groupId>io.springside</groupId>
+            <artifactId>springside-utils</artifactId>
+        </dependency>
+        <!--<dependency>
             <groupId>org.springside</groupId>
             <artifactId>springside-core</artifactId>
         </dependency>
@@ -50,7 +55,7 @@
         <dependency>
             <groupId>org.springside</groupId>
             <artifactId>springside-redis</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- SPRINGSIDE end -->
 
         <!-- SPRING basic begin -->
@@ -412,10 +417,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.ppcxy</groupId>
+            <artifactId>ppcxy-common</artifactId>
+            <classifier>tests</classifier>
+            <scope>compile</scope>
+            <version>${ppcxy.version}</version>
+        </dependency>
+
+       <!-- <dependency>
             <groupId>org.springside</groupId>
             <artifactId>springside-core</artifactId>
             <classifier>tests</classifier>
-            <!-- for xxxDemo class -->
+            &lt;!&ndash; for xxxDemo class &ndash;&gt;
             <scope>compile</scope>
         </dependency>
 
@@ -423,9 +436,9 @@
             <groupId>org.springside</groupId>
             <artifactId>springside-extension</artifactId>
             <classifier>tests</classifier>
-            <!-- for xxxDemo class -->
+            &lt;!&ndash; for xxxDemo class &ndash;&gt;
             <scope>compile</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -721,12 +734,6 @@
                                     <classpath refid="maven.test.classpath"/>
                                     <transaction src="src/main/resources/sql/${run.dbtype}/schema.sql"/>
                                     <transaction src="src/test/resources/sql/${run.dbtype}/import-data.sql"/>
-                                </sql>
-                                <sql driver="${quartz.jdbc.driver}" url="${quartz.jdbc.url}"
-                                     userid="${quartz.jdbc.username}" password="${quartz.jdbc.password}"
-                                     encoding="${project.build.sourceEncoding}"
-                                     src="src/main/resources/sql/${run.dbtype}/quartz.sql" onerror="continue">
-                                    <classpath refid="maven.test.classpath"/>
                                 </sql>
                             </target>
                         </configuration>

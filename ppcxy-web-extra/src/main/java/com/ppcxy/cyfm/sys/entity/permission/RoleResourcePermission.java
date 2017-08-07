@@ -8,6 +8,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 
+import javax.naming.Name;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -61,6 +62,7 @@ public class RoleResourcePermission extends IdEntity {
     }
 
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     @Fetch(FetchMode.SELECT)
     public Role getRole() {
         return role;
