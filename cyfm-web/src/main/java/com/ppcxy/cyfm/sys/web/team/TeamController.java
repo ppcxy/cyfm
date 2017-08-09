@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/sys/team")
 public class TeamController extends BaseCRUDController<Team, Long> {
     public TeamController() {
-        setResourceIdentity("team");
+        setResourceIdentity("sys:team");
         //和资源一致可以不处理
-        //setModelName("team");
+        setModelName("team");
     }
 }

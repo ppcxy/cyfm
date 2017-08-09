@@ -1,15 +1,15 @@
 package com.ppcxy.cyfm.manage.web.controller;
 
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
-import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.entity.resource.dto.Menu;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.resource.ResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springside.modules.web.Servlets;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -20,23 +20,19 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/")
 public class ManageController {
-    @Autowired
+    @Resource
     private ResourceService resourceService;
 
-    @RequestMapping("test")
-    public String ceshi(HttpServletRequest request, HttpServletResponse response) {
-        return "ceshi";
-    }
-
-    @RequestMapping
-    public String index(HttpServletRequest request, HttpServletResponse response) {
-        Servlets.changeCookie("skin", "default", request, response);
-        return "index";
-    }
+    //TODO 默认前端首页实现.
+    //@RequestMapping
+    //public String index(HttpServletRequest request, HttpServletResponse response) {
+    //    Servlets.changeCookie("skin", "default", request, response);
+    //    return "index";
+    //}
 
 
     @RequestMapping(value = "/manage")
-    public String main(HttpServletRequest request,HttpServletResponse response) {
+    public String main(HttpServletRequest request, HttpServletResponse response) {
         Servlets.changeCookie("skin", "content", request, response);
         return "manage/main";
     }

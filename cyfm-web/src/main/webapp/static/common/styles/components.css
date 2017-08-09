@@ -1138,6 +1138,10 @@ a:hover {
 }
 
 .border {
+  border: 1px solid #ccc;
+}
+
+.border-red {
   border: 1px solid red;
 }
 

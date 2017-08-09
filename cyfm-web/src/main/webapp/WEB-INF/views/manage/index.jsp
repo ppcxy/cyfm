@@ -16,7 +16,7 @@
     
     <div class="welinfo">
     <span><img src="${ctx}/static/manage/images/sun.png" alt="天气" /></span>
-    <b>Admin早上好，欢迎使用信息管理系统</b>(admin@uimaker.com)
+    <b>Admin早上好，欢迎使用信息管理系统</b>(admin@ppcxy.com)
     <a href="#">帐号设置</a>
     </div>
     
@@ -45,7 +45,7 @@
     
     <div class="welinfo">
     <span><img src="${ctx}/static/manage/images/dp.png" alt="提醒" /></span>
-    <b>Uimaker信息管理系统使用指南</b>
+    <b>ppcxy信息管理系统使用指南</b>
     </div>
     
     <ul class="infolist">
@@ -56,7 +56,7 @@
     
     <div class="xline"></div>
     
-    <div class="uimakerinfo"><b>查看Uimaker网站使用指南，您可以了解到多种风格的B/S后台管理界面,软件界面设计，图标设计，手机界面等相关信息</b>(<a href="http://www.uimaker.com" target="_blank">www.uimaker.com</a>)</div>
+    <div class="ppcxyinfo"><b>查看ppcxy网站使用指南，您可以了解到多种风格的B/S后台管理界面,软件界面设计，图标设计，手机界面等相关信息</b>(<a href="http://www.ppcxy.com" target="_blank">www.ppcxy.com</a>)</div>
     
     <ul class="umlist">
     <li><a href="#">如何发布文章</a></li>

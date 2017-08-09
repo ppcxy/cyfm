@@ -2,7 +2,9 @@ package com.ppcxy.cyfm.sys.web.authorize;
 
 import com.ppcxy.common.web.controller.BaseCRUDController;
 import com.ppcxy.cyfm.sys.entity.authorize.Authorize;
+import com.ppcxy.cyfm.sys.entity.authorize.AuthorizeType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,6 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthorizeController extends BaseCRUDController<Authorize, Long> {
 
     public AuthorizeController() {
-        setResourceIdentity("authorize");
+        setResourceIdentity("sys:authorize");
+        setModelName("authorize");
+    }
+
+    @Override
+    protected void preResponse(Model model) {
+        super.preResponse(model);
+        model.addAttribute("authorizeTypes", AuthorizeType.values());
     }
 }

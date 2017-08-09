@@ -3,7 +3,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <script>
     if (top != window) {
-        top.location.href = "${ctx}/user";
+        top.location.href = "${ctx}/";
     }
 </script>
 <%
@@ -153,7 +153,7 @@
 </div>
 
 
-<div class="loginbm">版权所有 2013 <a href="http://www.uimaker.com">uimaker.com</a> 仅供学习交流，勿用于任何商业用途</div>
+<div class="loginbm">版权所有 2013 <a href="http://www.ppcxy.com">ppcxy.com</a> 仅供学习交流，勿用于任何商业用途</div>
 
 
 </body>

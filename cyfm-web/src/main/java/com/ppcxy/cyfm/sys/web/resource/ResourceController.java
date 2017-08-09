@@ -3,8 +3,6 @@ package com.ppcxy.cyfm.sys.web.resource;
 import com.ppcxy.common.extend.web.controller.BaseTreeableController;
 import com.ppcxy.cyfm.sys.entity.resource.Resource;
 import com.ppcxy.cyfm.sys.entity.resource.dto.MenuType;
-import com.ppcxy.cyfm.sys.service.resource.ResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ResourceController extends BaseTreeableController<Resource, Long> {
 
     public ResourceController() {
-        setResourceIdentity("resource");
+        setResourceIdentity("sys:resource");
         setModelName("resource");
     }
 

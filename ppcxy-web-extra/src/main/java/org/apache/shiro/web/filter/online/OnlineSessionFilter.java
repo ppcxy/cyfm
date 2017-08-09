@@ -1,4 +1,3 @@
-
 package org.apache.shiro.web.filter.online;
 
 import com.ppcxy.common.Constants;
@@ -50,7 +49,7 @@ public class OnlineSessionFilter extends AccessControlFilter {
             request.setAttribute(ShiroConstants.ONLINE_SESSION, onlineSession);
             //把user id设置进去
             boolean isGuest = onlineSession.getUserId() == null || onlineSession.getUserId() == 0L;
-            if (isGuest == true) {
+            if (isGuest) {
                 User user = (User) request.getAttribute(Constants.CURRENT_USER);
                 if (user != null) {
                     onlineSession.setUserId(user.getId());

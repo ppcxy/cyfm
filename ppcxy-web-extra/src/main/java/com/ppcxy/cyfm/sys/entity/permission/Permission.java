@@ -14,7 +14,7 @@ public class Permission extends IdEntity {
 
     private String name;
     private String value;
-    private String detailed;
+    private String description;
 
     public String getName() {
         return name;
@@ -32,11 +32,11 @@ public class Permission extends IdEntity {
         this.value = value;
     }
 
-    public String getDetailed() {
-        return detailed;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDetailed(String detailed) {
-        this.detailed = detailed;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

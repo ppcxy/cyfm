@@ -1,4 +1,3 @@
-
 package org.apache.shiro.web.filter.sync;
 
 import org.apache.shiro.ShiroConstants;

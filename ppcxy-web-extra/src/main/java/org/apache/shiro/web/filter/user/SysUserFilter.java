@@ -1,4 +1,3 @@
-
 package org.apache.shiro.web.filter.user;
 
 import com.ppcxy.common.Constants;
@@ -7,9 +6,9 @@ import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.Reflections;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import java.io.IOException;
  */
 public class SysUserFilter extends AccessControlFilter {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     /**
@@ -89,7 +88,7 @@ public class SysUserFilter extends AccessControlFilter {
         }
 
         //TODO 逻辑删除用户 if (Boolean.TRUE.equals(user.getDeleted()) || user.getStatus() == UserStatus.blocked) {
-        if (user.getStatus() == "disabled") {
+        if ("disabled".equals(user.getStatus())) {
             getSubject(request, response).logout();
             saveRequestAndRedirectToLogin(request, response);
             return false;
@@ -110,7 +109,7 @@ public class SysUserFilter extends AccessControlFilter {
         //if (Boolean.TRUE.equals(user.getDeleted())) {
         //    url = getUserNotfoundUrl();
         //} else
-        if (user.getStatus() == "disabled") {
+        if ("disabled".equals(user.getStatus())) {
             url = getUserBlockedUrl();
         } else {
             url = getUserUnknownErrorUrl();

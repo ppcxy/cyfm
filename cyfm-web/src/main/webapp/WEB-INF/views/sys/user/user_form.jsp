@@ -77,6 +77,7 @@
             rules: {
                 username: {
                     required: true
+                    ,stringCheck: true
                     , rangelength: [4, 20]
                     , remote: {                               //验证用户名是否存在
                         type: "POST",
@@ -88,7 +89,12 @@
                             }
                         }
                     }
-                }
+                },
+				name: {
+                    required: true
+                    ,stringCheck: true
+                    , rangelength: [2, 20]
+				}
                 , tel: {
                     remote: {                               //验证用户名是否存在
                         type: "POST",

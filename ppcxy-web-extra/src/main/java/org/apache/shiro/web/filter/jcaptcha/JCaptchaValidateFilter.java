@@ -1,4 +1,3 @@
-
 package org.apache.shiro.web.filter.jcaptcha;
 
 import com.ppcxy.common.web.jcaptcha.JCaptcha;
@@ -57,7 +56,7 @@ public class JCaptchaValidateFilter extends AccessControlFilter {
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         //验证码禁用 或不是表单提交 允许访问
-        if (jcaptchaEbabled == false || !"post".equals(httpServletRequest.getMethod().toLowerCase())) {
+        if (!jcaptchaEbabled || !"post".equals(httpServletRequest.getMethod().toLowerCase())) {
             return true;
         }
         return JCaptcha.validateResponse(httpServletRequest, httpServletRequest.getParameter(jcaptchaParam));

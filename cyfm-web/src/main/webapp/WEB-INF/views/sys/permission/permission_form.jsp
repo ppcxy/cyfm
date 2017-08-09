@@ -25,9 +25,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="detailed" class="control-label">详细描述:</label>
+                <label for="description" class="control-label">详细描述:</label>
                 <div class="controls">
-                    <textarea id="detailed" name="detailed" class="form-control required">${entity.detailed}</textarea>
+                    <textarea id="description" name="description" class="form-control required">${entity.description}</textarea>
                 </div>
             </div>
             <div class="form-actions">
@@ -40,6 +40,50 @@
     </div>
 </div>
 <script>
+    $(function () {
+        $("#inputForm").validate({
+            rules: {
+                name: {
+                    required: true
+                    ,stringCheck: true
+                    , rangelength: [2, 20]
+                    , remote: {                               //验证权限名是否存在
+                        type: "POST",
+                        url: "${ctx}/sys/permission/checkName",
+                        data: {
+                            'oldName': '${entity.name}'
+                            , 'name': function () {
+                                return $("#name").val();
+                            }
+                        }
+                    }
+                },
+                value: {
+                    required: true
+                    ,variable: true
+                    , rangelength: [2, 50]
+                    , remote: {                               //验证权限标识是否存在
+                        type: "POST",
+                        url: "${ctx}/sys/permission/checkValue",
+                        data: {
+                            'oldValue': '${entity.value}'
+                            , 'value': function () {
+                                return $("#value").val();
+                            }
+                        }
+                    }
+                }
+            }
+            , messages: {
+                name: {
+                    remote: "权限名已被其他角色使用."
+                },
+                value: {
+                    remote: "权限标识已被其他角色使用."
+                }
+            }
+        });
+    })
     $cy.handleUniform();
 </script>
 </body>

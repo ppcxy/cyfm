@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>role crud</title>
+  <title>permission crud</title>
 </head>
 
 <body>
@@ -10,8 +10,8 @@
    <div class="toolbar-right">
        <form class="form-search form-inline" action="#">
          <div class="form-group">
-             <label>角色名称：</label>
-             <input type="text" name="search.name_like" class="form-control input-small" value="${param['search.name_like']}">
+             <label>授权用户：</label>
+             <input type="text" name="search.userId_like" class="form-control input-small" value="${param['search.userId_like']}">
              <button type="submit" class="btn btn-default" id="search_btn">查询</button>
          </div>
 
@@ -23,21 +23,21 @@
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
-            <th>角色id</th>
-            <th>角色名称</th>
-            <th>非资源权限</th>
-            <th>资源权限</th>
+            <th>主键</th>
+            <th>用户id</th>
+            <th>目标id</th>
+            <th>授权类型</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${page.content}" var="role">
+        <c:forEach items="${page.content}" var="authorize">
             <tr>
-                <td class="check"><input type="checkbox" value="${role.id}"></td>
-                <td>${role.id}&nbsp;</td>
-                <td>${role.name}&nbsp;</td>
-                <td>${role.permissions}&nbsp;</td>
-                <td>查看详细信息页面&nbsp;</td>
-                <cy:listTableActions name="${role.name}" id="${role.id}"/>
+                <td class="check"><input type="checkbox" value="${authorize.id}"></td>
+                <td>${authorize.id}&nbsp;</td>
+                <td>${authorize.authType.info}&nbsp;</td>
+                <td><sys:showUsername id="${authorize.userId}"/>&nbsp;</td>
+                <td><sys:showRoleName id="${authorize.targetId}"/>&nbsp;</td>
+                <cy:listTableActions name="${permission.userId}" id="${authorize.id}"/>
             </tr>
         </c:forEach>
         </tbody>

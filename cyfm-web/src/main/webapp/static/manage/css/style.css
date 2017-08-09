@@ -1,10 +1,5 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-/***
- * uimaker
- * http://www.uimaker.com
- * e-mail: admin@uimaker.com
- */
 * {
     font-size: 9pt;
     border: 0;
@@ -672,7 +667,7 @@ h2 {
     margin-right: 10px;
 }
 
-.uimakerinfo {
+.ppcxyinfo {
     padding-left: 40px;
     background: url(../images/search.png) no-repeat 10px 15px;
     padding-top: 15px;

@@ -19,7 +19,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
     /**
      * 实体类型
      */
-    protected final Class<T> entityClass;
+    private final Class<T> entityClass;
 
     private String viewPrefix;
 
@@ -33,10 +33,10 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
 
 
     /**
-     * 权限前缀：如sys:user
-     * 则生成的新增权限为 sys:user:create
+     * 模块名称：如user
+     * 则使用页面为 user_list.jsp user_form.jsp
      */
-    public void setModelName(String modelName) {
+    protected void setModelName(String modelName) {
         this.modelName = modelName;
     }
 
@@ -57,14 +57,14 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
      * 1、获取当前类头上的@RequestMapping中的value作为前缀
      * 2、如果没有就使用当前模型小写的简单类名
      */
-    public void setViewPrefix(String viewPrefix) {
+    private void setViewPrefix(String viewPrefix) {
         if (viewPrefix.startsWith("/")) {
             viewPrefix = viewPrefix.substring(1);
         }
         this.viewPrefix = viewPrefix;
     }
 
-    public String getViewPrefix() {
+    private String getViewPrefix() {
         return viewPrefix;
     }
 
@@ -81,7 +81,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
      *
      * @return
      */
-    public String viewName(String suffixName) {
+    protected String viewName(String suffixName) {
         if (!suffixName.startsWith("/")) {
             if (modelName != null) {
                 suffixName = "/" + modelName + "_" + suffixName;
@@ -118,7 +118,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         return "redirect:" + backURL;
     }
 
-    protected String defaultViewPrefix() {
+    private String defaultViewPrefix() {
         String currentViewPrefix = "";
         RequestMapping requestMapping = AnnotationUtils.findAnnotation(getClass(), RequestMapping.class);
         if (requestMapping != null && requestMapping.value().length > 0) {
