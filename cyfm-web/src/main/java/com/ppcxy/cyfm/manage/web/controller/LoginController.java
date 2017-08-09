@@ -1,19 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2005, 2014 springside.github.io
- * <p/>
- * Licensed under the Apache License, Version 2.0 (the "License");
- *******************************************************************************/
+
 package com.ppcxy.cyfm.manage.web.controller;
 
 import com.ppcxy.cyfm.sys.service.user.UserOnlineService;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -26,7 +22,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
-    @Autowired
+    @Resource
     private UserOnlineService userOnlineService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

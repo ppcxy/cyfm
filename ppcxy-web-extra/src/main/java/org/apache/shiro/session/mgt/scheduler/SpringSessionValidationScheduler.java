@@ -1,4 +1,3 @@
-
 package org.apache.shiro.session.mgt.scheduler;
 
 import org.apache.shiro.session.mgt.DefaultSessionManager;

@@ -22,6 +22,7 @@
 <!-- validate校验 begin -->
 <script src="${ctx}/static/plugins/jquery-validation/1.15.0/jquery.validate.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery-validation/1.15.0/additional-methods.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery-validation/1.15.0/additional-methods-ppcxy.js?5" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery-validation/1.15.0/localization/messages_zh.js" type="text/javascript"></script>
 <!-- validate校验 end -->
 

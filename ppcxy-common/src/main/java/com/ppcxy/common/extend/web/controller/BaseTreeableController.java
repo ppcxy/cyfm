@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springside.modules.utils.misc.IdGenerator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -28,9 +29,9 @@ import java.util.Set;
 public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Treeable<ID>, ID extends Serializable>
         extends BaseController<M, ID> {
 
-    protected BaseTreeableService<M, ID> baseService;
+    private BaseTreeableService<M, ID> baseService;
 
-    protected PermissionList permissionList = null;
+    private PermissionList permissionList = null;
 
 
     @Autowired
@@ -42,7 +43,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
      * 权限前缀：如sys:user
      * 则生成的新增权限为 sys:user:create
      */
-    public void setResourceIdentity(String resourceIdentity) {
+    protected void setResourceIdentity(String resourceIdentity) {
         if (!StringUtils.isEmpty(resourceIdentity)) {
             permissionList = PermissionList.newPermissionList(resourceIdentity);
         }
@@ -86,8 +87,8 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
                 List<M> children = baseService.findChildren(models, searchable);
                 models.removeAll(children);
                 models.addAll(children);
-            } else { //异步模式只查自己
-
+            } else {
+                //TODO 异步模式只查自己
             }
         } else {
             if (!async) {  //非异步 查自己和子子孙孙
@@ -401,8 +402,8 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
                 List<M> children = baseService.findChildren(models, searchable);
                 models.removeAll(children);
                 models.addAll(children);
-            } else { //异步模式 只查匹配的一级
-
+            } else {
+                //TODO 异步模式 只查匹配的一级
             }
         } else { //根据有没有parentId加载
 
@@ -434,15 +435,15 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
     @ResponseBody
     public Object ajaxAppendChild(HttpServletRequest request, @PathVariable("parent") M parent) {
 
-
         if (permissionList != null) {
             permissionList.assertHasCreatePermission();
         }
 
-
         M child = newEntity();
-        child.setName("新节点");
+        child.setName(IdGenerator.uuid2());
         baseService.appendChild(parent, child);
+        child.setName("新节点"+child.getId());
+        baseService.save(child);
         return convertToZtree(child, true, true);
     }
 
@@ -533,7 +534,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
     }
 
     private ZTree convertToZtree(M m, boolean open, boolean onlyCheckLeaf) {
-        ZTree<ID> zTree = new ZTree<ID>();
+        ZTree<ID> zTree = new ZTree<>();
         zTree.setId(m.getId());
         zTree.setpId(m.getParentId());
         zTree.setName(m.getName());

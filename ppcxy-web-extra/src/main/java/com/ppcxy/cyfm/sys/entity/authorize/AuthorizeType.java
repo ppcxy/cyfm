@@ -5,11 +5,22 @@ package com.ppcxy.cyfm.sys.entity.authorize;
  */
 public enum AuthorizeType {
 
-    Role("角色授权"), User("用户授权"), Dept("组织机构授权");
+    Role("Role","角色授权"), User("User","用户授权"), Dept("Dept","组织机构授权");
 
     private String info;
+    private String value;
 
-    AuthorizeType(String info) {
+
+    AuthorizeType(String value,String info) {
+        this.value = value;
         this.info = info;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

@@ -368,6 +368,7 @@ $.zTree = {
         }
 
         function showMenu() {
+            $("body .ztree#"+treeSelect).wrap("<div style='height:240px;overflow:auto;'></div>");
             var nameOffset = $name.offset();
             $treeContent.css({
                 left: nameOffset.left + "px",

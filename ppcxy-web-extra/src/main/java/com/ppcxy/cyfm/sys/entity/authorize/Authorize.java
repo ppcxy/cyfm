@@ -1,11 +1,11 @@
 package com.ppcxy.cyfm.sys.entity.authorize;
 
 import com.ppcxy.common.entity.IdEntity;
-import com.ppcxy.cyfm.sys.entity.permission.Permission;
-import com.ppcxy.cyfm.sys.entity.resource.Resource;
-import com.ppcxy.cyfm.sys.entity.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 /**
  * Created by wufab on 2016/8/11.

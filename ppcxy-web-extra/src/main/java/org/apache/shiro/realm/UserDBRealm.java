@@ -1,4 +1,3 @@
-
 package org.apache.shiro.realm;
 
 import com.ppcxy.common.utils.ShiroUser;

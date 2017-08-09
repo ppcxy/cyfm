@@ -36,8 +36,8 @@
                 <td>${permission.id}&nbsp;</td>
                 <td>${permission.name}&nbsp;</td>
                 <td>${permission.value}&nbsp;</td>
-                <td>${permission.detailed}&nbsp;</td>
-                <cy:listTableActions name="${permission.name}" id="${role.id}"/>
+                <td>${permission.description}&nbsp;</td>
+                <cy:listTableActions name="${permission.name}" id="${permission.id}"/>
             </tr>
         </c:forEach>
         </tbody>
