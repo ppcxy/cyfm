@@ -4,6 +4,7 @@ import com.ppcxy.cyfm.showcase.functional.BaseSeleniumTestCase;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springside.modules.utils.Threads;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +22,7 @@ public class AjaxFT extends BaseSeleniumTestCase {
 
         s.getDriver().switchTo().frame("leftFrame");
         s.click(By.xpath("//a[contains(text(),'Web演示')]//ancestor::dd//div[contains(@class,'title')]"));
+        Threads.sleep(800);
         s.click(By.linkText("Web演示"));
 
         s.getDriver().switchTo().defaultContent();
