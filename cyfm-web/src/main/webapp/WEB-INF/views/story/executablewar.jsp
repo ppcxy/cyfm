@@ -24,7 +24,7 @@
 		</blockquote>
 		<p>运行war包的命令： </p>
 		<blockquote>
-		java -jar showcase-4.x.x.standalone.war
+		java -jar cyfm-1.x.x.standalone.war
 		</blockquote>
 	</ul>
 </body>
