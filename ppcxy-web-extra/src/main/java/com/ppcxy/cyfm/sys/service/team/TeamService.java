@@ -7,13 +7,13 @@ import com.ppcxy.cyfm.sys.repository.jpa.team.TeamDao;
 import org.javasimon.aop.Monitored;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by weep on 2016-5-16.
  */
-@Component
+@Service
 @Transactional
 @Monitored
 public class TeamService extends BaseService<Team, Long> {

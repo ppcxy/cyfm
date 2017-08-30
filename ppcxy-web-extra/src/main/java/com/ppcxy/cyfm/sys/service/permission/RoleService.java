@@ -6,11 +6,13 @@ import com.ppcxy.cyfm.sys.repository.jpa.permission.RoleDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 /**
  * Created by weep on 2016-7-7.
  */
 @Service
+@Transactional
 public class RoleService extends BaseService<Role, Long> {
 
     @Resource
