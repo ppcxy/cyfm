@@ -9,7 +9,7 @@
 
   1. 运行根目录下的quick-start.sh 或 quick-start.bat
       * 将modules安装到本地maven仓库.
-      * 等待下载以来,启动演示项目.
+      * 等待下载依赖后,自动启动演示项目.
     
   2. 访问 http://localhost:8081/，按上面的提示体验。
 
