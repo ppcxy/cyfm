@@ -23,7 +23,6 @@ public class QuickstartServer {
 	public static void main(String[] args) throws Exception {
 		// 设定Spring的profile
 		Profiles.setProfileAsSystemProperty(Profiles.DEVELOPMENT);
-
 		// 启动Jetty
 		Server server = JettyFactory.createServerInSource(PORT, CONTEXT);
 		JettyFactory.setTldJarNames(server, TLD_JAR_NAMES);

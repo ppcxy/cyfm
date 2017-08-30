@@ -46,6 +46,13 @@ public class StaticListener implements ServletContextListener {
             fis = new FileInputStream(propFile);
             prop.load(fis);//将属性文件流装载到Properties对象中
 
+            //开发模式启动情况加载development属性文件
+            if (System.getProperty(Profiles.ACTIVE_PROFILE).equals(Profiles.DEVELOPMENT)) {
+                propFile = ResourceUtils.getFile("classpath:application.development.properties");
+                fis = new FileInputStream(propFile);
+                prop.load(fis);
+            }
+
             //测试模式启动情况加载test属性文件
             if(System.getProperty(Profiles.ACTIVE_PROFILE).equals(Profiles.FUNCTIONAL_TEST)){
                 propFile = ResourceUtils.getFile("classpath:application.test.properties");

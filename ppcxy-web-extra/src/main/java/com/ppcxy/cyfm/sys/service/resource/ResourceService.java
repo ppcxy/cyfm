@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ import java.util.Set;
  * Created by weep on 2016-5-17.
  */
 @Service
+@Transactional
 public class ResourceService extends BaseTreeableService<Resource, Long> {
 
     //@Autowired

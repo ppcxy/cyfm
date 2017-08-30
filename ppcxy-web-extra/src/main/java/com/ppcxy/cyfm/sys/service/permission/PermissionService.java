@@ -6,11 +6,13 @@ import com.ppcxy.cyfm.sys.repository.jpa.permission.PermissionDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 /**
  * Created by weep on 2016-7-7.
  */
 @Service
+@Transactional
 public class PermissionService extends BaseService<Permission, Long> {
     @Resource
     private PermissionDao permissionDao;
