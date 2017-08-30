@@ -107,7 +107,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div id="permissionInfo" class="col-xs-9">
-                        <div class="col-xs-2">
+                        <div class="col-xs-3">
                             <label>权限</label>&nbsp;
                             <select id="permissionList" multiple="multiple" class="form-control" size="8">
                                 <c:forEach items="${permissionList}" var="p">
