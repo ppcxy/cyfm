@@ -1,5 +1,7 @@
 # cyfm 快速开发框架
 
+## qq交流群 18692071
+
 ## 简介
 
 1. 基于springside4 showcase项目进行开发.
