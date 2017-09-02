@@ -12,7 +12,8 @@
 <!-- 压面样式表单布局美化 end-->
 
 <!-- 时间插件 begin -->
-<script src="${ctx}/static/plugins/laydate/laydate.dev.js" type="text/javascript"></script>
+<%--<script src="${ctx}/static/plugins/laydate/laydate.dev.js" type="text/javascript"></script>--%>
+<script src="${ctx}/static/plugins/laydate5.0/laydate.dev.js" type="text/javascript"></script>
 <!-- 时间插件 end-->
 
 <!-- 弹出层 begin -->

@@ -55,7 +55,7 @@
         <powermock.version>1.6.3</powermock.version>
         <selenium.version>2.53.0</selenium.version>
         <nosqlunit.version>0.7.9</nosqlunit.version>
-        <jetty.version>8.1.16.v20140903</jetty.version>
+        <jetty.version>7.6.15.v20140411</jetty.version>
         <h2.version>1.3.176</h2.version>
 
         <!-- Plugin的属性 -->
@@ -972,7 +972,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>3.0.2</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -984,9 +984,8 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.2.1</version>
+                    <version>3.0.1</version>
                 </plugin>
-
                 <!-- clean插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -1088,6 +1087,19 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>jdk</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>${java.version}</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>${java.version}</maven.compiler.source>
+                <maven.compiler.target>${java.version}</maven.compiler.target>
+                <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+
         <!-- 执行@Category(Smoke.class)的TestCase -->
         <profile>
             <id>run-smoke</id>
