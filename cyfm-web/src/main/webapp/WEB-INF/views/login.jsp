@@ -46,7 +46,7 @@
             });
 
             setTimeout(function(){
-                $(":input").attr("disabled", false);
+                $(":input").attr("disabled", false).eq(0).focus();
             },0)
         });
 

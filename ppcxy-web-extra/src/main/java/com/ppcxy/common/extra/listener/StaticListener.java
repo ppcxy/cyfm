@@ -76,8 +76,12 @@ public class StaticListener implements ServletContextListener {
 
         if ("init".equals(runModel)) {
             try {
-                if (dbType.equals("mysql")) {
-                    initDbMysql();
+                switch (dbType) {
+                    case "mysql":
+                        initDbMysql();
+                        break;
+                    default:
+                        initDbH2();
                 }
 
                 prop.setProperty("run.model", "init");
@@ -97,6 +101,9 @@ public class StaticListener implements ServletContextListener {
     }
 
     private void update() {
+        System.out.println("*    正在检查当前连接数据库版本...");
+        System.out.println("**********************************************");
+        System.err.println("*    数据库升级模块计划开发中,敬请期待...");
     }
 
     private void initDb(File scheamFlie, File dataFile, File... otherSqlFiles) {
@@ -138,6 +145,15 @@ public class StaticListener implements ServletContextListener {
 
     private void initDbMysql() throws FileNotFoundException {
         String dir = "classpath:sql/mysql/";
+
+        File scheamFlie = ResourceUtils.getFile(dir + "schema.sql");
+        File dataFile = ResourceUtils.getFile(dir + "data.sql");
+
+        initDb(scheamFlie, dataFile);
+    }
+
+    private void initDbH2() throws FileNotFoundException {
+        String dir = "classpath:sql/h2/";
 
         File scheamFlie = ResourceUtils.getFile(dir + "schema.sql");
         File dataFile = ResourceUtils.getFile(dir + "data.sql");

@@ -49,7 +49,7 @@ public class User extends IdEntity {
     }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "registerDate")
+    @Column(name = "register_date")
     public Date getRegisterDate() {
         return registerDate;
     }

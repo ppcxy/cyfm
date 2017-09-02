@@ -8,7 +8,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 
-import javax.naming.Name;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,7 +26,7 @@ import java.util.Set;
         }
 )
 @Entity
-@Table(name = "CY_SYS_ROLE_RESOURCE_PERMISSION")
+@Table(name = "cy_sys_role_resource_permission")
 @EnableQueryCache
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class RoleResourcePermission extends IdEntity {
