@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Created by wufab on 2016/8/11.
  */
 @Entity
-@Table(name = "CY_SYS_AUTHORIZE")
+@Table(name = "cy_sys_authorize")
 public class Authorize extends IdEntity {
 
     private Long userId;

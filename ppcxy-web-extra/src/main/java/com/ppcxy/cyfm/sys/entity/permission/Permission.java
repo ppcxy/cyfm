@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Created by wufab on 2016/8/11.
  */
 @Entity
-@Table(name = "CY_SYS_PERMISSION")
+@Table(name = "cy_sys_permission")
 public class Permission extends IdEntity {
 
     private String name;
