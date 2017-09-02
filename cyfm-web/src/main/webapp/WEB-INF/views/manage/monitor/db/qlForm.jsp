@@ -2,13 +2,13 @@
 <%@ page import="org.hibernate.SessionFactory" %>
 <%@ page import="org.hibernate.metadata.ClassMetadata" %>
 <%@ page import="org.springframework.beans.BeanWrapperImpl" %>
-<%@ page import="org.springframework.data.domain.pageimpl" %>
+<%@ page import="org.springframework.data.domain.PageImpl" %>
 <%@ page import="java.beans.PropertyDescriptor" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.springframework.data.domain.PageImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
+
 <div data-table="table" class="tabbable-line">
     <c:set var="type" value="ql"/>
     <%@include file="nav.jspf" %>

@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-	<title>综合演示用例</title>
+    <title>系统用户</title>
 </head>
 
 <body>

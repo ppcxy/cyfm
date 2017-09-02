@@ -29,6 +29,9 @@
     }})">需要确认
     </button>
 </div>
+<div>
+    <input type="text" class="" data-format="both">
+</div>
 <script>
     $cy.handleUniform();
 </script>

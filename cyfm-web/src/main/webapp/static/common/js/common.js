@@ -159,21 +159,23 @@ $cy = {
         // 时间组建初始化
         $("[data-format]").each(function (index, obj) {
             var format = $(obj).data("format");
+            var type = "datetime";
             var istime = true;
             if (format == 'both') {
-                format = "YYYY-MM-DD hh:mm:ss";
+                format = "yyyy-MM-dd HH:mm:ss";
             } else if (format == 'date') {
-                format = 'YYYY-MM-DD';
-                istime = false;
+                format = 'yyyy-MM-dd';
+                type = "date";
             } else if (format == 'time') {
-                format = 'HH:mm:SS';
+                format = 'HH:mm:ss';
+                type = "time";
             } else {
-                format = "YYYY-MM-DD hh:mm:ss";
+                format = "yyyy-MM-dd HH:mm:ss";
             }
 
-            laydate({
+            laydate.render({
                 elem: this,
-                istime: istime,
+                type: type,
                 format: format,
                 istoday: true,
                 isclear: true, //是否显示清空
@@ -387,7 +389,7 @@ $(function () {
     //时间
     if (nowtime[0]) {
         var set = setInterval(function () {
-            nowtime.html(laydate.now(0, 'YYYY年MM月DD日 hh:mm:ss'));
+            nowtime.html(laydate.now(0, 'yyyy年MM月dd日 HH:mm:ss'));
         }, 1000);
     }
 
