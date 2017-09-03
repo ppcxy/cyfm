@@ -32,6 +32,9 @@ public class StaticListener implements ServletContextListener {
         System.out.println("*                                            *");
         System.out.println("**********************************************");
 
+        if (System.getProperty(Profiles.ACTIVE_PROFILE) == null) {
+            System.setProperty(Profiles.ACTIVE_PROFILE, Profiles.PRODUCTION);
+        }
 
         PropertiesLoader propertiesLoader = new PropertiesLoader("classpath:/application.properties");
 
@@ -54,7 +57,7 @@ public class StaticListener implements ServletContextListener {
             }
 
             //测试模式启动情况加载test属性文件
-            if(System.getProperty(Profiles.ACTIVE_PROFILE).equals(Profiles.FUNCTIONAL_TEST)){
+            if (System.getProperty(Profiles.ACTIVE_PROFILE).equals(Profiles.FUNCTIONAL_TEST)) {
                 propFile = ResourceUtils.getFile("classpath:application.test.properties");
                 fis = new FileInputStream(propFile);
                 prop.load(fis);
@@ -87,7 +90,7 @@ public class StaticListener implements ServletContextListener {
                 prop.setProperty("run.model", "init");
                 FileOutputStream fos = new FileOutputStream(propFile);
                 // 将Properties集合保存到流中
-                prop.store(fos, new Date().toString()+" update run model from init to update.");
+                prop.store(fos, new Date().toString() + " update run model from init to update.");
                 fos.close();// 关闭流
             } catch (FileNotFoundException e) {
                 System.out.println("严重错误:未找到用来初始化数据的脚本..." + e.getMessage());
