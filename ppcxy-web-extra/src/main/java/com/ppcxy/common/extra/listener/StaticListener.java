@@ -3,18 +3,23 @@ package com.ppcxy.common.extra.listener;
 import com.ppcxy.common.repository.jpa.support.hibernate.HibernateUtils;
 import com.ppcxy.common.spring.SpringContextHolder;
 import com.ppcxy.common.utils.LinkedProperties;
+import com.ppcxy.common.utils.LogUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.ResourceUtils;
 import org.springside.modules.test.spring.Profiles;
-import org.springside.modules.utils.PropertiesLoader;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 
+/**
+ * 监听器-启动过程根据当前数据源进行数据初始化操作.
+ */
 public class StaticListener implements ServletContextListener {
     private JdbcTemplate jdbcTemplate;
 
@@ -32,11 +37,11 @@ public class StaticListener implements ServletContextListener {
         System.out.println("*                                            *");
         System.out.println("**********************************************");
 
+        //如果没有设定 Profiles 则默认认为是线上环境.
         if (System.getProperty(Profiles.ACTIVE_PROFILE) == null) {
-            System.setProperty(Profiles.ACTIVE_PROFILE, Profiles.PRODUCTION);
+            Profiles.setProfileAsSystemProperty(Profiles.PRODUCTION);
         }
 
-        PropertiesLoader propertiesLoader = new PropertiesLoader("classpath:/application.properties");
 
         LinkedProperties prop = new LinkedProperties();//属性集合对象
 
@@ -87,7 +92,7 @@ public class StaticListener implements ServletContextListener {
                         initDbH2();
                 }
 
-                prop.setProperty("run.model", "init");
+                prop.setProperty("run.model", "update");
                 FileOutputStream fos = new FileOutputStream(propFile);
                 // 将Properties集合保存到流中
                 prop.store(fos, new Date().toString() + " update run model from init to update.");
@@ -103,12 +108,22 @@ public class StaticListener implements ServletContextListener {
         }
     }
 
+    /**
+     * 根据当前数据库版本进行更新
+     */
     private void update() {
         System.out.println("*    正在检查当前连接数据库版本...");
         System.out.println("**********************************************");
         System.err.println("*    数据库升级模块计划开发中,敬请期待...");
     }
 
+    /**
+     * 根据脚本进行数据库初始化操作
+     *
+     * @param scheamFlie
+     * @param dataFile
+     * @param otherSqlFiles
+     */
     private void initDb(File scheamFlie, File dataFile, File... otherSqlFiles) {
         System.out.println("*    准备执行数据库初始化操作...");
         System.out.println("**********************************************");
@@ -128,6 +143,11 @@ public class StaticListener implements ServletContextListener {
 
     }
 
+    /**
+     * 初始化 sqlserver 数据库
+     *
+     * @throws FileNotFoundException
+     */
     private void initDbMSSQLServer() throws FileNotFoundException {
         String dir = "classpath:sql/sqlserver/";
 
@@ -137,6 +157,11 @@ public class StaticListener implements ServletContextListener {
         initDb(scheamFlie, dataFile);
     }
 
+    /**
+     * 初始化 oracle 数据库
+     *
+     * @throws FileNotFoundException
+     */
     private void initDbOracle() throws FileNotFoundException {
         String dir = "classpath:sql/oracle/";
 
@@ -146,6 +171,11 @@ public class StaticListener implements ServletContextListener {
         initDb(scheamFlie, dataFile);
     }
 
+    /**
+     * 初始化 mysql 数据库
+     *
+     * @throws FileNotFoundException
+     */
     private void initDbMysql() throws FileNotFoundException {
         String dir = "classpath:sql/mysql/";
 
@@ -155,6 +185,11 @@ public class StaticListener implements ServletContextListener {
         initDb(scheamFlie, dataFile);
     }
 
+    /**
+     * 初始化 h2
+     *
+     * @throws FileNotFoundException
+     */
     private void initDbH2() throws FileNotFoundException {
         String dir = "classpath:sql/h2/";
 
@@ -166,7 +201,7 @@ public class StaticListener implements ServletContextListener {
 
 
     /**
-     * 执行sql文件中的内容.
+     * 执行sql文件中的内容
      *
      * @param file
      * @return
@@ -179,22 +214,56 @@ public class StaticListener implements ServletContextListener {
             this.jdbcTemplate = SpringContextHolder.getBean(JdbcTemplate.class);
         }
 
-        String sqls = null;
-        try {
-            sqls = FileUtils.readFileToString(file, "utf-8");
+        Connection connection = null;
 
-            if (jdbcTemplate != null) {
-                for (String sql : sqls.replaceAll("\r", "").split(";\n")) {
-                    if (StringUtils.isNotBlank(sql)) {
-                        jdbcTemplate.execute(sql);
-                    }
-                }
-            }
+        try {
+            String sqls = FileUtils.readFileToString(file, "utf-8");
+            batchExecute(sqls.replaceAll("\r", "").split(";\n"));
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            LogUtils.logError("读取数据库初始化脚本发生错误,请注意.", e);
         }
 
+
         return true;
+    }
+
+    /**
+     * 因为将数据源设设置为非自动提交,所以单独获取 connection 执行 sql
+     *
+     * @param sqls
+     * @return
+     */
+    private int batchExecute(String[] sqls) {
+        Connection connection = null;
+        try {
+            connection = jdbcTemplate.getDataSource().getConnection();
+            connection.setAutoCommit(false);
+
+            Statement statement = connection.createStatement();
+
+            for (String sql : sqls) {
+                statement.addBatch(sql);
+            }
+
+            statement.executeBatch();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    if (!connection.isClosed()) {
+                        connection.close();
+                    }
+
+                }
+            } catch (SQLException e) {
+                LogUtils.logError("初始化数据库过程释放链接失败,请注意.", e);
+            }
+        }
+
+
+        return 1;
+
     }
 }
