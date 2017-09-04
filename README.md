@@ -1,7 +1,7 @@
 # cyfm 快速开发框架
 
 ## qq交流群 18692071
-## [在线演示](http://ppcxy.com:8081/login)
+## <a href="http://ppcxy.com:8081/login" target="_blank">在线演示</a> 用户名：admin 密码：admin
 
 ## 简介
 
