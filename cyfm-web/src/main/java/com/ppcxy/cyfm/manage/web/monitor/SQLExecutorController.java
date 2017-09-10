@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller.monitor;
+package com.ppcxy.cyfm.manage.web.monitor;
 
 import com.google.common.collect.Lists;
 import com.ppcxy.common.Constants;
@@ -27,8 +27,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
@@ -53,7 +51,7 @@ public class SQLExecutorController extends BaseController {
 
     @RequestMapping(value = "/sql", method = RequestMethod.GET)
     public String showSQLForm() {
-        return viewName("sqlForm");
+        return viewName("sql_form");
     }
 
 

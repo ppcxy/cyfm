@@ -69,7 +69,7 @@
                     exception.printStackTrace(printWriter);
                     pageContext.setAttribute("stackTrace", stringWriter.toString());
                 %>
-                <%@include file="exceptionDetails.jsp" %>
+                <%@include file="exception_details.jsp" %>
             </c:if>
         </shiro:hasRole>
     </c:if>

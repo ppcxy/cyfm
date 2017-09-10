@@ -74,7 +74,7 @@ public class UserDBRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         for (Role role : user.getRoleList()) {
             // 基于Role的权限信息
-            authorizationInfo.addRole(role.getName());
+            authorizationInfo.addRole(role.getValue());
             // 基于Permission的权限信息
             authorizationInfo.addStringPermissions(role.getPermissionList());
         }

@@ -4,5 +4,5 @@
     <br/>
     <cy:showMessage errorMessage="${error.message}"/>
     <c:set var="stackTrace" value="${error.stackTrace}"/>
-    <%@include file="exceptionDetails.jsp"%>
+    <%@include file="exception_details.jsp" %>
 </div>

@@ -10,7 +10,7 @@
 <body>
 <div class="tabbable-line">
     <br/>
-    <%@include file="refreshTreeMessage.jsp"%>
+    <%@include file="refresh_tree.jsp" %>
 </div>
 </body>
 </html>

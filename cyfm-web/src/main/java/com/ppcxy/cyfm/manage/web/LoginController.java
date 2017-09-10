@@ -1,5 +1,5 @@
 
-package com.ppcxy.cyfm.manage.web.controller;
+package com.ppcxy.cyfm.manage.web;
 
 import com.ppcxy.cyfm.sys.service.user.UserOnlineService;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;

@@ -10,14 +10,14 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <html>
 <head>
-    <title></title>
+    <title>JPQL查询</title>
 </head>
 <body>
 <div data-table="table" class="tabbable-line">
     <c:set var="type" value="ql"/>
     <%@include file="nav.jspf" %>
     <div class="tab-content">
-    <form method="post" class="form-inline">
+    <form method="post" class="form-inline" action="${ctx}/manage/monitor/db/ql">
         <cyform:hidden path="page.pn"/>
         <cyform:label path="ql">请输入QL：</cyform:label><br/>
         <cyform:textarea path="ql" style="width: 500px;height: 160px"/><br/>
@@ -27,14 +27,14 @@
     <div id="result">
         <c:if test="${not empty error}">
             出错了：<br/>
-            ${error}
+            ${error}<br/>
         </c:if>
         <c:if test="${not empty updateCount}">更新了${updateCount}行</c:if>
         <c:if test="${resultPage.totalElements eq 0}">没有结果</c:if>
         <c:if test="${resultPage.totalElements gt 0}">
             当前第${resultPage.number+1}页，总共${resultPage.totalPages}页/${resultPage.totalElements}条记录
             <%
-                PageImpl resultPage = (PageImpl)pageContext.findAttribute("resultPage");
+                PageImpl resultPage = (PageImpl) pageContext.findAttribute("resultPage");
             %>
             <% if(resultPage.hasPreviousPage()) { %>
                 <a class="btn btn-link btn-pre-page">上一页</a>
@@ -48,6 +48,8 @@
                 List result = resultPage.getContent();
                 Object obj = result.get(0);
                 ClassMetadata metadata = sessionFactory.getClassMetadata(obj.getClass());
+                String[] propertyNames = Arrays.copyOf(metadata.getPropertyNames(), metadata.getPropertyNames().length);
+                ArrayUtils.reverse(propertyNames);
                 if(metadata != null) {
                     BeanWrapperImpl beanWrapper = new BeanWrapperImpl(obj);
             %>
@@ -55,10 +57,9 @@
                     <thead>
                         <tr>
                             <%
-                                for(PropertyDescriptor descriptor : beanWrapper.getPropertyDescriptors()) {
-                                    if(ArrayUtils.contains(metadata.getPropertyNames(), descriptor.getName())) {
-                                        out.write("<th>" + descriptor.getName() + "</th>");
-                                    }
+                                out.write("<th>" + metadata.getIdentifierPropertyName() + "</th>");
+                                for(String propertyName : propertyNames) {
+                                    out.write("<th>" + propertyName + "</th>");
                                 }
                             %>
                         </tr>
@@ -68,10 +69,16 @@
                             <%
                                 for(Object o : result) {
                                     out.write("<tr>");
-                                    for(PropertyDescriptor descriptor : beanWrapper.getPropertyDescriptors()) {
-                                        if(ArrayUtils.contains(metadata.getPropertyNames(), descriptor.getName())) {
-                                            out.write("<td>" + descriptor.getReadMethod().invoke(o) + "</td>");
-                                        }
+
+                                    PropertyDescriptor identifierPropertyDescriptor =
+                                            beanWrapper.getPropertyDescriptor(metadata.getIdentifierPropertyName());
+
+                                    out.write("<td>" + identifierPropertyDescriptor.getReadMethod().invoke(o) + "</td>");
+
+                                    for(String propertyName : propertyNames) {
+                                        PropertyDescriptor propertyDescriptor =
+                                                beanWrapper.getPropertyDescriptor(propertyName);
+                                        out.write("<td>" + propertyDescriptor.getReadMethod().invoke(o) + "</td>");
                                     }
                                     out.write("</tr>");
                                 }

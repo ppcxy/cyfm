@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller.monitor;
+package com.ppcxy.cyfm.manage.web.monitor;
 
 import com.ppcxy.common.Constants;
 import com.ppcxy.common.repository.jpa.support.hibernate.HibernateUtils;
@@ -46,7 +46,7 @@ public class JPAQLExecutorController extends BaseController {
 
     @RequestMapping(value = "/ql", method = RequestMethod.GET)
     public String showQLForm() {
-        return viewName("qlForm");
+        return viewName("ql_form");
     }
 
     @PageableDefaults(pageNumber = 0, value = 10)
