@@ -1,9 +1,9 @@
-package com.ppcxy.cyfm.manage.web.controller.maintain.web.controller;
+package com.ppcxy.cyfm.manage.web.maintaion;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ppcxy.common.web.controller.BaseController;
-import com.ppcxy.cyfm.manage.web.controller.maintain.web.controller.utils.YuiCompressorUtils;
+import com.ppcxy.cyfm.manage.web.utils.YuiCompressorUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringEscapeUtils;

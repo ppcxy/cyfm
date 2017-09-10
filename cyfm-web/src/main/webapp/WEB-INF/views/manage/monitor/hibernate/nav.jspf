@@ -22,8 +22,8 @@
         </a>
     </li>
 
-    <li ${type eq 'entityAndCollectionCRUDCount' ? 'class="active"' : ''}>
-        <a href="${ctx}/manage/monitor/hibernate/entityAndCollectionCRUDCount">
+    <li ${type eq 'crudCount' ? 'class="active"' : ''}>
+        <a href="${ctx}/manage/monitor/hibernate/crudCount">
             <i class="icon-table"></i>
             实体 & 集合 CRUD统计
         </a>

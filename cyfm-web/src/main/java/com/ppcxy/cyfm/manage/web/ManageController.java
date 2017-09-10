@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller;
+package com.ppcxy.cyfm.manage.web;
 
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
 import com.ppcxy.cyfm.sys.entity.resource.dto.Menu;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by weep on 2016-5-16.
  */
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/manage")
 public class ManageController {
     @Resource
     private ResourceService resourceService;
@@ -29,33 +29,33 @@ public class ManageController {
     //    Servlets.changeCookie("skin", "default", request, response);
     //    return "index";
     //}
-
-
-    @RequestMapping(value = "/manage")
+    
+    
+    @RequestMapping
     public String main(HttpServletRequest request, HttpServletResponse response) {
         Servlets.changeCookie("skin", "content", request, response);
         return "manage/main";
     }
-
-    @RequestMapping(value = "/manage/left")
+    
+    @RequestMapping(value = "/left")
     public String left(@CurrentUser User user, Model model) {
 
         List<Menu> menus = resourceService.findMenus(user);
         model.addAttribute("menus", menus);
         return "manage/left";
     }
-
-    @RequestMapping(value = "/manage/top")
+    
+    @RequestMapping(value = "/top")
     public String top() {
         return "manage/top";
     }
-
-    @RequestMapping(value = {"/manage/place"})
+    
+    @RequestMapping(value = {"/place"})
     public String place() {
         return "manage/place";
     }
-
-    @RequestMapping(value = "/manage/index")
+    
+    @RequestMapping(value = "/index")
     public String index() {
         return "manage/index";
     }

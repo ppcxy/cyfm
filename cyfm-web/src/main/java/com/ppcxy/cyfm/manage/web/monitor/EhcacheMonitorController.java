@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller.monitor;
+package com.ppcxy.cyfm.manage.web.monitor;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

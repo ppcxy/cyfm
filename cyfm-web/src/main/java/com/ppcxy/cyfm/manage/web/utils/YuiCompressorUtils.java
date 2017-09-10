@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller.maintain.web.controller.utils;
+package com.ppcxy.cyfm.manage.web.utils;
 
 import com.ppcxy.common.Constants;
 import com.yahoo.platform.yui.compressor.CssCompressor;

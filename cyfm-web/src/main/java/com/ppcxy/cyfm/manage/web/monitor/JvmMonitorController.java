@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller.monitor;
+package com.ppcxy.cyfm.manage.web.monitor;
 
 import com.ppcxy.common.web.controller.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

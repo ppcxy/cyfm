@@ -5,20 +5,19 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.repository.mybatis;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.Maps;
+import com.ppcxy.cyfm.showcase.data.UserData;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import com.ppcxy.cyfm.showcase.data.UserData;
-import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
-import com.google.common.collect.Maps;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
 @ContextConfiguration(locations = { "/applicationContext.xml" })

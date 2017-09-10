@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web.controller.monitor;
+package com.ppcxy.cyfm.manage.web.monitor;
 
 import com.ppcxy.common.repository.jpa.support.hibernate.HibernateUtils;
 import com.ppcxy.common.web.controller.BaseController;
@@ -63,7 +63,7 @@ public class HibernateCacheMonitorController extends BaseController {
      */
     @RequestMapping("/queryCache")
      public String queryCache() {
-        return viewName("queryCache");
+        return viewName("query_cache");
     }
 
     /**
@@ -73,7 +73,7 @@ public class HibernateCacheMonitorController extends BaseController {
     @RequestMapping("/secondLevelCache")
     public String secondLevelCache(Model model) {
         setMemoryInfo(model);
-        return viewName("secondLevelCache");
+        return viewName("second_level_cache");
     }
 
 
@@ -81,9 +81,9 @@ public class HibernateCacheMonitorController extends BaseController {
      * 实体和集合 增删改查 次数 统计
      * @return
      */
-    @RequestMapping("/entityAndCollectionCRUDCount")
-    public String entityAndCollectionCRUDCount() {
-        return viewName("entityAndCollectionCRUDCount");
+    @RequestMapping("/crudCount")
+    public String crudCount() {
+        return viewName("crud_count");
     }
 
 
@@ -93,7 +93,7 @@ public class HibernateCacheMonitorController extends BaseController {
      */
     @RequestMapping(value = "/control", method = RequestMethod.GET)
     public String showControlForm() {
-        return viewName("controlForm");
+        return viewName("control_form");
     }
 
     @RequestMapping(value = "/evictEntity")

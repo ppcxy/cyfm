@@ -9,7 +9,7 @@
 </head>
 <body>
 <div data-table="table" class="tabbable-line">
-    <c:set var="type" value="entityAndCollectionCRUDCount"/>
+    <c:set var="type" value="crudCount"/>
     <%@include file="nav.jspf" %>
     <div class="tab-content">
     <h3>总体</h3>
