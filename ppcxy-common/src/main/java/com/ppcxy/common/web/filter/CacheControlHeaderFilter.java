@@ -19,7 +19,7 @@ import java.io.IOException;
  * <pre>
  * 	<filter>
  * 		<filter-name>cacheControlHeaderFilter</filter-name>
- * 		<filter-class>org.springside.modules.web.CacheControlHeaderFilter</filter-class>
+ * 		<filter-class>com.ppcxy.common.web.filter.CacheControlHeaderFilter</filter-class>
  * 		<init-param>
  * 			<param-name>expiresSeconds</param-name>
  * 			<param-value>31536000</param-value>

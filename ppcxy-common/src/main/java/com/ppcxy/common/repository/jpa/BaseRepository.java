@@ -12,12 +12,12 @@ import java.util.List;
 
 /**
  * <p>抽象DAO层基类 提供一些简便方法<br/>
- * 具体使用请参考测试用例：{@see com.ppcxy.common.repository.UserRepository}
+ * 具体使用请参考测试用例：{@see com.ppcxy.common.student.repository.StudentRepository}
  * <p/>
  * 想要使用该接口需要在spring配置文件的jpa:repositories中添加
  * factory-class="SimpleBaseRepositoryFactoryBean"
  * <p/>
- * <p>泛型 ： M 表示实体类型；ID表示主键类型
+ * <p>泛型 ： T 表示实体类型；ID表示主键类型
  */
 @NoRepositoryBean
 public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
