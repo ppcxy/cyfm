@@ -15,7 +15,9 @@ import org.apache.shiro.session.mgt.SessionContext;
 import org.apache.shiro.session.mgt.SessionKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -35,9 +37,14 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
 
     private UserOnlineService userOnlineService;
 
-    @Autowired
     public void setUserOnlineService(UserOnlineService userOnlineService) {
         this.userOnlineService = userOnlineService;
+    }
+    
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        ApplicationContext context = event.getApplicationContext();
+        this.setUserOnlineService(context.getBean(UserOnlineService.class));
     }
 
     @Override

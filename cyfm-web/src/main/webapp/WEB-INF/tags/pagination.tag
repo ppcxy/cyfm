@@ -14,7 +14,8 @@
     request.setAttribute("end", end);
 %>
 <div class="pagin">
-    <div class="message">共<i class="blue">${page.totalElements}</i>条记录，当前显示第&nbsp;<i class="blue">${current}&nbsp;</i>页
+    <div class="message">共<i class="blue">${page.totalPages}</i>页，<i class="blue">${page.totalElements}</i>条记录，当前显示第&nbsp;<i
+            class="blue">${current}&nbsp;</i>页
     </div>
     <ul class="paginList">
         <% if (page.hasPreviousPage()) {%>

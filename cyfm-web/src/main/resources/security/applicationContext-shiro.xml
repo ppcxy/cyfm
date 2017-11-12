@@ -15,7 +15,7 @@
         <property name="deleteInvalidSessions" value="false"/>
 
 
-        <property name="sessionValidationInterval" value="${shiro.session.globalSessionTimeout}"/>
+        <property name="sessionValidationInterval" value="${shiro.session.validation.interval}"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
 
