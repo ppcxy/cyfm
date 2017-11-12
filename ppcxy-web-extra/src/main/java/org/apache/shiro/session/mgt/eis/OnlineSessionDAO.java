@@ -7,6 +7,9 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.OnlineSession;
 import org.apache.shiro.session.mgt.OnlineSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,9 +25,18 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
     private static final String LAST_SYNC_DB_TIMESTAMP =
             OnlineSessionDAO.class.getName() + "LAST_SYNC_DB_TIMESTAMP";
 
-    @Autowired
     private UserOnlineService userOnlineService;
-
+    
+    public void setUserOnlineService(UserOnlineService userOnlineService) {
+        this.userOnlineService = userOnlineService;
+    }
+    
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        ApplicationContext context = event.getApplicationContext();
+        this.setUserOnlineService(context.getBean(UserOnlineService.class));
+    }
+    
     @Autowired
     private OnlineSessionFactory onlineSessionFactory;
 

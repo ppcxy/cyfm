@@ -48,16 +48,20 @@ public class User extends IdEntity {
 
     private String username;
     private String plainPassword;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
     private String salt;
     private String name;
     private String email;
     private String tel;
     private String status;
     private Date createDate;
-
+    
+    @JsonIgnore
     private Team team;
-
+    
+    @JsonIgnore
     private List<Role> roleList = Lists.newArrayList(); // 有序的关联对象集合
 
 
