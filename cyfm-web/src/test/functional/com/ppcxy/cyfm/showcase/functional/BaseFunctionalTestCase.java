@@ -5,9 +5,6 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.functional;
 
-import java.net.URL;
-import java.sql.Driver;
-
 import com.ppcxy.QuickstartServer;
 import org.eclipse.jetty.server.Server;
 import org.junit.BeforeClass;
@@ -18,6 +15,9 @@ import org.springside.modules.test.data.DataFixtures;
 import org.springside.modules.test.jetty.JettyFactory;
 import org.springside.modules.test.spring.Profiles;
 import org.springside.modules.utils.PropertiesLoader;
+
+import java.net.URL;
+import java.sql.Driver;
 
 /**
  * 功能测试基类.
@@ -91,7 +91,7 @@ public class BaseFunctionalTestCase {
 	 * 载入默认数据.
 	 */
 	protected static void reloadSampleData() throws Exception {
-		String dbType = propertiesLoader.getProperty("db.type", "h2");
+		String dbType = propertiesLoader.getProperty("run.dbtype", "h2");
 		DataFixtures.executeScript(dataSource, "classpath:data/" + dbType + "/cleanup-data.sql", "classpath:data/"
 				+ dbType + "/import-data.sql");
 	}

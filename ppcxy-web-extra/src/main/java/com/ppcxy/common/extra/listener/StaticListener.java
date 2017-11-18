@@ -120,15 +120,15 @@ public class StaticListener implements ServletContextListener {
     /**
      * 根据脚本进行数据库初始化操作
      *
-     * @param scheamFlie
+     * @param schemaFlie
      * @param dataFile
      * @param otherSqlFiles
      */
-    private void initDb(File scheamFlie, File dataFile, File... otherSqlFiles) {
+    private void initDb(File schemaFlie, File dataFile, File... otherSqlFiles) {
         System.out.println("*    准备执行数据库初始化操作...");
         System.out.println("**********************************************");
         System.out.println("*    表初始化开始");
-        execSqlFile(scheamFlie);
+        execSqlFile(schemaFlie);
         System.out.println("*    表初始化结束");
         System.out.println("**********************************************");
         System.out.println("*    表数据初始化开始");
@@ -151,10 +151,10 @@ public class StaticListener implements ServletContextListener {
     private void initDbMSSQLServer() throws FileNotFoundException {
         String dir = "classpath:sql/sqlserver/";
 
-        File scheamFlie = ResourceUtils.getFile(dir + "schema.sql");
+        File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
         File dataFile = ResourceUtils.getFile(dir + "data.sql");
 
-        initDb(scheamFlie, dataFile);
+        initDb(schemaFlie, dataFile);
     }
 
     /**
@@ -165,10 +165,10 @@ public class StaticListener implements ServletContextListener {
     private void initDbOracle() throws FileNotFoundException {
         String dir = "classpath:sql/oracle/";
 
-        File scheamFlie = ResourceUtils.getFile(dir + "schema.sql");
+        File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
         File dataFile = ResourceUtils.getFile(dir + "data.sql");
 
-        initDb(scheamFlie, dataFile);
+        initDb(schemaFlie, dataFile);
     }
 
     /**
@@ -179,10 +179,10 @@ public class StaticListener implements ServletContextListener {
     private void initDbMysql() throws FileNotFoundException {
         String dir = "classpath:sql/mysql/";
 
-        File scheamFlie = ResourceUtils.getFile(dir + "schema.sql");
+        File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
         File dataFile = ResourceUtils.getFile(dir + "data.sql");
 
-        initDb(scheamFlie, dataFile);
+        initDb(schemaFlie, dataFile);
     }
 
     /**
@@ -193,10 +193,10 @@ public class StaticListener implements ServletContextListener {
     private void initDbH2() throws FileNotFoundException {
         String dir = "classpath:sql/h2/";
 
-        File scheamFlie = ResourceUtils.getFile(dir + "schema.sql");
+        File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
         File dataFile = ResourceUtils.getFile(dir + "data.sql");
 
-        initDb(scheamFlie, dataFile);
+        initDb(schemaFlie, dataFile);
     }
 
 
