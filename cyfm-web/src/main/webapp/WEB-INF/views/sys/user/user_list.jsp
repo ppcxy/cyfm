@@ -21,7 +21,7 @@
 										   value="${param['search.username_like']}">
 				<label>邮件名：</label> <input type="text" name="search.email_like" class="form-control input-small"
 										   value="${param['search.email_like']}">
-				<button type="submit" class="btn" id="search_btn">查询</button>
+				<button type="submit" class="btn btn-default" id="search_btn">查询</button>
 			</div>
 		</form>
 	</div>
