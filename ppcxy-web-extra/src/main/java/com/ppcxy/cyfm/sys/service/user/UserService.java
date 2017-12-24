@@ -80,6 +80,10 @@ public class UserService extends BaseService<User, Long> {
 
     @Override
     public User update(User user) {
+        if(StringUtils.isNotBlank(user.getPlainPassword())){
+            user.randomSalt();
+            user.setPassword(passwordService.encryptPassword(user.getPlainPassword(), user.getSalt()));
+        }
         User resultUser = super.update(user);
 
         return resultUser;
@@ -110,10 +114,9 @@ public class UserService extends BaseService<User, Long> {
 
 
     public User changePassword(User user, String newPassword) {
-        user.randomSalt();
-        user.setPassword(passwordService.encryptPassword(newPassword, user.getSalt()));
-        update(user);
-        return user;
+        user.setPlainPassword(newPassword);
+        
+        return update(user);
     }
 
 
