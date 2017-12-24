@@ -5,7 +5,6 @@ import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,22 +86,32 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
         //TODO 区分登录成功页面
-        if (haveAdminRole()) {
+        //if (haveAdminRole()) {
             ((ShiroHttpServletRequest) request).getSession().removeAttribute(WebUtils.SAVED_REQUEST_KEY);
-        }
-
+        //}
+        
         super.issueSuccessRedirect(request, response);
     }
-
+    
     private boolean haveAdminRole() {
         String username = ShiroUserInfoUtils.getUsername();
-
+        
         User user = userService.findByUsername(username);
         if (user != null && Boolean.TRUE.equals(user.getRoleNames().indexOf("Admin") != -1)) {
             return true;
-
+            
         }
         return false;
     }
-
+    
+    private boolean haveRole(String roleName) {
+        String username = ShiroUserInfoUtils.getUsername();
+        
+        User user = userService.findByUsername(username);
+        if (user != null && Boolean.TRUE.equals(user.getRoleValues().indexOf(roleName) != -1)) {
+            return true;
+            
+        }
+        return false;
+    }
 }

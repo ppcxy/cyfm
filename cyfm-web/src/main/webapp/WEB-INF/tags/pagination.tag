@@ -50,7 +50,13 @@
     </ul>
 </div>
 <div class="clearfix"></div>
-
+<<script type="text/javascript">
+<!--
+$("div.pagin a").click(function(){
+$(this).attr("href",$(this).attr("href")+"&"+$('form.form-search').serialize())
+});
+//-->
+</script>
 
 <%--
 
