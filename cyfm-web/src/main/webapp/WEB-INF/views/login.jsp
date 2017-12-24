@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.apache.shiro.SecurityUtils" %>
+<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" %>
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <script>
     if (top != window) {
@@ -136,6 +137,32 @@
             </div>
         --%>
         <ul>
+            <%
+                String error = null;
+
+                Object message = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
+                if(message instanceof Exception){
+                    error = ((Exception) message).getMessage();
+                } else {
+                    error = (String) message;
+                }
+
+                if(error != null){
+            %>
+            <div class="alert alert-error controls input-large">
+                <button class="close" data-dismiss="alert">×</button>
+                <%
+                    if(error.contains("DisabledAccountException")){
+                        out.print("用户已被屏蔽,请登录其他用户.");
+                    }
+                    else{
+                        out.print(error);
+                    }
+                %>
+            </div>
+            <%
+                }
+            %>
             <li>
                 <input type="text" id="username" name="username" value="${username}" class="loginuser required" autocomplete="off" disabled/>
             </li>

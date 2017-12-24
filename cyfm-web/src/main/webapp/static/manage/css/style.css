@@ -1495,3 +1495,7 @@ div.listTableWrap table td:first-child, div.listTableWrap table th:first-child {
 }
 
 /* end list table column resize*/
+
+th.action {
+    min-width: 160px;
+}

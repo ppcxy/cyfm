@@ -9,8 +9,10 @@
  <div class="tools search-toolbar">
    <div class="toolbar-right">
        <form class="form-search form-inline" action="#">
-         <div class="form-group"> <label>团队名称：</label> <input type="text" name="search.name_like"   class="form-control input-small"  value="${param['search.name_like']}"></div>
-         <button type="submit" class="btn btn-default" id="search_btn">查询</button>
+         <div class="form-group">
+             <label>团队名称：</label> <input type="text" name="search.name_like"   class="form-control input-small"  value="${param['search.name_like']}">
+             <button type="submit" class="btn btn-default" id="search_btn">查询</button>
+         </div>
        </form>
    </div>
  </div>
