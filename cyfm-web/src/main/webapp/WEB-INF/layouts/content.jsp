@@ -24,7 +24,7 @@
     <c:if test="${not empty message}">
         <cy:showMessage/>
     </c:if>
-    <c:if test="${not empty page}">
+    <c:if test="${not empty page && not customToolbar}">
         <div class="tools">
             <cy:listToolBarActions/>
         </div>

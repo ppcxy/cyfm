@@ -13,12 +13,10 @@ import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
 import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 
 /**
  */
 @Service
-@Transactional
 public class PasswordService {
     public static final String HASH_ALGORITHM = "SHA-1";
     public static final int HASH_INTERATIONS = 1024;

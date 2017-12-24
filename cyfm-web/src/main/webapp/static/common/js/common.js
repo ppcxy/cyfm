@@ -277,6 +277,14 @@ $cy = {
 
                 if (checkItemVal) {
                     if ($(this).hasClass("delete")) {
+                        if ($(this).hasClass("batch")) {
+                            checkItemVal = "";
+                            $("tr td.check input:checked").each(function () {
+                                checkItemVal = checkItemVal + $(this).val() + ",";
+                            });
+                            checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
+                        }
+
                         $cy.confirm({
                             message: "将要执行删除数据操作,是否继续?", yes: function () {
                                 window.location.href = baseUrl.replace("{id}", checkItemVal);

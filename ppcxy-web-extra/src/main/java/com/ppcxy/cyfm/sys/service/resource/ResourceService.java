@@ -6,13 +6,16 @@ import com.ppcxy.common.extend.service.BaseTreeableService;
 import com.ppcxy.cyfm.sys.entity.resource.Resource;
 import com.ppcxy.cyfm.sys.entity.resource.dto.Menu;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.service.authorize.AuthorizeService;
 import org.apache.shiro.authz.permission.WildcardPermission;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -24,8 +27,8 @@ import java.util.Set;
 @Transactional
 public class ResourceService extends BaseTreeableService<Resource, Long> {
 
-    //@Autowired
-    //private UserAuthService userAuthService;
+    @Autowired
+    private AuthorizeService authorizeService;
 
     /**
      * 得到真实的资源标识  即 父亲:儿子
@@ -42,15 +45,16 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         StringBuilder s = new StringBuilder(resource.getIdentity());
 
         boolean hasResourceIdentity = !StringUtils.isEmpty(resource.getIdentity());
-
-        Resource parent = findOne(resource.getParentId());
-        while (parent != null) {
-            if (!StringUtils.isEmpty(parent.getIdentity())) {
-                s.insert(0, parent.getIdentity() + ":");
-                hasResourceIdentity = true;
-            }
-            parent = findOne(parent.getParentId());
-        }
+        
+        //TODO 迭代父菜单拥有权限则子菜单有用权限的设定权限方式，暂时不采用
+        //Resource parent = findOne(resource.getParentId());
+        //while (parent != null) {
+        //    if (!StringUtils.isEmpty(parent.getIdentity())) {
+        //        s.insert(0, parent.getIdentity() + ":");
+        //        hasResourceIdentity = true;
+        //    }
+        //    parent = findOne(parent.getParentId());
+        //}
 
         //如果用户没有声明 资源标识  且父也没有，那么就为空
         if (!hasResourceIdentity) {
@@ -87,14 +91,14 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
 
         List<Resource> resources = findAllWithSort(searchable);
         //TODO 授权过滤
-        //Set<String> userPermissions = userAuthService.findStringPermissions(user);
-        //
-        //Iterator<Resource> iter = resources.iterator();
-        //while (iter.hasNext()) {
-        //    if (!hasPermission(iter.next(), userPermissions)) {
-        //        iter.remove();
-        //    }
-        //}
+        Set<String> userPermissions = authorizeService.findStringPermissions(user);
+        
+        Iterator<Resource> iter = resources.iterator();
+        while (iter.hasNext()) {
+            if (!hasPermission(iter.next(), userPermissions)) {
+               iter.remove();
+            }
+        }
 
         return convertToMenus(resources);
     }
@@ -115,7 +119,11 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
     }
 
     private boolean hasPermission(String permission, String actualResourceIdentity) {
-
+        //具有所有权限
+        if ("*".equals(permission)) {
+            return true;
+        }
+        
         //得到权限字符串中的 资源部分，如a:b:create --->资源是a:b
         String permissionResourceIdentity = permission.substring(0, permission.lastIndexOf(":"));
 

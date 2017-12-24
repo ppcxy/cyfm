@@ -34,7 +34,7 @@ public class UserController extends BaseCRUDController<User, Long> {
     private UserService userService;
 
     public UserController() {
-        setResourceIdentity("user");
+        setResourceIdentity("sys:user");
         setModelName("user");
     }
 

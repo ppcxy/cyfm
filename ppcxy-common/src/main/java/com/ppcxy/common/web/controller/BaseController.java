@@ -84,7 +84,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
     protected String viewName(String suffixName) {
         if (!suffixName.startsWith("/")) {
             if (modelName != null) {
-                suffixName = "/" + modelName + "_" + suffixName;
+                suffixName = modelName + "_" + suffixName;
             }
             suffixName = "/" + suffixName;
         }
