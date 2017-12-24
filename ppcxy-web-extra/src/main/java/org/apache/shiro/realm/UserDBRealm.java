@@ -1,8 +1,8 @@
 package org.apache.shiro.realm;
 
 import com.ppcxy.common.utils.ShiroUser;
-import com.ppcxy.cyfm.sys.entity.permission.Role;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.service.authorize.AuthorizeService;
 import com.ppcxy.cyfm.sys.service.user.PasswordService;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.*;
@@ -14,6 +14,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.Encodes;
 import org.springside.modules.utils.Reflections;
 
@@ -25,8 +26,8 @@ public class UserDBRealm extends AuthorizingRealm {
 
     private UserService userService;
 
-    //@Autowired
-    //private UserAuthService userAuthService;
+    @Autowired
+    private AuthorizeService authorizeService;
 
     private static final Logger log = LoggerFactory.getLogger(UserDBRealm.class);
 
@@ -72,14 +73,8 @@ public class UserDBRealm extends AuthorizingRealm {
         User user = userService.findByUsername(username);
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        for (Role role : user.getRoleList()) {
-            // 基于Role的权限信息
-            authorizationInfo.addRole(role.getValue());
-            // 基于Permission的权限信息
-            authorizationInfo.addStringPermissions(role.getPermissionList());
-        }
-        //authorizationInfo.setStringPermissions(userAuthService.findStringPermissions(user));
-
+        //授权信息设定，从授权模块获取权限信息
+        authorizationInfo.setStringPermissions(authorizeService.findStringPermissions(user));
         return authorizationInfo;
     }
 

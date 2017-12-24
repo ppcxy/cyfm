@@ -177,6 +177,12 @@ public class User extends IdEntity {
     public String getRoleNames() {
         return Collections3.extractToString(roleList, "name", ", ");
     }
+    
+    @Transient
+    @JsonIgnore
+    public String getRoleValues() {
+        return Collections3.extractToString(roleList, "value", ", ");
+    }
 
     public void randomSalt() {
         byte[] salt = Digests.generateSalt(SALT_SIZE);

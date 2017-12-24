@@ -36,7 +36,7 @@ public class Role extends IdEntity {
     private String description;
 
     private Set<RoleResourcePermission> roleResourcePermissions = Sets.newHashSet();
-
+    
     public Role() {
     }
 
@@ -134,4 +134,5 @@ public class Role extends IdEntity {
             }
         }
     }
+  
 }
