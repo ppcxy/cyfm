@@ -14,7 +14,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.utils.Encodes;
 import org.springside.modules.utils.Reflections;
 
@@ -26,12 +25,10 @@ public class UserDBRealm extends AuthorizingRealm {
 
     private UserService userService;
 
-    @Autowired
     private AuthorizeService authorizeService;
 
     private static final Logger log = LoggerFactory.getLogger(UserDBRealm.class);
-
-
+   
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
@@ -129,8 +126,13 @@ public class UserDBRealm extends AuthorizingRealm {
             return super.isPermitted(principals, permission);
         }
     }
-
+    
+    public void setAuthorizeService(AuthorizeService authorizeService) {
+        this.authorizeService = authorizeService;
+    }
+    
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+    
 }

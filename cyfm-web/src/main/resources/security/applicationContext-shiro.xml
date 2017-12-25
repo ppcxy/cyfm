@@ -54,6 +54,7 @@
     <bean id="userDBRealm" class="org.apache.shiro.realm.UserDBRealm">
         <property name="authorizationCachingEnabled" value="true"/>
         <property name="userService" ref="userService"></property>
+        <property name="authorizeService" ref="authorizeService"></property>
     </bean>
 
     <!---cookie-->
