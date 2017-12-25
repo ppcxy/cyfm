@@ -63,13 +63,15 @@
             width: 100%;
         }
         div.place{
-            position: relative;
+            /*position: relative;*/
         }
     </style>
-    <title>信息管理系统界面</title>
+    <title>cyfm:后台管理</title>
     <script type="text/javascript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
     <script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js" type="text/javascript"></script>
     <script type="text/javascript" src="${ctx}/static/plugins/jquery.cokie.min.js"></script>
+    <!-- cy api封装 -->
+    <script src="${ctx}/static/common/js/common.js" type="text/javascript"></script>
     <script>
 
 
