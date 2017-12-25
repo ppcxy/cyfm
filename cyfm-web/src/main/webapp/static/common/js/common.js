@@ -389,7 +389,9 @@ $cy = {
 };
 
 //需要直接初始化的.
-$cy.validate.init();
+if ($.validator) {
+    $cy.validate.init();
+}
 
 //初始化页面
 $(function () {
