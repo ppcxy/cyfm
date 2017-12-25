@@ -15,12 +15,9 @@
 
     <description>Spring公共配置</description>
 
-    <!-- 定义aspectj -->
-    <!-- 开启AOP监听 只对当前配置文件有效 -->
-    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
 
     <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-    <context:component-scan base-package="com.ppcxy.cyfm">
+    <context:component-scan base-package="com.ppcxy">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
@@ -101,6 +98,10 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
+
+    <!-- 定义aspectj -->
+    <!-- 开启AOP监听 只对当前配置文件有效 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
 
     <!-- 弃用 aop 方式的事物管理-->
     <!-- 使用annotation定义事务 -->
