@@ -12,6 +12,8 @@ import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.permission.PermissionService;
 import com.ppcxy.cyfm.sys.service.resource.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,38 +36,46 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
     private PermissionService permissionService;
     
     private static final Map<Long, String> perms = Maps.newHashMap();
+    private static final Map<String, Set<String>> cacheUserPermissions = Maps.newConcurrentMap();
+    
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        initPerms();
+    }
     
     public Set<String> findStringPermissions(User user) {
-        initPerms();
+        Set<String> resultPermissions = Sets.newHashSet();
         
-        Set<String> resultPermissinos = Sets.newHashSet();
+        if (cacheUserPermissions.containsKey(user.getUsername())) {
+            return cacheUserPermissions.get(user.getUsername());
+        }
         
         for (Role role : user.getRoleList()) {
-            resultPermissinos.addAll(role.getPermissionList());
-
+            resultPermissions.addAll(role.getPermissionList());
+            
             Set<RoleResourcePermission> roleResourcePermissions = role.getRoleResourcePermissions();
             Iterator<RoleResourcePermission> iterator = roleResourcePermissions.iterator();
             while (iterator.hasNext()) {
                 RoleResourcePermission next = iterator.next();
                 Resource resource = resourceService.findOne(next.getResourceId());
-
+    
                 Iterator<Long> permidsIterator = next.getPermissionIds().iterator();
                 while (permidsIterator.hasNext()) {
                     String permString = perms.get(permidsIterator.next());
-                    resultPermissinos.add(resource.getIdentity() + ":" + permString);
+                    resultPermissions.add(resource.getIdentity() + ":" + permString);
                 }
             }
         }
         
-        return resultPermissinos;
+        cacheUserPermissions.put(user.getUsername(), resultPermissions);
+        
+        return resultPermissions;
     }
     
     /**
      * 重置权限字典
      */
     private void initPerms() {
-        perms.clear();
-        
         List<Permission> all = permissionService.findAll();
         
         for (Permission permission : all) {
@@ -73,5 +83,21 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
         }
     }
     
+    /**
+     * 在修改用户授权相关的时候清理缓存
+     *
+     * @param username
+     */
+    public void refresh(String username) {
+        cacheUserPermissions.remove(username);
+    }
+    
+    
+    /**
+     * 在权限变动较大的时候清理所有用户的权限缓存
+     */
+    public void refreshAll() {
+        cacheUserPermissions.clear();
+    }
     
 }
