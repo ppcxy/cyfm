@@ -26,12 +26,10 @@ public class UserDBRealm extends AuthorizingRealm {
 
     private UserService userService;
 
-    @Autowired
     private AuthorizeService authorizeService;
 
     private static final Logger log = LoggerFactory.getLogger(UserDBRealm.class);
-
-
+   
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
@@ -129,8 +127,13 @@ public class UserDBRealm extends AuthorizingRealm {
             return super.isPermitted(principals, permission);
         }
     }
-
+    
+    public void setAuthorizeService(AuthorizeService authorizeService) {
+        this.authorizeService = authorizeService;
+    }
+    
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+    
 }

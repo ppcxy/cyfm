@@ -36,6 +36,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
     private PermissionService permissionService;
     
     private static final Map<Long, String> perms = Maps.newHashMap();
+
     private static final Map<String, Set<String>> cacheUserPermissions = Maps.newConcurrentMap();
     
     @EventListener
@@ -63,6 +64,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
                 while (permidsIterator.hasNext()) {
                     String permString = perms.get(permidsIterator.next());
                     resultPermissions.add(resource.getIdentity() + ":" + permString);
+
                 }
             }
         }
@@ -70,19 +72,21 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
         cacheUserPermissions.put(user.getUsername(), resultPermissions);
         
         return resultPermissions;
+
     }
     
     /**
      * 重置权限字典
      */
     private void initPerms() {
+
         List<Permission> all = permissionService.findAll();
         
         for (Permission permission : all) {
             perms.put(permission.getId(), permission.getValue());
         }
     }
-    
+
     /**
      * 在修改用户授权相关的时候清理缓存
      *
@@ -91,8 +95,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
     public void refresh(String username) {
         cacheUserPermissions.remove(username);
     }
-    
-    
+   
     /**
      * 在权限变动较大的时候清理所有用户的权限缓存
      */

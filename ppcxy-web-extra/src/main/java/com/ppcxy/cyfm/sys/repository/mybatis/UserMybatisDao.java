@@ -5,11 +5,11 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.repository.mybatis;
 
-import java.util.List;
-import java.util.Map;
-
 import com.ppcxy.common.repository.mybatis.MyBatisRepository;
 import com.ppcxy.cyfm.sys.entity.user.User;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 通过@MapperScannerConfigurer扫描目录中的所有接口, 动态在Spring Context中生成实现.

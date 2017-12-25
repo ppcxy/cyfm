@@ -18,4 +18,6 @@ import com.ppcxy.cyfm.sys.entity.team.Team;
 public interface TeamMybatisDao {
 
 	Team getWithDetail(Long id);
+	
+	void delete(Long id);
 }
