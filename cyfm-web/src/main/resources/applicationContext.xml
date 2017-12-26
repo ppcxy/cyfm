@@ -29,7 +29,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
 
-        <property name="packagesToScan" value="com.ppcxy.cyfm"/>
+        <property name="packagesToScan" value="com.ppcxy"/>
         <property name="jpaPropertyMap">
             <map>
                 <!-- 使用自定义的validator进行jsr303验证 -->
@@ -96,16 +96,13 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
-
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" order="1"/>
 
     <!-- 定义aspectj -->
     <!-- 开启AOP监听 只对当前配置文件有效 -->
     <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
 
-    <!-- 弃用 aop 方式的事物管理-->
-    <!-- 使用annotation定义事务 -->
-    <!--
+    <!-- aop 配置方式的事物管理,针对被aop的注解无法生效的service使用配置方式-->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="doReweight" propagation="REQUIRES_NEW"/>
@@ -113,7 +110,7 @@
             <tx:method name="doSend*" propagation="REQUIRES_NEW"/>
             <tx:method name="doBatchSave*" propagation="REQUIRES_NEW"/>
 
-            &lt;!&ndash;hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到&ndash;&gt;
+            <!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到-->
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="count*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
@@ -123,12 +120,11 @@
     </tx:advice>
 
     <aop:config expose-proxy="true" proxy-target-class="true">
-        &lt;!&ndash; 只对业务逻辑层实施事务 &ndash;&gt;
+        <!-- 只对业务逻辑层实施事务 -->
         <aop:pointcut id="txPointcut"
-                      expression="execution(* com.ppcxy..service..*+.*(..)) or execution(* com.ppcxy..task..*+.*(..))"/>
+                      expression="execution(* com.ppcxy..service.resource.ResourceService.*(..)) or execution(* com.ppcxy..service.user.UserService.*(..))"/>
         <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
-    -->
 
     <!-- custom -->
     <bean class="com.ppcxy.common.spring.SpringContextHolder" lazy-init="false"></bean>

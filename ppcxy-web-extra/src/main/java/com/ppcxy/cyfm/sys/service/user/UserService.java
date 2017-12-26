@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Map;
@@ -32,7 +31,8 @@ import java.util.Set;
  * 用户管理 service
  */
 @Service
-@Transactional
+//因为使用aop做了缓存,导致无法通过注解配置事物.使用配置方式配置了事物.
+//@Transactional
 public class UserService extends BaseService<User, Long> {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -85,7 +85,6 @@ public class UserService extends BaseService<User, Long> {
             user.setPassword(passwordService.encryptPassword(user.getPlainPassword(), user.getSalt()));
         }
         User resultUser = super.update(user);
-
         return resultUser;
     }
 

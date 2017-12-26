@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class ResourceMenuCacheAspect extends BaseCacheAspect {
+public class ResourceMenuCacheAspect extends BaseCacheAspect implements Ordered {
 
     public ResourceMenuCacheAspect() {
         setCacheName("sys-menuCache");
@@ -70,6 +71,10 @@ public class ResourceMenuCacheAspect extends BaseCacheAspect {
     private String menusKey(Long userId) {
         return this.MENUS_KEY_PREFIX + userId;
     }
-
-
+    
+    
+    @Override
+    public int getOrder() {
+        return 3;
+    }
 }

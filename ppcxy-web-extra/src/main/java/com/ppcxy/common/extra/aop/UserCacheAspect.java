@@ -4,6 +4,7 @@ import com.ppcxy.common.cache.BaseCacheAspect;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class UserCacheAspect extends BaseCacheAspect {
+public class UserCacheAspect extends BaseCacheAspect implements Ordered {
 
     public UserCacheAspect() {
         setCacheName("sys-userCache");
@@ -213,6 +214,10 @@ public class UserCacheAspect extends BaseCacheAspect {
         evict(emailKey(cacheUer.getEmail()));
         evict(telKey(cacheUer.getTel()));
     }
-
-
+    
+    
+    @Override
+    public int getOrder() {
+        return 3;
+    }
 }

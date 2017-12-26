@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +23,8 @@ import java.util.Set;
  * Created by weep on 2016-5-17.
  */
 @Service
-@Transactional
+//因为使用aop做了缓存,导致无法通过注解配置事物.使用配置方式配置了事物.
+//@Transactional
 public class ResourceService extends BaseTreeableService<Resource, Long> {
 
     @Autowired
@@ -187,4 +187,10 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
     private static Menu convertToMenu(Resource resource) {
         return new Menu(resource.getId(), resource.getName(), resource.getIcon(), resource.getUrl(), resource.getResourceType());
     }
+    
+    @Override
+    public void deleteSelfAndChild(Resource resource) {
+        super.deleteSelfAndChild(resource);
+    }
+    
 }
