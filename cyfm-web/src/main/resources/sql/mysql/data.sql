@@ -6,24 +6,28 @@ INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, 
 INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(6,'user5','Ben','ben@springside.org.cn','13211111116','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
 
 
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'icon-th-large', 'root', 0, '0', '/', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (20, '系统管理', 'fa fa-cogs', 'sys', 1, '01/', '', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (21, '用户管理', 'fa fa-user', 'sys:user', 20, '01/20/', '/sys/user', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (22, '团队管理', 'fa fa-users', 'sys:team', 20, '01/20/', '/sys/team', 2, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (23, '角色管理', 'ztree_file', 'sys:role', 20, '01/20/', '/sys/role', 3, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (24, '权限管理', 'icon-refresh', 'sys:permission', 20, '01/20/', '/sys/permission', 4, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (25, '授权管理', 'icon-refresh', 'sys:authorize', 20, '01/20/', '/sys/authorize', 5, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (26, '资源管理', 'icon-refresh', 'sys:resource', 20, '01/20/', '/sys/resource', 6, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (30, '系统监控', 'fa fa-cogs', 'monitor', 1, '01/', '', 2, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (31, 'Druid监控', 'ztree_file', 'monitor:druid', 30, '01/30/', '/manage/monitor/druid/index.html', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (32, 'JVM监控', 'ztree_file', 'monitor:jvm', 30, '01/30/', '/manage/monitor/jvm', 2, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (33, 'SQL/JPQL操作', 'ztree_file', 'monitor:ql', 30, '01/30/', '/manage/monitor/db/sql', 3, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (34, 'Ehcache监控', 'ztree_file', 'monitor:ehcache', 30, '01/30/', '/manage/monitor/ehcache', 4, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (35, 'Hibernate监控', 'ztree_file', 'monitor:hibernate', 30, '01/30/', '/manage/monitor/hibernate', 5, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (40, '系统维护', 'ztree_file', '', 1, '01/', '', 3, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (41, '静态资源管理', 'ztree_file', '', 40, '01/40/', '/manage/maintain/staticResource', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (50, '演示功能', 'ztree_file', '', 1, '01/', '', 4, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, _identity, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (51, 'dialog演示', 'ztree_file', '', 50, '01/50/', '/demo/ui/dialog', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'icon-th-large', 'root', 0, '0', '/', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (20, '系统管理', 'fa fa-cogs', 'sys', 1, '01/', '', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (21, '用户管理', 'fa fa-user', 'sys:user', 20, '01/20/', '/sys/user', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (22, '团队管理', 'fa fa-group', 'sys:team', 20, '01/20/', '/sys/team', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (23, '角色管理', 'fa fa-credit-card', 'sys:role', 20, '01/20/', '/sys/role', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (24, '权限管理', 'fa fa-key', 'sys:permission', 20, '01/20/', '/sys/permission', 4, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (25, '授权管理', 'fa fa-unlock-alt', 'sys:authorize', 20, '01/20/', '/sys/authorize', 5, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (26, '资源管理', 'fa fa-list', 'sys:resource', 20, '01/20/', '/sys/resource', 6, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (30, '系统监控', 'fa  fa-dashboard', 'monitor', 1, '01/', '', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (31, 'Druid监控', 'fa fa-database', 'monitor:druid', 30, '01/30/', '/manage/monitor/druid/index.html', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (32, 'JVM监控', 'fa  fa-desktop', 'monitor:jvm', 30, '01/30/', '/manage/monitor/jvm', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (33, 'SQL/JPQL操作', 'fa fa-file', 'monitor:ql', 30, '01/30/', '/manage/monitor/db/sql', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (34, 'Ehcache监控', 'fa fa-cloud', 'monitor:ehcache', 30, '01/30/', '/manage/monitor/ehcache', 4, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (35, 'Hibernate监控', 'fa fa-ge', 'monitor:hibernate', 30, '01/30/', '/manage/monitor/hibernate', 5, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (40, '系统维护', 'fa fa-medkit', '', 1, '01/', '', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (41, '静态资源管理', 'fa fa-folder-open', '', 40, '01/40/', '/manage/maintain/staticResource', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (50, '演示功能', 'fa fa-film', '', 1, '01/', '', 4, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (51, 'dialog演示', 'fa fa-pied-piper-alt', '', 50, '01/50/', '/demo/ui/dialog', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (52, 'Web演示', 'ztree_file', '', 50, '01/50/', '/story/web', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (53, 'JMX演示', 'ztree_file', '', 50, '01/50/', '/story/jmx', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (54, '日志高级演示', 'ztree_file', '', 50, '01/50/', '/story/log', 4, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (55, '性能监控演示', 'ztree_file', '', 50, '01/50/', '/story/monitor', 5, true, 0);
 
 
 INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(1,'超级管理员','Admin','超级管理员角色','*');

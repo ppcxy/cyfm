@@ -35,6 +35,24 @@
         </dependency>
         <!-- end begin -->
 
+
+        <!-- 工作流引擎开始 -->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-engine</artifactId>
+            <version>6.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring</artifactId>
+            <version>6.2.1</version>
+        </dependency>
+        <!-- 工作流引擎结束-->
+
+        <!-- 工作流设计器 -->
+
+        <!-- 工作流设计器结束 -->
+
         <!-- SPRINGSIDE begin -->
         <dependency>
             <groupId>io.springside</groupId>

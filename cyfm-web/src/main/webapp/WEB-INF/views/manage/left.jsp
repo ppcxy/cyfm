@@ -51,28 +51,6 @@
     </c:forEach>
     <dd>
         <div class="title">
-            <span><img src="${ctx}/static/manage/images/leftico01.png"/></span>管理信息
-        </div>
-        <ul class="menuson">
-            <li class="active"><cite></cite><a href="index.html" target="rightFrame">首页模版</a><i></i></li>
-            <li><cite></cite><a href="${ctx}/sys/team" target="rightFrame">团队管理</a><i></i></li>
-            <li><cite></cite><a href="${ctx}/sys/user" target="rightFrame">用户管理</a><i></i></li>
-            <li><cite></cite><a href="${ctx}/sys/resource" target="rightFrame">资源管理</a><i></i></li>
-        </ul>
-    </dd>
-    <dd>
-        <div class="title">
-            <span><img src="${ctx}/static/manage/images/leftico02.png"/></span>独立演示
-        </div>
-        <ul class="menuson">
-            <li><cite></cite><a id="web-tab" href="${ctx}/story/web" target="rightFrame">Web演示</a><i></i></li>
-            <li><cite></cite><a id="jmx-tab" href="${ctx}/story/jmx" target="rightFrame">JMX演示</a><i></i></li>
-            <li><cite></cite><a id="log-tab" href="${ctx}/story/log" target="rightFrame">日志高级演示</a><i></i></li>
-            <li><cite></cite><a id="monitor-tab" href="${ctx}/story/monitor" target="rightFrame">性能监控演示</a><i></i></li>
-        </ul>
-    </dd>
-    <dd>
-        <div class="title">
             <span><img src="${ctx}/static/manage/images/leftico02.png"/></span>演示说明
         </div>
         <ul class="menuson">
