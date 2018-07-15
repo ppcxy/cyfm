@@ -36,6 +36,15 @@
         <!-- end begin -->
 
 
+        <!-- fel 公式引擎 -->
+        <dependency>
+            <groupId>org.eweb4j</groupId>
+            <artifactId>fel</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+
+
         <!-- 工作流引擎开始 -->
         <!--<dependency>-->
             <!--<groupId>org.flowable</groupId>-->
