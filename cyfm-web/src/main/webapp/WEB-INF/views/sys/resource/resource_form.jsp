@@ -32,7 +32,7 @@
 					<div class="form-group">
 						<form:label path="name">名称</form:label>
 						<div class="controls">
-							<form:input path="name" cssClass="form-control validate[required,custom[name]]" placeholder="小于50个字符"/>
+							<form:input path="name" cssClass="form-control required" placeholder="小于50个字符"/>
 						</div>
 					</div>
 
@@ -55,7 +55,7 @@
 						<div>
 						<div class="radio-list">
 							<cyform:radiobuttons
-									path="resourceType" items="${resourceTypes}" itemLabel="info" itemValue="value" cssClass="validate[required]"/>
+									path="resourceType" items="${resourceTypes}" itemLabel="info" itemValue="value" cssClass="required"/>
 						</div>
 						</div>
 					</div>
@@ -72,13 +72,13 @@
 						<div>
 							<div class="radio-list">
 								<cyform:radiobuttons
-										path="show" items="${booleanList}" itemLabel="info" itemValue="value" cssClass="validate[required]"/>
+										path="show" items="${booleanList}" itemLabel="info" itemValue="value" cssClass="required"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-actions">
 						<c:if test="${action eq '新增'}">
-							<c:set var="icon" value="icon-file-alt"/>
+							<c:set var="icon" value="fa fa-file-o"/>
 						</c:if>
 						<c:if test="${action eq '修改'}">
 							<c:set var="icon" value="icon-edit"/>
@@ -99,16 +99,8 @@
 </div>
 <script>
 
-	//在这里面输入任何合法的js语句
-//	layer.open({
-//		type: 1, //page层
-//		area: ['500px', '300px'],
-//		title: '你好，layer。',
-//		shade: 0.6, //遮罩透明度
-//		moveType: 1, //拖拽风格，0是默认，1是传统拖动
-//		shift: 1, //0-6的动画形式，-1不开启
-//		content: $("#inputForm")
-//	});
+    $cy.handleUniform();
+    $("#inputForm").validate({});
 </script>
 </body>
 </html>

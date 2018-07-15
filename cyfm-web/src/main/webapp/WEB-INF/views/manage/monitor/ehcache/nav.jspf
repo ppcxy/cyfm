@@ -3,7 +3,7 @@
 <ul class="nav nav-tabs">
     <li ${empty type ? 'class="active"' : ''}>
         <a href="${ctx}/manage/monitor/ehcache">
-            <i class="icon-table"></i>
+            <i class="fa fa-table"></i>
             ehcache监控
         </a>
     </li>

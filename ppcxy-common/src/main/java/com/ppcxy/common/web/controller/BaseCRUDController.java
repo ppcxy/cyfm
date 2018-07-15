@@ -6,6 +6,7 @@ import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
 import com.ppcxy.common.web.controller.permission.PermissionList;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
@@ -25,13 +26,11 @@ import java.util.Date;
  */
 public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Serializable>
         extends BaseController<T, ID> {
-
+    
     protected BaseService<T, ID> baseService;
-
-    private boolean listAlsoSetCommonData = true;
-
     protected PermissionList permissionList = null;
-
+    private boolean listAlsoSetCommonData = true;
+    
     /**
      * 设置基础service
      *
@@ -41,8 +40,8 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     public void setBaseService(BaseService<T, ID> baseService) {
         this.baseService = baseService;
     }
-
-
+    
+    
     /**
      * 用于设置通用数据,默认行为干预请覆盖 befor after,或者直接覆盖具体方法.
      *
@@ -51,27 +50,32 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @Override
     protected void preResponse(Model model) {
         super.preResponse(model);
-        model.addAttribute("resourceIdentity", permissionList.getResourceIdentity());
+        if (permissionList != null) {
+            model.addAttribute("resourceIdentity", permissionList.getResourceIdentity());
+        }
     }
-
+    
     /**
      * 列表也设置common data
      */
     public void setListAlsoSetCommonData(boolean listAlsoSetCommonData) {
         this.listAlsoSetCommonData = listAlsoSetCommonData;
     }
-
+    
     /**
      * 权限前缀：如sys:user
      * 则生成的新增权限为 sys:user:create
      */
     public void setResourceIdentity(String resourceIdentity) {
         if (!StringUtils.isEmpty(resourceIdentity)) {
-            setModelName(resourceIdentity);
+            if (this.getModelName() == null) {
+                setModelName(resourceIdentity);
+            }
+            
             permissionList = PermissionList.newPermissionList(resourceIdentity);
         }
     }
-
+    
     /**
      * 进入 list 执行,默认验证权限.
      *
@@ -83,7 +87,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasViewPermission();
         }
     }
-
+    
     /**
      * list 逻辑执行完毕,返回页面之前执行.
      *
@@ -93,23 +97,23 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
      */
     public void afterList(Searchable searchable, Page<T> page, Model model) {
     }
-
+    
     @RequestMapping(method = RequestMethod.GET)
     @PageableDefaults(sort = "id=desc")
     public String list(Searchable searchable, Model model) {
-
+        
         barorList(searchable, model);
-
+        
         Page<T> page = baseService.findAll(searchable);
         model.addAttribute("page", page);
-
+        
         if (listAlsoSetCommonData) {
             preResponse(model);
         }
         afterList(searchable, page, model);
         return viewName("list");
     }
-
+    
     /**
      * 仅返回表格数据
      *
@@ -123,8 +127,8 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         list(searchable, model);
         return viewName("listTable");
     }
-
-
+    
+    
     /**
      * 进入 view 执行,默认验证权限.
      *
@@ -136,7 +140,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasViewPermission();
         }
     }
-
+    
     /**
      * view 逻辑执行完毕,返回页面之前执行.
      *
@@ -145,20 +149,20 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
      */
     public void afterView(Model model, T entity) {
     }
-
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String view(Model model, @PathVariable("id") T entity) {
-
+        
         beforView(model, entity);
         preResponse(model);
-
+        
         model.addAttribute("entity", entity);
         model.addAttribute(Constants.OPTION_NAME, "查看");
-
+        
         afterView(model, entity);
         return viewName("form");
     }
-
+    
     /**
      * 进入 createForm 执行,默认验证权限.
      *
@@ -169,7 +173,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasCreatePermission();
         }
     }
-
+    
     /**
      * createForm 逻辑执行完毕,返回页面之前执行.
      *
@@ -178,11 +182,10 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
      */
     public void afterCreateForm(T entity, Model model) {
     }
-
+    
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String createForm(Model model) {
+    public String createForm(T entity, Model model) {
         beforCreateForm(model);
-        T entity = null;
         preResponse(model);
         model.addAttribute(Constants.OPTION_NAME, "create");
         if (!model.containsAttribute("entity")) {
@@ -191,12 +194,12 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         } else {
             entity = (T) model.asMap().get("entity");
         }
-
+        
         afterCreateForm(entity, model);
         return viewName("form");
     }
-
-
+    
+    
     /**
      * 进入 create 执行,默认验证权限.
      *
@@ -208,7 +211,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasCreatePermission();
         }
     }
-
+    
     /**
      * create 逻辑执行完毕,返回页面之前执行.
      *
@@ -218,25 +221,25 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     public void afterCreate(Model model, @Valid @ModelAttribute("entity") T entity, BindingResult result,
                             RedirectAttributes redirectAttributes) {
     }
-
+    
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(
             Model model, @Valid @ModelAttribute("entity") T entity, BindingResult result,
             RedirectAttributes redirectAttributes) {
-
-
+        
+        
         beforCreate(model, entity, result, redirectAttributes);
-
+        
         if (hasError(entity, result)) {
-            return createForm(model);
+            return createForm(entity, model);
         }
         baseService.save(entity);
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "新增成功");
         afterCreate(model, entity, result, redirectAttributes);
         return redirectToUrl(null);
     }
-
-
+    
+    
     /**
      * 进入 updateForm 执行,默认验证权限.
      *
@@ -247,7 +250,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasUpdatePermission();
         }
     }
-
+    
     /**
      * updateForm 逻辑执行完毕,返回页面之前执行.
      *
@@ -256,18 +259,18 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
      */
     public void afterUpdateForm(T entity, Model model) {
     }
-
+    
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") T entity, Model model) {
         beforUpdateForm(entity, model);
         preResponse(model);
         model.addAttribute(Constants.OPTION_NAME, "update");
         model.addAttribute("entity", entity);
-
+        
         afterUpdateForm(entity, model);
         return viewName("form");
     }
-
+    
     /**
      * 进入 create 执行,默认验证权限.
      *
@@ -279,7 +282,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasUpdatePermission();
         }
     }
-
+    
     /**
      * create 逻辑执行完毕,返回页面之前执行.
      *
@@ -289,16 +292,16 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     public void afterUpdate(Model model, @Valid @ModelAttribute("entity") T entity, BindingResult result, String backURL,
                             RedirectAttributes redirectAttributes) {
     }
-
+    
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(
             Model model, @Valid @ModelAttribute("entity") T entity, BindingResult result,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-
-
+        
+        
         beforUpdate(model, entity, result, backURL, redirectAttributes);
-
+        
         if (hasError(entity, result)) {
             return updateForm(entity, model);
         }
@@ -307,7 +310,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         afterUpdate(model, entity, result, backURL, redirectAttributes);
         return redirectToUrl(backURL);
     }
-
+    
     /**
      * 进入 delete 执行,默认验证权限.
      */
@@ -316,28 +319,28 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasDeletePermission();
         }
     }
-
+    
     /**
      * create 逻辑执行完毕,返回页面之前执行.
      */
     public void afterDelete(ID id, String backURL, RedirectAttributes redirectAttributes) {
     }
-
-
+    
+    
     @RequestMapping(value = "delete/{id}")
     public String delete(
             @PathVariable("id") ID id,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-
+        
         beforDelete(id, backURL, redirectAttributes);
         baseService.delete(id);
-
+        
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功");
         afterDelete(id, backURL, redirectAttributes);
         return redirectToUrl(backURL);
     }
-
+    
     /**
      * 进入 deleteInBatch 执行,默认验证权限.
      */
@@ -346,27 +349,27 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             this.permissionList.assertHasDeletePermission();
         }
     }
-
+    
     /**
      * deleteInBatch 逻辑执行完毕,返回页面之前执行.
      */
     public void afterDeleteInBatch(ID[] ids, String backURL, RedirectAttributes redirectAttributes) {
     }
-
+    
     @RequestMapping(value = "batch/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public String deleteInBatch(
             @RequestParam(value = "ids", required = false) ID[] ids,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-
+        
         beforDeleteInBatch(ids, backURL, redirectAttributes);
         baseService.delete(ids);
-
+        
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功");
         afterDeleteInBatch(ids, backURL, redirectAttributes);
         return redirectToUrl(backURL);
     }
-
+    
     /**
      * 所有RequestMapping方法调用前的Model准备方法, 实现Struts2 Preparable二次部分绑定的效果,先根据form的id从数据库查出Task对象,再把Form提交的内容绑定到该对象上。
      * 因为仅update()方法的form中有id属性，因此仅在update时实际执行.
@@ -374,10 +377,15 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @ModelAttribute
     public void getEntity(@RequestParam(value = "id", defaultValue = "-1") ID id, Model model) {
         if (!id.toString().equals("-1")) {
-            model.addAttribute("entity", baseService.findOne(id));
+            try {
+                model.addAttribute("entity", BeanUtils.cloneBean(baseService.findOne(id)));
+            } catch (Exception e) {
+                
+            }
+            
         }
     }
-
+    
     @InitBinder
     protected void initBinder(HttpServletRequest request,
                               ServletRequestDataBinder binder) throws Exception {

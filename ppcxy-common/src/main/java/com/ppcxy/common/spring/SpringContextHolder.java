@@ -25,6 +25,14 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 	private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
 
 	/**
+	 * 取得存储在静态变量中的ApplicationContext.
+	 */
+	public static ApplicationContext getApplicationContext() {
+		assertContextInjected();
+		return applicationContext;
+	}
+
+	/**
 	 * 实现ApplicationContextAware接口, 注入Context到静态变量中.
 	 */
 	public void setApplicationContext(ApplicationContext applicationContext) {
@@ -36,22 +44,6 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 		}
 
 		SpringContextHolder.applicationContext = applicationContext; //NOSONAR
-	}
-
-	/**
-	 * 实现DisposableBean接口,在Context关闭时清理静态变量.
-	 */
-	@Override
-	public void destroy() throws Exception {
-		SpringContextHolder.clear();
-	}
-
-	/**
-	 * 取得存储在静态变量中的ApplicationContext.
-	 */
-	public static ApplicationContext getApplicationContext() {
-		assertContextInjected();
-		return applicationContext;
 	}
 
 	/**
@@ -86,5 +78,13 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 		if (applicationContext == null) {
 			throw new IllegalStateException("applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHolder");
 		}
+	}
+
+	/**
+	 * 实现DisposableBean接口,在Context关闭时清理静态变量.
+	 */
+	@Override
+	public void destroy() throws Exception {
+		SpringContextHolder.clear();
 	}
 }

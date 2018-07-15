@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <html>
 <head>
-    <title>permission 编辑页面</title>
+    <title>授权详情</title>
 </head>
 <body>
 <div class="portlet box editBox">
@@ -13,9 +13,9 @@
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
             <div class="form-group">
-                <label for="authType" class="control-label">授权类型:</label>
+                <form:label path="authType" cssClass="control-label">授权类型:</form:label>
                 <div class="controls">
-                    <cyform:select path="authType" items="${authorizeTypes}" itemLabel="info" itemValue="value" cssClass="form-control required"/>
+                    <form:select path="authType" items="${authorizeTypes}" itemLabel="info" itemValue="value" cssClass="form-control required"/>
                 </div>
             </div>
             <div class="form-group">
@@ -35,7 +35,6 @@
 
             <div class="form-actions">
                 <input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
-                <input id="cancel_btn" class="btn" type="button" value="返回" onclick="history.back()"/>
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>
             </form:form>
@@ -44,6 +43,8 @@
 </div>
 <script>
     $cy.handleUniform();
+
+    $("#inputForm").validate({});
 </script>
 </body>
 </html>

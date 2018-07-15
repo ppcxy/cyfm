@@ -8,9 +8,9 @@ import java.io.Serializable;
  */
 public interface Treeable<ID extends Serializable> {
 
-    void setName(String name);
-
     String getName();
+
+    void setName(String name);
 
     /**
      * 显示的图标 大小为16×16

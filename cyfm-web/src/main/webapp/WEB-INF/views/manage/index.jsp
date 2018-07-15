@@ -1,23 +1,59 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
-<link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js"></script>
+<title>默认工作台</title>
+<link href="${ctx}/static/manage/css/style.css?2" rel="stylesheet" type="text/css" />
+<%@include file="/WEB-INF/views/common/import-js.jspf"%>
+    <script>
+        function formatDate(date) {
+            var d = date,
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear(),
+                hours = d.getHours(),
+                minutes = d.getMinutes(),
+                seconds = d.getSeconds();
 
+            console.log(seconds.length)
+
+            //这就是判断当前如果是1位的话前面补个0 比如 01 02
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            if (hours < 10) hours = '0' + hours;
+            if (minutes < 10) minutes = '0' + minutes;
+            if (seconds < 10) seconds = '0' + seconds;
+
+            //返回拼的字符串 [xx,xx,xx].join('-') 就是用-连接 前面[]里的东西
+            return [year, month, day].join('-') + " " + [hours, minutes, seconds].join(':');
+        }
+
+        function showTime() {
+            //先显示当前时间 new Date()  是获取当前时间对象
+            
+            $(".clock").text(formatDate(new Date()))
+            //隔一秒在次调用自己,达到每秒刷新一次显示的效果
+            setTimeout(function () {
+                //再次调用自己
+                showTime();
+            }, 1000);
+        }
+
+        //页面加载完成后执行上面的自定义函数
+        $(function () {
+            // showTime()
+        })
+    </script>
 </head>
-
-
 <body>
-<
 <div class="rightinfo">
     <div class="mainindex">
 
         <div class="welinfo">
             <span><img src="${ctx}/static/manage/images/sun.png" alt="天气"/></span>
-            <b>Admin早上好，欢迎使用信息管理系统</b>(admin@ppcxy.com)
+            <b style="color:blue;font-weight: 900">[<shiro:principal property="name"/>](<shiro:principal property="username"/>)</b> <b>早上好，欢迎使用${cy_systemName}</b>
             <a href="#">帐号设置</a>
         </div>
 
@@ -28,6 +64,7 @@
 
         <div class="xline"></div>
 
+        <%--
         <ul class="iconlist">
 
             <li><img src="${ctx}/static/manage/images/ico01.png"/>
@@ -75,8 +112,8 @@
             <li><a href="#">系统设置</a></li>
         </ul>
     </div>
-
+    --%>
+    </div>
 </div>
 </body>
-
 </html>

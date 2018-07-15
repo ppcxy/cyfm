@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/demo/ui")
 public class UiDemoController {
-
+    
     @RequestMapping(value = "dialog")
     public String dialogDemo() {
         return "/demo/ui/dialog";

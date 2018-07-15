@@ -23,25 +23,25 @@ import java.util.Set;
 @Controller
 @RequestMapping("/sys/role")
 public class RoleController extends BaseCRUDController<Role, Long> {
-
+    
     @Resource
     private RoleService roleService;
-
+    
     @Resource
     private PermissionService permissionService;
-
+    
     public RoleController() {
         setResourceIdentity("sys:role");
         setModelName("role");
     }
-
+    
     @Override
     protected void preResponse(Model model) {
         super.preResponse(model);
         model.addAttribute("permissionList", permissionService.findAll());
     }
-
-
+    
+    
     @RequestMapping(value = "create/discard", method = RequestMethod.POST)
     @Override
     public String create(
@@ -49,18 +49,18 @@ public class RoleController extends BaseCRUDController<Role, Long> {
             RedirectAttributes redirectAttributes) {
         throw new RuntimeException("discarded method");
     }
-
+    
     @RequestMapping(value = "/update/{id}/discard", method = RequestMethod.POST)
     @Override
     public String update(
             Model model, @Valid @ModelAttribute("entity") Role entity, BindingResult result,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-
+        
         throw new RuntimeException("discarded method");
     }
-
-
+    
+    
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String createWithResourcePermission(
             Model model,
@@ -68,12 +68,12 @@ public class RoleController extends BaseCRUDController<Role, Long> {
             @RequestParam(value = "resourceId", defaultValue = "") Long[] resourceIds,
             @RequestParam(value = "permissionIds", defaultValue = "") Long[][] permissionIds,
             RedirectAttributes redirectAttributes) {
-
+        
         fillResourcePermission(role, resourceIds, permissionIds);
-
+        
         return super.create(model, role, result, redirectAttributes);
     }
-
+    
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String updateWithResourcePermission(
             Model model,
@@ -82,12 +82,12 @@ public class RoleController extends BaseCRUDController<Role, Long> {
             @RequestParam(value = "permissionIds", defaultValue = "") Long[][] permissionIds,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-
+        
         fillResourcePermission(role, resourceIds, permissionIds);
-
+        
         return super.update(model, role, result, backURL, redirectAttributes);
     }
-
+    
     private void fillResourcePermission(Role role, Long[] resourceIds, Long[][] permissionIds) {
         role.getRoleResourcePermissions();
         int resourceLength = resourceIds.length;
@@ -95,7 +95,7 @@ public class RoleController extends BaseCRUDController<Role, Long> {
             role.clearResourcePermission(resourceIds);
             return;
         }
-
+        
         //向角色中新增或追加资源权限
         if (resourceLength == 1) { //如果长度为1  那么permissionIds就变成如[[0],[1],[2]]这种
             Set<Long> permissionIdSet = Sets.newHashSet();
@@ -105,7 +105,7 @@ public class RoleController extends BaseCRUDController<Role, Long> {
             role.addResourcePermission(
                     new RoleResourcePermission(resourceIds[0], permissionIdSet)
             );
-
+            
         } else {
             for (int i = 0; i < resourceLength; i++) {
                 role.addResourcePermission(
@@ -113,11 +113,11 @@ public class RoleController extends BaseCRUDController<Role, Long> {
                 );
             }
         }
-
+        
         //清理被删除的资源权限
         role.clearResourcePermission(resourceIds);
     }
-
+    
     @RequestMapping(value = "checkName")
     @ResponseBody
     public String checkName(@RequestParam("oldName") String oldName, @RequestParam("name") String name) {
@@ -126,10 +126,10 @@ public class RoleController extends BaseCRUDController<Role, Long> {
         } else if (roleService.findByName(name) == null) {
             return "true";
         }
-
+        
         return "false";
     }
-
+    
     @RequestMapping(value = "checkValue")
     @ResponseBody
     public String checkValue(@RequestParam("oldValue") String oldValue, @RequestParam("value") String value) {
@@ -138,7 +138,7 @@ public class RoleController extends BaseCRUDController<Role, Long> {
         } else if (roleService.findByValue(value) == null) {
             return "true";
         }
-
+        
         return "false";
     }
 }

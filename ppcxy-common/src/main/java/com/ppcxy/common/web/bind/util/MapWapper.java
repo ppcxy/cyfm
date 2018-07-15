@@ -37,12 +37,12 @@ public class MapWapper<K, V> {
 
     private Map<K, V> innerMap = new HashMap<K, V>();
 
-    public void setInnerMap(Map<K, V> innerMap) {
-        this.innerMap = innerMap;
-    }
-
     public Map<K, V> getInnerMap() {
         return innerMap;
+    }
+
+    public void setInnerMap(Map<K, V> innerMap) {
+        this.innerMap = innerMap;
     }
 
     public void clear() {

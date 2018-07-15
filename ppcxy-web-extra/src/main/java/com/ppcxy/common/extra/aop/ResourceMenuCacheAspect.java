@@ -17,12 +17,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class ResourceMenuCacheAspect extends BaseCacheAspect implements Ordered {
 
+    private static final String MENUS_KEY_PREFIX = "menus-";
+
     public ResourceMenuCacheAspect() {
         setCacheName("sys-menuCache");
     }
-
-    private static final String MENUS_KEY_PREFIX = "menus-";
-
 
     @Pointcut(value = "target(com.ppcxy.cyfm.sys.service.resource.ResourceService)")
     private void resourceServicePointcut() {

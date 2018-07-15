@@ -13,75 +13,75 @@
  * @license CC Attribution Works 3.0 Poland - http://creativecommons.org/licenses/by/3.0/pl/deed.en_US
  * @example Visit http://www.ivellios.toron.pl/technikalia/demos/gvChart/ for more informations about this jQuery plugin
  */
-(function (jQuery){
-	jQuery.fn.gvChart = function(settings){
+(function (jQuery) {
+    jQuery.fn.gvChart = function (settings) {
 
-	defaults={
-		hideTable: true,
-		chartType: 'AreaChart',
-		chartDivID: 'gvChartDiv',
-		gvSettings: null
-	};
-	
-	var el = document.createElement('div');
-	jQuery(el).insertBefore(this);
-	gvChartCount++;
-	gvChartID = defaults.chartDivID+gvChartCount;
-	jQuery(el).attr('id',gvChartID);
-	jQuery(el).addClass('gvChart');
+        defaults = {
+            hideTable: true,
+            chartType: 'AreaChart',
+            chartDivID: 'gvChartDiv',
+            gvSettings: null
+        };
 
-	if(settings){
-	jQuery.extend(defaults,settings);
-	}
-	
-	if(defaults.hideTable)
-		$(this).hide();
+        var el = document.createElement('div');
+        jQuery(el).insertBefore(this);
+        gvChartCount++;
+        gvChartID = defaults.chartDivID + gvChartCount;
+        jQuery(el).attr('id', gvChartID);
+        jQuery(el).addClass('gvChart');
 
-	var data = new google.visualization.DataTable();
+        if (settings) {
+            jQuery.extend(defaults, settings);
+        }
 
-	// add X label
-	data.addColumn('string','X labels');
+        if (defaults.hideTable)
+            $(this).hide();
 
-	var a = new Array();
+        var data = new google.visualization.DataTable();
 
-	var headers = $(this).find('thead').find('th');
-	var rows = $(this).find('tbody').find('tr');
+        // add X label
+        data.addColumn('string', 'X labels');
 
-	rows.each(function(index){
-		data.addColumn('number',$(this).find('th').text());
-	});
+        var a = new Array();
 
-	data.addRows(headers.length-1);
+        var headers = $(this).find('thead').find('th');
+        var rows = $(this).find('tbody').find('tr');
 
-	headers.each(function(index){
-		if(index){
-			data.setCell(index-1, 0, $(this).text());
-		}
-	});
+        rows.each(function (index) {
+            data.addColumn('number', $(this).find('th').text());
+        });
 
-	rows.each(function(index){
-			$(this).find('td').each(function(index2){
-				data.setCell(index2, index+1, parseFloat($(this).text()));
-			});
-	});
-	
-	chartSettings = {
-		title : $(this).find('caption').text()
-	};
-	
-	if(defaults.gvSettings){
-		jQuery.extend(chartSettings,defaults.gvSettings);
-	}
-	
-	eval("var chart = new google.visualization."+defaults.chartType+"(document.getElementById('"+gvChartID+"'))");
-	chart.draw(data, chartSettings);
-  }
+        data.addRows(headers.length - 1);
+
+        headers.each(function (index) {
+            if (index) {
+                data.setCell(index - 1, 0, $(this).text());
+            }
+        });
+
+        rows.each(function (index) {
+            $(this).find('td').each(function (index2) {
+                data.setCell(index2, index + 1, parseFloat($(this).text()));
+            });
+        });
+
+        chartSettings = {
+            title: $(this).find('caption').text()
+        };
+
+        if (defaults.gvSettings) {
+            jQuery.extend(chartSettings, defaults.gvSettings);
+        }
+
+        eval("var chart = new google.visualization." + defaults.chartType + "(document.getElementById('" + gvChartID + "'))");
+        chart.draw(data, chartSettings);
+    }
 })(jQuery);
 
 
-function gvChartInit(){
-	gvChartCount = 0;
-	google.load('visualization', '1', {packages: ['corechart']});
+function gvChartInit() {
+    gvChartCount = 0;
+    google.load('visualization', '1', {packages: ['corechart']});
 }
 
 

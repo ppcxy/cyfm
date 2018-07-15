@@ -56,7 +56,7 @@
     </div>
 </div>
 <div class="listTableWrap">
-<table id="table" data-tid="staticResourceVersion" class="table table-list sort-table dataTable table-bordered table-hover table-striped table-condensed flip-content">
+<table id="contentTable" data-tid="staticResourceVersion" class="table table-list sort-table dataTable table-bordered table-hover table-striped table-condensed flip-content">
     <thead class="flip-content">
     <tr>
         <th class="check"><input type="checkbox"></th>

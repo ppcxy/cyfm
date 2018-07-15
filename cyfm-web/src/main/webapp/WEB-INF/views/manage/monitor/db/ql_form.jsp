@@ -21,7 +21,7 @@
         <cyform:hidden path="page.pn"/>
         <cyform:label path="ql">请输入QL：</cyform:label><br/>
         <cyform:textarea path="ql" style="width: 500px;height: 160px"/><br/>
-        <input type="submit" class="btn" value="执行">
+        <input type="submit" class="btn btn-default" value="执行">
     </form>
     </div>
     <div id="result">

@@ -5,17 +5,16 @@
  *******************************************************************************/
 package org.springside.modules.web.taglib;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.servlet.jsp.JspException;
-
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.tags.form.AbstractMultiCheckedElementTag;
 import org.springframework.web.servlet.tags.form.TagWriter;
+
+import javax.servlet.jsp.JspException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 重载实现Twitter Bootstrap的格式.

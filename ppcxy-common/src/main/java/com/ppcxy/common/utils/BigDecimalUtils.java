@@ -11,14 +11,6 @@ public class BigDecimalUtils {
 
     private BigDecimal bigDecimal;
 
-    public static BigDecimalUtils newInstance() {
-        return new BigDecimalUtils();
-    }
-
-    public static <N extends Number> BigDecimalUtils newInstance(N number) {
-        return new BigDecimalUtils(number);
-    }
-
     /**
      * 构造初始值为0的计算对象.
      */
@@ -34,6 +26,14 @@ public class BigDecimalUtils {
      */
     private <N extends Number> BigDecimalUtils(N number) {
         bigDecimal = new BigDecimal(number.toString());
+    }
+
+    public static BigDecimalUtils newInstance() {
+        return new BigDecimalUtils();
+    }
+
+    public static <N extends Number> BigDecimalUtils newInstance(N number) {
+        return new BigDecimalUtils(number);
     }
 
     /**

@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-    <title>系统用户</title>
+    <title>用户详情</title>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label for="username" class="control-label">登录名:</label>
 					<div class="controls">
-						<input type="text" id="username" name="username" value="${entity.username}" class="form-control required"/>
+						<input type="text" id="username" name="username" value="${entity.username}" class="form-control required" ${not empty entity.id ? 'readonly=true' : ''} />
 					</div>
 				</div>
 				<div class="form-group">
@@ -63,8 +63,8 @@
 				</div>
 				<div class="form-actions">
 					<input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
-					<input id="cancel_btn" class="btn" type="button" value="返回" onclick="history.back()"/>
-					<p class="help-block">(保存后将发送JMS消息通知改动，而消息接收者将发送提醒邮件)</p>
+					<p class="help-block">(点击提交保存信息.)</p>
+					<%--<p class="help-block">(保存后将发送JMS消息通知改动，而消息接收者将发送提醒邮件)</p>--%>
 				</div>
 		</form:form>
 	</div>

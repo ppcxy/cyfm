@@ -5,24 +5,19 @@
  *******************************************************************************/
 package org.springside.modules.mapper;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.springside.modules.utils.Exceptions;
+import org.springside.modules.utils.Reflections;
+
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.namespace.QName;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.namespace.QName;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.springside.modules.utils.Exceptions;
-import org.springside.modules.utils.Reflections;
 
 /**
  * 使用Jaxb2.0实现XML<->Java Object的Mapper.

@@ -5,7 +5,7 @@
     <style>
         .detail { word-break: break-all; }
     </style>
-    <title></title>
+    <title>缓存详情</title>
 </head>
 <body>
 <div data-table="table" class="tabbable-line">

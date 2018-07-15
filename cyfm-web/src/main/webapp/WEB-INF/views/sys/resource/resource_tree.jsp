@@ -12,21 +12,21 @@
     <%@include file="/WEB-INF/views/common/import-zTree-css.jspf"%>
     <!-- ================================= JS 区域 ========================================== -->
     <%@include file="/WEB-INF/views/common/import-js.jspf"%>
-    <title></title>
+    <title>系统资源数</title>
 </head>
 <body>
 <div data-table="table" class="tabbable-line">
     <ul class="nav nav-tabs">
         <li ${empty param['search.show_eq'] ? 'class="active"' : ''}>
             <a href="${ctx}/sys/resource/tree?async=${not empty param.async and param.async eq true}">
-                <i class="icon-table"></i>
+                <i class="fa fa-table"></i>
                 所有
                 <i class="icon-refresh" title="点击刷新"></i>
             </a>
         </li>
         <li ${not empty param['search.show_eq'] ? 'class="active"' : ''}>
             <a href="${ctx}/sys/resource/tree?search.show_eq=true&async=${not empty param.async and param.async eq true}">
-                <i class="icon-table"></i>
+                <i class="fa fa-table"></i>
                 显示的
             </a>
         </li>

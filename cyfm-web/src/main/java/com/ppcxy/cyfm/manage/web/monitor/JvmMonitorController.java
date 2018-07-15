@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/manage/monitor/jvm")
 @RequiresPermissions("monitor:jvm:*")
 public class JvmMonitorController extends BaseController {
-
+    
     @RequestMapping
     public String index() {
         return viewName("index");
     }
-
-
+    
+    
 }

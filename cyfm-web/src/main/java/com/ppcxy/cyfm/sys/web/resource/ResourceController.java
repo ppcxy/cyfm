@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/sys/resource")
 public class ResourceController extends BaseTreeableController<Resource, Long> {
-
+    
     public ResourceController() {
         setResourceIdentity("sys:resource");
         setModelName("resource");
     }
-
+    
     @Override
     protected void preResponse(Model model) {
         super.preResponse(model);
         model.addAttribute("resourceTypes", MenuType.values());
     }
-
+    
 }

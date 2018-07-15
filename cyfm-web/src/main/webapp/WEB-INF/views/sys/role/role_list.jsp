@@ -2,13 +2,13 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>role crud</title>
+  <title>角色管理</title>
 </head>
 
 <body>
  <div class="tools search-toolbar">
    <div class="toolbar-right">
-       <form class="form-search form-inline" action="#">
+       <form class="form-search form-inline text-right" action="#">
          <div class="form-group">
              <label>角色名称：</label>
              <input type="text" name="search.name_like" class="form-control input-small" value="${param['search.name_like']}">
@@ -19,25 +19,20 @@
    </div>
  </div>
 <div class="listTableWrap">
-    <table id="contentTable" data-tid="team" class="table table-list table-striped table-bordered table-hover table-condensed table-advance">
+    <table id="contentTable" data-tid="role" class="table table-list table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
-            <th>角色id</th>
-            <th>角色名称</th>
+            <th data-sort="name">角色名称</th>
             <th>非资源权限</th>
-            <th>资源权限</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${page.content}" var="role">
             <tr>
-                <td class="check"><input type="checkbox" value="${role.id}"></td>
-                <td>${role.id}&nbsp;</td>
+                <td class="check"><input name="ids" type="checkbox" value="${role.id}"></td>
                 <td>${role.name}&nbsp;</td>
                 <td>${role.permissions}&nbsp;</td>
-                <td>查看详细信息页面&nbsp;</td>
-                <cy:listTableActions name="${role.name}" id="${role.id}"/>
             </tr>
         </c:forEach>
         </tbody>

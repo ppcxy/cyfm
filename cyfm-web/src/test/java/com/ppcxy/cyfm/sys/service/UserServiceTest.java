@@ -6,9 +6,9 @@
 package com.ppcxy.cyfm.sys.service;
 
 import com.ppcxy.common.exception.BaseException;
+import com.ppcxy.common.utils.ShiroUser;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.repository.jpa.user.UserDao;
-import com.ppcxy.common.utils.ShiroUser;
 import com.ppcxy.cyfm.sys.service.user.PasswordService;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.junit.After;
@@ -23,49 +23,49 @@ import org.springside.modules.test.security.shiro.ShiroTestUtils;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 public class UserServiceTest {
-
-	@InjectMocks
-	private UserService userService;
-
-	@Mock
-	private UserDao mockUserDao;
-
-	@Mock
-	private BusinessLogger businessLogger;
-
-	@Mock
-	private PasswordService passwordService;
-
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-		ShiroTestUtils.mockSubject(new ShiroUser("foo", "Foo"));
-	}
-
-	@After
-	public void tearDown() {
-		ShiroTestUtils.clearSubject();
-	}
-
-	@Test
-	public void saveUser() {
-		User admin = new User();
-		admin.setId(1L);
-
-		User user = new User();
-		user.setId(2L);
-		user.setPlainPassword("123");
-
-		// 正常保存用户.
-		userService.save(user);
-
-		// 保存超级管理用户抛出异常.
-		try {
-			userService.save(admin);
-			failBecauseExceptionWasNotThrown(BaseException.class);
-		} catch (BaseException e) {
-			// expected exception
-		}
-		Mockito.verify(mockUserDao, Mockito.never()).delete(1L);
-	}
+    
+    @InjectMocks
+    private UserService userService;
+    
+    @Mock
+    private UserDao mockUserDao;
+    
+    @Mock
+    private BusinessLogger businessLogger;
+    
+    @Mock
+    private PasswordService passwordService;
+    
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        ShiroTestUtils.mockSubject(new ShiroUser(3l, "foo", "Foo"));
+    }
+    
+    @After
+    public void tearDown() {
+        ShiroTestUtils.clearSubject();
+    }
+    
+    @Test
+    public void saveUser() {
+        User admin = new User();
+        admin.setId(1L);
+        
+        User user = new User();
+        user.setId(2L);
+        user.setPlainPassword("123");
+        
+        // 正常保存用户.
+        userService.save(user);
+        
+        // 保存超级管理用户抛出异常.
+        try {
+            userService.save(admin);
+            failBecauseExceptionWasNotThrown(BaseException.class);
+        } catch (BaseException e) {
+            // expected exception
+        }
+        Mockito.verify(mockUserDao, Mockito.never()).delete(1L);
+    }
 }

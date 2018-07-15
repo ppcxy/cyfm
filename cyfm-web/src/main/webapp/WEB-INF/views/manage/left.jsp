@@ -6,7 +6,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- ================================= Css 区域 ========================================== -->
     <%@include file="/WEB-INF/views/common/import-css.jspf" %>
-    <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        body>div{
+            width: 187px;
+        }
+    </style>
     <!-- ================================= JS 区域 ========================================== -->
     <title>左侧菜树</title>
     <%@include file="/WEB-INF/views/common/import-js.jspf" %>
@@ -18,9 +28,12 @@
                 //parent.$cy.waiting();
                 $(".menuson li.active").removeClass("active");
                 $(this).addClass("active");
+
+                $cy.place.clean()
             });
 
             $('.title').click(function () {
+                $(this).addClass("open").siblings().remove("open")
                 var $ul = $(this).next('ul');
                 $('dd').find('ul').slideUp();
                 if ($ul.is(':visible')) {
@@ -33,8 +46,13 @@
     </script>
 </head>
 <body style="background:#f0f9fd;">
-
-<div class="lefttop"><span></span>系统设置</div>
+<div class="left-container">
+<div class="lefttop">
+    <span class="${root.icon} icon-large"></span> ${root.name}
+    <div class="left-reorder" style="cursor: pointer;float:right;padding-right: 10px;margin-top: 15px;">
+        <i class="fa fa-reorder icon-large"></i>
+    </div>
+</div>
 
 <dl class="leftmenu">
     <c:forEach items="${menus}" var="m">
@@ -66,5 +84,6 @@
         </ul>
     </dd>
 </dl>
+</div>
 </body>
 </html>

@@ -30,6 +30,18 @@ public class DateEditor extends PropertyEditorSupport {
     }
 
     /**
+     * Format the Date as String, using the specified DateFormat.
+     */
+    @Override
+    public String getAsText() {
+        Date value = (Date) getValue();
+        DateFormat dateFormat = this.dateFormat;
+        if(dateFormat == null)
+            dateFormat = TIMEFORMAT;
+        return (value != null ? dateFormat.format(value) : "");
+    }
+
+    /**
      * Parse the Date from the given text, using the specified DateFormat.
      */
     @Override
@@ -56,17 +68,5 @@ public class DateEditor extends PropertyEditorSupport {
                 throw new IllegalArgumentException("Could not parse date: " + ex.getMessage(), ex);
             }
         }
-    }
-
-    /**
-     * Format the Date as String, using the specified DateFormat.
-     */
-    @Override
-    public String getAsText() {
-        Date value = (Date) getValue();
-        DateFormat dateFormat = this.dateFormat;
-        if(dateFormat == null)
-            dateFormat = TIMEFORMAT;
-        return (value != null ? dateFormat.format(value) : "");
     }
 }

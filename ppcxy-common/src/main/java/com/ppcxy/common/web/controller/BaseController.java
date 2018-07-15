@@ -15,23 +15,23 @@ import java.io.Serializable;
  * 基础控制器
  */
 public abstract class BaseController<T extends AbstractEntity, ID extends Serializable> {
-
+    
     /**
      * 实体类型
      */
     private final Class<T> entityClass;
-
+    
     private String viewPrefix;
-
+    
     private String modelName;
-
+    
     protected BaseController() {
-
+        
         this.entityClass = Reflections.getClassGenricType(getClass());
         setViewPrefix(defaultViewPrefix());
     }
-
-
+    
+    
     /**
      * 模块名称：如user
      * 则使用页面为 user_list.jsp user_form.jsp
@@ -39,7 +39,15 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
     protected void setModelName(String modelName) {
         this.modelName = modelName;
     }
-
+    
+    /**
+     * 模块名称：如user
+     * 则使用页面为 user_list.jsp user_form.jsp
+     */
+    protected String getModelName() {
+        return this.modelName;
+    }
+    
     /**
      * 设置通用数据
      *
@@ -49,8 +57,11 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         model.addAttribute("viewPrefix", viewPrefix);
         model.addAttribute("modelName", modelName);
     }
-
-
+    
+    private String getViewPrefix() {
+        return viewPrefix;
+    }
+    
     /**
      * 当前模块 视图的前缀
      * 默认
@@ -63,11 +74,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         }
         this.viewPrefix = viewPrefix;
     }
-
-    private String getViewPrefix() {
-        return viewPrefix;
-    }
-
+    
     protected T newEntity() {
         try {
             return entityClass.newInstance();
@@ -75,7 +82,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
             throw new IllegalStateException("can not instantiated model : " + this.entityClass, e);
         }
     }
-
+    
     /**
      * 获取视图名称：即prefixViewName + "/" + suffixName
      *
@@ -90,7 +97,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         }
         return getViewPrefix() + suffixName;
     }
-
+    
     /**
      * 共享的验证规则
      * 验证失败返回true
@@ -103,7 +110,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         Assert.notNull(entity);
         return result.hasErrors();
     }
-
+    
     /**
      * @param backURL null 将重定向到默认getViewPrefix()
      * @return
@@ -117,18 +124,18 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         }
         return "redirect:" + backURL;
     }
-
+    
     private String defaultViewPrefix() {
         String currentViewPrefix = "";
         RequestMapping requestMapping = AnnotationUtils.findAnnotation(getClass(), RequestMapping.class);
         if (requestMapping != null && requestMapping.value().length > 0) {
             currentViewPrefix = requestMapping.value()[0];
         }
-
+        
         if (StringUtils.isEmpty(currentViewPrefix)) {
             currentViewPrefix = this.entityClass.getSimpleName();
         }
-
+        
         return currentViewPrefix;
     }
 }

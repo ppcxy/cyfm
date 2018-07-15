@@ -27,6 +27,8 @@ public class StaticListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
 
     }
+    
+    
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -211,7 +213,7 @@ public class StaticListener implements ServletContextListener {
             return false;
         }
         if (this.jdbcTemplate == null) {
-            this.jdbcTemplate = SpringContextHolder.getBean(JdbcTemplate.class);
+            this.jdbcTemplate = SpringContextHolder.getBean("jdbcTemplate");
         }
 
         Connection connection = null;

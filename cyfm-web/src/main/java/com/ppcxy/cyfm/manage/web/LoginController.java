@@ -21,21 +21,21 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class LoginController {
-
+    
     @Resource
     private UserOnlineService userOnlineService;
-
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
-
+    
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String fail(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String userName, Model model) {
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, userName);
         return "login";
     }
-
+    
     @RequestMapping(value = "/exitSystem", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         userOnlineService.offline(session.getId());

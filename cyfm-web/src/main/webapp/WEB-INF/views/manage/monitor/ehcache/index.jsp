@@ -6,7 +6,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <html>
 <head>
-    <title></title>
+    <title>Ehcache监控</title>
 </head>
 <body>
 <div data-table="table" class="tabbable-line">

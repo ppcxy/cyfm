@@ -480,7 +480,7 @@ $.zTree = {
 
         $("#moveTree").off("click").on("click", function () {
             var table = $("#" + tableId);
-            var checkbox = $.table.getFirstSelectedCheckbox(table);
+            var checkbox = $cy.table.getFirstSelectedCheckbox(table);
             if (!checkbox.length) {
                 return;
             }
@@ -489,22 +489,22 @@ $.zTree = {
                 $cy.warn("根节点不能移动！");
                 return;
             }
-            window.location.href = moveTreeUrl.replace("{id}", checkbox.val()) + "&BackURL=" + $.table.encodeTableURL(table);
+            window.location.href = moveTreeUrl.replace("{id}", checkbox.val()) + "&BackURL=" + $cy.table.encodeTableURL(table);
             return false;
         });
 
         $("#updateTree").off("click").on("click", function () {
             var table = $("#" + tableId);
-            var checkbox = $.table.getFirstSelectedCheckbox(table);
+            var checkbox = $cy.table.getFirstSelectedCheckbox(table);
             if (!checkbox.length) {
                 return;
             }
-            window.location.href = updateUrl.replace("{id}", checkbox.val()) + "?BackURL=" + $.table.encodeTableURL(table);
+            window.location.href = updateUrl.replace("{id}", checkbox.val()) + "?BackURL=" + $cy.table.encodeTableURL(table);
         });
 
         $("#deleteTree").off("click").on("click", function () {
             var table = $("#" + tableId);
-            var checkbox = $.table.getAllSelectedCheckbox(table);
+            var checkbox = $cy.table.getAllSelectedCheckbox(table);
             if (!checkbox.length) {
                 return;
             }
@@ -517,7 +517,7 @@ $.zTree = {
                 width: 500,
                 message: "确认删除吗？",
                 ok: function () {
-                    window.location.href = deleteUrl + "?" + checkbox.serialize() + "&BackURL=" + $.table.encodeTableURL(table);
+                    window.location.href = deleteUrl + "?" + checkbox.serialize() + "&BackURL=" + $cy.table.encodeTableURL(table);
                 }
             });
             return false;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -37,16 +37,16 @@
 
 
         <!-- 工作流引擎开始 -->
-        <dependency>
-            <groupId>org.flowable</groupId>
-            <artifactId>flowable-engine</artifactId>
-            <version>6.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.flowable</groupId>
-            <artifactId>flowable-spring</artifactId>
-            <version>6.2.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.flowable</groupId>-->
+            <!--<artifactId>flowable-engine</artifactId>-->
+            <!--<version>6.2.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.flowable</groupId>-->
+            <!--<artifactId>flowable-spring</artifactId>-->
+            <!--<version>6.2.1</version>-->
+        <!--</dependency>-->
         <!-- 工作流引擎结束-->
 
         <!-- 工作流设计器 -->
@@ -132,6 +132,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <!-- jdbc driver -->
@@ -141,6 +142,21 @@
             <version>${jdbc.driver.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- 中央仓库没有 -->
+        <!--
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2.0</version>
+        </dependency>
+        -->
         <!-- PERSISTENCE end -->
 
         <!-- WEB begin -->
@@ -367,6 +383,17 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
@@ -441,21 +468,24 @@
             <scope>compile</scope>
         </dependency>
 
-       <!-- <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <classifier>tests</classifier>
-            &lt;!&ndash; for xxxDemo class &ndash;&gt;
-            <scope>compile</scope>
-        </dependency>
-
+        <!-- 直接打包旧版本springside源码到本项目中 -->
+        <!--
         <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-extension</artifactId>
-            <classifier>tests</classifier>
-            &lt;!&ndash; for xxxDemo class &ndash;&gt;
-            <scope>compile</scope>
-        </dependency>-->
+             <groupId>org.springside</groupId>
+             <artifactId>springside-core</artifactId>
+             <classifier>tests</classifier>
+             &lt;!&ndash; for xxxDemo class &ndash;&gt;
+             <scope>compile</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-extension</artifactId>
+             <classifier>tests</classifier>
+             &lt;!&ndash; for xxxDemo class &ndash;&gt;
+             <scope>compile</scope>
+         </dependency>
+         -->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -524,22 +554,22 @@
         <plugins>
             <!-- 设定合并打war包策略 -->
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-war-plugin</artifactId>-->
-                <!--<version>2.4</version>-->
-                <!--<configuration>-->
-                    <!--<overlays>-->
-                        <!--<overlay>-->
-                            <!--<groupId>com.ppcxy</groupId>-->
-                            <!--<artifactId>ppcxy-web-extra</artifactId>-->
-                            <!--<excludes>-->
-                                <!--<exclude>WEB-INF/lib/*</exclude>-->
-                                <!--<exclude>WEB-INF/web.xml</exclude>-->
-                            <!--</excludes>-->
-                        <!--</overlay>-->
-                    <!--</overlays>-->
-                    <!--<warName>${project.artifactId}</warName>-->
-                <!--</configuration>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-war-plugin</artifactId>-->
+            <!--<version>2.4</version>-->
+            <!--<configuration>-->
+            <!--<overlays>-->
+            <!--<overlay>-->
+            <!--<groupId>com.ppcxy</groupId>-->
+            <!--<artifactId>ppcxy-web-extra</artifactId>-->
+            <!--<excludes>-->
+            <!--<exclude>WEB-INF/lib/*</exclude>-->
+            <!--<exclude>WEB-INF/web.xml</exclude>-->
+            <!--</excludes>-->
+            <!--</overlay>-->
+            <!--</overlays>-->
+            <!--<warName>${project.artifactId}</warName>-->
+            <!--</configuration>-->
             <!--</plugin>-->
             <!-- 增加Source Resource 目录 -->
             <plugin>
@@ -548,16 +578,16 @@
                 <executions>
                     <!-- 增加orgher source的Source目录 -->
                     <!--<execution>-->
-                        <!--<id>add-extra-source</id>-->
-                        <!--<phase>generate-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>add-source</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<sources>-->
-                                <!--<source>other/main/extra</source>-->
-                            <!--</sources>-->
-                        <!--</configuration>-->
+                    <!--<id>add-extra-source</id>-->
+                    <!--<phase>generate-sources</phase>-->
+                    <!--<goals>-->
+                    <!--<goal>add-source</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<sources>-->
+                    <!--<source>other/main/extra</source>-->
+                    <!--</sources>-->
+                    <!--</configuration>-->
                     <!--</execution>-->
                     <!-- 增加functional test的Source目录 -->
                     <execution>
@@ -714,7 +744,7 @@
                     <plugin>
                         <groupId>org.scalatest</groupId>
                         <artifactId>scalatest-maven-plugin</artifactId>
-                        <version>1.0-RC2</version>
+                        <version>1.0-RC</version>
                         <configuration>
                             <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                             <junitxml>.</junitxml>

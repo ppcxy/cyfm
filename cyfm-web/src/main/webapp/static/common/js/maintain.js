@@ -34,7 +34,7 @@ $cy.maintain = {
             });
 
             $(".btn-batch-version").click(function () {
-                var checkboxes = $cy.table.getAllSelectedCheckbox($("#table"));
+                var checkboxes = $cy.table.getAllSelectedCheckbox($("#contentTable"));
                 if (!checkboxes.length) {
                     return;
                 }
@@ -80,7 +80,7 @@ $cy.maintain = {
 
 
             $(".btn-clear-version").click(function () {
-                var checkboxes = $cy.table.getAllSelectedCheckbox($("#table"));
+                var checkboxes = $cy.table.getAllSelectedCheckbox($("#contentTable"));
                 if (!checkboxes.length) {
                     return;
                 }
@@ -145,7 +145,7 @@ $cy.maintain = {
 
 
             $(".btn-batch-compress").click(function () {
-                var checkboxes = $cy.table.getAllSelectedCheckbox($("#table"));
+                var checkboxes = $cy.table.getAllSelectedCheckbox($("#contentTable"));
                 if (!checkboxes.length) {
                     return;
                 }
@@ -215,7 +215,7 @@ $cy.maintain = {
 
             $(".btn-batch-switch").click(function () {
                 var btn = $(this);
-                var checkboxes = $cy.table.getAllSelectedCheckbox($("#table"));
+                var checkboxes = $cy.table.getAllSelectedCheckbox($("#contentTable"));
                 if (!checkboxes.length) {
                     return;
                 }

@@ -77,58 +77,67 @@ div.sort-title, div.sort {
     display: inline;
 }
 
-
-.table-pagination{
-    padding-top:5px;
+.table-pagination {
+    padding-top: 5px;
     border-top: 1px solid #ddd;
 }
-.toggle-search{
+
+.toggle-search {
     display: none;
 }
-.searchTools{
+
+.searchTools {
     display: block;
 }
+
 @media ( max-width: 768px) {
-    .toggle-search{
+    .toggle-search {
         display: block;
     }
-    .searchTools{
+
+    .searchTools {
         display: none;
     }
-    /*.table-scrollable > .table-bordered > thead > tr:last-child > th, .table-scrollable > .table-bordered > tbody > tr:last-child > th, .table-scrollable > .table-bordered > tfoot > tr:last-child > th, .table-scrollable > .table-bordered > thead > tr:last-child > td, .table-scrollable > .table-bordered > tbody > tr:last-child > td, .table-scrollable > .table-bordered > tfoot > tr:last-child > td {*/
-        /*border: 1px solid #ddd;*/
-    /*}*/
 
-    /*table.table-bordered tbody th, .flip-scroll table.table-bordered tbody td {*/
-        /*border-left-width: 0;*/
-        /*border-bottom-width: 1px;*/
+    /*.table-scrollable > .table-bordered > thead > tr:last-child > th, .table-scrollable > .table-bordered > tbody > tr:last-child > th, .table-scrollable > .table-bordered > tfoot > tr:last-child > th, .table-scrollable > .table-bordered > thead > tr:last-child > td, .table-scrollable > .table-bordered > tbody > tr:last-child > td, .table-scrollable > .table-bordered > tfoot > tr:last-child > td {*/
+    /*border: 1px solid #ddd;*/
     /*}*/
-    table th{
+    /*table.table-bordered tbody th, .flip-scroll table.table-bordered tbody td {*/
+    /*border-left-width: 0;*/
+    /*border-bottom-width: 1px;*/
+    /*}*/
+    table th {
         padding-bottom: 4px;
         min-width: 100px;
         text-align: center;
     }
-    .datepicker-days table th{
+
+    .datepicker-days table th {
         min-width: 0;
     }
-    th.check,td.check{
+
+    th.check, td.check {
         width: auto;
     }
-    .table-pagination{
-        border-top:0;
+
+    .table-pagination {
+        border-top: 0;
     }
-    table tr:last-child td{
+
+    table tr:last-child td {
         border-bottom: 1px solid #ddd !important;
     }
 }
 
-a.check{
-    color:#000;
+a.check {
+    color: #000;
 }
-th.check,td.check{
+
+th.check, td.check {
     width: 50px;
     text-align: center;
 }
+
 .check input {
     margin-top: auto;
 
@@ -151,19 +160,19 @@ th.check,td.check{
     background: #000 url("../img/loading5.gif") no-repeat 50% center;
 }
 
-table.table-condensed span{
+table.table-condensed span {
     padding-right: 5px;
 }
 
-table.table-condensed .switch{
+table.table-condensed .switch {
     text-align: center;
 }
 
-body{
+body {
     font-size: 13px;
 }
 
-.portlet{
+.portlet {
     margin-bottom: 10px;
 }
 
@@ -175,15 +184,13 @@ body{
     background-color: #A6ABE6 !important;
 }
 
-
-.table-toolbar{
+.table-toolbar {
     padding: 5px 0;
 }
 
 .laydate_box, .laydate_box * {
-    box-sizing:content-box;
+    box-sizing: content-box;
 }
-
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
@@ -204,6 +211,7 @@ body{
     background: rgba(230, 226, 212, 0.8);
     /*-webkit-box-shadow: #2b3643;*/
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(255, 255, 255, 0.4);
 }

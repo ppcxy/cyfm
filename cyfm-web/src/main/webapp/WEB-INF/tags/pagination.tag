@@ -19,11 +19,11 @@
     </div>
     <ul class="paginList">
         <% if (page.hasPreviousPage()) {%>
-        <li class="paginItem"><a href="?page.pn=${current-1}"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="?page.pn=${current-1}"><i class="fa fa-angle-left"></i></a></li>
         <%--<li><a href="?page=1&sortType=${sortType}&${searchParams}">&lt;&lt;</a></li>--%>
         <%--<li><a href="?page=${current-1}&sortType=${sortType}&${searchParams}">&lt;</a></li>--%>
         <%} else {%>
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="javascript:;" class="disabled"><i class="fa fa-angle-left"></i></a></li>
         <%} %>
 
         <c:forEach var="i" begin="${begin}" end="${end}">
@@ -40,19 +40,19 @@
         </c:forEach>
 
         <% if (page.hasNextPage()) {%>
-        <li class="paginItem"><a href="?page.pn=${current+1}"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="?page.pn=${current+1}"><i class="fa fa-angle-right"></i></a></li>
         <%--<li><a href="?page=${current+1}&sortType=${sortType}&${searchParams}">&gt;</a></li>--%>
         <%--<li><a href="?page=${page.totalPages}&sortType=${sortType}&${searchParams}">&gt;&gt;</a></li>--%>
         <%} else {%>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        <li class="paginItem"><a href="javascript:;" class="disabled"><i class="fa fa-angle-right"></i></a></li>
         <%} %>
 
     </ul>
 </div>
 <div class="clearfix"></div>
 <script type="text/javascript">
-$("div.pagin a").click(function(){
-    $(this).attr("href",$(this).attr("href")+"&"+$('form.form-search').serialize())
+$("div.pagin a:not(.disabled)").click(function(){
+    $(this).attr("href",$(this).attr("href")+"&"+$('form.form-search').serialize()+"&"+$cy.urlTools.findSortParam(currentUrl))
 });
 </script>
 

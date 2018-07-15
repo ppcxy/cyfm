@@ -190,7 +190,7 @@ public class Resource extends IdEntity implements Treeable<Long> {
      */
     @Transient
     public String getLeafDefaultIcon() {
-        return "ztree_file";
+        return "fa fa-folder-open";
     }
 
     @Transient

@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>team 编辑页面</title>
+  <title>团队详情</title>
 </head>
 <body>
 
@@ -22,12 +22,12 @@
             <div class="form-group">
                 <label for="master" class="control-label">管理人员:</label>
                 <div class="controls">
-                    <input type="text" id="master" name="master" value="${entity.master.name}" class="form-control required"/>
+                    <input type="text" id="masterInfo" value="${entity.master.showName}" class="form-control required" readonly/>
+                    <input type="hidden" id="master" name="master" value="${entity.master.id}"/>
                 </div>
             </div>
             <div class="form-actions">
                 <input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
-                <input id="cancel_btn" class="btn" type="button" value="返回" onclick="history.back()"/>
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>
             </form:form>
@@ -36,6 +36,18 @@
 </div>
 <script>
     $cy.handleUniform();
+    $("#inputForm").validate({
+
+    });
+
+    $("#masterInfo").focus(function () {
+        $cy.tools.chooseUser({
+            callback: function (show, results) {
+                $("#masterInfo").val(show);
+                $("#master").val(results.data("id"));
+            }
+        })
+    });
 </script>
 </body>
 </html>

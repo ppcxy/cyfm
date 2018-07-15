@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/common/import-zTree-css.jspf"%>
-    <title>role 编辑页面</title>
+    <title>角色详情</title>
 </head>
 <body>
 <div class="portlet box editBox">
@@ -100,7 +100,7 @@
                             <div class="input-group-addon" >
 
                                 <a id="selectResourceTree" href="javascript:;">
-                                    <span class="add-on"><i class="icon-chevron-down"></i></span>
+                                    <span class="add-on"><i class="fa fa-chevron-down"></i></span>
                                 </a>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                         <div id="appendResourcePermissionBtn" class="col-xs-2">
                             <br><br>
                             <a class="btn btn-warning btn-add-resource-permission">
-                                <i class="icon-file-alt"></i>
+                                <i class="fa fa-file-o"></i>
                                 添加
                             </a>
                         </div>
@@ -132,7 +132,6 @@
 
             <div class="form-actions">
                 <input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
-                <input id="cancel_btn" class="btn" type="button" value="返回" onclick="history.back()"/>
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>
             </form:form>

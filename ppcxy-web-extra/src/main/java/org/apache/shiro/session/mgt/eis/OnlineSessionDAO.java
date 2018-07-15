@@ -26,24 +26,22 @@ public class OnlineSessionDAO extends EnterpriseCacheSessionDAO {
             OnlineSessionDAO.class.getName() + "LAST_SYNC_DB_TIMESTAMP";
 
     private UserOnlineService userOnlineService;
+    @Autowired
+    private OnlineSessionFactory onlineSessionFactory;
+    /**
+     * 同步session到数据库的周期 单位为毫秒（默认5分钟）
+     */
+    private long dbSyncPeriod = 5 * 60 * 1000;
     
     public void setUserOnlineService(UserOnlineService userOnlineService) {
         this.userOnlineService = userOnlineService;
     }
-    
+
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         ApplicationContext context = event.getApplicationContext();
         this.setUserOnlineService(context.getBean(UserOnlineService.class));
     }
-    
-    @Autowired
-    private OnlineSessionFactory onlineSessionFactory;
-
-    /**
-     * 同步session到数据库的周期 单位为毫秒（默认5分钟）
-     */
-    private long dbSyncPeriod = 5 * 60 * 1000;
 
     public void setDbSyncPeriod(long dbSyncPeriod) {
         this.dbSyncPeriod = dbSyncPeriod;

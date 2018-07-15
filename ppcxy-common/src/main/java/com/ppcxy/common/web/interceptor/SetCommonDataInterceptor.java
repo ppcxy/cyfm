@@ -19,14 +19,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
 
-    private final PathMatcher pathMatcher = new AntPathMatcher();
-
     private static final String[] DEFAULT_EXCLUDE_PARAMETER_PATTERN = new String[]{
             "\\&\\w*page.pn=\\d+",
             "\\?\\w*page.pn=\\d+",
             "\\&\\w*page.size=\\d+"
     };
-
+    private final PathMatcher pathMatcher = new AntPathMatcher();
     private String[] excludeParameterPatterns = DEFAULT_EXCLUDE_PARAMETER_PATTERN;
     private String[] excludeUrlPatterns = null;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
     <description>导入的applicationContext文件列表</description>
@@ -10,7 +10,7 @@
     <!-- optional -->
     <import resource="cache/applicationContext-ehcache.xml"/>
     <import resource="email/applicationContext-email.xml"/>
-    <import resource="jmx/applicationContext-jmx.xml"/>
+    <!--<import resource="jmx/applicationContext-jmx.xml"/>-->
     <!--<import resource="schedule/applicationContext-jdk-timer.xml" />-->
     <import resource="schedule/applicationContext-spring-scheduler.xml"/>
     <!-- 暂时不集成工作流 -->

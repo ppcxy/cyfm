@@ -2,6 +2,8 @@ package com.ppcxy.cyfm.sys.service.authorize;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.ppcxy.common.extra.aop.ResourceMenuCacheAspect;
+import com.ppcxy.common.extra.aop.UserCacheAspect;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.cyfm.sys.entity.authorize.Authorize;
 import com.ppcxy.cyfm.sys.entity.permission.Permission;
@@ -15,12 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import org.springside.modules.utils.Collections3;
 
 import javax.transaction.Transactional;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TODO WEEP 关于授权查询的缓存优化，存储结构优化
@@ -30,13 +30,16 @@ import java.util.Set;
 @Transactional
 public class AuthorizeService extends BaseService<Authorize, Long> {
     
+    private static final Map<Long, String> perms = Maps.newHashMap();
+    private static final Map<Long, Set<String>> cacheUserPermissions = Maps.newConcurrentMap();
     @Autowired
     private ResourceService resourceService;
     @Autowired
     private PermissionService permissionService;
-    
-    private static final Map<Long, String> perms = Maps.newHashMap();
-    private static final Map<String, Set<String>> cacheUserPermissions = Maps.newConcurrentMap();
+    @Autowired
+    private ResourceMenuCacheAspect resourceMenuCacheAspect;
+    @Autowired
+    private UserCacheAspect userCacheAspect;
     
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
@@ -46,8 +49,8 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
     public Set<String> findStringPermissions(User user) {
         Set<String> resultPermissions = Sets.newHashSet();
         
-        if (cacheUserPermissions.containsKey(user.getUsername())) {
-            return cacheUserPermissions.get(user.getUsername());
+        if (cacheUserPermissions.containsKey(user.getId())) {
+            return cacheUserPermissions.get(user.getId());
         }
         
         for (Role role : user.getRoleList()) {
@@ -58,7 +61,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
             while (iterator.hasNext()) {
                 RoleResourcePermission next = iterator.next();
                 Resource resource = resourceService.findOne(next.getResourceId());
-    
+                
                 Iterator<Long> permidsIterator = next.getPermissionIds().iterator();
                 while (permidsIterator.hasNext()) {
                     String permString = perms.get(permidsIterator.next());
@@ -67,7 +70,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
             }
         }
         
-        cacheUserPermissions.put(user.getUsername(), resultPermissions);
+        cacheUserPermissions.put(user.getId(), resultPermissions);
         
         return resultPermissions;
     }
@@ -86,10 +89,11 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
     /**
      * 在修改用户授权相关的时候清理缓存
      *
-     * @param username
+     * @param userId
      */
-    public void refresh(String username) {
-        cacheUserPermissions.remove(username);
+    public void refresh(Long userId) {
+        cacheUserPermissions.remove(userId);
+        resourceMenuCacheAspect.evict(userId);
     }
     
     
@@ -98,6 +102,17 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
      */
     public void refreshAll() {
         cacheUserPermissions.clear();
+        resourceMenuCacheAspect.clear();
+        userCacheAspect.clear();
     }
     
+    /**
+     * 通过用户获取该用户加油的角色标识集合
+     *
+     * @param user
+     * @return
+     */
+    public Set<String> findRoles(User user) {
+        return new HashSet<>(Collections3.extractToList(user.getRoleList(), "value"));
+    }
 }

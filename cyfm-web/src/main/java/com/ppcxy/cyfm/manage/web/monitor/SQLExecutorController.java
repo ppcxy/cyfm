@@ -41,34 +41,34 @@ import java.util.List;
 @RequestMapping("/manage/monitor/db")
 @RequiresPermissions("monitor:ql:*")
 public class SQLExecutorController extends BaseController {
-
+    
     @PersistenceContext
     private EntityManager em;
-
+    
     @Autowired
     private PlatformTransactionManager transactionManager;
-
-
+    
+    
     @RequestMapping(value = "/sql", method = RequestMethod.GET)
     public String showSQLForm() {
         return viewName("sql_form");
     }
-
-
+    
+    
     @PageableDefaults(pageNumber = 0, value = 10)
     @RequestMapping(value = "/sql", method = RequestMethod.POST)
     public String executeQL(
             final @RequestParam("sql") String sql, final Model model,
             final Pageable pageable
     ) {
-
+        
         model.addAttribute("sessionFactory", HibernateUtils.getSessionFactory(em));
-
+        
         String lowerCaseSQL = sql.trim().toLowerCase();
         final boolean isDML = lowerCaseSQL.startsWith("insert") || lowerCaseSQL.startsWith("update") || lowerCaseSQL.startsWith("delete");
         final boolean isDQL = lowerCaseSQL.startsWith("select");
-
-        if(!isDML && !isDQL) {
+        
+        if (!isDML && !isDQL) {
             model.addAttribute(Constants.ERROR, "您执行的SQL不允许，只允许insert、update、delete、select");
             return showSQLForm();
         }
@@ -76,7 +76,7 @@ public class SQLExecutorController extends BaseController {
             new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
                 @Override
                 public Void doInTransaction(TransactionStatus status) {
-
+                    
                     if (isDML) {
                         Query query = em.createNativeQuery(sql);
                         int updateCount = query.executeUpdate();
@@ -88,22 +88,22 @@ public class SQLExecutorController extends BaseController {
                         Query findQuery = em.createNativeQuery(findSQL);
                         findQuery.setFirstResult(pageable.getOffset());
                         findQuery.setMaxResults(pageable.getPageSize());
-
+                        
                         Page page = new PageImpl(
                                 findQuery.getResultList(),
                                 pageable,
                                 ((Number) countQuery.getSingleResult()).longValue());
-
+                        
                         model.addAttribute("resultPage", page);
-
+                        
                         em.unwrap(Session.class).doWork(new Work() {
                             @Override
                             public void execute(final Connection connection) throws SQLException {
                                 PreparedStatement psst = connection.prepareStatement(sql);
                                 ResultSetMetaData metaData = psst.getMetaData();
-
+                                
                                 List<String> columnNames = Lists.newArrayList();
-                                for(int i = 1, l = metaData.getColumnCount(); i <= l; i++) {
+                                for (int i = 1, l = metaData.getColumnCount(); i <= l; i++) {
                                     columnNames.add(metaData.getColumnLabel(i));
                                 }
                                 psst.close();
@@ -111,7 +111,7 @@ public class SQLExecutorController extends BaseController {
                             }
                         });
                     }
-
+                    
                     return null;
                 }
             });
@@ -120,11 +120,9 @@ public class SQLExecutorController extends BaseController {
             e.printStackTrace(new PrintWriter(sw));
             model.addAttribute(Constants.ERROR, sw.toString());
         }
-
+        
         return showSQLForm();
     }
-
-
-
-
+    
+    
 }

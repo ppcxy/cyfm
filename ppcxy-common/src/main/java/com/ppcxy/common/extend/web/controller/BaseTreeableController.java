@@ -6,8 +6,8 @@ import com.ppcxy.common.entity.AbstractEntity;
 import com.ppcxy.common.entity.enums.BooleanEnum;
 import com.ppcxy.common.entity.search.SearchOperator;
 import com.ppcxy.common.entity.search.Searchable;
-import com.ppcxy.common.extend.entity.Treeable;
 import com.ppcxy.common.extend.dto.ZTree;
+import com.ppcxy.common.extend.entity.Treeable;
 import com.ppcxy.common.extend.service.BaseTreeableService;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
 import com.ppcxy.common.web.controller.BaseController;
@@ -51,6 +51,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
 
     @Override
     protected void preResponse(Model model) {
+        super.preResponse(model);
         model.addAttribute("booleanList", BooleanEnum.values());
     }
 

@@ -54,13 +54,13 @@
             i = function (s) {
                 return naturalSort.insensitive && ('' + s).toLowerCase() || '' + s;
             },
-        // convert all to strings strip whitespace
+            // convert all to strings strip whitespace
             x = i(a).replace(sre, '') || '',
             y = i(b).replace(sre, '') || '',
-        // chunk/tokenize
+            // chunk/tokenize
             xN = x.replace(re, '\0$1\0').replace(/\0$/, '').replace(/^\0/, '').split('\0'),
             yN = y.replace(re, '\0$1\0').replace(/\0$/, '').replace(/^\0/, '').split('\0'),
-        // numeric, hex or date detection
+            // numeric, hex or date detection
             xD = parseInt(x.match(hre)) || (xN.length != 1 && x.match(dre) && Date.parse(x)),
             yD = parseInt(y.match(hre)) || xD && y.match(dre) && Date.parse(y) || null,
             oFxNcL, oFyNcL;
@@ -174,7 +174,7 @@
         }
 
         var state = loadState(key),
-        //TODO 增加了id之外的标识设定规则
+            //TODO 增加了id之外的标识设定规则
             id = globalOptions.cidAttrName + "-" + table.getAttribute(globalOptions.cidAttrName),
             element = {"id": id},
             index = findIndex(state, id);
@@ -212,7 +212,7 @@
         }
 
         var state = loadState(key),
-        //TODO 增加了id之外的标识设定规则
+            //TODO 增加了id之外的标识设定规则
             id = globalOptions.cidAttrName + "-" + table.getAttribute(globalOptions.cidAttrName),
             index = findIndex(state, id);
 
@@ -492,6 +492,7 @@
         function tridentDetection() {
             return (navigator.userAgent.indexOf("Trident") != -1) ? true : false;
         };
+
         function borderCollapseDetection(table) {
             return elementStyleProperty(table, 'border-collapse') == 'collapse' ? true : false;
         }
@@ -539,6 +540,9 @@
             if (this.options.restoreState) {
                 //TODO BUG 存储key发生了变换
                 this.pm = restoreState('table-drag-sort-resize', this.table, 'drag');
+                if (globalOptions.sort.restoreState) {
+                    restoreState('table-drag-sort-resize', this.table, 'sort');
+                }
             }
 
         };
@@ -561,11 +565,11 @@
                 backHeight = table.rows[0].offsetHeight,
                 zIndex = numericProperty(table.style.zIndex),
                 zIndex = zIndex ? zIndex + 1 : 1,
-            //TODO 找到的不是TH
+                //TODO 找到的不是TH
                 initialColumn = eventTarget(event).parentNode.parentNode.cellIndex,
                 width = elementStyleProperty(eventTarget(event).parentNode.parentNode, 'width'),
                 height = elementStyleProperty(eventTarget(event).parentNode.parentNode, 'height'),
-            //backgroundColor = elementStyleProperty(table, 'background-color');
+                //backgroundColor = elementStyleProperty(table, 'background-color');
                 backgroundColor = elementStyleProperty(eventTarget(event).parentNode.parentNode, 'background-color');
 
             if (initialColumn == undefined) {
@@ -726,21 +730,26 @@
         DragSortHandler.prototype._mouseExecuteClick = function (event) {
             var index = 0,
                 cell = eventTarget(event).parentNode.parentNode;
-            for (var j = 0; j < this.nc; j++) {
-                var c = this.hr.cells[j];
-                if (c !== cell) {
-                    if (hasClass(c, 'sort-up') || hasClass(c, 'sort-down')) {
-                        c.className = c.className.replace(' sort-down', '')
-                            .replace(' sort-up', '');
+
+            this.cell = cell;
+
+            if (globalOptions.sort.callback != $.noop) {
+                globalOptions.sort.callback(cell, ((hasClass(cell, 'sort-down')) ? 'sort-up' : 'sort-down'), event)
+            } else {
+                for (var j = 0; j < this.nc; j++) {
+                    var c = this.hr.cells[j];
+                    if (c !== cell) {
+                        if (hasClass(c, 'sort-up') || hasClass(c, 'sort-down')) {
+                            c.className = c.className.replace(' sort-down', '')
+                                .replace(' sort-up', '');
+                        }
+                    } else {
+                        index = j;
                     }
-                } else {
-                    index = j;
                 }
             }
 
-            this.cell = cell;
-            //TODO 排序事件处理,增加服务器端排序处理
-            if (true) {
+            if (globalOptions.sort.localEnable) {
                 sort(cell, this.table);
 
                 if (this.options.restoreState)
@@ -749,6 +758,8 @@
                         order: ((hasClass(cell, 'sort-down')) ? 'sort-up' : 'sort-down')
                     });
             }
+
+
         };
         DragSortHandler.prototype._mouseStopDrag = function (event) {
             // remove overlay
@@ -909,13 +920,18 @@
             return;
         }
 
-        globalOptions = options = $.extend(options, {
+        globalOptions = options = $.extend({
             distance: 10,
             minWidth: 80,
             restoreState: true,
             fixed: true,
-            cidAttrName: "id"
-        });
+            cidAttrName: "id",
+            sort: {
+                restoreState: true,
+                callback: $.noop,
+                localEnable: true
+            }
+        }, options);
 
         //TODO 先初始话resize在初始化列顺序
         var dragSortHandler = new DragSortHandler(table, options);
@@ -925,11 +941,14 @@
         //for (var i = 0; i < ((options.fixed) ? (dragSortHandler.nc - 1) : dragSortHandler.nc); i++) {
         for (var i = 0; i < dragSortHandler.nc; i++) {
             var cell = dragSortHandler.hr.cells[i];
-
+            if (cell.className.indexOf("check") != -1 || cell.className.indexOf("action") != -1) continue;
             // check and set space for sort order image
             var paddingTop = numericProperty(elementStyleProperty(cell, 'padding-top'));
-            cell.style.paddingTop = (paddingTop > 6 ? paddingTop : 6) + 'px';
-            cell.className += ' sort-header';
+            cell.style.paddingTop = (paddingTop > 5 ? paddingTop : 5) + 'px';
+            if (cell.className.length != 0) {
+                cell.className += ' ';
+            }
+            cell.className += 'sort-header';
 
             // add default cursor
             cell.style.cursor = 'pointer';
@@ -938,6 +957,7 @@
                 dragSortHandler._mouseDown(event);
             });
 
+            // <i class="fa fa-arrow-circle-o-up"></i>
             cell.innerHTML = '<div class=\"resize-base\"><div class=\"resize-elem\"></div><div class=\"resize-text\">' + cell.innerHTML + '</div></div>';
 
             addEvent(cell.childNodes[0].childNodes[0], 'mousedown', function (event) {

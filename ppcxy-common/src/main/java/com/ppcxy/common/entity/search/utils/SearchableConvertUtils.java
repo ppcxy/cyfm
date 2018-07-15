@@ -25,21 +25,6 @@ public final class SearchableConvertUtils {
 
     private static volatile ConversionService conversionService;
 
-    /**
-     * 设置用于类型转换的conversionService
-     * 把如下代码放入spring配置文件即可
-     * <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-     * <property name="staticMethod"
-     * value="SearchableConvertUtils.setConversionService"/>
-     * <property name="arguments" ref="conversionService"/>
-     * </bean>
-     *
-     * @param conversionService
-     */
-    public static void setConversionService(ConversionService conversionService) {
-        SearchableConvertUtils.conversionService = conversionService;
-    }
-
     public static ConversionService getConversionService() {
         if (conversionService == null) {
             synchronized (SearchableConvertUtils.class) {
@@ -56,6 +41,21 @@ public final class SearchableConvertUtils {
             }
         }
         return conversionService;
+    }
+
+    /**
+     * 设置用于类型转换的conversionService
+     * 把如下代码放入spring配置文件即可
+     * <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+     * <property name="staticMethod"
+     * value="SearchableConvertUtils.setConversionService"/>
+     * <property name="arguments" ref="conversionService"/>
+     * </bean>
+     *
+     * @param conversionService
+     */
+    public static void setConversionService(ConversionService conversionService) {
+        SearchableConvertUtils.conversionService = conversionService;
     }
 
     /**

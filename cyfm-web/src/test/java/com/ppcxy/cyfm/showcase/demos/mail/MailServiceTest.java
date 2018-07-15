@@ -5,26 +5,24 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.mail;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.io.IOException;
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.GreenMailUtil;
+import com.ppcxy.cyfm.showcase.demos.utilities.email.MimeMailService;
+import com.ppcxy.cyfm.showcase.demos.utilities.email.SimpleMailService;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springside.modules.test.spring.SpringContextTestCase;
 
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
 
-import com.ppcxy.cyfm.showcase.demos.utilities.email.SimpleMailService;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import com.ppcxy.cyfm.showcase.demos.utilities.email.MimeMailService;
-import org.springside.modules.test.spring.SpringContextTestCase;
-
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.GreenMailUtil;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
 @ContextConfiguration(locations = { "/applicationContext.xml", "/email/applicationContext-email.xml" })

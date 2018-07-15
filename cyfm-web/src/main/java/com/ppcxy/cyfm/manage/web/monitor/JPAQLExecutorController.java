@@ -36,28 +36,28 @@ import java.util.regex.Pattern;
 @RequestMapping("/manage/monitor/db")
 @RequiresPermissions("monitor:ql:*")
 public class JPAQLExecutorController extends BaseController {
-
+    
     @PersistenceContext
     private EntityManager em;
-
+    
     @Autowired
     private PlatformTransactionManager transactionManager;
-
-
+    
+    
     @RequestMapping(value = "/ql", method = RequestMethod.GET)
     public String showQLForm() {
         return viewName("ql_form");
     }
-
+    
     @PageableDefaults(pageNumber = 0, value = 10)
     @RequestMapping(value = "/ql", method = RequestMethod.POST)
     public String executeQL(
             final @RequestParam("ql") String ql, final Model model,
             final Pageable pageable
     ) {
-
+        
         model.addAttribute("sessionFactory", HibernateUtils.getSessionFactory(em));
-
+        
         try {
             new TransactionTemplate(transactionManager).execute(new TransactionCallback<Void>() {
                 @Override
@@ -83,12 +83,12 @@ public class JPAQLExecutorController extends BaseController {
                     Query findQuery = em.createQuery(findQL);
                     findQuery.setFirstResult(pageable.getOffset());
                     findQuery.setMaxResults(pageable.getPageSize());
-
+                    
                     Page page = new PageImpl(
                             findQuery.getResultList(),
                             pageable,
                             (Long) countQuery.getSingleResult());
-
+                    
                     model.addAttribute("resultPage", page);
                     return null;
                 }
@@ -98,8 +98,8 @@ public class JPAQLExecutorController extends BaseController {
             e.printStackTrace(new PrintWriter(sw));
             model.addAttribute(Constants.ERROR, sw.toString());
         }
-
+        
         return showQLForm();
     }
-
+    
 }

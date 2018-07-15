@@ -36,13 +36,13 @@ public class ZTree<ID extends Serializable> implements Serializable {
         return pId;
     }
 
+    public void setpId(ID pId) {
+        this.pId = pId;
+    }
+
     @JsonProperty(value = "pId")
     public ID getPid() {
         return pId;
-    }
-
-    public void setpId(ID pId) {
-        this.pId = pId;
     }
 
     public boolean isParent() {

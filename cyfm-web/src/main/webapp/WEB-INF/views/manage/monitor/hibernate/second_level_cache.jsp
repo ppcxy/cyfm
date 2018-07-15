@@ -6,7 +6,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <html>
 <head>
-    <title></title>
+    <title>二级缓存统计</title>
 </head>
 <body>
 <div data-table="table" class="tabbable-line">

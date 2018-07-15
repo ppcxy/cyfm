@@ -1,11 +1,10 @@
-<%@ page session="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="false"%>
+<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <%@ page import="com.ppcxy.common.entity.search.exception.SearchException" %>
 <%@ page import="com.ppcxy.common.exception.BaseException" %>
 <%@ page import="com.ppcxy.common.utils.LogUtils" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
-<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -15,10 +14,9 @@
 <head>
     <!-- ================================= Css 区域 ========================================== -->
     <%@include file="/WEB-INF/views/common/import-css.jspf"%>
-    <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css" />
     <!-- ================================= JS 区域 ========================================== -->
     <%@include file="/WEB-INF/views/common/import-js.jspf"%>
-    <title></title>
+    <title>系统错误</title>
 </head>
 <body>
 <div class="tabbable-line">

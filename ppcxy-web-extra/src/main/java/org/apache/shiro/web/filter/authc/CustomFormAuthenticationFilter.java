@@ -25,12 +25,6 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Autowired
     UserService userService;
-
-    @Override
-    protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
-        request.setAttribute(getFailureKeyAttribute(), ae);
-    }
-
     /**
      * 默认的成功地址
      */
@@ -40,24 +34,29 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     private String adminDefaultSuccessUrl;
 
+    @Override
+    protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
+        request.setAttribute(getFailureKeyAttribute(), ae);
+    }
+
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    public void setDefaultSuccessUrl(String defaultSuccessUrl) {
-        this.defaultSuccessUrl = defaultSuccessUrl;
-    }
-
-    public void setAdminDefaultSuccessUrl(String adminDefaultSuccessUrl) {
-        this.adminDefaultSuccessUrl = adminDefaultSuccessUrl;
     }
 
     public String getDefaultSuccessUrl() {
         return defaultSuccessUrl;
     }
 
+    public void setDefaultSuccessUrl(String defaultSuccessUrl) {
+        this.defaultSuccessUrl = defaultSuccessUrl;
+    }
+
     public String getAdminDefaultSuccessUrl() {
         return adminDefaultSuccessUrl;
+    }
+
+    public void setAdminDefaultSuccessUrl(String adminDefaultSuccessUrl) {
+        this.adminDefaultSuccessUrl = adminDefaultSuccessUrl;
     }
 
     /**

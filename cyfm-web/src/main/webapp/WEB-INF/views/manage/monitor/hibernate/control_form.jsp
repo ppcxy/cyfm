@@ -3,7 +3,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <html>
 <head>
-    <title></title>
+    <title>缓存控制</title>
 </head>
 <body>
 <div data-table="table" class="tabbable-line">

@@ -22,50 +22,50 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/sys/user")
 public class UserController extends BaseCRUDController<User, Long> {
-
+    
     private static Map<String, String> allStatus = Maps.newHashMap();
-
+    
     static {
         allStatus.put("enabled", "有效");
         allStatus.put("disabled", "无效");
     }
-
+    
     @Autowired
     private UserService userService;
-
+    
     public UserController() {
         setResourceIdentity("sys:user");
         setModelName("user");
     }
-
+    
     @Override
     protected void preResponse(Model model) {
         super.preResponse(model);
         model.addAttribute("allStatus", allStatus);
         model.addAttribute("allRoles", userService.getAllRole());
     }
-
-
+    
+    
     // 特别设定多个ReuireRoles之间为Or关系，而不是默认的And.
     //@RequiresRoles(value = {"Admin", "User"}, logical = Logical.OR)
-
+    
     @Override
     @RequestMapping(value = "create/disabled", method = RequestMethod.POST)
     public String create(Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result, RedirectAttributes redirectAttributes) {
         return super.create(model, entity, result, redirectAttributes);
     }
-
+    
     @Override
     @RequestMapping(value = "update/disabled", method = RequestMethod.POST)
     public String update(
             Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-
+        
         //disabled
         return null;
     }
-
+    
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result, @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
         user.getRoleList().clear();
@@ -75,24 +75,24 @@ public class UserController extends BaseCRUDController<User, Long> {
         }
         return super.create(model, user, result, redirectAttributes);
     }
-
-
+    
+    
     /**
      * 演示自行绑定表单中的checkBox roleList到对象中.
      */
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result,
                          @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
-
+        
         user.getRoleList().clear();
         for (Long roleId : checkedRoleList) {
             Role role = new Role(roleId);
             user.getRoleList().add(role);
         }
-
+        
         return super.update(model, user, result, null, redirectAttributes);
     }
-
+    
     @RequestMapping(value = "checkUsername")
     @ResponseBody
     public String checkUsername(@RequestParam("oldUsername") String oldUsername,
@@ -102,10 +102,10 @@ public class UserController extends BaseCRUDController<User, Long> {
         } else if (userService.findByUsername(username) == null) {
             return "true";
         }
-
+        
         return "false";
     }
-
+    
     @RequestMapping(value = "checkEmail")
     @ResponseBody
     public String checkEmail(@RequestParam("oldEmail") String oldEmail,
@@ -115,10 +115,10 @@ public class UserController extends BaseCRUDController<User, Long> {
         } else if (userService.findByEmail(email) == null) {
             return "true";
         }
-
+        
         return "false";
     }
-
+    
     @RequestMapping(value = "checkTel")
     @ResponseBody
     public String checkTel(@RequestParam("oldTel") String oldTel,
@@ -128,10 +128,10 @@ public class UserController extends BaseCRUDController<User, Long> {
         } else if (userService.findByTel(tel) == null) {
             return "true";
         }
-
+        
         return "false";
     }
-
+    
     /**
      * 不自动绑定对象中的roleList属性，另行处理。
      */

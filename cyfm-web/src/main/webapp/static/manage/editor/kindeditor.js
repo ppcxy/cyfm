@@ -1,75 +1,75 @@
 /*******************************************************************************
-* KindEditor - WYSIWYG HTML Editor for Internet
-*
-* @author Roddy <luolonghao@gmail.com>
-* @site http://www.kindsoft.net/
-* @licence LGPL(http://www.opensource.org/licenses/lgpl-license.php)
-* @version 3.2.1
-*******************************************************************************/
+ * KindEditor - WYSIWYG HTML Editor for Internet
+ *
+ * @author Roddy <luolonghao@gmail.com>
+ * @site http://www.kindsoft.net/
+ * @licence LGPL(http://www.opensource.org/licenses/lgpl-license.php)
+ * @version 3.2.1
+ *******************************************************************************/
 
 var KE = {};
 
 KE.version = '3.2.1';
 
 KE.lang = {
-    source : '切换模式',
-    preview : '预览',
-    undo : '后退(Ctrl+Z)',
-    redo : '前进(Ctrl+Y)',
-    cut : '剪切(Ctrl+X)',
-    copy : '复制(Ctrl+C)',
-    paste : '粘贴(Ctrl+V)',
-    plainpaste : '粘贴为无格式文本',
-    wordpaste : '从Word粘贴',
-    selectall : '全选',
-    justifyleft : '左对齐',
-    justifycenter : '居中',
-    justifyright : '右对齐',
-    justifyfull : '两端对齐',
-    insertorderedlist : '编号',
-    insertunorderedlist : '项目符号',
-    indent : '增加缩进',
-    outdent : '减少缩进',
-    subscript : '下标',
-    superscript : '上标',
-    date : '插入当前日期',
-    time : '插入当前时间',
-    title : '标题',
-    fontname : '字体',
-    fontsize : '文字大小',
-    textcolor : '文字颜色',
-    bgcolor : '文字背景',
-    bold : '粗体',
-    italic : '斜体',
-    underline : '下划线',
-    strikethrough : '删除线',
-    removeformat : '删除格式',
-    image : '插入图片',
-    flash : '插入Flash',
-    media : '插入多媒体',
-    layer : '插入层',
-    table : '插入表格',
-    specialchar : '插入特殊字符',
-    hr : '插入横线',
-    emoticons : '插入笑脸',
-    link : '超级连接',
-    unlink : '取消超级连接',
-    fullscreen : '全屏显示',
-    about : '关于',
-    print : '打印',
-    yes : '确定',
-    no : '取消',
-    close : '关闭',
-    invalidImg : "请输入有效的URL地址。\n只允许jpg,gif,bmp,png格式。",
-    invalidMedia : "请输入有效的URL地址。\n只允许mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb格式。",
-    invalidWidth : "宽度必须为数字。",
-    invalidHeight : "高度必须为数字。",
-    invalidBorder : "边框必须为数字。",
-    invalidUrl : "URL不正确。",
-    pleaseInput : "请输入内容"
+    source: '切换模式',
+    preview: '预览',
+    undo: '后退(Ctrl+Z)',
+    redo: '前进(Ctrl+Y)',
+    cut: '剪切(Ctrl+X)',
+    copy: '复制(Ctrl+C)',
+    paste: '粘贴(Ctrl+V)',
+    plainpaste: '粘贴为无格式文本',
+    wordpaste: '从Word粘贴',
+    selectall: '全选',
+    justifyleft: '左对齐',
+    justifycenter: '居中',
+    justifyright: '右对齐',
+    justifyfull: '两端对齐',
+    insertorderedlist: '编号',
+    insertunorderedlist: '项目符号',
+    indent: '增加缩进',
+    outdent: '减少缩进',
+    subscript: '下标',
+    superscript: '上标',
+    date: '插入当前日期',
+    time: '插入当前时间',
+    title: '标题',
+    fontname: '字体',
+    fontsize: '文字大小',
+    textcolor: '文字颜色',
+    bgcolor: '文字背景',
+    bold: '粗体',
+    italic: '斜体',
+    underline: '下划线',
+    strikethrough: '删除线',
+    removeformat: '删除格式',
+    image: '插入图片',
+    flash: '插入Flash',
+    media: '插入多媒体',
+    layer: '插入层',
+    table: '插入表格',
+    specialchar: '插入特殊字符',
+    hr: '插入横线',
+    emoticons: '插入笑脸',
+    link: '超级连接',
+    unlink: '取消超级连接',
+    fullscreen: '全屏显示',
+    about: '关于',
+    print: '打印',
+    yes: '确定',
+    no: '取消',
+    close: '关闭',
+    invalidImg: "请输入有效的URL地址。\n只允许jpg,gif,bmp,png格式。",
+    invalidMedia: "请输入有效的URL地址。\n只允许mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb格式。",
+    invalidWidth: "宽度必须为数字。",
+    invalidHeight: "高度必须为数字。",
+    invalidBorder: "边框必须为数字。",
+    invalidUrl: "URL不正确。",
+    pleaseInput: "请输入内容"
 };
 
-KE.scriptPath = (function() {
+KE.scriptPath = (function () {
     var elements = document.getElementsByTagName('script');
     for (var i = 0, len = elements.length; i < len; i++) {
         if (elements[i].src && elements[i].src.match(/kindeditor[\w\-\.]*\.js/)) {
@@ -79,11 +79,11 @@ KE.scriptPath = (function() {
     return "";
 })();
 
-KE.htmlPath = (function() {
+KE.htmlPath = (function () {
     return location.href.substring(0, location.href.lastIndexOf('/') + 1);
 })();
 
-KE.browser = (function() {
+KE.browser = (function () {
     var ua = navigator.userAgent.toLowerCase();
     if (ua.indexOf("msie") > -1) return 'IE';
     else if (ua.indexOf("webkit") > -1) return 'WEBKIT';
@@ -93,20 +93,20 @@ KE.browser = (function() {
 })();
 
 KE.setting = {
-    wyswygMode : true,
-    autoOnsubmitMode : true,
-    resizeMode : 2,
-    filterMode : true,
-    tagLineMode : false,
-    skinType : 'default',
-    cssPath : '',
-    skinsPath : KE.scriptPath + 'skins/',
-    pluginsPath : KE.scriptPath + 'plugins/',
-    minWidth : 200,
-    minHeight : 100,
-    minChangeSize : 5,
-    siteDomains : [],
-    items : [
+    wyswygMode: true,
+    autoOnsubmitMode: true,
+    resizeMode: 2,
+    filterMode: true,
+    tagLineMode: false,
+    skinType: 'default',
+    cssPath: '',
+    skinsPath: KE.scriptPath + 'skins/',
+    pluginsPath: KE.scriptPath + 'plugins/',
+    minWidth: 200,
+    minHeight: 100,
+    minChangeSize: 5,
+    siteDomains: [],
+    items: [
         'source', 'preview', 'fullscreen', 'undo', 'redo', 'print', 'cut', 'copy', 'paste',
         'plainpaste', 'wordpaste', 'justifyleft', 'justifycenter', 'justifyright',
         'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
@@ -116,27 +116,27 @@ KE.setting = {
         'flash', 'media', 'layer', 'table', 'specialchar', 'hr',
         'emoticons', 'link', 'unlink', 'about'
     ],
-    colorTable : [
-        ["#FFFFFF","#E5E4E4","#D9D8D8","#C0BDBD","#A7A4A4","#8E8A8B","#827E7F","#767173","#5C585A","#000000"],
-        ["#FEFCDF","#FEF4C4","#FEED9B","#FEE573","#FFED43","#F6CC0B","#E0B800","#C9A601","#AD8E00","#8C7301"],
-        ["#FFDED3","#FFC4B0","#FF9D7D","#FF7A4E","#FF6600","#E95D00","#D15502","#BA4B01","#A44201","#8D3901"],
-        ["#FFD2D0","#FFBAB7","#FE9A95","#FF7A73","#FF483F","#FE2419","#F10B00","#D40A00","#940000","#6D201B"],
-        ["#FFDAED","#FFB7DC","#FFA1D1","#FF84C3","#FF57AC","#FD1289","#EC0078","#D6006D","#BB005F","#9B014F"],
-        ["#FCD6FE","#FBBCFF","#F9A1FE","#F784FE","#F564FE","#F546FF","#F328FF","#D801E5","#C001CB","#8F0197"],
-        ["#E2F0FE","#C7E2FE","#ADD5FE","#92C7FE","#6EB5FF","#48A2FF","#2690FE","#0162F4","#013ADD","#0021B0"],
-        ["#D3FDFF","#ACFAFD","#7CFAFF","#4AF7FE","#1DE6FE","#01DEFF","#00CDEC","#01B6DE","#00A0C2","#0084A0"],
-        ["#EDFFCF","#DFFEAA","#D1FD88","#BEFA5A","#A8F32A","#8FD80A","#79C101","#3FA701","#307F00","#156200"],
-        ["#D4C89F","#DAAD88","#C49578","#C2877E","#AC8295","#C0A5C4","#969AC2","#92B7D7","#80ADAF","#9CA53B"]
+    colorTable: [
+        ["#FFFFFF", "#E5E4E4", "#D9D8D8", "#C0BDBD", "#A7A4A4", "#8E8A8B", "#827E7F", "#767173", "#5C585A", "#000000"],
+        ["#FEFCDF", "#FEF4C4", "#FEED9B", "#FEE573", "#FFED43", "#F6CC0B", "#E0B800", "#C9A601", "#AD8E00", "#8C7301"],
+        ["#FFDED3", "#FFC4B0", "#FF9D7D", "#FF7A4E", "#FF6600", "#E95D00", "#D15502", "#BA4B01", "#A44201", "#8D3901"],
+        ["#FFD2D0", "#FFBAB7", "#FE9A95", "#FF7A73", "#FF483F", "#FE2419", "#F10B00", "#D40A00", "#940000", "#6D201B"],
+        ["#FFDAED", "#FFB7DC", "#FFA1D1", "#FF84C3", "#FF57AC", "#FD1289", "#EC0078", "#D6006D", "#BB005F", "#9B014F"],
+        ["#FCD6FE", "#FBBCFF", "#F9A1FE", "#F784FE", "#F564FE", "#F546FF", "#F328FF", "#D801E5", "#C001CB", "#8F0197"],
+        ["#E2F0FE", "#C7E2FE", "#ADD5FE", "#92C7FE", "#6EB5FF", "#48A2FF", "#2690FE", "#0162F4", "#013ADD", "#0021B0"],
+        ["#D3FDFF", "#ACFAFD", "#7CFAFF", "#4AF7FE", "#1DE6FE", "#01DEFF", "#00CDEC", "#01B6DE", "#00A0C2", "#0084A0"],
+        ["#EDFFCF", "#DFFEAA", "#D1FD88", "#BEFA5A", "#A8F32A", "#8FD80A", "#79C101", "#3FA701", "#307F00", "#156200"],
+        ["#D4C89F", "#DAAD88", "#C49578", "#C2877E", "#AC8295", "#C0A5C4", "#969AC2", "#92B7D7", "#80ADAF", "#9CA53B"]
     ],
-    noEndTags : ['br', 'hr', 'img', 'area', 'col', 'embed', 'input', 'param'],
-    inlineTags : ['b', 'del', 'em', 'font', 'i', 'span', 'strike', 'strong', 'sub', 'sup', 'u'],
-    htmlTags : {
-        font : ['color', 'size', 'face', '.background-color'],
-        span : [
+    noEndTags: ['br', 'hr', 'img', 'area', 'col', 'embed', 'input', 'param'],
+    inlineTags: ['b', 'del', 'em', 'font', 'i', 'span', 'strike', 'strong', 'sub', 'sup', 'u'],
+    htmlTags: {
+        font: ['color', 'size', 'face', '.background-color'],
+        span: [
             '.color', '.background-color', '.font-size', '.font-family',
             '.font-weight', '.font-style', '.text-decoration', '.vertical-align'
         ],
-        div : [
+        div: [
             'class', 'align', '.border', '.margin', '.padding', '.text-align', '.color',
             '.background-color', '.font-size', '.font-family', '.font-weight',
             '.font-style', '.text-decoration', '.vertical-align'
@@ -151,16 +151,16 @@ KE.setting = {
             '.text-align', '.color', '.background-color', '.font-size', '.font-family', '.font-weight',
             '.font-style', '.text-decoration', '.vertical-align'
         ],
-        a : ['class', 'href', 'target', 'name'],
-        embed : ['src', 'type', 'loop', 'autostart', 'quality', '.width', '.height', '/'],
-        img : ['src', 'width', 'height', 'border', 'alt', 'title', '.width', '.height', '/'],
-        hr : ['class', '/'],
-        br : ['/'],
-        'p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : [
+        a: ['class', 'href', 'target', 'name'],
+        embed: ['src', 'type', 'loop', 'autostart', 'quality', '.width', '.height', '/'],
+        img: ['src', 'width', 'height', 'border', 'alt', 'title', '.width', '.height', '/'],
+        hr: ['class', '/'],
+        br: ['/'],
+        'p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6': [
             'align', '.text-align', '.color', '.background-color', '.font-size', '.font-family',
             '.font-weight', '.font-style', '.text-decoration', '.vertical-align'
         ],
-        'tbody,tr,strong,b,sub,sup,em,i,u,strike' : []
+        'tbody,tr,strong,b,sub,sup,em,i,u,strike': []
     }
 };
 
@@ -168,41 +168,41 @@ KE.g = {};
 
 KE.plugin = {};
 
-KE.$ = function(id, doc){
+KE.$ = function (id, doc) {
     var doc = doc || document;
     return doc.getElementById(id);
 };
 
-KE.$$ = function(name, doc){
+KE.$$ = function (name, doc) {
     var doc = doc || document;
     return doc.createElement(name);
 };
 
 KE.event = {
-    add : function(el, event, listener) {
-        if (el.addEventListener){
+    add: function (el, event, listener) {
+        if (el.addEventListener) {
             el.addEventListener(event, listener, false);
-        } else if (el.attachEvent){
+        } else if (el.attachEvent) {
             el.attachEvent('on' + event, listener);
         }
     },
-    remove : function(el, event, listener) {
-        if (el.removeEventListener){
+    remove: function (el, event, listener) {
+        if (el.removeEventListener) {
             el.removeEventListener(event, listener, false);
-        } else if (el.detachEvent){
+        } else if (el.detachEvent) {
             el.detachEvent('on' + event, listener);
         }
     },
-    input : function(el, func) {
-        this.add(el, 'keyup', function(e) {
+    input: function (el, func) {
+        this.add(el, 'keyup', function (e) {
             if (!e.ctrlKey && !e.shiftKey && !e.altKey && (e.keyCode < 16 || e.keyCode > 18)) {
                 func(e);
                 return false;
             }
         });
     },
-    ctrl : function(el, key, func) {
-        this.add(el, 'keydown', function(e) {
+    ctrl: function (el, key, func) {
+        this.add(el, 'keydown', function (e) {
             if (e.ctrlKey && e.keyCode == key.toUpperCase().charCodeAt(0) && !e.shiftKey && !e.altKey) {
                 func(e);
                 return false;
@@ -211,14 +211,14 @@ KE.event = {
     }
 };
 
-KE.each = function(obj, func) {
+KE.each = function (obj, func) {
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) func(key, obj[key]);
     }
 };
 
-KE.eachNode = function(node, func) {
-    var walkNodes = function(parent) {
+KE.eachNode = function (node, func) {
+    var walkNodes = function (parent) {
         if (KE.util.getNodeType(parent) != 1) return true;
         var n = parent.firstChild;
         while (n != null) {
@@ -232,17 +232,18 @@ KE.eachNode = function(node, func) {
     walkNodes(node);
 };
 
-KE.selection = function(win, doc) {
+KE.selection = function (win, doc) {
     this.sel = null;
     this.range = null;
     this.keRange = null;
-    this.init = function() {
+    this.init = function () {
         var sel = win.getSelection ? win.getSelection() : doc.selection;
         var range;
         try {
             if (sel.rangeCount > 0) range = sel.getRangeAt(0);
             else range = sel.createRange();
-        } catch(e) {}
+        } catch (e) {
+        }
         if (!range) range = KE.util.createRange(doc);
         this.sel = sel;
         this.range = range;
@@ -253,7 +254,7 @@ KE.selection = function(win, doc) {
                 startNode = endNode = el;
                 startPos = endPos = 0;
             } else {
-                var getStartEnd = function(isStart) {
+                var getStartEnd = function (isStart) {
                     var pointRange = range.duplicate();
                     pointRange.collapse(isStart);
                     var parentNode = pointRange.parentElement();
@@ -328,10 +329,10 @@ KE.selection = function(win, doc) {
         this.keRange = keRange;
     };
     this.init();
-    this.addRange = function(keRange) {
+    this.addRange = function (keRange) {
         this.keRange = keRange;
         if (KE.browser == 'IE') {
-            var getEndRange = function(isStart) {
+            var getEndRange = function (isStart) {
                 var range = KE.util.createRange(doc);
                 var node = isStart ? keRange.startNode : keRange.endNode;
                 if (node.nodeType == 1) {
@@ -369,29 +370,29 @@ KE.selection = function(win, doc) {
             this.sel.addRange(this.range);
         }
     };
-    this.focus = function() {
+    this.focus = function () {
         if (KE.browser == 'IE' && this.range != null) this.range.select();
     }
 };
 
-KE.range = function(doc) {
+KE.range = function (doc) {
     this.startNode = null;
     this.startPos = null;
     this.endNode = null;
     this.endPos = null;
-    this.getParentElement = function() {
-        var scanParent = function(node, func) {
+    this.getParentElement = function () {
+        var scanParent = function (node, func) {
             while (node != null && node.tagName != 'body') {
                 node = node.parentNode;
                 if (func(node)) return;
             }
         }
         var nodeList = [];
-        scanParent(this.startNode, function(node) {
+        scanParent(this.startNode, function (node) {
             nodeList.push(node);
         });
         var parentNode;
-        scanParent(this.endNode, function(node) {
+        scanParent(this.endNode, function (node) {
             if (KE.util.inArray(node, nodeList)) {
                 parentNode = node;
                 return true;
@@ -399,7 +400,7 @@ KE.range = function(doc) {
         });
         return parentNode ? parentNode : doc.body;
     };
-    this.getNodeList = function() {
+    this.getNodeList = function () {
         var parentNode = this.getParentElement();
         var nodeList = [];
         var keRange = this;
@@ -407,7 +408,7 @@ KE.range = function(doc) {
         var isStarted = false;
         if (parentNode == startNode) isStarted = true;
         if (isStarted) nodeList.push(parentNode);
-        KE.eachNode(parentNode, function(node) {
+        KE.eachNode(parentNode, function (node) {
             if (node == startNode) isStarted = true;
             var range = new KE.range(doc);
             range.selectTextNode(node);
@@ -417,11 +418,11 @@ KE.range = function(doc) {
         });
         return nodeList;
     };
-    this.comparePoints = function(how, range) {
-        var compareNodes = function(nodeA, posA, nodeB, posB) {
+    this.comparePoints = function (how, range) {
+        var compareNodes = function (nodeA, posA, nodeB, posB) {
             var cmp;
             if (KE.browser == 'IE') {
-                var getStartRange = function(node, pos, isStart) {
+                var getStartRange = function (node, pos, isStart) {
                     var range = KE.util.createRange(doc);
                     var type = KE.util.getNodeType(node);
                     if (type == 1) {
@@ -466,9 +467,9 @@ KE.range = function(doc) {
         if (how == 'END_TO_START') return compareNodes(this.endNode, this.endPos, range.startNode, range.startPos);
         if (how == 'END_TO_END') return compareNodes(this.endNode, this.endPos, range.endNode, range.endPos);
     };
-    this.setTextStart = function(node, pos) {
+    this.setTextStart = function (node, pos) {
         var textNode = node;
-        KE.eachNode(node, function(n) {
+        KE.eachNode(node, function (n) {
             if (KE.util.getNodeType(n) == 3 && n.nodeValue.length > 0) {
                 textNode = n;
                 pos = 0;
@@ -478,7 +479,7 @@ KE.range = function(doc) {
         });
         this.setStart(textNode, pos);
     };
-    this.setStart = function(node, pos) {
+    this.setStart = function (node, pos) {
         this.startNode = node;
         this.startPos = pos;
         if (this.endNode === null) {
@@ -486,9 +487,9 @@ KE.range = function(doc) {
             this.endPos = pos;
         }
     };
-    this.setTextEnd = function(node, pos) {
+    this.setTextEnd = function (node, pos) {
         var textNode = node;
-        KE.eachNode(node, function(n) {
+        KE.eachNode(node, function (n) {
             if (KE.util.getNodeType(n) == 3 && n.nodeValue.length > 0) {
                 textNode = n;
                 pos = n.nodeValue.length;
@@ -497,7 +498,7 @@ KE.range = function(doc) {
         });
         this.setEnd(textNode, pos);
     };
-    this.setEnd = function(node, pos) {
+    this.setEnd = function (node, pos) {
         this.endNode = node;
         this.endPos = pos;
         if (this.startNode === null) {
@@ -505,22 +506,22 @@ KE.range = function(doc) {
             this.startPos = pos;
         }
     };
-    this.selectNode = function(node) {
+    this.selectNode = function (node) {
         this.setStart(node, 0);
         this.setEnd(node, node.nodeType == 1 ? 0 : node.nodeValue.length);
     };
-    this.selectTextNode = function(node) {
+    this.selectTextNode = function (node) {
         this.setTextStart(node, 0);
         this.setTextEnd(node, node.nodeType == 1 ? 0 : node.nodeValue.length);
     };
-    this.extractContents = function(isDelete) {
+    this.extractContents = function (isDelete) {
         isDelete = (isDelete === false) ? false : true;
         var thisRange = this;
         var startNode = this.startNode;
         var startPos = this.startPos;
         var endNode = this.endNode;
         var endPos = this.endPos;
-        var extractTextNode = function(node, startPos, endPos) {
+        var extractTextNode = function (node, startPos, endPos) {
             var length = node.nodeValue.length;
             var cloneNode = node.cloneNode(true);
             var centerNode = cloneNode.splitText(startPos);
@@ -535,7 +536,7 @@ KE.range = function(doc) {
         };
         var isStarted = false;
         var isEnd = false;
-        var extractNodes = function(parent, frag) {
+        var extractNodes = function (parent, frag) {
             if (KE.util.getNodeType(parent) != 1) return true;
             var node = parent.firstChild;
             while (node != null) {
@@ -587,22 +588,22 @@ KE.range = function(doc) {
         extractNodes(parentNode, docFrag);
         return docFrag;
     };
-    this.cloneContents = function() {
+    this.cloneContents = function () {
         return this.extractContents(false);
     };
-    this.getText = function() {
+    this.getText = function () {
         var html = this.cloneContents().innerHTML;
         return html.replace(/<.*?>/g, "");
     };
 };
 
-KE.cmd = function(id) {
+KE.cmd = function (id) {
     this.doc = KE.g[id].iframeDoc;
     this.keSel = KE.g[id].keSel;
     this.keRange = KE.g[id].keRange;
-    this.mergeAttributes = function(el, attr) {
+    this.mergeAttributes = function (el, attr) {
         for (var i = 0, len = attr.length; i < len; i++) {
-            KE.each(attr[i], function(key, value) {
+            KE.each(attr[i], function (key, value) {
                 if (key.charAt(0) == '.') {
                     var jsKey = KE.util.getJsKey(key.substr(1));
                     eval('el.style.' + jsKey + ' = value;');
@@ -613,7 +614,7 @@ KE.cmd = function(id) {
         }
         return el;
     };
-    this.wrapTextNode = function(node, startPos, endPos, element, attributes) {
+    this.wrapTextNode = function (node, startPos, endPos, element, attributes) {
         var length = node.nodeValue.length;
         var isFull = (startPos == 0 && endPos == length);
         var range = new KE.range(this.doc);
@@ -656,7 +657,7 @@ KE.cmd = function(id) {
             }
         }
     };
-    this.wrap = function(tagName, attributes) {
+    this.wrap = function (tagName, attributes) {
         var self = this;
         this.keSel.focus();
         var element = KE.$$(tagName, this.doc);
@@ -668,7 +669,7 @@ KE.cmd = function(id) {
         var endPos = keRange.endPos;
         var parentNode = keRange.getParentElement();
         var isStarted = false;
-        KE.eachNode(parentNode, function(node) {
+        KE.eachNode(parentNode, function (node) {
             if (node == startNode) isStarted = true;
             if (node.nodeType == 1) {
                 if (node == startNode && node == endNode) {
@@ -708,7 +709,7 @@ KE.cmd = function(id) {
         });
         this.keSel.addRange(keRange);
     };
-    this.getTopParent = function(tagNames, node) {
+    this.getTopParent = function (tagNames, node) {
         var parent = null;
         while (node != null) {
             node = node.parentNode;
@@ -720,15 +721,15 @@ KE.cmd = function(id) {
         }
         return parent;
     };
-    this.splitNodeParent = function(parent, node, pos) {
+    this.splitNodeParent = function (parent, node, pos) {
         var leftRange = new KE.range(this.doc);
         leftRange.selectNode(parent.firstChild);
         leftRange.setEnd(node, pos);
         var leftFrag = leftRange.extractContents();
         parent.parentNode.insertBefore(leftFrag, parent);
-        return {left : leftFrag, right : parent};
+        return {left: leftFrag, right: parent};
     };
-    this.remove = function(tagNames, attributes) {
+    this.remove = function (tagNames, attributes) {
         var keRange = this.keRange;
         var startNode = keRange.startNode;
         var startPos = keRange.startPos;
@@ -774,41 +775,44 @@ KE.cmd = function(id) {
         }
         try {
             this.keSel.addRange(keRange);
-        } catch(e) {}
+        } catch (e) {
+        }
     };
 }
 
 KE.util = {
-    getDocumentElement : function() {
+    getDocumentElement: function () {
         return (document.compatMode != "CSS1Compat") ? document.body : document.documentElement;
     },
-    getDocumentHeight : function() {
+    getDocumentHeight: function () {
         var el = this.getDocumentElement();
         return Math.max(el.scrollHeight, el.clientHeight);
     },
-    getDocumentWidth : function() {
+    getDocumentWidth: function () {
         var el = this.getDocumentElement();
         return Math.max(el.scrollWidth, el.clientWidth);
     },
-    createTable : function() {
+    createTable: function () {
         var table = KE.$$('table');
         table.cellPadding = 0;
         table.cellSpacing = 0;
         table.border = 0;
         return {table: table, cell: table.insertRow(0).insertCell(0)};
     },
-    loadStyle : function(path) {
+    loadStyle: function (path) {
         var link = KE.$$('link');
         link.setAttribute('type', 'text/css');
         link.setAttribute('rel', 'stylesheet');
         link.setAttribute('href', path);
         document.getElementsByTagName("head")[0].appendChild(link);
     },
-    inArray : function(str, arr) {
-        for (var i = 0; i < arr.length; i++) {if (str == arr[i]) return true;}
+    inArray: function (str, arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (str == arr[i]) return true;
+        }
         return false;
     },
-    getJsKey : function(key) {
+    getJsKey: function (key) {
         var arr = key.split('-');
         key = '';
         for (var i = 0, len = arr.length; i < len; i++) {
@@ -816,7 +820,7 @@ KE.util = {
         }
         return key;
     },
-    escape : function(html) {
+    escape: function (html) {
         html = html.replace(/&/g, "&amp;");
         html = html.replace(/</g, "&lt;");
         html = html.replace(/>/g, "&gt;");
@@ -824,7 +828,7 @@ KE.util = {
         html = html.replace(/\x20/g, " ");
         return html;
     },
-    getElementPos : function(el) {
+    getElementPos: function (el) {
         var x = 0;
         var y = 0;
         if (KE.browser != "WEBKIT") {
@@ -842,39 +846,39 @@ KE.util = {
                 parent = parent.offsetParent;
             }
         }
-        return {'x' : x, 'y' : y};
+        return {'x': x, 'y': y};
     },
-    getCoords : function(ev) {
+    getCoords: function (ev) {
         ev = ev || window.event;
         var el = this.getDocumentElement();
-        if (ev.pageX) return { x : ev.pageX, y : ev.pageY};
+        if (ev.pageX) return {x: ev.pageX, y: ev.pageY};
         return {
-            x : ev.clientX + el.scrollLeft - el.clientLeft,
-            y : ev.clientY + el.scrollTop - el.clientTop
+            x: ev.clientX + el.scrollLeft - el.clientLeft,
+            y: ev.clientY + el.scrollTop - el.clientTop
         };
     },
-    setOpacity : function(el, opacity) {
+    setOpacity: function (el, opacity) {
         if (typeof el.style.opacity == "undefined") {
             el.style.filter = (opacity == 100) ? "" : "alpha(opacity=" + opacity + ")";
         } else {
             el.style.opacity = (opacity == 100) ? "" : "0." + opacity.toString();
         }
     },
-    getIframeDoc : function(iframe) {
+    getIframeDoc: function (iframe) {
         return iframe.contentDocument || iframe.contentWindow.document;
     },
-    rgbToHex : function(str) {
+    rgbToHex: function (str) {
         function hex(s) {
             s = parseInt(s).toString(16);
             return s.length > 1 ? s : '0' + s;
         };
         return str.replace(/rgb\s*?\(\s*?([0-9]+)\s*?,\s*?([0-9]+)\s*?,\s*?([0-9]+)\s*?\)/ig,
-                           function($0, $1, $2, $3) {
-                               return '#' + hex($1) + hex($2) + hex($3);
-                           }
-                          );
+            function ($0, $1, $2, $3) {
+                return '#' + hex($1) + hex($2) + hex($3);
+            }
+        );
     },
-    getStyle : function(el, key) {
+    getStyle: function (el, key) {
         var arr = key.split('-');
         key = "";
         for (var i = 0, len = arr.length; i < len; i++) {
@@ -891,13 +895,13 @@ KE.util = {
         }
         return KE.util.rgbToHex(val);
     },
-    createRange : function(doc) {
+    createRange: function (doc) {
         return doc.createRange ? doc.createRange() : doc.body.createTextRange();
     },
-    getNodeType : function(node) {
+    getNodeType: function (node) {
         return (node.nodeType == 1 && KE.util.inArray(node.tagName.toLowerCase(), KE.setting.noEndTags)) ? 88 : node.nodeType;
     },
-    getNodeTextLength : function(node) {
+    getNodeTextLength: function (node) {
         var type = KE.util.getNodeType(node);
         if (type == 1) {
             var html = node.innerHTML;
@@ -906,7 +910,7 @@ KE.util = {
             return node.nodeValue.length;
         }
     },
-    getNodeStartRange : function(doc, node) {
+    getNodeStartRange: function (doc, node) {
         var range = KE.util.createRange(doc);
         var type = node.nodeType;
         if (type == 1) {
@@ -932,18 +936,18 @@ KE.util = {
             return range;
         }
     },
-    trimNodes : function(parent) {
+    trimNodes: function (parent) {
         if (KE.util.getNodeType(parent) != 1) return;
         if (KE.util.inArray(parent.tagName.toLowerCase(), KE.setting.inlineTags) && KE.util.getNodeTextLength(parent) == 0) {
             parent.parentNode.removeChild(parent);
             return;
         }
-        KE.eachNode(parent, function(node) {
+        KE.eachNode(parent, function (node) {
             KE.util.trimNodes(node);
             return true;
         });
     },
-    removeParent : function(parent) {
+    removeParent: function (parent) {
         if (parent.hasChildNodes) {
             var node = parent.firstChild;
             while (node != null) {
@@ -954,9 +958,9 @@ KE.util = {
         }
         parent.parentNode.removeChild(parent);
     },
-    drag : function(id, mousedownObj, moveObj, func, hideFlag) {
+    drag: function (id, mousedownObj, moveObj, func, hideFlag) {
         var obj = KE.g[id];
-        mousedownObj.onmousedown = function(event) {
+        mousedownObj.onmousedown = function (event) {
             if (hideFlag && obj.wyswygMode) obj.iframe.style.display = 'none';
             if (KE.browser != 'IE') event.preventDefault();
             var ev = event || window.event;
@@ -968,7 +972,7 @@ KE.util = {
             var mouseTop = pos.y;
             var mouseLeft = pos.x;
             var dragFlag = true;
-            var moveListener = function(event) {
+            var moveListener = function (event) {
                 if (dragFlag) {
                     var ev = event || window.event;
                     var pos = KE.util.getCoords(ev);
@@ -978,7 +982,7 @@ KE.util = {
                 }
                 return false;
             };
-            var upListener = function(event) {
+            var upListener = function (event) {
                 if (hideFlag && obj.wyswygMode) obj.iframe.style.display = '';
                 dragFlag = false;
                 KE.event.remove(document, 'mousemove', moveListener);
@@ -988,19 +992,19 @@ KE.util = {
             KE.event.add(document, 'mouseup', upListener);
         };
     },
-    setDefaultPlugin : function(id) {
+    setDefaultPlugin: function (id) {
         var items = [
             'cut', 'copy', 'paste', 'selectall', 'justifyleft', 'justifycenter', 'justifyright',
-            'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript','superscript',
+            'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript',
             'bold', 'italic', 'underline', 'strikethrough', 'unlink'
         ];
         for (var i = 0; i < items.length; i++) {
             KE.plugin[items[i]] = {
-                click : new Function('id', 'KE.util.execCommand(id, "' + items[i] + '", null);')
+                click: new Function('id', 'KE.util.execCommand(id, "' + items[i] + '", null);')
             };
         }
     },
-    getFullHtml : function(id, tagLineMode) {
+    getFullHtml: function (id, tagLineMode) {
         var html = '<html>';
         html += '<head>';
         html += '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
@@ -1016,7 +1020,7 @@ KE.util = {
         html += '</html>';
         return html;
     },
-    resize : function(id, width, height, isCheck) {
+    resize: function (id, width, height, isCheck) {
         var obj = KE.g[id];
         if (width.match(/%$/)) width = obj.container.offsetWidth + 'px';
         if (height.match(/%$/)) height = obj.container.offsetHeight + 'px';
@@ -1030,7 +1034,7 @@ KE.util = {
             obj.newTextarea.style.height = diff + 'px';
         }
     },
-    getData : function(id) {
+    getData: function (id) {
         var data;
         if (KE.g[id].wyswygMode) {
             if (KE.g[id].filterMode) {
@@ -1043,7 +1047,7 @@ KE.util = {
         }
         return data;
     },
-    getSrcData : function(id) {
+    getSrcData: function (id) {
         var data;
         if (KE.g[id].wyswygMode) {
             data = KE.g[id].iframeDoc.body.innerHTML;
@@ -1052,34 +1056,34 @@ KE.util = {
         }
         return data;
     },
-    getPureData : function(id) {
+    getPureData: function (id) {
         var data = this.getSrcData(id);
         data = data.replace(/<br[\s\/]{0,2}>/ig, "\r\n");
         data = data.replace(/<.*?>/ig, "");
         data = data.replace(/&nbsp;/ig, "");
         return data;
     },
-    setData : function(id) {
+    setData: function (id) {
         var data = this.getData(id);
         KE.g[id].srcTextarea.value = data;
     },
-    setPureData : function(id) {
+    setPureData: function (id) {
         var data = this.getPureData(id);
         KE.g[id].srcTextarea.value = data;
     },
-    focus : function(id) {
+    focus: function (id) {
         if (KE.g[id].wyswygMode) {
             KE.g[id].iframeWin.focus();
         } else {
             KE.g[id].newTextarea.focus();
         }
     },
-    click : function(id, cmd) {
+    click: function (id, cmd) {
         KE.layout.hide(id);
         KE.util.focus(id);
         KE.plugin[cmd].click(id);
     },
-    selection : function(id) {
+    selection: function (id) {
         var win = KE.g[id].iframeWin;
         var doc = KE.g[id].iframeDoc;
         KE.g[id].keSel = new KE.selection(win, doc);
@@ -1087,15 +1091,15 @@ KE.util = {
         KE.g[id].sel = KE.g[id].keSel.sel;
         KE.g[id].range = KE.g[id].keSel.range;
     },
-    select : function(id) {
+    select: function (id) {
         if (KE.browser == 'IE') KE.g[id].range.select();
     },
-    pToBr : function(id) {
-        if(KE.browser == 'IE') {
-            KE.event.add(KE.g[id].iframeDoc, 'keydown', function(e) {
+    pToBr: function (id) {
+        if (KE.browser == 'IE') {
+            KE.event.add(KE.g[id].iframeDoc, 'keydown', function (e) {
                 if (e.keyCode == 13) {
                     KE.util.selection(id);
-                    if(KE.g[id].range.parentElement().tagName != 'LI') {
+                    if (KE.g[id].range.parentElement().tagName != 'LI') {
                         KE.util.insertHtml(id, '<br />');
                         KE.util.select(id);
                         return false;
@@ -1104,14 +1108,15 @@ KE.util = {
             });
         }
     },
-    execCommand : function(id, cmd, value) {
+    execCommand: function (id, cmd, value) {
         try {
             KE.g[id].iframeDoc.execCommand(cmd, false, value);
-        } catch(e) {}
+        } catch (e) {
+        }
         KE.toolbar.updateState(id);
         KE.history.add(id, false);
     },
-    insertHtml : function(id, html) {
+    insertHtml: function (id, html) {
         if (html == '') return;
         KE.util.select(id);
         if (KE.browser == 'IE') {
@@ -1125,7 +1130,7 @@ KE.util = {
             this.execCommand(id, 'inserthtml', html);
         }
     },
-    removeDomain : function(id, tagName, key, url) {
+    removeDomain: function (id, tagName, key, url) {
         if ((tagName == 'a' && key == 'href') || (tagName == 'img' && key == 'src') || (tagName == 'embed' && key == 'src')) {
             var domains = KE.g[id].siteDomains;
             for (var i = 0, len = domains.length; i < len; i++) {
@@ -1135,7 +1140,7 @@ KE.util = {
         }
         return url;
     },
-    htmlToXhtml : function(id, element) {
+    htmlToXhtml: function (id, element) {
         KE.util.trimNodes(element);
         var html = element.innerHTML;
         var tags = KE.setting.noEndTags;
@@ -1143,10 +1148,10 @@ KE.util = {
             html = html.replace(new RegExp("<(" + tags[i] + ")\\s+(.*?[^\\/])>", "gi"), "<$1 $2 />");
             html = html.replace(new RegExp("<(" + tags[i] + ")>", "gi"), "<$1 />");
         }
-        html = html.replace(/<(\w+)(.*?)>/g, function($0, $1, $2) {
+        html = html.replace(/<(\w+)(.*?)>/g, function ($0, $1, $2) {
             var tagName = $1.toLowerCase();
             var attr = $2;
-            attr = attr.replace(/(\w+)=([^\s]+)/gi, function($0, $1, $2) {
+            attr = attr.replace(/(\w+)=([^\s]+)/gi, function ($0, $1, $2) {
                 var key = $1.toLowerCase();
                 var val = $2;
                 var first = $2.charAt(0);
@@ -1158,19 +1163,19 @@ KE.util = {
                 }
                 return key + '=' + val;
             });
-            attr = attr.replace(/\s+style=".*?"/gi, function($0) {
+            attr = attr.replace(/\s+style=".*?"/gi, function ($0) {
                 return KE.util.rgbToHex($0.toLowerCase());
             });
             return '<' + tagName + attr + '>';
         });
-        html = html.replace(/(<\/\w+>)/g, function($0, $1) {
+        html = html.replace(/(<\/\w+>)/g, function ($0, $1) {
             return $1.toLowerCase();
         });
         return html;
     },
-    outputHtml : function(id, element) {
+    outputHtml: function (id, element) {
         var newHtmlTags = [];
-        KE.each(KE.g[id].htmlTags, function(key, val) {
+        KE.each(KE.g[id].htmlTags, function (key, val) {
             var arr = key.split(',');
             for (var i = 0, len = arr.length; i < len; i++) {
                 newHtmlTags[arr[i]] = val;
@@ -1178,9 +1183,9 @@ KE.util = {
         });
         var htmlList = [];
         KE.util.trimNodes(element);
-        var scanNodes = function(el) {
+        var scanNodes = function (el) {
             var startTags = [];
-            var setStartTag = function(tagName, attrStr, styleStr, isEnd) {
+            var setStartTag = function (tagName, attrStr, styleStr, isEnd) {
                 var html = '';
                 html += '<' + tagName;
                 if (attrStr) html += attrStr;
@@ -1190,7 +1195,7 @@ KE.util = {
                 if (typeof newHtmlTags[tagName] == 'object') htmlList.push(html);
                 if (!isEnd) startTags.push(tagName);
             };
-            var setEndTag = function() {
+            var setEndTag = function () {
                 if (startTags.length > 0) {
                     var tagName = startTags.pop();
                     if (typeof newHtmlTags[tagName] != 'object') return;
@@ -1203,46 +1208,46 @@ KE.util = {
             for (var i = 0, len = nodes.length; i < len; i++) {
                 var node = nodes[i];
                 switch (node.nodeType) {
-                case 1:
-                    var tagName = node.tagName.toLowerCase();
-                    var attrStr = '';
-                    var styleStr = '';
-                    var isEnd = false;
-                    if (typeof newHtmlTags[tagName] == 'object') {
-                        var attrList = newHtmlTags[tagName];
-                        for (var j = 0, l = attrList.length; j < l; j++) {
-                            var attr = attrList[j];
-                            if (attr == '/') isEnd = true;
-                            else if (attr.charAt(0) == '.') {
-                                var key = attr.substr(1);
-                                var val = KE.util.getStyle(node, key);
-                                if (val) styleStr += key + ':' + val + ';';
-                            } else {
-                                var val = node.getAttribute(attr);
-                                if (val !== null && val !== "") {
-                                    val = KE.util.removeDomain(id, tagName, attr, val);
-                                    attrStr += ' ' + attr + '="' + val + '"';
+                    case 1:
+                        var tagName = node.tagName.toLowerCase();
+                        var attrStr = '';
+                        var styleStr = '';
+                        var isEnd = false;
+                        if (typeof newHtmlTags[tagName] == 'object') {
+                            var attrList = newHtmlTags[tagName];
+                            for (var j = 0, l = attrList.length; j < l; j++) {
+                                var attr = attrList[j];
+                                if (attr == '/') isEnd = true;
+                                else if (attr.charAt(0) == '.') {
+                                    var key = attr.substr(1);
+                                    var val = KE.util.getStyle(node, key);
+                                    if (val) styleStr += key + ':' + val + ';';
+                                } else {
+                                    var val = node.getAttribute(attr);
+                                    if (val !== null && val !== "") {
+                                        val = KE.util.removeDomain(id, tagName, attr, val);
+                                        attrStr += ' ' + attr + '="' + val + '"';
+                                    }
                                 }
                             }
                         }
-                    }
-                    setStartTag(tagName, attrStr, styleStr, isEnd);
-                    if (node.hasChildNodes()) {
-                        scanNodes(node);
-                    } else {
-                        if (startTags.length > 0) {
-                            var prevHtml = htmlList[htmlList.length - 1];
-                            if (typeof prevHtml != "undefined" && prevHtml.match(/^<p|^<div/) != null) {
-                                htmlList.push("&nbsp;");
+                        setStartTag(tagName, attrStr, styleStr, isEnd);
+                        if (node.hasChildNodes()) {
+                            scanNodes(node);
+                        } else {
+                            if (startTags.length > 0) {
+                                var prevHtml = htmlList[htmlList.length - 1];
+                                if (typeof prevHtml != "undefined" && prevHtml.match(/^<p|^<div/) != null) {
+                                    htmlList.push("&nbsp;");
+                                }
                             }
                         }
-                    }
-                    break;
-                case 3:
-                    htmlList.push(KE.util.escape(node.nodeValue));
-                    break;
-                default:
-                    break;
+                        break;
+                    case 3:
+                        htmlList.push(KE.util.escape(node.nodeValue));
+                        break;
+                    default:
+                        break;
                 }
                 setEndTag();
             }
@@ -1255,21 +1260,22 @@ KE.util = {
 };
 
 KE.layout = {
-    show : function(id, div) {
+    show: function (id, div) {
         KE.layout.hide(id);
         KE.g[id].hideDiv.appendChild(div);
         KE.g[id].hideDiv.style.display = 'block';
         KE.g[id].layoutDiv = div;
     },
-    hide : function(id) {
+    hide: function (id) {
         try {
             KE.g[id].hideDiv.removeChild(KE.g[id].layoutDiv);
-        } catch (e) {}
+        } catch (e) {
+        }
         KE.g[id].hideDiv.style.display = 'none';
         KE.g[id].maskDiv.style.display = 'none';
         KE.util.focus(id);
     },
-    make : function(id) {
+    make: function (id) {
         var div = KE.$$('div');
         div.style.position = 'absolute';
         div.style.zIndex = 19811214;
@@ -1277,7 +1283,7 @@ KE.layout = {
     }
 };
 
-KE.menu = function(arg){
+KE.menu = function (arg) {
     this.arg = arg;
     var div = KE.layout.make(arg.id);
     div.className = 'ke-menu';
@@ -1286,26 +1292,30 @@ KE.menu = function(arg){
     div.style.top = pos.y + obj[0].offsetHeight + 'px';
     div.style.left = pos.x + 'px';
     this.div = div;
-    this.add = function(html, event) {
+    this.add = function (html, event) {
         var cDiv = KE.$$('div');
         cDiv.className = 'ke-menu-noselected';
         cDiv.style.width = this.arg.width;
-        cDiv.onmouseover = function() { this.className = 'ke-menu-selected'; }
-        cDiv.onmouseout = function() { this.className = 'ke-menu-noselected'; }
+        cDiv.onmouseover = function () {
+            this.className = 'ke-menu-selected';
+        }
+        cDiv.onmouseout = function () {
+            this.className = 'ke-menu-noselected';
+        }
         cDiv.onclick = event;
         cDiv.innerHTML = html;
         this.append(cDiv);
     };
-    this.append = function(el) {
+    this.append = function (el) {
         this.div.appendChild(el);
     };
-    this.insert = function(html) {
+    this.insert = function (html) {
         this.div.innerHTML = html;
     };
-    this.show = function() {
+    this.show = function () {
         KE.layout.show(this.arg.id, this.div);
     };
-    this.picker = function() {
+    this.picker = function () {
         var colorTable = KE.setting.colorTable;
         var table = KE.$$('table');
         table.cellPadding = 0;
@@ -1321,10 +1331,14 @@ KE.menu = function(arg){
                 cell.className = 'ke-picker-cell';
                 cell.style.backgroundColor = colorTable[i][j];
                 cell.title = colorTable[i][j];
-                cell.onmouseover = function() {this.style.borderColor = '#000000'; }
-                cell.onmouseout = function() {this.style.borderColor = '#F0F0EE'; }
+                cell.onmouseover = function () {
+                    this.style.borderColor = '#000000';
+                }
+                cell.onmouseout = function () {
+                    this.style.borderColor = '#F0F0EE';
+                }
                 cell.onclick = new Function('KE.plugin["' + this.arg.cmd + '"].exec("' +
-                                            this.arg.id + '", "' + colorTable[i][j] + '")');
+                    this.arg.id + '", "' + colorTable[i][j] + '")');
                 cell.innerHTML = '&nbsp;';
             }
         }
@@ -1333,11 +1347,11 @@ KE.menu = function(arg){
     };
 };
 
-KE.dialog = function(arg){
+KE.dialog = function (arg) {
     this.arg = arg;
     this.topHeight = 20;
     this.bottomHeight = 76;
-    this.getPos = function() {
+    this.getPos = function () {
         var arg = this.arg;
         var id = this.arg.id;
         var pos = KE.util.getElementPos(KE.g[id].container);
@@ -1346,9 +1360,9 @@ KE.dialog = function(arg){
         var yDiff = Math.round(parseInt(KE.g[id].container.style.height) / 2) - Math.round(height / 2);
         var x = xDiff < 0 ? pos.x : pos.x + xDiff;
         var y = yDiff < 0 ? pos.y : pos.y + yDiff;
-        return {'x' : x, 'y' : y};
+        return {'x': x, 'y': y};
     };
-    this.show = function() {
+    this.show = function () {
         var arg = this.arg;
         var id = arg.id;
         var div = KE.layout.make(arg.id);
@@ -1369,7 +1383,7 @@ KE.dialog = function(arg){
         span.title = KE.lang['close'];
         span.onclick = new Function("KE.layout.hide('" + id + "')");
         titleDiv.appendChild(span);
-        KE.util.drag(id, titleDiv, div, function(objTop, objLeft, objWidth, objHeight, top, left) {
+        KE.util.drag(id, titleDiv, div, function (objTop, objLeft, objWidth, objHeight, top, left) {
             div.style.top = (objTop + top) + 'px';
             div.style.left = (objLeft + left) + 'px';
         });
@@ -1406,7 +1420,7 @@ KE.dialog = function(arg){
             yesButton.type = 'button';
             yesButton.name = 'yesButton';
             yesButton.value = arg.yesButton;
-            yesButton.onclick = new Function("KE.plugin['" + arg.cmd  + "'].exec('" + id + "')");
+            yesButton.onclick = new Function("KE.plugin['" + arg.cmd + "'].exec('" + id + "')");
             bottomDiv.appendChild(yesButton);
         }
         if (arg.previewButton) {
@@ -1415,7 +1429,7 @@ KE.dialog = function(arg){
             previewButton.type = 'button';
             previewButton.name = 'previewButton';
             previewButton.value = arg.previewButton;
-            previewButton.onclick = new Function("KE.plugin['" + arg.cmd  + "'].preview('" + id + "')");
+            previewButton.onclick = new Function("KE.plugin['" + arg.cmd + "'].preview('" + id + "')");
             bottomDiv.appendChild(previewButton);
         }
         div.appendChild(bottomDiv);
@@ -1444,10 +1458,10 @@ KE.dialog = function(arg){
 };
 
 KE.toolbar = {
-    updateState : function(id) {
+    updateState: function (id) {
         var cmdList = [
             'justifyleft', 'justifycenter', 'justifyright',
-            'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript','superscript',
+            'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript',
             'bold', 'italic', 'underline', 'strikethrough'
         ];
         for (var i = 0; i < cmdList.length; i++) {
@@ -1455,7 +1469,8 @@ KE.toolbar = {
             var state = false;
             try {
                 state = KE.g[id].iframeDoc.queryCommandState(cmd);
-            } catch(e) {}
+            } catch (e) {
+            }
             if (state) {
                 KE.toolbar.select(id, cmd);
             } else {
@@ -1463,11 +1478,11 @@ KE.toolbar = {
             }
         }
     },
-    isSelected : function(id, cmd) {
+    isSelected: function (id, cmd) {
         if (KE.plugin[cmd] && KE.plugin[cmd].isSelected) return true;
         else return false;
     },
-    select : function(id, cmd) {
+    select: function (id, cmd) {
         if (KE.g[id].toolbarIcon[cmd]) {
             var a = KE.g[id].toolbarIcon[cmd][0];
             a.className = "ke-icon-selected";
@@ -1475,29 +1490,37 @@ KE.toolbar = {
             a.onmouseout = null;
         }
     },
-    unselect : function(id, cmd) {
+    unselect: function (id, cmd) {
         if (KE.g[id].toolbarIcon[cmd]) {
             var a = KE.g[id].toolbarIcon[cmd][0];
             a.className = "ke-icon";
-            a.onmouseover = function(){ this.className = "ke-icon-on"; };
-            a.onmouseout = function(){ this.className = "ke-icon"; };
+            a.onmouseover = function () {
+                this.className = "ke-icon-on";
+            };
+            a.onmouseout = function () {
+                this.className = "ke-icon";
+            };
         }
     },
-    able : function(id, arr) {
-        KE.each(KE.g[id].toolbarIcon, function(cmd, obj) {
+    able: function (id, arr) {
+        KE.each(KE.g[id].toolbarIcon, function (cmd, obj) {
             if (!KE.util.inArray(cmd, arr)) {
                 var a = obj[0];
                 var span = obj[1];
                 a.className = 'ke-icon';
                 KE.util.setOpacity(span, 100);
                 a.onclick = new Function('KE.util.click("' + id + '", "' + cmd + '");');
-                a.onmouseover = function(){ this.className = "ke-icon-on"; };
-                a.onmouseout = function(){ this.className = "ke-icon"; };
+                a.onmouseover = function () {
+                    this.className = "ke-icon-on";
+                };
+                a.onmouseout = function () {
+                    this.className = "ke-icon";
+                };
             }
         });
     },
-    disable : function(id, arr) {
-        KE.each(KE.g[id].toolbarIcon, function(cmd, obj) {
+    disable: function (id, arr) {
+        KE.each(KE.g[id].toolbarIcon, function (cmd, obj) {
             if (!KE.util.inArray(cmd, arr)) {
                 var a = obj[0];
                 var span = obj[1];
@@ -1509,14 +1532,20 @@ KE.toolbar = {
             }
         });
     },
-    create : function(id) {
+    create: function (id) {
         KE.g[id].toolbarIcon = [];
         var tableObj = KE.util.createTable();
         var toolbar = tableObj.table;
         toolbar.className = 'ke-toolbar';
-        toolbar.oncontextmenu = function() { return false; };
-        toolbar.onmousedown = function() { return false; };
-        toolbar.onmousemove = function() { return false; };
+        toolbar.oncontextmenu = function () {
+            return false;
+        };
+        toolbar.onmousedown = function () {
+            return false;
+        };
+        toolbar.onmousemove = function () {
+            return false;
+        };
         var toolbarCell = tableObj.cell;
         var length = KE.g[id].items.length;
         var cellNum = 0;
@@ -1538,8 +1567,12 @@ KE.toolbar = {
             a.className = 'ke-icon';
             a.href = 'javascript:;';
             a.onclick = new Function('KE.util.click("' + id + '", "' + cmd + '");');
-            a.onmouseover = function(){ this.className = "ke-icon-on"; };
-            a.onmouseout = function(){ this.className = "ke-icon"; };
+            a.onmouseover = function () {
+                this.className = "ke-icon-on";
+            };
+            a.onmouseout = function () {
+                this.className = "ke-icon";
+            };
             a.hidefocus = true;
             a.title = KE.lang[cmd];
             var span = KE.$$('span');
@@ -1558,7 +1591,7 @@ KE.toolbar = {
 };
 
 KE.history = {
-    add : function(id, minChangeFlag) {
+    add: function (id, minChangeFlag) {
         var obj = KE.g[id];
         var html = KE.util.getSrcData(id);
         if (obj.undoStack.length > 0) {
@@ -1569,7 +1602,7 @@ KE.history = {
         obj.undoStack.push(html);
         obj.redoStack = [];
     },
-    undo : function(id) {
+    undo: function (id) {
         var obj = KE.g[id];
         if (obj.undoStack.length == 0) return;
         var html = KE.util.getSrcData(id);
@@ -1581,7 +1614,7 @@ KE.history = {
         obj.iframeDoc.body.innerHTML = prevHtml;
         obj.newTextarea.value = prevHtml;
     },
-    redo : function(id) {
+    redo: function (id) {
         var obj = KE.g[id];
         if (obj.redoStack.length == 0) return;
         var html = KE.util.getSrcData(id);
@@ -1592,7 +1625,7 @@ KE.history = {
     }
 };
 
-KE.remove = function(id, mode) {
+KE.remove = function (id, mode) {
     mode = (typeof mode == "undefined") ? 0 : mode;
     var container = KE.g[id].container;
     if (mode == 1) {
@@ -1606,8 +1639,11 @@ KE.remove = function(id, mode) {
     KE.g[id].containner = null;
 };
 
-KE.create = function(id, mode) {
-    if (KE.browser == 'IE') try { document.execCommand('BackgroundImageCache', false, true); }catch(e){}
+KE.create = function (id, mode) {
+    if (KE.browser == 'IE') try {
+        document.execCommand('BackgroundImageCache', false, true);
+    } catch (e) {
+    }
     var srcTextarea = KE.$(id);
     mode = (typeof mode == "undefined") ? 0 : mode;
     if (mode == 0 && KE.g[id].container != null) return;
@@ -1682,7 +1718,9 @@ KE.create = function(id, mode) {
     }
     if (KE.g[id].autoOnsubmitMode) {
         var form = srcTextarea.parentNode;
-        while (form != null && form.tagName != 'FORM') { form = form.parentNode; }
+        while (form != null && form.tagName != 'FORM') {
+            form = form.parentNode;
+        }
         if (form != null && form.tagName == 'FORM') {
             KE.event.add(form, 'submit', new Function('KE.util.setData("' + id + '")'));
         }
@@ -1707,11 +1745,11 @@ KE.create = function(id, mode) {
     KE.g[id].width = width;
     KE.g[id].height = height;
     KE.util.resize(id, width, height);
-    KE.util.drag(id, bottomRight, container, function(objTop, objLeft, objWidth, objHeight, top, left) {
+    KE.util.drag(id, bottomRight, container, function (objTop, objLeft, objWidth, objHeight, top, left) {
         if (KE.g[id].resizeMode == 2) KE.util.resize(id, (objWidth + left) + 'px', (objHeight + top) + 'px', true);
         else if (KE.g[id].resizeMode == 1) KE.util.resize(id, objWidth + 'px', (objHeight + top) + 'px', true);
     }, true);
-    KE.util.drag(id, bottomLeft, container, function(objTop, objLeft, objWidth, objHeight, top, left) {
+    KE.util.drag(id, bottomLeft, container, function (objTop, objLeft, objWidth, objHeight, top, left) {
         if (KE.g[id].resizeMode > 0) KE.util.resize(id, objWidth + 'px', (objHeight + top) + 'px', true);
     }, true);
     for (var i = 0, len = KE.g[id].items.length; i < len; i++) {
@@ -1719,13 +1757,13 @@ KE.create = function(id, mode) {
         if (KE.plugin[cmd] && KE.plugin[cmd].init) KE.plugin[cmd].init(id);
     }
     setTimeout(
-        function(){
+        function () {
             if (srcTextarea.value !== "") iframeDoc.body.innerHTML = srcTextarea.value;
             KE.history.add(id, false);
         }, 1);
 };
 
-KE.init = function(config) {
+KE.init = function (config) {
     config.wyswygMode = (typeof config.wyswygMode == "undefined") ? KE.setting.wyswygMode : config.wyswygMode;
     config.autoOnsubmitMode = (typeof config.autoOnsubmitMode == "undefined") ? KE.setting.autoOnsubmitMode : config.autoOnsubmitMode;
     config.resizeMode = (typeof config.resizeMode == "undefined") ? KE.setting.resizeMode : config.resizeMode;
@@ -1748,64 +1786,64 @@ KE.init = function(config) {
     KE.util.loadStyle(config.skinsPath + config.skinType + '.css');
 }
 
-KE.show = function(config) {
+KE.show = function (config) {
     KE.init(config);
     KE.event.add(window, 'load', new Function('KE.create("' + config.id + '")'));
 };
 
 KE.plugin['about'] = {
-    click : function(id) {
+    click: function (id) {
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'about',
-            width : 300,
-            height : 80,
-            title : KE.lang['about'],
-            noButton : KE.lang['close']
+            id: id,
+            cmd: 'about',
+            width: 300,
+            height: 80,
+            title: KE.lang['about'],
+            noButton: KE.lang['close']
         });
         dialog.show();
     }
 };
 
 KE.plugin['undo'] = {
-    init : function(id) {
-        KE.event.ctrl(KE.g[id].iframeDoc, 'Z', function(e) {
+    init: function (id) {
+        KE.event.ctrl(KE.g[id].iframeDoc, 'Z', function (e) {
             KE.plugin['undo'].click(id);
             KE.util.focus(id);
         });
     },
-    click : function(id) {
+    click: function (id) {
         KE.history.undo(id);
     }
 };
 
 KE.plugin['redo'] = {
-    init : function(id) {
-        KE.event.ctrl(KE.g[id].iframeDoc, 'Y', function(e) {
+    init: function (id) {
+        KE.event.ctrl(KE.g[id].iframeDoc, 'Y', function (e) {
             KE.plugin['redo'].click(id);
             KE.util.focus(id);
         });
     },
-    click : function(id) {
+    click: function (id) {
         KE.history.redo(id);
     }
 };
 
 KE.plugin['plainpaste'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'plainpaste',
-            width : 330,
-            height : 300,
-            title : KE.lang['plainpaste'],
-            yesButton : KE.lang['yes'],
-            noButton : KE.lang['no']
+            id: id,
+            cmd: 'plainpaste',
+            width: 330,
+            height: 300,
+            title: KE.lang['plainpaste'],
+            yesButton: KE.lang['yes'],
+            noButton: KE.lang['no']
         });
         dialog.show();
     },
-    exec : function(id) {
+    exec: function (id) {
         KE.util.select(id);
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var html = KE.$('textArea', dialogDoc).value;
@@ -1819,20 +1857,20 @@ KE.plugin['plainpaste'] = {
 };
 
 KE.plugin['wordpaste'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'wordpaste',
-            width : 330,
-            height : 300,
-            title : KE.lang['wordpaste'],
-            yesButton : KE.lang['yes'],
-            noButton : KE.lang['no']
+            id: id,
+            cmd: 'wordpaste',
+            width: 330,
+            height: 300,
+            title: KE.lang['wordpaste'],
+            yesButton: KE.lang['yes'],
+            noButton: KE.lang['no']
         });
         dialog.show();
     },
-    exec : function(id) {
+    exec: function (id) {
         KE.util.select(id);
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var wordIframe = KE.$('wordIframe', dialogDoc);
@@ -1844,11 +1882,11 @@ KE.plugin['wordpaste'] = {
 };
 
 KE.plugin['fullscreen'] = {
-    resetFull : function(id) {
+    resetFull: function (id) {
         var el = KE.util.getDocumentElement();
         var width = el.clientWidth;
         var height = el.clientHeight;
-        var left,top;
+        var left, top;
         if (KE.browser == 'IE' || KE.browser == 'OPERA') {
             left = document.body.parentNode.scrollLeft;
             top = document.body.parentNode.scrollTop;
@@ -1862,10 +1900,10 @@ KE.plugin['fullscreen'] = {
         div.style.zIndex = 19811211;
         KE.util.resize(id, width + 'px', height + 'px');
     },
-    click : function(id) {
+    click: function (id) {
         var obj = KE.g[id];
         var self = this;
-        var resizeListener = function(e) {
+        var resizeListener = function (e) {
             if (self.isSelected) {
                 KE.plugin["fullscreen"].resetFull(id);
             }
@@ -1897,15 +1935,15 @@ KE.plugin['fullscreen'] = {
 };
 
 KE.plugin['bgcolor'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var menu = new KE.menu({
-            id : id,
-            cmd : 'bgcolor'
+            id: id,
+            cmd: 'bgcolor'
         });
         menu.picker();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         var cmd = new KE.cmd(id);
         cmd.wrap('span', [{'.background-color': value}]);
         KE.history.add(id, false);
@@ -1915,7 +1953,7 @@ KE.plugin['bgcolor'] = {
 };
 
 KE.plugin['date'] = {
-    click : function(id) {
+    click: function (id) {
         var date = new Date();
         var year = date.getFullYear().toString(10);
         var month = (date.getMonth() + 1).toString(10);
@@ -1929,34 +1967,34 @@ KE.plugin['date'] = {
 };
 
 KE.plugin['fontname'] = {
-    click : function(id) {
+    click: function (id) {
         var fontName = {
-            'SimSun'             : '宋体',
-            'SimHei'             : '黑体',
-            'FangSong_GB2312'    : '仿宋体',
-            'KaiTi_GB2312'       : '楷体',
-            'NSimSun'            : '新宋体',
-            'Arial'              : 'Arial',
-            'Arial Black'        : 'Arial Black',
-            'Times New Roman'    : 'Times New Roman',
-            'Courier New'        : 'Courier New',
-            'Tahoma'             : 'Tahoma',
-            'Verdana'            : 'Verdana'
+            'SimSun': '宋体',
+            'SimHei': '黑体',
+            'FangSong_GB2312': '仿宋体',
+            'KaiTi_GB2312': '楷体',
+            'NSimSun': '新宋体',
+            'Arial': 'Arial',
+            'Arial Black': 'Arial Black',
+            'Times New Roman': 'Times New Roman',
+            'Courier New': 'Courier New',
+            'Tahoma': 'Tahoma',
+            'Verdana': 'Verdana'
         };
         var cmd = 'fontname';
         KE.util.selection(id);
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd,
-            width : '160px'
+            id: id,
+            cmd: cmd,
+            width: '160px'
         });
-        KE.each(fontName, function(key, value) {
+        KE.each(fontName, function (key, value) {
             var html = '<span style="font-family: ' + key + ';">' + value + '</span>';
             menu.add(html, new Function('KE.plugin["' + cmd + '"].exec("' + id + '", "' + key + '")'));
         });
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         var cmd = new KE.cmd(id);
         cmd.wrap('span', [{'.font-family': value}]);
         KE.history.add(id, false);
@@ -1966,14 +2004,14 @@ KE.plugin['fontname'] = {
 };
 
 KE.plugin['fontsize'] = {
-    click : function(id) {
+    click: function (id) {
         var fontSize = ['9px', '10px', '12px', '14px', '16px', '18px', '24px', '32px'];
         var cmd = 'fontsize';
         KE.util.selection(id);
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd,
-            width : '100px'
+            id: id,
+            cmd: cmd,
+            width: '100px'
         });
         for (var i = 0, len = fontSize.length; i < len; i++) {
             var value = fontSize[i];
@@ -1982,7 +2020,7 @@ KE.plugin['fontsize'] = {
         }
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         var cmd = new KE.cmd(id);
         cmd.wrap('span', [{'.font-size': value}]);
         KE.history.add(id, false);
@@ -1992,7 +2030,7 @@ KE.plugin['fontsize'] = {
 };
 
 KE.plugin['hr'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         KE.util.insertHtml(id, '<hr />');
         KE.util.focus(id);
@@ -2000,30 +2038,30 @@ KE.plugin['hr'] = {
 };
 
 KE.plugin['preview'] = {
-    click : function(id) {
+    click: function (id) {
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'preview',
-            html : KE.util.getData(id),
-            width : 600,
-            height : 400,
-            useFrameCSS : true,
-            title : KE.lang['preview'],
-            noButton : KE.lang['close']
+            id: id,
+            cmd: 'preview',
+            html: KE.util.getData(id),
+            width: 600,
+            height: 400,
+            useFrameCSS: true,
+            title: KE.lang['preview'],
+            noButton: KE.lang['close']
         });
         dialog.show();
     }
 };
 
 KE.plugin['print'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         KE.g[id].iframeWin.print();
     }
 };
 
 KE.plugin['removeformat'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var cmd = new KE.cmd(id);
         cmd.remove(KE.setting.inlineTags, ['class', 'style']);
@@ -2034,7 +2072,7 @@ KE.plugin['removeformat'] = {
 };
 
 KE.plugin['source'] = {
-    click : function(id) {
+    click: function (id) {
         var obj = KE.g[id];
         if (!obj.wyswygMode) {
             obj.iframeDoc.body.innerHTML = obj.newTextarea.value;
@@ -2063,15 +2101,15 @@ KE.plugin['source'] = {
 };
 
 KE.plugin['textcolor'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var menu = new KE.menu({
-            id : id,
-            cmd : 'textcolor'
+            id: id,
+            cmd: 'textcolor'
         });
         menu.picker();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         var cmd = new KE.cmd(id);
         cmd.wrap('span', [{'.color': value}]);
         KE.history.add(id, false);
@@ -2081,7 +2119,7 @@ KE.plugin['textcolor'] = {
 };
 
 KE.plugin['time'] = {
-    click : function(id) {
+    click: function (id) {
         var date = new Date();
         var hour = date.getHours().toString(10);
         hour = hour.length < 2 ? '0' + hour : hour;
@@ -2096,29 +2134,29 @@ KE.plugin['time'] = {
 };
 
 KE.plugin['title'] = {
-    click : function(id) {
+    click: function (id) {
         var title = {
-            'H1' : '标题 1',
-            'H2' : '标题 2',
-            'H3' : '标题 3',
-            'H4' : '标题 4',
-            'H5' : '标题 5',
-            'H6' : '标题 6'
+            'H1': '标题 1',
+            'H2': '标题 2',
+            'H3': '标题 3',
+            'H4': '标题 4',
+            'H5': '标题 5',
+            'H6': '标题 6'
         };
         var cmd = 'title';
         KE.util.selection(id);
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd,
-            width : '120px'
+            id: id,
+            cmd: cmd,
+            width: '120px'
         });
-        KE.each(title, function(key, value) {
+        KE.each(title, function (key, value) {
             var html = '<' + key + ' style="margin:0px;">' + value + '</' + key + '>';
             menu.add(html, new Function('KE.plugin["' + cmd + '"].exec("' + id + '", "<' + key + '>")'));
         });
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         KE.util.select(id);
         KE.util.execCommand(id, 'formatblock', value);
         KE.layout.hide(id);
@@ -2127,15 +2165,15 @@ KE.plugin['title'] = {
 };
 
 KE.plugin['emoticons'] = {
-    icon : 'emoticons.gif',
-    click : function(id) {
+    icon: 'emoticons.gif',
+    click: function (id) {
         var emoticonTable = [
-            ['etc_01.gif','etc_02.gif','etc_03.gif','etc_04.gif','etc_05.gif','etc_06.gif'],
-            ['etc_07.gif','etc_08.gif','etc_09.gif','etc_10.gif','etc_11.gif','etc_12.gif'],
-            ['etc_13.gif','etc_14.gif','etc_15.gif','etc_16.gif','etc_17.gif','etc_18.gif'],
-            ['etc_19.gif','etc_20.gif','etc_21.gif','etc_22.gif','etc_23.gif','etc_24.gif'],
-            ['etc_25.gif','etc_26.gif','etc_27.gif','etc_28.gif','etc_29.gif','etc_30.gif'],
-            ['etc_31.gif','etc_32.gif','etc_33.gif','etc_34.gif','etc_35.gif','etc_36.gif']
+            ['etc_01.gif', 'etc_02.gif', 'etc_03.gif', 'etc_04.gif', 'etc_05.gif', 'etc_06.gif'],
+            ['etc_07.gif', 'etc_08.gif', 'etc_09.gif', 'etc_10.gif', 'etc_11.gif', 'etc_12.gif'],
+            ['etc_13.gif', 'etc_14.gif', 'etc_15.gif', 'etc_16.gif', 'etc_17.gif', 'etc_18.gif'],
+            ['etc_19.gif', 'etc_20.gif', 'etc_21.gif', 'etc_22.gif', 'etc_23.gif', 'etc_24.gif'],
+            ['etc_25.gif', 'etc_26.gif', 'etc_27.gif', 'etc_28.gif', 'etc_29.gif', 'etc_30.gif'],
+            ['etc_31.gif', 'etc_32.gif', 'etc_33.gif', 'etc_34.gif', 'etc_35.gif', 'etc_36.gif']
         ];
         var cmd = 'emoticons';
         KE.util.selection(id);
@@ -2154,8 +2192,12 @@ KE.plugin['emoticons'] = {
                 cell.style.padding = '1px';
                 cell.style.border = '1px solid #F0F0EE';
                 cell.style.cursor = 'pointer';
-                cell.onmouseover = function() {this.style.borderColor = '#000000'; }
-                cell.onmouseout = function() {this.style.borderColor = '#F0F0EE'; }
+                cell.onmouseover = function () {
+                    this.style.borderColor = '#000000';
+                }
+                cell.onmouseout = function () {
+                    this.style.borderColor = '#F0F0EE';
+                }
                 cell.onclick = new Function('KE.plugin["' + cmd + '"].exec("' + id + '", "' + emoticonTable[i][j] + '")');
                 var img = KE.$$('img');
                 img.src = KE.g[id].pluginsPath + 'emoticons/' + emoticonTable[i][j];
@@ -2163,13 +2205,13 @@ KE.plugin['emoticons'] = {
             }
         }
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd
+            id: id,
+            cmd: cmd
         });
         menu.append(table);
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         KE.util.select(id);
         var html = '<img src="' + KE.g[id].pluginsPath + 'emoticons/' + value + '" border="0" />';
         KE.util.insertHtml(id, html);
@@ -2179,21 +2221,21 @@ KE.plugin['emoticons'] = {
 };
 
 KE.plugin['flash'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'flash',
-            width : 280,
-            height : 250,
-            title : "Flash",
-            previewButton : KE.lang['preview'],
-            yesButton : KE.lang['yes'],
-            noButton : KE.lang['no']
+            id: id,
+            cmd: 'flash',
+            width: 280,
+            height: 250,
+            title: "Flash",
+            previewButton: KE.lang['preview'],
+            yesButton: KE.lang['yes'],
+            noButton: KE.lang['no']
         });
         dialog.show();
     },
-    check : function(id, url) {
+    check: function (id, url) {
         if (url.match(/\w+:\/\/.{3,}/) == null) {
             alert(KE.lang['invalidUrl']);
             window.focus();
@@ -2202,7 +2244,7 @@ KE.plugin['flash'] = {
         }
         return true;
     },
-    preview : function(id) {
+    preview: function (id) {
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var url = KE.$('url', dialogDoc).value;
         if (!this.check(id, url)) return false;
@@ -2215,7 +2257,7 @@ KE.plugin['flash'] = {
         KE.$('previewDiv', dialogDoc).innerHTML = "";
         KE.$('previewDiv', dialogDoc).appendChild(embed);
     },
-    exec : function(id) {
+    exec: function (id) {
         KE.util.select(id);
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var url = KE.$('url', dialogDoc).value;
@@ -2228,20 +2270,20 @@ KE.plugin['flash'] = {
 };
 
 KE.plugin['image'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'image',
-            width : 310,
-            height : 90,
-            title : KE.lang['image'],
-            yesButton : KE.lang['yes'],
-            noButton : KE.lang['no']
+            id: id,
+            cmd: 'image',
+            width: 310,
+            height: 90,
+            title: KE.lang['image'],
+            yesButton: KE.lang['yes'],
+            noButton: KE.lang['no']
         });
         dialog.show();
     },
-    check : function(id) {
+    check: function (id) {
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var type = KE.$('type', dialogDoc).value;
         var url = '';
@@ -2279,7 +2321,7 @@ KE.plugin['image'] = {
         }
         return true;
     },
-    exec : function(id) {
+    exec: function (id) {
         KE.util.select(id);
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var type = KE.$('type', dialogDoc).value;
@@ -2297,7 +2339,7 @@ KE.plugin['image'] = {
             this.insert(id, url, title, width, height, border);
         }
     },
-    insert : function(id, url, title, width, height, border) {
+    insert: function (id, url, title, width, height, border) {
         var html = '<img src="' + url + '" ';
         if (width > 0) html += 'width="' + width + '" ';
         if (height > 0) html += 'height="' + height + '" ';
@@ -2311,7 +2353,7 @@ KE.plugin['image'] = {
 };
 
 KE.plugin['layer'] = {
-    click : function(id) {
+    click: function (id) {
         var cmd = 'layer';
         var styles = [
             'margin:5px;border:1px solid #000000;',
@@ -2323,9 +2365,9 @@ KE.plugin['layer'] = {
         ];
         KE.util.selection(id);
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd,
-            width : '150px'
+            id: id,
+            cmd: cmd,
+            width: '150px'
         });
         for (var i = 0; i < styles.length; i++) {
             var html = '<div style="height:15px;' + styles[i] + '"></div>';
@@ -2333,7 +2375,7 @@ KE.plugin['layer'] = {
         }
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         KE.util.select(id);
         var html = '<div style="' + value + '">' + KE.lang['pleaseInput'] + '</div>';
         KE.util.insertHtml(id, html);
@@ -2343,20 +2385,20 @@ KE.plugin['layer'] = {
 };
 
 KE.plugin['link'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'link',
-            width : 310,
-            height : 70,
-            title : KE.lang['link'],
-            yesButton : KE.lang['yes'],
-            noButton : KE.lang['no']
+            id: id,
+            cmd: 'link',
+            width: 310,
+            height: 70,
+            title: KE.lang['link'],
+            yesButton: KE.lang['yes'],
+            noButton: KE.lang['no']
         });
         dialog.show();
     },
-    exec : function(id) {
+    exec: function (id) {
         KE.util.select(id);
         var iframeDoc = KE.g[id].iframeDoc;
         var range = KE.g[id].range;
@@ -2392,21 +2434,21 @@ KE.plugin['link'] = {
 };
 
 KE.plugin['media'] = {
-    click : function(id) {
+    click: function (id) {
         KE.util.selection(id);
         var dialog = new KE.dialog({
-            id : id,
-            cmd : 'media',
-            width : 280,
-            height : 250,
-            title : KE.lang['media'],
-            previewButton : KE.lang['preview'],
-            yesButton : KE.lang['yes'],
-            noButton : KE.lang['no']
+            id: id,
+            cmd: 'media',
+            width: 280,
+            height: 250,
+            title: KE.lang['media'],
+            previewButton: KE.lang['preview'],
+            yesButton: KE.lang['yes'],
+            noButton: KE.lang['no']
         });
         dialog.show();
     },
-    check : function(id, url) {
+    check: function (id, url) {
         if (!url.match(/^\w+:\/\/.{3,}\.(mp3|wav|wma|wmv|mid|avi|mpg|mpeg|asf|rm|rmvb)(\?|$)/i)) {
             alert(KE.lang['invalidMedia']);
             window.focus();
@@ -2415,7 +2457,7 @@ KE.plugin['media'] = {
         }
         return true;
     },
-    preview : function(id) {
+    preview: function (id) {
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var url = KE.$('url', dialogDoc).value;
         if (!this.check(id, url)) return false;
@@ -2433,7 +2475,7 @@ KE.plugin['media'] = {
         KE.$('previewDiv', dialogDoc).innerHTML = "";
         KE.$('previewDiv', dialogDoc).appendChild(embed);
     },
-    exec : function(id) {
+    exec: function (id) {
         KE.util.select(id);
         var dialogDoc = KE.util.getIframeDoc(KE.g[id].dialog);
         var url = KE.$('url', dialogDoc).value;
@@ -2451,18 +2493,18 @@ KE.plugin['media'] = {
 };
 
 KE.plugin['specialchar'] = {
-    click : function(id) {
+    click: function (id) {
         var charTable = [
-            ['§','№','☆','★','○','●','◎','◇','◆','□'],
-            ['℃','‰','■','△','▲','※','→','←','↑','↓'],
-            ['〓','¤','°','＃','＆','＠','＼','︿','＿','￣'],
-            ['―','α','β','γ','δ','ε','ζ','η','θ','ι'],
-            ['κ','λ','μ','ν','ξ','ο','π','ρ','σ','τ'],
-            ['υ','φ','χ','ψ','ω','≈','≡','≠','＝','≤'],
-            ['≥','＜','＞','≮','≯','∷','±','＋','－','×'],
-            ['÷','／','∫','∮','∝','∞','∧','∨','∑','∏'],
-            ['∪','∩','∈','∵','∴','⊥','∥','∠','⌒','⊙'],
-            ['≌','∽','〖','〗','【','】','（','）','［','］']
+            ['§', '№', '☆', '★', '○', '●', '◎', '◇', '◆', '□'],
+            ['℃', '‰', '■', '△', '▲', '※', '→', '←', '↑', '↓'],
+            ['〓', '¤', '°', '＃', '＆', '＠', '＼', '︿', '＿', '￣'],
+            ['―', 'α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι'],
+            ['κ', 'λ', 'μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'σ', 'τ'],
+            ['υ', 'φ', 'χ', 'ψ', 'ω', '≈', '≡', '≠', '＝', '≤'],
+            ['≥', '＜', '＞', '≮', '≯', '∷', '±', '＋', '－', '×'],
+            ['÷', '／', '∫', '∮', '∝', '∞', '∧', '∨', '∑', '∏'],
+            ['∪', '∩', '∈', '∵', '∴', '⊥', '∥', '∠', '⌒', '⊙'],
+            ['≌', '∽', '〖', '〗', '【', '】', '（', '）', '［', '］']
         ];
         var cmd = 'specialchar';
         KE.util.selection(id);
@@ -2482,20 +2524,24 @@ KE.plugin['specialchar'] = {
                 cell.style.border = '1px solid #AAAAAA';
                 cell.style.fontSize = '12px';
                 cell.style.cursor = 'pointer';
-                cell.onmouseover = function() {this.style.borderColor = '#000000'; }
-                cell.onmouseout = function() {this.style.borderColor = '#AAAAAA'; }
+                cell.onmouseover = function () {
+                    this.style.borderColor = '#000000';
+                }
+                cell.onmouseout = function () {
+                    this.style.borderColor = '#AAAAAA';
+                }
                 cell.onclick = new Function('KE.plugin["' + cmd + '"].exec("' + id + '", "' + charTable[i][j] + '")');
                 cell.innerHTML = charTable[i][j];
             }
         }
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd
+            id: id,
+            cmd: cmd
         });
         menu.append(table);
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         KE.util.select(id);
         KE.util.insertHtml(id, value);
         KE.layout.hide(id);
@@ -2504,7 +2550,7 @@ KE.plugin['specialchar'] = {
 };
 
 KE.plugin['table'] = {
-    selected : function(id, i, j) {
+    selected: function (id, i, j) {
         var text = i.toString(10) + ' by ' + j.toString(10) + ' Table';
         KE.$('tableLocation' + id).innerHTML = text;
         var num = 10;
@@ -2519,7 +2565,7 @@ KE.plugin['table'] = {
             }
         }
     },
-    click : function(id) {
+    click: function (id) {
         var cmd = 'table';
         KE.util.selection(id);
         var num = 10;
@@ -2541,13 +2587,13 @@ KE.plugin['table'] = {
             '" style="font-size:12px;text-align:center;height:20px;margin:0;padding:0;border:0;"></td></tr>';
         html += '</table>';
         var menu = new KE.menu({
-            id : id,
-            cmd : cmd
+            id: id,
+            cmd: cmd
         });
         menu.insert(html);
         menu.show();
     },
-    exec : function(id, value) {
+    exec: function (id, value) {
         KE.util.select(id);
         var location = value.split(',');
         var html = '<table border="1">';

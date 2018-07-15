@@ -14,11 +14,6 @@ public class UserLogUtils {
 
     private static final Logger SYS_USER_LOGGER = LoggerFactory.getLogger("mm-sys-user");
 
-
-    private Logger getSysUserLog() {
-        return SYS_USER_LOGGER;
-    }
-
     /**
      * 记录格式 [ip][用户名][操作][错误消息]
      * <p/>
@@ -59,6 +54,10 @@ public class UserLogUtils {
 
         return "unknown";
 
+    }
+
+    private Logger getSysUserLog() {
+        return SYS_USER_LOGGER;
     }
 
 }

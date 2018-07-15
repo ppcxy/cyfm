@@ -5,26 +5,26 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.repository.mybatis;
 
-import static org.assertj.core.api.Assertions.*;
-
+import com.ppcxy.cyfm.sys.entity.team.Team;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import com.ppcxy.cyfm.sys.entity.team.Team;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @DirtiesContext
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = {"/applicationContext.xml", "/cache/applicationContext-ehcache.xml"})
 public class TeamMybatisDaoTest extends SpringTransactionalTestCase {
-
-	@Autowired
-	private TeamMybatisDao teamDao;
-
-	@Test
-	public void getTeamWithDetail() throws Exception {
-		Team team = teamDao.getWithDetail(1L);
-		assertThat(team.getName()).isEqualTo("Dolphin");
-		assertThat(team.getMaster().getName()).isEqualTo("管理员");
-	}
+    
+    @Autowired
+    private TeamMybatisDao teamDao;
+    
+    @Test
+    public void getTeamWithDetail() throws Exception {
+        Team team = teamDao.getWithDetail(1L);
+        assertThat(team.getName()).isEqualTo("Dolphin");
+        assertThat(team.getMaster().getName()).isEqualTo("管理员");
+    }
 }

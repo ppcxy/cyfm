@@ -149,8 +149,6 @@ public abstract class Searchable {
      */
     public abstract Searchable markConverted();
 
-    public abstract Searchable setPage(final Pageable page);
-
     /**
      * @param pageNumber 分页页码 索引从 0 开始
      * @param pageSize   每页大小
@@ -162,7 +160,6 @@ public abstract class Searchable {
 
     public abstract Searchable addSort(final Sort.Direction direction, String property);
 
-
     /**
      * 获取查询过滤条件
      *
@@ -170,14 +167,12 @@ public abstract class Searchable {
      */
     public abstract Collection<SearchFilter> getSearchFilters();
 
-
     /**
      * 是否已经转换过了 避免多次转换
      *
      * @return
      */
     public abstract boolean isConverted();
-
 
     /**
      * 是否有查询参数
@@ -210,6 +205,8 @@ public abstract class Searchable {
      * @return
      */
     public abstract Pageable getPage();
+
+    public abstract Searchable setPage(final Pageable page);
 
     /**
      * 获取排序信息

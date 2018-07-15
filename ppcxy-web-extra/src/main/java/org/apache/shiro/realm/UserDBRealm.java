@@ -23,12 +23,13 @@ import javax.annotation.PostConstruct;
  */
 public class UserDBRealm extends AuthorizingRealm {
 
+    private static final Logger log = LoggerFactory.getLogger(UserDBRealm.class);
+    private static final String OR_OPERATOR = " or ";
+    private static final String AND_OPERATOR = " and ";
+    private static final String NOT_OPERATOR = "not ";
     private UserService userService;
-
     private AuthorizeService authorizeService;
 
-    private static final Logger log = LoggerFactory.getLogger(UserDBRealm.class);
-   
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
@@ -60,7 +61,7 @@ public class UserDBRealm extends AuthorizingRealm {
         }
 
         byte[] salt = Encodes.decodeHex(user.getSalt());
-        return new SimpleAuthenticationInfo(new ShiroUser(user.getUsername(), user.getName()), user.getPassword(),
+        return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getUsername(), user.getName()), user.getPassword(),
                 ByteSource.Util.bytes(salt), getName());
     }
 
@@ -71,6 +72,7 @@ public class UserDBRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         //授权信息设定，从授权模块获取权限信息
+        authorizationInfo.setRoles(authorizeService.findRoles(user));
         authorizationInfo.setStringPermissions(authorizeService.findStringPermissions(user));
         return authorizationInfo;
     }
@@ -85,10 +87,6 @@ public class UserDBRealm extends AuthorizingRealm {
 
         setCredentialsMatcher(matcher);
     }
-
-    private static final String OR_OPERATOR = " or ";
-    private static final String AND_OPERATOR = " and ";
-    private static final String NOT_OPERATOR = "not ";
 
     /**
      * 支持or and not 关键词  不支持and or混用

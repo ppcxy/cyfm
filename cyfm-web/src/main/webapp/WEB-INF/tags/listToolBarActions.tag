@@ -17,12 +17,33 @@
 	</c:if>
 </shiro:hasPermission>
 <shiro:hasPermission name="${resourceIdentity}:custom">
-	<a class="btn btn-default more"><i class="fa fa-bars"></i> 更多</a>
+	<div class="btn-group more hidden">
+		<button type="button" class="btn  btn-default dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="false">
+			<i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
+		</button>
+		<ul class="dropdown-menu">
+			<li class="more_list">
+			</li>
+		</ul>
+	</div>
 </shiro:hasPermission>
 </div>
 <shiro:hasPermission name="${resourceIdentity}:config">
 	<ul class="toolbar-right">
-		<li><span><img src="${ctx}/static/manage/images/t05.png" /></span>设置</li>
+		<li>
+			<div class="btn-group config">
+				<button type="button" class="btn btn-default dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="false">
+					<i class="fa fa-cog"></i> 设置 <i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu pull-right">
+					<li class="more_list">
+						<a href="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
+						<a href="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
+						<a href="javascript:$('.search-toolbar').toggle()">显示/隐藏查询</a>
+					</li>
+				</ul>
+			</div>
+		</li>
 	</ul>
 </shiro:hasPermission>
 

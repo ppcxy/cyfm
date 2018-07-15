@@ -25,14 +25,6 @@ public enum SearchOperator {
         this.symbol = symbol;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
     public static String toStringAllOperator() {
         return Arrays.toString(SearchOperator.values());
     }
@@ -46,7 +38,6 @@ public enum SearchOperator {
     public static boolean isAllowBlankValue(final SearchOperator operator) {
         return operator == SearchOperator.isNotNull || operator == SearchOperator.isNull;
     }
-
 
     public static SearchOperator valueBySymbol(String symbol) throws SearchException {
         symbol = formatSymbol(symbol);
@@ -64,5 +55,13 @@ public enum SearchOperator {
             return symbol;
         }
         return symbol.trim().toLowerCase().replace("  ", " ");
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }

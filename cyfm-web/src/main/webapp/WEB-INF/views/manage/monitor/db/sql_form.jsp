@@ -15,7 +15,7 @@
             <cyform:hidden path="page.pn"/>
             <cyform:label path="sql">请输入SQL(不支持DDL/DCL执行)：</cyform:label><br/>
             <cyform:textarea path="sql" style="width: 500px;height: 160px"/><br/>
-            <input type="submit" class="btn" value="执行">
+            <input type="submit" class="btn btn-default" value="执行">
         </form>
     </div>
     <div id="result">

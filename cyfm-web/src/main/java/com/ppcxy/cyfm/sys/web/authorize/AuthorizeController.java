@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/sys/authorize")
 public class AuthorizeController extends BaseCRUDController<Authorize, Long> {
-
+    
     public AuthorizeController() {
         setResourceIdentity("sys:authorize");
         setModelName("authorize");
     }
-
+    
     @Override
     protected void preResponse(Model model) {
         super.preResponse(model);

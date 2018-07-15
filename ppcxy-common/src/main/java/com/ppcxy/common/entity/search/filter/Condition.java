@@ -23,6 +23,18 @@ public final class Condition implements SearchFilter {
     private Object value;
 
     /**
+     * @param searchProperty 属性名
+     * @param operator       操作
+     * @param value          值
+     */
+    private Condition(final String searchProperty, final SearchOperator operator, final Object value) {
+        this.searchProperty = searchProperty;
+        this.operator = operator;
+        this.value = value;
+        this.key = this.searchProperty + separator + this.operator;
+    }
+
+    /**
      * 根据查询key和值生成Condition
      *
      * @param key   如 name_like
@@ -66,7 +78,6 @@ public final class Condition implements SearchFilter {
         return searchFilter;
     }
 
-
     /**
      * 根据查询属性、操作符和值生成Condition
      *
@@ -79,18 +90,6 @@ public final class Condition implements SearchFilter {
         return new Condition(searchProperty, operator, value);
     }
 
-    /**
-     * @param searchProperty 属性名
-     * @param operator       操作
-     * @param value          值
-     */
-    private Condition(final String searchProperty, final SearchOperator operator, final Object value) {
-        this.searchProperty = searchProperty;
-        this.operator = operator;
-        this.value = value;
-        this.key = this.searchProperty + separator + this.operator;
-    }
-
     public String getKey() {
         return key;
 
@@ -100,6 +99,10 @@ public final class Condition implements SearchFilter {
         return searchProperty;
     }
 
+    public void setSearchProperty(final String searchProperty) {
+        this.searchProperty = searchProperty;
+    }
+
     /**
      * 获取 操作符
      *
@@ -107,6 +110,10 @@ public final class Condition implements SearchFilter {
      */
     public SearchOperator getOperator() throws InvlidSearchOperatorException {
         return operator;
+    }
+
+    public void setOperator(final SearchOperator operator) {
+        this.operator = operator;
     }
 
     /**
@@ -127,19 +134,9 @@ public final class Condition implements SearchFilter {
         return value;
     }
 
-
     public void setValue(final Object value) {
         this.value = value;
     }
-
-    public void setOperator(final SearchOperator operator) {
-        this.operator = operator;
-    }
-
-    public void setSearchProperty(final String searchProperty) {
-        this.searchProperty = searchProperty;
-    }
-
 
     /**
      * 得到实体属性名

@@ -5,10 +5,10 @@
  *******************************************************************************/
 package org.springside.modules.web.taglib;
 
-import javax.servlet.jsp.JspException;
-
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.servlet.tags.form.TagWriter;
+
+import javax.servlet.jsp.JspException;
 
 public class BSCheckboxesTag extends BSAbstractMultiCheckedElementTag {
 

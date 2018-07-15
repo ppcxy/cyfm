@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>permission 编辑页面</title>
+  <title>权限详情</title>
 </head>
 <body>
 <div class="portlet box editBox">
@@ -32,7 +32,6 @@
             </div>
             <div class="form-actions">
                 <input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
-                <input id="cancel_btn" class="btn" type="button" value="返回" onclick="history.back()"/>
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>
             </form:form>
@@ -41,6 +40,7 @@
 </div>
 <script>
     $(function () {
+        $cy.handleUniform();
         $("#inputForm").validate({
             rules: {
                 name: {
@@ -84,7 +84,6 @@
             }
         });
     })
-    $cy.handleUniform();
 </script>
 </body>
 </html>

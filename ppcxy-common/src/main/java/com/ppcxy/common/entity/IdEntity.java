@@ -1,6 +1,8 @@
 
 package com.ppcxy.common.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,11 @@ public abstract class IdEntity extends AbstractEntity<Long> {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

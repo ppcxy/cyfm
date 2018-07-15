@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
-<head></head>
+<head>
+    <title>资源管理</title>
+</head>
 <body>
 <div id="treeMain" style="height: 500px">
     <div class="ui-layout-west tree" style="overflow-y: hidden">

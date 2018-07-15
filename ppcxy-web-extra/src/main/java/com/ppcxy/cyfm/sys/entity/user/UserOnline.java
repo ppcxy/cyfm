@@ -67,6 +67,22 @@ public class UserOnline extends AbstractEntity<String> {
 
     private OnlineSession session;
 
+    public static UserOnline fromOnlineSession(OnlineSession session) {
+        UserOnline online = new UserOnline();
+        online.setId(String.valueOf(session.getId()));
+        online.setUserId(session.getUserId());
+        online.setUsername(session.getUsername());
+        online.setStartTimestamp(session.getStartTimestamp());
+        online.setLastAccessTime(session.getLastAccessTime());
+        online.setTimeout(session.getTimeout());
+        online.setHost(session.getHost());
+        online.setUserAgent(session.getUserAgent());
+        online.setSystemHost(session.getSystemHost());
+        online.setSession(session);
+
+        return online;
+    }
+
     /**
      * 用户会话id ===> uid
      */
@@ -101,7 +117,6 @@ public class UserOnline extends AbstractEntity<String> {
     public void setLastAccessTime(Date lastAccessTime) {
         this.lastAccessTime = lastAccessTime;
     }
-
 
     public Long getTimeout() {
         return timeout;
@@ -148,13 +163,14 @@ public class UserOnline extends AbstractEntity<String> {
         return status;
     }
 
+    /**
+     * 备份的当前用户会话
+     */
+
     public void setStatus(OnlineSession.OnlineStatus status) {
         this.status = status;
     }
 
-    /**
-     * 备份的当前用户会话
-     */
     /**
      * 备份的当前用户会话
      */
@@ -174,23 +190,6 @@ public class UserOnline extends AbstractEntity<String> {
 
     public void setSystemHost(String systemHost) {
         this.systemHost = systemHost;
-    }
-
-
-    public static UserOnline fromOnlineSession(OnlineSession session) {
-        UserOnline online = new UserOnline();
-        online.setId(String.valueOf(session.getId()));
-        online.setUserId(session.getUserId());
-        online.setUsername(session.getUsername());
-        online.setStartTimestamp(session.getStartTimestamp());
-        online.setLastAccessTime(session.getLastAccessTime());
-        online.setTimeout(session.getTimeout());
-        online.setHost(session.getHost());
-        online.setUserAgent(session.getUserAgent());
-        online.setSystemHost(session.getSystemHost());
-        online.setSession(session);
-
-        return online;
     }
 
 

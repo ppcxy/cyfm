@@ -16,15 +16,15 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("/sys/permission")
 public class PermissionController extends BaseCRUDController<Permission, Long> {
-
+    
     @Resource
     private PermissionService permissionService;
-
+    
     public PermissionController() {
         setResourceIdentity("sys:permission");
         setModelName("permission");
     }
-
+    
     @RequestMapping(value = "checkName")
     @ResponseBody
     public String checkName(@RequestParam("oldName") String oldName, @RequestParam("name") String name) {
@@ -33,10 +33,10 @@ public class PermissionController extends BaseCRUDController<Permission, Long> {
         } else if (permissionService.findByName(name) == null) {
             return "true";
         }
-
+        
         return "false";
     }
-
+    
     @RequestMapping(value = "checkValue")
     @ResponseBody
     public String checkValue(@RequestParam("oldValue") String oldValue, @RequestParam("value") String value) {
@@ -45,7 +45,7 @@ public class PermissionController extends BaseCRUDController<Permission, Long> {
         } else if (permissionService.findByValue(value) == null) {
             return "true";
         }
-
+        
         return "false";
     }
 }

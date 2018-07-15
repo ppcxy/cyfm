@@ -54,6 +54,21 @@ public class HtmlWhitelist {
     private Map<TagName, Map<AttributeKey, Set<Protocol>>> protocols; // allowed URL protocols for attributes
 
     /**
+     * Create a new, empty whitelist. Generally it will be better to start with a default prepared whitelist instead.
+     *
+     * @see #basic()
+     * @see #basicWithImages()
+     * @see #simpleText()
+     * @see #relaxed()
+     */
+    public HtmlWhitelist() {
+        tagNames = new HashSet<TagName>();
+        attributes = new HashMap<TagName, Set<AttributeKey>>();
+        enforcedAttributes = new HashMap<TagName, Map<AttributeKey, AttributeValue>>();
+        protocols = new HashMap<TagName, Map<AttributeKey, Set<Protocol>>>();
+    }
+
+    /**
      * This whitelist allows only text nodes: all HTML will be stripped.
      *
      * @return whitelist
@@ -156,21 +171,6 @@ public class HtmlWhitelist {
                 .addProtocols("img", "src", "http", "https")
                 .addProtocols("q", "cite", "http", "https")
                 ;
-    }
-
-    /**
-     * Create a new, empty whitelist. Generally it will be better to start with a default prepared whitelist instead.
-     *
-     * @see #basic()
-     * @see #basicWithImages()
-     * @see #simpleText()
-     * @see #relaxed()
-     */
-    public HtmlWhitelist() {
-        tagNames = new HashSet<TagName>();
-        attributes = new HashMap<TagName, Set<AttributeKey>>();
-        enforcedAttributes = new HashMap<TagName, Map<AttributeKey, AttributeValue>>();
-        protocols = new HashMap<TagName, Map<AttributeKey, Set<Protocol>>>();
     }
 
     /**

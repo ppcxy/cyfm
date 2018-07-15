@@ -38,12 +38,12 @@ public class JCaptchaValidateFilter extends AccessControlFilter {
         this.jcaptchaParam = jcaptchaParam;
     }
 
-    public void setJcapatchaErrorUrl(String jcapatchaErrorUrl) {
-        this.jcapatchaErrorUrl = jcapatchaErrorUrl;
-    }
-
     public String getJcapatchaErrorUrl() {
         return jcapatchaErrorUrl;
+    }
+
+    public void setJcapatchaErrorUrl(String jcapatchaErrorUrl) {
+        this.jcapatchaErrorUrl = jcapatchaErrorUrl;
     }
 
     @Override

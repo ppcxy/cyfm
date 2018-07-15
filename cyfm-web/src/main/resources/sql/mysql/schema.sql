@@ -16,6 +16,20 @@ DROP TABLE IF EXISTS cy_sys_role_resource_permission;
 
 DROP TABLE IF EXISTS cy_sys_authorize;
 
+DROP TABLE IF EXISTS cy_maintain_task_definition;
+
+DROP TABLE IF EXISTS cy_datasource_manage;
+
+DROP TABLE IF EXISTS cy_maintain_notification_data;
+
+DROP TABLE IF EXISTS cy_maintain_notification_template;
+
+DROP TABLE IF EXISTS properties;
+
+DROP TABLE IF EXISTS bus_join_system;
+
+DROP TABLE IF EXISTS bus_remote_api;
+
 CREATE TABLE cy_sys_role (
   id BIGINT  NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL UNIQUE,
@@ -110,5 +124,102 @@ CREATE TABLE cy_sys_authorize
     user_id BIGINT NOT NULL,
     target_id BIGINT NOT NULL,
     auth_type VARCHAR(50) NOT NULL
+)
+AUTO_INCREMENT=1000;
+
+create table cy_maintain_task_definition
+(
+	id bigint auto_increment
+		primary key,
+	name varchar(300) null,
+	cron varchar(300) null,
+	bean_class varchar(300) null,
+	bean_name varchar(300) null,
+	method_Name varchar(300) null,
+	is_start tinyint(1) null,
+	description varchar(4000) null
+)
+AUTO_INCREMENT=1000;
+
+CREATE TABLE cy_datasource_manage
+(
+  id BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  DS_NAME VARCHAR(200) NOT NULL,
+  DS_TYPE VARCHAR(200) NOT NULL,
+  DB_NAME VARCHAR(200) NOT NULL,
+  DB_TYPE VARCHAR(200) NOT NULL,
+  DB_HOST VARCHAR(200) NOT NULL,
+  DB_PORT VARCHAR(200) NOT NULL,
+  DB_USERNAME VARCHAR(200) NOT NULL,
+  DB_PASSWORD VARCHAR(200) NOT NULL
+)
+AUTO_INCREMENT=1000;
+
+create table cy_maintain_notification_data
+(
+	id BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+	USER_ID BIGINT,
+	SYSTEM VARCHAR(50),
+	TITLE VARCHAR(600),
+	CONTENT VARCHAR(2000),
+	PUBLISH_DATE DATETIME,
+	IS_READ BIGINT
+)
+AUTO_INCREMENT=1000;
+
+create table cy_maintain_notification_template
+(
+	id BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+	NAME VARCHAR(200),
+	SYSTEM VARCHAR(50),
+	TITLE VARCHAR(600),
+	TEMPLATE VARCHAR(2000),
+	DELETED bigint
+)
+AUTO_INCREMENT=1000;
+
+
+
+CREATE TABLE PROPERTIES
+(
+	ID BIGINT AUTO_INCREMENT
+		PRIMARY KEY,
+	`KEY` VARCHAR(50) NULL,
+	`VALUE` VARCHAR(500) NULL,
+	APPLICATION VARCHAR(50) NULL,
+	PROFILE VARCHAR(50) NULL,
+	LABEL VARCHAR(50) NULL
+)
+AUTO_INCREMENT=1000;
+
+
+CREATE TABLE BUS_JOIN_SYSTEM
+(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    sys_name VARCHAR(300),
+    sys_address VARCHAR(100),
+    sys_base_path VARCHAR(100),
+    login_api_path VARCHAR(4000),
+    auth_username_key VARCHAR(100) default 'username',
+    auth_password_key VARCHAR(100) default 'password',
+    auth_other_params TEXT,
+    auth_username VARCHAR(200),
+    auth_password VARCHAR(200),
+    requst_method VARCHAR(200)
+)
+AUTO_INCREMENT=1000;
+
+CREATE TABLE BUS_REMOTE_API
+(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    join_system_id BIGINT,
+    remote_api_name VARCHAR(300),
+    remote_api_path VARCHAR(4000),
+    request_method VARCHAR(100),
+    param_model TEXT,
+    remark VARCHAR(3000)
 )
 AUTO_INCREMENT=1000;

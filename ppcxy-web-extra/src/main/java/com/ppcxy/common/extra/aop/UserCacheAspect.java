@@ -17,14 +17,13 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class UserCacheAspect extends BaseCacheAspect implements Ordered {
 
-    public UserCacheAspect() {
-        setCacheName("sys-userCache");
-    }
-
     private static final String ID_KEY_PREFIX = "id-";
     private static final String USERNAME_KEY_PREFIX = "username-";
     private static final String EMAIL_KEY_PREFIX = "email-";
     private static final String TEL_KEY_PREFIX = "tel-";
+    public UserCacheAspect() {
+        setCacheName("sys-userCache");
+    }
 
     ////////////////////////////////////////////////////////////////////////////////
     ////切入点

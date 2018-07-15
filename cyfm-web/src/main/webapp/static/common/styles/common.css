@@ -2,6 +2,7 @@
 .box.editBox {
     border: 1px solid #ccc !important;
 }
+
 .editBox .portlet-title {
     padding: 0 !important;
     margin: 0 10px 0 10px;
@@ -34,6 +35,7 @@
     height: 35px;
     margin-bottom: 8px;
 }
+
 /*edit form end*/
 
 /*page begin*/
@@ -62,7 +64,7 @@
 .pagin .paginList .paginItem a {
     float: left;
     width: 31px;
-    height: 28px;
+    height: 32px;
     border: 1px solid #DDD;
     text-align: center;
     line-height: 30px;
@@ -105,7 +107,12 @@
 .pagin .paginList .paginItem.more a {
     color: #737373;
 }
-
+.pagin .paginList .paginItem a i{
+    font-size: 18px;
+}
+.pagin .paginList .paginItem a.disabled i {
+    color: #cccccc;
+}
 .pagepre {
     background: url(../images/pre.gif) no-repeat center center;
     width: 31px;
@@ -117,25 +124,51 @@
     width: 31px;
     height: 28px;
 }
+
 .pagin li {
     list-style: none;
 }
-.pagin li span{
+
+.pagin li span {
     display: block;
 }
+
 /* page end*/
 
-
-table.table-list th.check,table.table-list td.check {
+table.table-list th.check, table.table-list td.check {
     text-align: center;
 }
-table.table-list .check input[type=checkbox]{
+
+table.table-list .check input[type=checkbox] {
     width: 18px;
     height: 16px;
     clear: left;
 }
 
-
-div.form-group,div.control-group{
+div.form-group, div.control-group {
     padding-bottom: 5px;
+}
+
+table#contentTable thead [data-sort] {
+    /*padding-right: 3px;*/
+    white-space: nowrap;
+}
+
+table#contentTable thead [data-sort] .resize-text{
+    padding-right: 20px;
+}
+table#contentTable thead [data-sort] .resize-text:after {
+    font-size: 12px;
+    opacity: 0.3;
+    content: "\e150";
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+    right: 3px;
+}
+
+table#contentTable thead [data-sort].sort-up .resize-text:after {
+    content: "\e155";
+}
+table#contentTable thead [data-sort].sort-down .resize-text:after {
+    content: "\e156";
 }

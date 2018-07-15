@@ -46,6 +46,10 @@ public class SearchableMethodArgumentResolver extends BaseMethodArgumentResolver
     private static final String DEFAULT_SEARCH_PREFIX = "search";
 
     private String prefix = DEFAULT_SEARCH_PREFIX;
+    /**
+     * 分页参数解析器
+     */
+    private PageableMethodArgumentResolver pageableMethodArgumentResolver = DEFAULT_PAGEABLE_RESOLVER;
 
     /**
      * 设置查询参数前缀
@@ -55,11 +59,6 @@ public class SearchableMethodArgumentResolver extends BaseMethodArgumentResolver
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
-
-    /**
-     * 分页参数解析器
-     */
-    private PageableMethodArgumentResolver pageableMethodArgumentResolver = DEFAULT_PAGEABLE_RESOLVER;
 
     public void setPageableMethodArgumentResolver(PageableMethodArgumentResolver pageableMethodArgumentResolver) {
         this.pageableMethodArgumentResolver = pageableMethodArgumentResolver;

@@ -85,6 +85,23 @@ final class SimpleJpaQuery extends AbstractJpaQuery {
         this(method, em, method.getAnnotatedQuery());
     }
 
+    /**
+     * Creates a {@link RepositoryQuery} from the given {@link org.springframework.data.repository.query.QueryMethod} that
+     * is potentially annotated with {@link org.springframework.data.jpa.repository.Query}.
+     *
+     * @param queryMethod
+     * @param em
+     * @return the {@link RepositoryQuery} derived from the annotation or {@code null} if no annotation found.
+     */
+    public static RepositoryQuery fromQueryAnnotation(JpaQueryMethod queryMethod, EntityManager em) {
+
+        LOG.debug("Looking up query for method {}", queryMethod.getName());
+
+        String query = queryMethod.getAnnotatedQuery();
+
+        return query == null ? null : new SimpleJpaQuery(queryMethod, em, query);
+    }
+
     /*
      * (non-Javadoc)
      * @see org.springframework.data.jpa.repository.query.AbstractJpaQuery#createBinder(java.lang.Object[])
@@ -124,22 +141,5 @@ final class SimpleJpaQuery extends AbstractJpaQuery {
     @Override
     protected TypedQuery<Long> doCreateCountQuery(Object[] values) {
         return createBinder(values).bind(getEntityManager().createQuery(countQuery.getQueryString(), Long.class));
-    }
-
-    /**
-     * Creates a {@link RepositoryQuery} from the given {@link org.springframework.data.repository.query.QueryMethod} that
-     * is potentially annotated with {@link org.springframework.data.jpa.repository.Query}.
-     *
-     * @param queryMethod
-     * @param em
-     * @return the {@link RepositoryQuery} derived from the annotation or {@code null} if no annotation found.
-     */
-    public static RepositoryQuery fromQueryAnnotation(JpaQueryMethod queryMethod, EntityManager em) {
-
-        LOG.debug("Looking up query for method {}", queryMethod.getName());
-
-        String query = queryMethod.getAnnotatedQuery();
-
-        return query == null ? null : new SimpleJpaQuery(queryMethod, em, query);
     }
 }

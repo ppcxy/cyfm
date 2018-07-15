@@ -5,20 +5,20 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.jms;
 
-import static org.assertj.core.api.Assertions.*;
-
+import com.ppcxy.cyfm.showcase.demos.jms.simple.NotifyMessageListener;
 import com.ppcxy.cyfm.showcase.demos.jms.simple.NotifyMessageProducer;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import com.ppcxy.cyfm.showcase.demos.jms.simple.NotifyMessageListener;
-import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springside.modules.test.category.UnStable;
 import org.springside.modules.test.log.LogbackListAppender;
 import org.springside.modules.test.spring.SpringContextTestCase;
 import org.springside.modules.utils.Threads;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Category(UnStable.class)
 @DirtiesContext

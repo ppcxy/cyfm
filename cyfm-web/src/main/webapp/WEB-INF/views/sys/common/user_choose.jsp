@@ -10,15 +10,21 @@
 <html>
 <head>
     <title>用户选择</title>
+    <style>
+        body{
+            min-width: auto;
+        }
+ 
+    </style>
 </head>
 <body>
 <div class="tools search-toolbar">
     <div class="toolbar-right">
-        <form class="form-search form-inline" action="#">
+        <form class="form-search form-inline text-right" action="#">
             <div class="form-group">
                 <label>关键字(用户名,用户姓名, Email)：</label>
-                <input type="text" name="search.name_or_username_or_email_like      " class="form-control input-small"
-                       value="${param['search.name_like']}">
+                <input type="text" name="search.keyword_custom" class="form-control input-small"
+                       value="${param['search.keyword_custom']}">
                 <button type="submit" class="btn btn-default" id="search_btn">查询</button>
             </div>
 
@@ -26,7 +32,7 @@
     </div>
 </div>
 <div class="listTableWrap">
-    <table id="contentTable" data-tid="team"
+    <table id="contentTable" data-tid="user_choose"
            class="table table-list table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
@@ -39,7 +45,7 @@
         <tbody>
         <c:forEach items="${choosePage.content}" var="user">
             <tr>
-                <td class="check"><input type="checkbox" value="${user.id}"></td>
+                <td class="check"><input name="ids" type="checkbox" value="${user.id}" data-id="${user.id}" data-username="${user.username}" data-name="${user.name}" data-email="${user.email}"  data-tel="${user.tel}" data-show="${user.name}[${user.username}]"></td>
                 <td>${user.username}</td>
                 <td>${user.name}</td>
                 <td>${user.email}</td>

@@ -14,11 +14,10 @@ import org.springframework.util.StringUtils;
 public class BaseCacheAspect implements InitializingBean {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
-
+    protected String cacheName;
     @Autowired
     private CacheManager cacheManager;
     private Cache cache;
-    protected String cacheName;
 
     /**
      * 缓存池名称
