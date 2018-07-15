@@ -6,7 +6,10 @@ INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, 
 INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(6,'user5','Ben','ben@springside.org.cn','13211111116','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
 
 
-INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'icon-th-large', 'root', 0, '0', '/', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'fa fa-sun-o', 'root', 0, '0', '/manage/index/', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (2, '工作流管理', 'fa fa-cubes', 'root', 0, '0', '/manage/index/', 2, true, 0);
+
+
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (20, '系统管理', 'fa fa-cogs', 'sys', 1, '01/', '', 1, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (21, '用户管理', 'fa fa-user', 'sys:user', 20, '01/20/', '/sys/user', 1, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (22, '团队管理', 'fa fa-group', 'sys:team', 20, '01/20/', '/sys/team', 2, true, 0);

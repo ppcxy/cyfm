@@ -137,9 +137,13 @@
             background: #f8f8f8;
             border-top: 1px solid #ccc;
         }
+        div.footer-menu-bar li:first-child {
+            float: left;
+            padding: 25px 10px 25px 25px;
+        }
         div.footer-menu-bar li {
             float: left;
-            padding: 25px;
+            padding: 25px 10px 25px 10px;
         }
 
         div.footer-menu-bar li .menu-icon{
