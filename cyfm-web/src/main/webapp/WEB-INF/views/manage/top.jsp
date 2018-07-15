@@ -60,7 +60,7 @@ $(function(){
 <body style="background:url(${ctx}/static/manage/images/topbg.gif) repeat-x;">
 <div class="top-container">
     <div class="topleft">
-        <div class="top-title">天翔统一数据平台</div>
+        <div class="top-title">CYFM快速开发平台</div>
     <%--<a href="${ctx}/manage" target="_parent"><img src="${ctx}/static/manage/images/logo.png" title="系统首页" /></a>--%>
     </div>
 

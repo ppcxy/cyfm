@@ -60,7 +60,7 @@
     <div id="cloud2" class="cloud"></div>
 </div>
 <div class="logintop">
-    <span>欢迎登陆天翔统一数据平台</span>
+    <span>欢迎登陆CYFM快速开发平台</span>
     <ul>
         <li><a href="${ctx}/">回首页</a></li>
         <li><a href="#">帮助</a></li>
