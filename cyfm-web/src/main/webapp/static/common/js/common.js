@@ -175,8 +175,13 @@ $cy = {
             return sortURL;
         },
         removeSearchParam: function (url, form) {
+            url = url.replace("?","?1&")
+            
             $.each(form.serializeArray(), function () {
                 var name = this.name;
+                if ($('[name="' + name + '"]').is(':input:hidden')) {
+                    return false;
+                }
                 url = url.replace(new RegExp(name + "=.*?\&", "g"), '');
                 url = url.replace(new RegExp("[\&\?]" + name + "=.*$", "g"), '');
             });

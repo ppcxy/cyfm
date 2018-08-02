@@ -46,7 +46,7 @@ public class RoleController extends BaseCRUDController<Role, Long> {
     @Override
     public String create(
             Model model, @Valid @ModelAttribute("entity") Role entity, BindingResult result,
-            RedirectAttributes redirectAttributes) {
+            @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         throw new RuntimeException("discarded method");
     }
     
@@ -67,11 +67,12 @@ public class RoleController extends BaseCRUDController<Role, Long> {
             @Valid @ModelAttribute("entity") Role role, BindingResult result,
             @RequestParam(value = "resourceId", defaultValue = "") Long[] resourceIds,
             @RequestParam(value = "permissionIds", defaultValue = "") Long[][] permissionIds,
+            @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
         
         fillResourcePermission(role, resourceIds, permissionIds);
         
-        return super.create(model, role, result, redirectAttributes);
+        return super.create(model, role, result, backURL, redirectAttributes);
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)

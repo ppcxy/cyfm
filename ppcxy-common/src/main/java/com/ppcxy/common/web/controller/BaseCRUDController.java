@@ -225,6 +225,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(
             Model model, @Valid @ModelAttribute("entity") T entity, BindingResult result,
+            @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
         
         
@@ -236,7 +237,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         baseService.save(entity);
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "新增成功");
         afterCreate(model, entity, result, redirectAttributes);
-        return redirectToUrl(null);
+        return redirectToUrl(backURL);
     }
     
     

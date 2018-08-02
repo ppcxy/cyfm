@@ -36,7 +36,7 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
     private DynamicTaskApi dynamicTaskApi;
     
     @Override
-    public String create(Model model, @Valid @ModelAttribute("entity") TaskDefinition entity, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String create(Model model, @Valid @ModelAttribute("entity") TaskDefinition entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         if (permissionList != null) {
             this.permissionList.assertHasCreatePermission();
         }
@@ -46,7 +46,7 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
         }
         dynamicTaskApi.addTaskDefinition(entity);
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "新增成功");
-        return redirectToUrl(null);
+        return redirectToUrl(backURL);
     }
     
     @Override
@@ -106,11 +106,12 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
         
         try {
             dynamicTaskApi.startTask(ids);
+            redirectAttributes.addFlashAttribute(Constants.MESSAGE, "启动任务成功");
         } catch (Exception e) {
-            System.out.println("shibaile");
+            redirectAttributes.addFlashAttribute(Constants.ERROR, "启动任务失败");
         }
         
-        redirectAttributes.addFlashAttribute(Constants.MESSAGE, "启动任务成功");
+       
         return redirectToUrl(backURL);
     }
     

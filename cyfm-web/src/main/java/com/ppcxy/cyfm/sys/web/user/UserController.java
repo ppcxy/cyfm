@@ -51,8 +51,8 @@ public class UserController extends BaseCRUDController<User, Long> {
     
     @Override
     @RequestMapping(value = "create/disabled", method = RequestMethod.POST)
-    public String create(Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result, RedirectAttributes redirectAttributes) {
-        return super.create(model, entity, result, redirectAttributes);
+    public String create(Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
+        throw new RuntimeException("discarded method");
     }
     
     @Override
@@ -61,19 +61,17 @@ public class UserController extends BaseCRUDController<User, Long> {
             Model model, @Valid @ModelAttribute("entity") User entity, BindingResult result,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
-        
-        //disabled
-        return null;
+        throw new RuntimeException("discarded method");
     }
     
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result, @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, RedirectAttributes redirectAttributes) {
+    public String create(Model model, @Valid @ModelAttribute("entity") User user, BindingResult result, @RequestParam(value = "roleList", required = false, defaultValue = "") List<Long> checkedRoleList, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         user.getRoleList().clear();
         for (Long roleId : checkedRoleList) {
             Role role = new Role(roleId);
             user.getRoleList().add(role);
         }
-        return super.create(model, user, result, redirectAttributes);
+        return super.create(model, user, result, backURL, redirectAttributes);
     }
     
     

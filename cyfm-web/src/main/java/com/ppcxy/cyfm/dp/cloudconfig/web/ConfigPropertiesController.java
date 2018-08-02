@@ -69,26 +69,22 @@ public class ConfigPropertiesController extends BaseCRUDController<ConfigPropert
     
     
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(String application, String profile, @RequestParam("sourceManageId") SourceManage sourceManage, RedirectAttributes redirectAttributes) {
-    
+    public String create(String application, String profile, @RequestParam("sourceManageId") SourceManage sourceManage, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
+        
         if (configPropertiesService.existsProfile(sourceManage)) {
             redirectAttributes.addFlashAttribute(Constants.ERROR, String.format("已存在此数据源的配置项 [profile=%s].", configPropertiesService.queryProfile(sourceManage).get("profile")));
-            return redirectToUrl(null);
+            return redirectToUrl(backURL);
         }
         configPropertiesService.genDataTaskConfig(application, profile, sourceManage);
         
-        return redirectToUrl(null);
+        return redirectToUrl(backURL);
     }
     
-    @RequestMapping(value = "/xxx/xxx", method = RequestMethod.POST)
-    public String create(Model model, ConfigProperties entity, BindingResult result, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/create/discard", method = RequestMethod.POST)
+    public String create(Model model, ConfigProperties entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         beforCreate(model, entity, result, redirectAttributes);
         
-        if (hasError(entity, result)) {
-            return createForm(entity, model);
-        }
-        
-        return super.create(model, entity, result, redirectAttributes);
+        throw new RuntimeException("discarded method");
     }
     
 }
