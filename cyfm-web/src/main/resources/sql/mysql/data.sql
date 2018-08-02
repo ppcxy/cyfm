@@ -40,10 +40,10 @@ INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids,
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (55, '性能监控演示', 'fa fa-folder-open', '', 50, '01/50/', '/story/monitor', 5, true, 0);
 
 
-INSERT INTO cyfm.cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (70, '远程API调用', 'fa fa-superpowers', '', 1, '01/', '', 6, true, 0);
-INSERT INTO cyfm.cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (71, '接入系统配置', 'fa fa-folder-open', 'bus:system:joinSystem', 70, '01/1006/', '/bus/system/joinSystem', 1, true, 0);
-INSERT INTO cyfm.cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (72, '接入API配置', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi', 2, true, 0);
-INSERT INTO cyfm.cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (73, '接入API调试', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi/test', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (70, '远程API调用', 'fa fa-superpowers', '', 1, '01/', '', 6, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (71, '接入系统配置', 'fa fa-folder-open', 'bus:system:joinSystem', 70, '01/1006/', '/bus/system/joinSystem', 1, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (72, '接入API配置', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (73, '接入API调试', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi/test', 3, true, 0);
 
 
 

@@ -89,11 +89,11 @@ $cy = {
 
     },
     refreshPage: function () {
-        window.location.reload();
+        window.location.href=window.location.href;
     },
     place: {
         appendUrl: function (title, url, param) {
-            var item = $("<li><a target='rightFrame' href='" + url + "'>" + title + "</a></li>");
+            var item = $("<li><a target='rightFrame' href='" + url + '?' + param + "'>" + title + "</a></li>");
 
             var exist = false;
             $(".placeul", top.document).find("a").each(function (i, o) {

@@ -42,7 +42,7 @@ public class ConfigPropertiesController extends BaseCRUDController<ConfigPropert
     
     @Override
     public String list(Searchable searchable, Model model) {
-        barorList(searchable, model);
+        beforList(searchable, model);
         
         model.addAttribute("configs", configPropertiesService.queryAll());
         

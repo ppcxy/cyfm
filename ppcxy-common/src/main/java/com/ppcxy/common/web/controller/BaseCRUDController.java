@@ -82,7 +82,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
      * @param searchable
      * @param model
      */
-    public void barorList(Searchable searchable, Model model) {
+    public void beforList(Searchable searchable, Model model) {
         if (permissionList != null) {
             this.permissionList.assertHasViewPermission();
         }
@@ -102,7 +102,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @PageableDefaults(sort = "id=desc")
     public String list(Searchable searchable, Model model) {
         
-        barorList(searchable, model);
+        beforList(searchable, model);
         
         Page<T> page = baseService.findAll(searchable);
         model.addAttribute("page", page);
