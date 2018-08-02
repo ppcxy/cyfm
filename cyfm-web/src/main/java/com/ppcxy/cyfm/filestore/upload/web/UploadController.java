@@ -111,9 +111,9 @@ public class UploadController {
                 String downloadurl = "filestore/upload/ajaxDownload?fileIds=" + storeFiles.getId();// + fileManage.getId();
                 
                 if (ImagesUtils.isImage(filename)) {
-                    ajaxUploadResponse.add(filename, fileSize, downloadurl, downloadurl, deleteURL);
+                    ajaxUploadResponse.add(storeFiles.getId(), filename, fileSize, downloadurl, downloadurl, deleteURL);
                 } else {
-                    ajaxUploadResponse.add(filename, fileSize, downloadurl, deleteURL);
+                    ajaxUploadResponse.add(storeFiles.getId(), filename, fileSize, downloadurl, deleteURL);
                 }
                 
             } catch (IOException e) {

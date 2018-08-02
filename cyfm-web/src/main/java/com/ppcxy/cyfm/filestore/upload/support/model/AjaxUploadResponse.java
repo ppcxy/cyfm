@@ -19,12 +19,63 @@ public class AjaxUploadResponse {
         files.add(new FileMeta(name, size, error));
     }
     
+    /**
+     * 添加上传成功的文件信息
+     *
+     * @param name
+     * @param size
+     * @param url
+     * @param delete_url
+     */
     public void add(String name, long size, String url, String delete_url) {
         files.add(new FileMeta(name, size, url, delete_url));
     }
     
+    /**
+     * 添加上传成功的文件信息，且带key
+     *
+     * @param key
+     * @param name
+     * @param size
+     * @param url
+     * @param delete_url
+     */
+    public void add(String key, String name, long size, String url, String delete_url) {
+        FileMeta fileMeta = new FileMeta(name, size, url, delete_url);
+        //设置上传文件的key
+        fileMeta.setKey(key);
+        files.add(fileMeta);
+    }
+    
+    
+    /**
+     * 添加上传成功的信息，带缩略图
+     *
+     * @param name
+     * @param size
+     * @param url
+     * @param thumbnail_url
+     * @param delete_url
+     */
     public void add(String name, long size, String url, String thumbnail_url, String delete_url) {
         files.add(new FileMeta(name, size, url, thumbnail_url, delete_url));
+    }
+    
+    /**
+     * 添加上传成功的信息，且带key，带缩略图
+     *
+     * @param key
+     * @param name
+     * @param size
+     * @param url
+     * @param thumbnail_url
+     * @param delete_url
+     */
+    public void add(String key, String name, long size, String url, String thumbnail_url, String delete_url) {
+        FileMeta fileMeta = new FileMeta(name, size, url, thumbnail_url, delete_url);
+        //设置上传文件的key
+        fileMeta.setKey(key);
+        files.add(fileMeta);
     }
     
     public List<FileMeta> getFiles() {
@@ -40,7 +91,7 @@ public class AjaxUploadResponse {
      */
     public static class FileMeta {
         
-        ;
+        private String key;
         /**
          * 名称
          */
@@ -48,7 +99,7 @@ public class AjaxUploadResponse {
         /**
          * 大小
          */
-        private long size;
+        private Long size = -1l;
         /**
          * 类型
          */
@@ -60,7 +111,7 @@ public class AjaxUploadResponse {
         /**
          * 上传文件后的地址
          */
-        private String url;
+        private String url = "";
         /**
          * 缩略图
          */
@@ -69,9 +120,11 @@ public class AjaxUploadResponse {
          * 删除时的URL
          */
         private String delete_url = "";
+        
         private String delete_type = "POST";
         
         private Date createDate = new Date();
+        
         
         public FileMeta(String name, long size, String url, String thumbnail_url, String delete_url) {
             this.name = name;
@@ -165,6 +218,14 @@ public class AjaxUploadResponse {
         
         public void setCreateDate(Date createDate) {
             this.createDate = createDate;
+        }
+        
+        public String getKey() {
+            return key;
+        }
+        
+        public void setKey(String key) {
+            this.key = key;
         }
     }
     
