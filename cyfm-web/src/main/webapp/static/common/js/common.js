@@ -147,7 +147,7 @@ $cy = {
             window.location.href = $cy.urlTools.removePageParam($cy.urlTools.removeSearchParam(url, form));
         },
         findSortParam: function (url) {
-            var sortParam = "";
+            var sortParam = '';
             if (!url) {
                 url = window.location.href;
             }
@@ -230,7 +230,7 @@ $cy = {
             top.layer.open({
                 id: 'user_choose',
                 type: 2,
-                title: '系统通知',
+                title: '用户选择器',
                 shadeClose: true,
                 shade: 0.3,
                 maxmin: true, //开启最大化最小化按钮
@@ -251,6 +251,42 @@ $cy = {
                     } else {
                         defalutOption.callback(results.eq(0).data("show"), results);
                         top.layer.close(index)
+                    }
+                }
+            });
+        },
+
+        uploadFile: function (option) {
+
+            var defalutOption = {
+                width: '750px',
+                height: '550px',
+                multi: false,
+                okBtn: '关闭',
+                callback: $.noop,
+                identity: "common",
+                tag: 'all'
+            };
+
+            defalutOption = jQuery.extend(defalutOption, option);
+
+            //iframe窗
+            top.layer.open({
+                id: 'file_upload_dialog',
+                type: 2,
+                title: '文件上传',
+                shadeClose: false,
+                shade: 0.3,
+                maxmin: false, //开启最大化最小化按钮
+                area: [defalutOption.width, defalutOption.height],
+                content: _ctx + '/filestore/upload?identity=' + defalutOption.identity + '&tag=' + defalutOption.tag
+                , btn: [defalutOption.okBtn]
+                , success: function (layero, index) {
+                    //获取frame,并且传入参数
+                    var childFrameWindow = top.layer.getChildFrameWindow(index)
+                    childFrameWindow.param = {
+                        parentWindow: window,
+                        callback: defalutOption.callback
                     }
                 }
             });
@@ -329,10 +365,10 @@ $cy = {
     },
     confirm: function (options) {
         opts = $.extend({
-            "title": "确认操作",
-            "message": "确定执行操作?",
-            width: "auto",
-            height: "auto",
+            'title': '确认操作',
+            'message': '确定执行操作?',
+            width: 'auto',
+            height: 'auto',
             async: false
         }, options);
         layer.confirm(opts.message, {
@@ -355,10 +391,10 @@ $cy = {
         if (!$().uniform) {
             return;
         }
-        var test = $("input[type=checkbox]:not(.toggle, .md-check, .md-radiobtn, .make-switch, .icheck), input[type=radio]:not(.toggle, .md-check, .md-radiobtn, .star, .make-switch, .icheck)");
+        var test = $('input[type=checkbox]:not(.toggle, .md-check, .md-radiobtn, .make-switch, .icheck), input[type=radio]:not(.toggle, .md-check, .md-radiobtn, .star, .make-switch, .icheck)');
         if (test.size() > 0) {
             test.each(function () {
-                if ($(this).parents(".checker").size() === 0) {
+                if ($(this).parents('.checker').size() === 0) {
                     $(this).show();
                     $(this).uniform();
                 }
@@ -376,9 +412,9 @@ $cy = {
                 return false;
             },
             renderItem: function (ul, item) {
-                return jQuery("<li>")
-                    .data("ui-autocomplete-item", item)
-                    .append("<a>" + item.label + "</a>")
+                return jQuery('<li>')
+                    .data('ui-autocomplete-item', item)
+                    .append('<a>' + item.label + '</a>')
                     .appendTo(ul);
             }
         };
@@ -386,7 +422,7 @@ $cy = {
         config = jQuery.extend(true, defaultConfig, config);
 
         jQuery(config.input)
-            .on("keydown", function (e) {
+            .on('keydown', function (e) {
                 var ev = window.event || e;
                 //回车查询
                 if (config.enterSearch && ev.keyCode === $.ui.keyCode.ENTER) {
@@ -398,25 +434,25 @@ $cy = {
                 minLength: config.minLength,
                 focus: config.focus,
                 select: config.select
-            }).data("ui-autocomplete")._renderItem = config.renderItem;
+            }).data('ui-autocomplete')._renderItem = config.renderItem;
     },
 
     initDatePick: function () {
         // 时间组建初始化
-        $("[data-format]").each(function (index, obj) {
-            var format = $(obj).data("format");
-            var type = "datetime";
+        $('[data-format]').each(function (index, obj) {
+            var format = $(obj).data('format');
+            var type = 'datetime';
             var istime = true;
             if (format == 'both') {
-                format = "yyyy-MM-dd HH:mm:ss";
+                format = 'yyyy-MM-dd HH:mm:ss';
             } else if (format == 'date') {
                 format = 'yyyy-MM-dd';
-                type = "date";
+                type = 'date';
             } else if (format == 'time') {
                 format = 'HH:mm:ss';
-                type = "time";
+                type = 'time';
             } else {
-                format = "yyyy-MM-dd HH:mm:ss";
+                format = 'yyyy-MM-dd HH:mm:ss';
             }
 
             laydate.render({
@@ -432,77 +468,77 @@ $cy = {
     },
     toolbar: {
         addMore: function (options) {
-            var $toolsMore = $(".toolbar .more");
-            if ($toolsMore.is(":hidden")) {
-                $toolsMore.removeClass("hidden");
+            var $toolsMore = $('.toolbar .more');
+            if ($toolsMore.is(':hidden')) {
+                $toolsMore.removeClass('hidden');
             }
 
-            var $toolsMoreList = $toolsMore.find(".more_list");
+            var $toolsMoreList = $toolsMore.find('.more_list');
 
             var opts = $.extend({
-                classText: "",
-                href: "javascript:;",
-                text: "未命名",
-                icon: ""
+                classText: '',
+                href: 'javascript:;',
+                text: '未命名',
+                icon: ''
             }, options);
 
-            $("<li><a class=\"" + opts.classText + "\" href=\"" + opts.href + "\">" + opts.text + "</a></li>").insertBefore($toolsMoreList, null)
+            $('<li><a class=" + opts.classText + " href="' + opts.href + '">' + opts.text + '</a></li>').insertBefore($toolsMoreList, null)
 
         }
     },
     table: {
         getFirstSelectedCheckbox: function ($table) {
-            var checkbox = $table.find("td.check input[type=checkbox]:checked");//:first
+            var checkbox = $table.find('td.check input[type=checkbox]:checked');//:first
             if (!checkbox.length) {
 
                 //表示不选中 不可以用，此时没必要弹窗
-                if (jQuery(this).hasClass(".no-disable") == false) {
+                if (jQuery(this).hasClass('.no-disable') == false) {
                     return checkbox;
                 }
 
-                $cy.warn("请先选择要操作的数据！");
+                $cy.warn('请先选择要操作的数据！');
             }
             if (checkbox.size() > 1) {
-                $cy.warn("只能选择一条记录进行操作！");
+                $cy.warn('只能选择一条记录进行操作！');
                 return [];
             }
             return checkbox;
         },
         getAllSelectedCheckbox: function ($table) {
-            var checkbox = $table.find("td.check input[type=checkbox]:checked");
+            var checkbox = $table.find('td.check input[type=checkbox]:checked');
             if (!checkbox.length) {
 
                 //表示不选中 不可以用，此时没必要弹窗
-                if (jQuery(this).hasClass(".no-disable") == false) {
+                if (jQuery(this).hasClass('.no-disable') == false) {
                     return checkbox;
                 }
 
-                $cy.warn("请先选择要操作的数据！");
+                $cy.warn('请先选择要操作的数据！');
             }
             return checkbox;
         },
         /*getAllSelectedCheckbox: function (table) {
             if (!table) {
-                table = "table.table-list";
+                table = 'table.table-list';
             }
             var checkboxArray = new Array();
-            $(table).find("td.check input[type=checkbox]:checked").each(function (index, item) {
+            $(table).find('td.check input[type=checkbox]:checked').each(function (index, item) {
                 checkboxArray.push(item);
             });
             return checkboxArray;
         },*/
         init: function () {
-            var $table = $("table.table-list");
+            var $table = $('table.table-list');
 
             if ($table.size() == 0) return;
 
             //给table添加按钮和注册resize table
-            if ($table.find("td.action").size() > 0 && $table.find("th.action").size() == 0) {
+            if ($table.find('td.action').size() > 0 && $table.find('th.action').size() == 0) {
                 $('table thead tr').append('<th class="action">操作</th>');
             }
 
             new TableDragSortResize(document.getElementById('contentTable'), {
-                cidAttrName: "data-tid",
+                cidAttrName: 'data-tid',
                 sort: {
                     callback: function (cell, type, event) {
                         var ev = window.event || event;
@@ -513,14 +549,14 @@ $cy = {
 
                             var softType = type == 'sort-down' ? 'desc' : 'asc';
 
-                            var currentSortParam = "";
+                            var currentSortParam = '';
 
                             if ((ev.ctrlKey || ev.metaKey)) {
-                                currentSortParam = $cy.urlTools.findSortParam().replace('sort.' + sortName + '=' + (softType == 'desc' ? 'asc' : 'desc'), "");
+                                currentSortParam = $cy.urlTools.findSortParam().replace('sort.' + sortName + '=' + (softType == 'desc' ? 'asc' : 'desc'), '');
                             }
 
-                            var sortParam = '?sort.' + sortName + '=' + softType + (currentSortParam.indexOf("sort") >= 0 ? ("&" + currentSortParam) : "");
-                            window.location.href = (sortParam + "&" + $('form.form-search').serialize())
+                            var sortParam = '?sort.' + sortName + '=' + softType + (currentSortParam.indexOf('sort') >= 0 ? ('&' + currentSortParam) : '');
+                            window.location.href = (sortParam + '&' + $('form.form-search').serialize())
                         }
                     },
                     localEnable: false
@@ -528,81 +564,81 @@ $cy = {
             });
 
             var sortURL = currentUrl;
-            $("#contentTable").find("[data-sort]").each(function () {
+            $('#contentTable').find('[data-sort]').each(function () {
                 var th = jQuery(this);
-                var sortPropertyName = "sort." + th.data("sort");
+                var sortPropertyName = 'sort.' + th.data('sort');
 
-                var matchResult = sortURL.match(new RegExp(sortPropertyName + "=(asc|desc)", "gi"));
+                var matchResult = sortURL.match(new RegExp(sortPropertyName + '=(asc|desc)', 'gi'));
                 var order = null;
 
                 if (matchResult) {
                     order = RegExp.$1;
 
                     if (order == 'asc') {
-                        th.addClass("sort-up")
+                        th.addClass('sort-up')
                     } else if (order == 'desc') {
-                        th.addClass("sort-down")
+                        th.addClass('sort-down')
                     }
                 }
 
             });
 
             //Table init 开始
-            $("th input[type=checkbox]").on("click", function () {
-                $("td.check input[type=checkbox]").prop("checked", $(this).is(":checked"))
+            $('th input[type=checkbox]').on('click', function () {
+                $('td.check input[type=checkbox]').prop('checked', $(this).is(':checked'))
             });
 
             var beginCheck = undefined;
 
-            $("body").keydown(function (event) {
+            $('body').keydown(function (event) {
                 var ev = window.event || event;
                 if (ev.shiftKey) {
-                    var $tr = $("tr:hover.selected");
+                    var $tr = $('tr:hover.selected');
 
-                    var check = $tr.find("td.check input[type=checkbox]");
+                    var check = $tr.find('td.check input[type=checkbox]');
                     if (check.size() != 0) {
-                        beginCheck = $tr.find("td.check input[type=checkbox]");
+                        beginCheck = $tr.find('td.check input[type=checkbox]');
                     } else {
-                        beginCheck = "no";
+                        beginCheck = 'no';
                     }
 
                 }
             });
 
             //如果没有数据自动添加无数据提示行
-            if ($("table.table-list tbody tr").size() == 0) {
-                $("<tr></tr>").append($("<td align='center'>暂无可查看数据</td>").attr("colspan", $("table.table-list thead th").size())).appendTo("table.table-list tbody");
+            if ($('table.table-list tbody tr').size() == 0) {
+                $('<tr></tr>').append($('<td align="center">暂无可查看数据</td>').attr('colspan', $('table.table-list thead th').size())).appendTo('table.table-list tbody');
                 return;
             }
 
-            $("table.table-list tr td:not(.check):not(.action)").on("click", function (event) {
+            $('table.table-list tr td:not(.check):not(.action)').on('click', function (event) {
                 var $current = $(this);
                 setTimeout(function () {
-                    var selectTR = $current.parents("tr");
+                    var selectTR = $current.parents('tr');
                     if (beginCheck == 'no') {
-                        beginCheck = $("tr.selected").find("td.check input[type=checkbox]");
+                        beginCheck = $('tr.selected').find('td.check input[type=checkbox]');
                     }
-                    selectTR.addClass("selected").siblings().removeClass("selected");
+                    selectTR.addClass('selected').siblings().removeClass('selected');
 
-                    var tdCheckBox = selectTR.find("td.check").find("input[type=checkbox]");
+                    var tdCheckBox = selectTR.find('td.check').find('input[type=checkbox]');
 
                     if (tdCheckBox.size() > 0) {
-                        var checked = tdCheckBox.is(":checked");
+                        var checked = tdCheckBox.is(':checked');
 
                         var ev = window.event || event;
                         if (ev.shiftKey) {
-                            var beginChecked = beginCheck.is(":checked");
+                            var beginChecked = beginCheck.is(':checked');
                             if (checked != beginChecked) {
-                                tdCheckBox.prop("checked", !checked);
-                                var beginIndex = beginCheck.parents("tr").index();
-                                var endIndex = tdCheckBox.parents("tr").index();
+                                tdCheckBox.prop('checked', !checked);
+                                var beginIndex = beginCheck.parents('tr').index();
+                                var endIndex = tdCheckBox.parents('tr').index();
                                 if (beginIndex > endIndex) {
                                     var tem = endIndex;
                                     endIndex = beginIndex;
                                     beginIndex = tem;
                                 }
                                 for (var i = beginIndex + 1; i <= endIndex; i++) {
-                                    $("tr").eq(i).find("td.check input[type=checkbox]").prop("checked", !checked);
+                                    $('tr').eq(i).find('td.check input[type=checkbox]').prop('checked', !checked);
                                 }
                             }
                             beginCheck = undefined;
@@ -612,65 +648,65 @@ $cy = {
                         beginCheck = undefined;
 
                         if (ev.ctrlKey) {
-                            tdCheckBox.prop("checked", !checked);
+                            tdCheckBox.prop('checked', !checked);
                             return false
                         }
 
-                        tdCheckBox.prop("checked", !checked).parents("tr").siblings().find("td.check input[type=checkbox]").prop("checked", false);
+                        tdCheckBox.prop('checked', !checked).parents('tr').siblings().find('td.check input[type=checkbox]').prop('checked', false);
                         return false;
                     }
                 }, 50)
 
-            }).on("dblclick", function (event) {
+            }).on('dblclick', function (event) {
                 //如果存在修改按钮,则双击条进入修改页面
-                var updateUrl = $(".btn.update").data('baseurl');
+                var updateUrl = $('.btn.update').data('baseurl');
                 if (updateUrl) {
-                    var selectTR = $(this).parents("tr");
-                    var tdCheckBox = selectTR.find("td.check").find("input[type=checkbox]");
+                    var selectTR = $(this).parents('tr');
+                    var tdCheckBox = selectTR.find('td.check').find('input[type=checkbox]');
 
-                    window.location.href = updateUrl.replace("{id}", tdCheckBox.val())
+                    window.location.href = updateUrl.replace('{id}', tdCheckBox.val())
                 }
 
             });
 
-            $(".tools a.btn:not(.custom)").on("click", function (event) {
-                if ($(this).prop("href")) return;
-                var baseUrl = $(this).data("baseurl");
+            $('.tools a.btn:not(.custom)').on('click', function (event) {
+                if ($(this).prop('href')) return;
+                var baseUrl = $(this).data('baseurl');
                 if (!baseUrl) return;
 
-                var $tr = $("tr td.check input:checked");
+                var $tr = $('tr td.check input:checked');
 
                 var checkItemVal = $tr.val();
 
                 if (checkItemVal) {
-                    if ($(this).hasClass("delete")) {
-                        if ($(this).hasClass("batch")) {
-                            checkItemVal = "";
+                    if ($(this).hasClass('delete')) {
+                        if ($(this).hasClass('batch')) {
+                            checkItemVal = '';
                             $tr.each(function () {
-                                checkItemVal = checkItemVal + $(this).val() + ",";
+                                checkItemVal = checkItemVal + $(this).val() + ',';
                             });
                             checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
                         }
 
                         $cy.confirm({
-                            message: "将要执行删除数据操作,是否继续?", yes: function () {
-                                window.location.href = baseUrl.replace("{id}", checkItemVal) + (baseUrl.indexOf("?") > 0 ? "&" : "?") + "BackURL=" + $cy.urlTools.encodeBackURL();
+                            message: '将要执行删除数据操作,是否继续?', yes: function () {
+                                window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + $cy.urlTools.encodeBackURL();
                             }
                         });
 
                         return false;
                     }
 
-                    window.location.href = baseUrl.replace("{id}", checkItemVal) + (baseUrl.indexOf("?") > 0 ? "&" : "?") + "BackURL=" + $cy.urlTools.encodeBackURL();
+                    window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + $cy.urlTools.encodeBackURL();
                 } else {
-                    $cy.warn("请选择一条记录.");
+                    $cy.warn('请选择一条记录.');
                 }
             });
 
-            $(".action a.deleteRow").click(function () {
+            $('.action a.deleteRow').click(function () {
                 var deleteAction = this;
                 $cy.confirm({
-                    message: "将要执行删除数据操作,是否继续?", yes: function () {
+                    message: '将要执行删除数据操作,是否继续?', yes: function () {
                         window.location.href = deleteAction.href;
                     }
                 });
@@ -707,10 +743,10 @@ $cy = {
                         layer.close(validFiledTips[fieldName]);
                         validFiledTips[fieldName] = undefined;
                     }
-                    $(element).removeClass("has-error").addClass("has-success");
+                    $(element).removeClass('has-error').addClass('has-success');
                 }
                 , errorPlacement: function (error, element) {
-                    if ($(error).html() == "") {
+                    if ($(error).html() == '') {
                         return true;
                     }
                     var point = 1;
@@ -719,17 +755,17 @@ $cy = {
                     var fieldName = element[0].name;
 
                     //如果存在label,则显示在label右侧.
-                    var fieldLabel = $("label[for='" + fieldName + "']");
+                    var fieldLabel = $('label[for="' + fieldName + '"]');
                     if (fieldLabel.size() > 0) {
                         point = 2;
                         target = fieldLabel;
                     }
 
                     if (validFiledTips[fieldName]) {
-                        $("#error-tips-" + fieldName).find(".error").html($(error).html());
+                        $('#error-tips-' + fieldName).find('.error').html($(error).html());
                     } else {
                         validFiledTips[fieldName] = layer.tips($('<div></div>').append(error).html(), target, {
-                            id: "error-tips-" + fieldName
+                            id: 'error-tips-' + fieldName
                             , tipsMore: true
                             , tips: [point, '#F24100']
                             , time: 0
@@ -737,7 +773,7 @@ $cy = {
                             , topRevised: -6
                         });
 
-                        $(element).removeClass("has-success").addClass("has-error");
+                        $(element).removeClass('has-success').addClass('has-error');
                     }
 
                 },
@@ -750,7 +786,7 @@ $cy = {
                             : '有 ' + errors + ' 项表单验证未通过. 请处理后提交.';
                         $cy.warn(message);
                     } else {
-                        $("div.error").hide();
+                        $('div.error').hide();
                     }
                 }
             });
@@ -773,10 +809,10 @@ window.onbeforeunload = function () {
 };
 
 urlPrefix = currentUrl = window.location.href;
-urlSuffix = "";
-if (currentUrl.indexOf("?") > 0) {
-    urlPrefix = currentUrl.substring(0, currentUrl.indexOf("?"));
-    urlSuffix = currentUrl.substring(currentUrl.indexOf("?") + 1);
+urlSuffix = '';
+if (currentUrl.indexOf('?') > 0) {
+    urlPrefix = currentUrl.substring(0, currentUrl.indexOf('?'));
+    urlSuffix = currentUrl.substring(currentUrl.indexOf('?') + 1);
 }
 
 //初始化页面
@@ -794,21 +830,21 @@ $(function () {
     // $cy.handleUniform();
 
     var isFrame = top != window;
-    var rdow = top.document.getElementById("rightFrame") ? top.document.getElementById("rightFrame").contentWindow : top;
+    var rdow = top.document.getElementById('rightFrame') ? top.document.getElementById('rightFrame').contentWindow : top;
     var rdoc = rdow.document;
 
-    $("body").on("keydown", function (event) {
+    $('body').on('keydown', function (event) {
         var ev = window.event || event;
         // console.log(ev.keyCode, ev.key)
 
-        var focusInput = $(":input:focus").size() > 0;
+        var focusInput = $(':input:focus').size() > 0;
 
 
         //无焦点输入框状态按e进入选中行编辑界面
         if (!focusInput && (ev.key == 'e' || ev.keyCode == 13)) {
-            if ($(".btn.update", rdoc).size() > 0) {
+            if ($('.btn.update', rdoc).size() > 0) {
                 //如果存在修改按钮,则点击按钮
-                $(".btn.update", rdoc).click();
+                $('.btn.update', rdoc).click();
                 return false;
             }
             return true;
@@ -816,17 +852,17 @@ $(function () {
 
         //无焦点状态输入框s 活ctrl+回车 活cmd+回车 提交表单
         if ((ev.ctrlKey || ev.metaKey) && (ev.keyCode == 13 || ev.key == 's' || ev.key == 'S')) {
-            if ($("#inputForm", rdoc).size() > 0) {
-                $("#inputForm", rdoc).submit();
+            if ($('#inputForm', rdoc).size() > 0) {
+                $('#inputForm', rdoc).submit();
                 return false;
             }
             return true;
         }
 
         if (!focusInput && (ev.key == 'Backspace' || ev.key == 'z')) {
-            if ($cy.place.preUrl() != "/") {
+            if ($cy.place.preUrl() != '/') {
                 if (isFrame) {
-                    //无焦点状态输入框 "Backspace" 返回上一层
+                    //无焦点状态输入框 'Backspace' 返回上一层
                     rdow.location.href = $cy.place.preUrl();
                     return false;
                 }
@@ -836,20 +872,20 @@ $(function () {
 
         //shift+d 删除选中行
         if (ev.shiftKey && (ev.key == 'D' || ev.key == 'd')) {
-            $(".btn.delete", rdoc).click();
+            $('.btn.delete', rdoc).click();
             return true;
         }
 
-        var $table = $("#contentTable", rdoc);
+        var $table = $('#contentTable', rdoc);
         var checkbox = rdow.$cy.table.getFirstSelectedCheckbox($table);
 
         //上下切换选中table行
         if (!focusInput && (ev.keyCode == 38)) {
-            if ($("#contentTable", rdoc).size() > 0) {
+            if ($('#contentTable', rdoc).size() > 0) {
                 if (checkbox.size() > 0) {
-                    checkbox.parents("tr").prev().find("td").eq(2).click()
+                    checkbox.parents('tr').prev().find('td').eq(2).click()
                 } else {
-                    $("#contentTable tbody tr:last", rdoc).find("input[type=checkbox]").attr("checked", true);
+                    $('#contentTable tbody tr:last', rdoc).find('input[type=checkbox]').attr('checked', true);
                 }
                 return false;
             }
@@ -857,11 +893,11 @@ $(function () {
         }
         //上下切换选中table行
         if (!focusInput && (ev.keyCode == 40)) {
-            if ($("#contentTable", rdoc).size() > 0) {
+            if ($('#contentTable', rdoc).size() > 0) {
                 if (checkbox.size() > 0) {
-                    checkbox.parents("tr").next().find("td").eq(2).click()
+                    checkbox.parents('tr').next().find('td').eq(2).click()
                 } else {
-                    $("#contentTable tbody tr:first", rdoc).find("input[type=checkbox]").attr("checked", true);
+                    $('#contentTable tbody tr:first', rdoc).find('input[type=checkbox]').attr('checked', true);
                 }
                 return false;
             }
@@ -872,10 +908,10 @@ $(function () {
 
         //空格快速关闭提示框
         if (!focusInput && (ev.keyCode == 32)) {
-            var $btn = $(".layui-layer[type=dialog]:last .layui-layer-btn", top.document).children("a,input,button").eq(0);
+            var $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', top.document).children('a,input,button').eq(0);
 
             if ($btn.size() <= 0) {
-                $btn = $(".layui-layer[type=dialog]:last .layui-layer-btn", rdoc).children("a,input,button").eq(0);
+                $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', rdoc).children('a,input,button').eq(0);
             }
 
             if ($btn.size() > 0) {
@@ -889,9 +925,9 @@ $(function () {
     });
 
     setTimeout(function () {
-        var $i = $("input:visible:not([readonly],[disabled])", rdoc).eq(0);
+        var $i = $('input:visible:not([readonly],[disabled])', rdoc).eq(0);
         var v = $i.val();
-        $i.val("xxxxxx").focus().val(v).blur();
+        $i.val('xxxxxx').focus().val(v).blur();
     }, 200);
 
     if (window == top) {

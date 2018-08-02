@@ -10,17 +10,17 @@ import java.io.Serializable;
  */
 public abstract class AbstractEntity<ID extends Serializable> {
     protected ID id;
-
+    
     public ID getId() {
         return id;
     }
-
+    
     public void setId(ID id) {
         this.id = id;
     }
-
+    
     @Override
     public String toString() {
-        return  ToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

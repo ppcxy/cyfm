@@ -665,6 +665,12 @@ layer.getChildFrame = function(selector, index){
   return $('#'+ doms[0] + index).find('iframe').contents().find(selector);
 };
 
+//获取子iframe的DOM
+layer.getChildFrameWindow = function(index){
+    index = index || $('.'+doms[4]).attr('times');
+    return $('#'+ doms[0] + index).find('iframe')[0].contentWindow;
+};
+
 //得到当前iframe层的索引，子iframe时使用
 layer.getFrameIndex = function(name){
   return $('#'+ name).parents('.'+doms[4]).attr('times');

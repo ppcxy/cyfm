@@ -223,3 +223,22 @@ CREATE TABLE BUS_REMOTE_API
     remark VARCHAR(3000)
 )
 AUTO_INCREMENT=1000;
+
+
+create table fs_files
+(
+	id varchar(36) not null
+		primary key,
+	real_name varchar(300) null,
+	logic_name varchar(300) null,
+	location varchar(4000) null,
+	file_size bigint,
+	type_content varchar(300) null,
+	file_suffix varchar(10) null,
+	identity varchar(255) null,
+	tag varchar(255) null,
+  upload_time datetime,
+  uploader varchar(255),
+  state varchar(255)
+);
+

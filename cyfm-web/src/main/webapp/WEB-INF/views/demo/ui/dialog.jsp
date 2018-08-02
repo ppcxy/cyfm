@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@include file="/WEB-INF/views/common/taglibs.jspf"%>
+<%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <html>
 <head>
-  <title>角色详情</title>
+    <title>角色详情</title>
 </head>
 <body>
 <div>
@@ -30,7 +30,12 @@
     </button>
 
 
-    <button class="btn btn-xs btn-default" onclick="$cy.tools.chooseUser({callback:function(show,results){alert(show)}})">用户选择控件</button>
+    <button class="btn btn-xs btn-default"
+            onclick="$cy.tools.chooseUser({callback:function(show,results){alert(show)}})">用户选择控件
+    </button>
+
+
+    <button class="btn btn-xs btn-default" onclick="upload()">文件上传</button>
 </div>
 <div>
     <input type="text" class="" data-format="both">
@@ -39,6 +44,28 @@
     $cy.handleUniform();
 
 
+    function upload() {
+        //调用文件上传窗口,identity为使用模块,tag为tag,可以用来区分是哪里上传的
+        $cy.tools.uploadFile({identity: "test", tag: "all", callback: callback})
+    }
+
+    /**
+     * 上传文件回调函数
+     * @param oper 操作类型
+     * @param data 数据
+     */
+    function callback(oper, data) {
+        console.log(oper, data)
+
+        switch (oper) {
+            case 'add':
+                console.debug('add file', data)
+                break;
+            case 'delete':
+                console.log('delete file', data)
+                break;
+        }
+    }
 
 </script>
 </body>
