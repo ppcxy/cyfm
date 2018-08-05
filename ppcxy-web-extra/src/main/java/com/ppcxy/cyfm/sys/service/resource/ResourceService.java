@@ -233,4 +233,59 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         
         return rootResources;
     }
+    
+    @Override
+    public void move(Resource source, Resource target, String moveType) {
+        super.move(source, target, moveType);
+    }
+    
+    @Override
+    public void updateSelftAndChild(Resource source, Long newParentId, String newParentIds, int newWeight) {
+        super.updateSelftAndChild(source, newParentId, newParentIds, newWeight);
+    }
+    
+    @Override
+    protected List<Resource> findSelfAndNextSiblings(String parentIds, int currentWeight) {
+        return super.findSelfAndNextSiblings(parentIds, currentWeight);
+    }
+    
+    @Override
+    public Set<String> findNames(Searchable searchable, String name, Long excludeId) {
+        return super.findNames(searchable, name, excludeId);
+    }
+    
+    @Override
+    public List<Resource> findChildren(List<Resource> parents, Searchable searchable) {
+        return super.findChildren(parents, searchable);
+    }
+    
+    @Override
+    public List<Resource> findAllByName(Searchable searchable, Resource excludeM) {
+        return super.findAllByName(searchable, excludeM);
+    }
+    
+    @Override
+    public List<Resource> findRootAndChild(Searchable searchable) {
+        return super.findRootAndChild(searchable);
+    }
+    
+    @Override
+    public Set<Long> findAncestorIds(Iterable<Long> currentIds) {
+        return super.findAncestorIds(currentIds);
+    }
+    
+    @Override
+    public Set<Long> findAncestorIds(Long currentId) {
+        return super.findAncestorIds(currentId);
+    }
+    
+    @Override
+    public List<Resource> findAncestor(String parentIds) {
+        return super.findAncestor(parentIds);
+    }
+    
+    @Override
+    public void addExcludeSearchFilter(Searchable searchable, Resource excludeM) {
+        super.addExcludeSearchFilter(searchable, excludeM);
+    }
 }

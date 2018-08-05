@@ -2,15 +2,17 @@
 <decorators defaultdir="/WEB-INF/layouts/">
     <excludes>
         <pattern>/manage</pattern>
+        <pattern>/manage/</pattern>
         <pattern>/manage/*/</pattern>
         <pattern>*/druid/*</pattern>
-        <pattern>/static/*</pattern>
         <pattern>/login*</pattern>
         <pattern>/cxf/*</pattern>
         <pattern>/api/*</pattern>
         <pattern>/dp/execute/remote/**</pattern>
         <pattern>/javasimon/*</pattern>
         <pattern>/**/tree?*</pattern>
+        <pattern>/shop/v</pattern>
+        <pattern>/shop/v/**</pattern>
     </excludes>
 
 

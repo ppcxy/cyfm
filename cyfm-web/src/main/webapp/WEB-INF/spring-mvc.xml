@@ -75,7 +75,7 @@
     </bean>
 
     <!-- 静态资源映射 -->
-    <mvc:resources mapping="/ueditor/**" location="file:///D:/tmp/ueditor/"/>
+    <!--<mvc:resources mapping="/ueditor/**" location="file:///D:/tmp/ueditor/"/>-->
 
     <!-- 拦截器设置 -->
     <mvc:interceptors>

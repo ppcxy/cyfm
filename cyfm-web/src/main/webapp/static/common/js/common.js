@@ -89,7 +89,7 @@ $cy = {
 
     },
     refreshPage: function () {
-        window.location.href=window.location.href;
+        window.location.href = window.location.href;
     },
     place: {
         appendUrl: function (title, url, param) {
@@ -175,8 +175,8 @@ $cy = {
             return sortURL;
         },
         removeSearchParam: function (url, form) {
-            url = url.replace("?","?1&")
-            
+            url = url.replace("?", "?1&")
+
             $.each(form.serializeArray(), function () {
                 var name = this.name;
                 if ($('[name="' + name + '"]').is(':input:hidden')) {

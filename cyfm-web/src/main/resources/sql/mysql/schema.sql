@@ -236,6 +236,7 @@ create table fs_files
 	type_content varchar(300) null,
 	file_suffix varchar(10) null,
 	identity varchar(255) null,
+	second_identity varchar(255) null,
 	tag varchar(255) null,
   upload_time datetime,
   uploader varchar(255),

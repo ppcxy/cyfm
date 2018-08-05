@@ -67,22 +67,6 @@
             </ul>
         </dd>
     </c:forEach>
-    <dd>
-        <div class="title">
-            <span><img src="${ctx}/static/manage/images/leftico02.png"/></span>演示说明
-        </div>
-        <ul class="menuson">
-            <li><cite></cite><a id="persistence-tab" href="${ctx}/story/persistence"
-                                target="rightFrame">持久化高级演示</a><i></i></li>
-            <li><cite></cite><a id="jms-tab" href="${ctx}/story/jms" target="rightFrame">JMS演示</a><i></i></li>
-            <li><cite></cite><a id="cache-tab" href="${ctx}/story/cache" target="rightFrame">Cache演示</a><i></i></li>
-            <li><cite></cite><a id="security-tab" href="${ctx}/story/security" target="rightFrame">安全高级演示</a><i></i>
-            </li>
-            <li><cite></cite><a id="utilizes-tab" href="${ctx}/story/utilizes" target="rightFrame">工具类演示</a><i></i></li>
-            <li><cite></cite><a id="executablewar-tab" href="${ctx}/story/executablewar"
-                                target="rightFrame">可运行war包演示</a><i></i></li>
-        </ul>
-    </dd>
 </dl>
 </div>
 </body>

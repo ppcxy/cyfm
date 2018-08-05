@@ -170,7 +170,7 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
      * @param source
      * @param newParentIds
      */
-    private void updateSelftAndChild(M source, ID newParentId, String newParentIds, int newWeight) {
+    public void updateSelftAndChild(M source, ID newParentId, String newParentIds, int newWeight) {
         String oldSourceChildrenParentIds = source.makeSelfAsNewParentIds();
         source.setParentId(newParentId);
         source.setParentIds(newParentIds);

@@ -26,23 +26,21 @@ public class PreSiteMeshFilter extends BaseFilter implements Filter {
      */
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         
-        String header = request.getHeader("User-Agent").toLowerCase();
+        String requestType = request.getHeader("X-Requested-With");
+        if ("XMLHttpRequest".equals(requestType)) {
+            chain.doFilter(request, response);
+            return;
+        }
         
-        //Android iphone phone ipad
+        
+        String header = request.getHeader("User-Agent").toLowerCase();
         if (header.indexOf("android") != -1 || header.indexOf("phone") != -1 || header.indexOf("pad") != -1) {
+            //Android iphone phone ipad
             Servlets.changeCookie("skin", "mobile", request, response);
-        }else{
+        } else {
             Servlets.changeCookie("skin", "content", request, response);
         }
         
-        //String requestURI = request.getRequestURI();
-        //String contextPath = request.getContextPath();
-        //
-        //if (contextPath.equals(requestURI) || (contextPath + "/").equals(requestURI)) {
-        //    Servlets.changeCookie("skin", "default", request, response);
-        //}else if(StringUtils.contains(requestURI,"/manage")){
-        //    Servlets.changeCookie("skin", "content", request, response);
-        //}
         chain.doFilter(request, response);
     }
     

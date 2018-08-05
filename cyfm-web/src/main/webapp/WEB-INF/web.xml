@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://java.sun.com/xml/ns/javaee"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-        version="3.0"
-        metadata-complete="false">
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"
+         metadata-complete="false">
 
     <display-name>cyfm</display-name>
 
@@ -147,16 +147,16 @@
     </filter-mapping>
 
     <!-- Open Entity Manager in View filter -->
-   <!--
-   <filter>
-        <filter-name>openEntityManagerInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>openEntityManagerInViewFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    -->
+    <!--
+    <filter>
+         <filter-name>openEntityManagerInViewFilter</filter-name>
+         <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+     </filter>
+     <filter-mapping>
+         <filter-name>openEntityManagerInViewFilter</filter-name>
+         <url-pattern>/*</url-pattern>
+     </filter-mapping>
+     -->
 
     <filter>
         <filter-name>DebugRequestAndResponseFilter</filter-name>
@@ -238,7 +238,8 @@
         <async-supported>true</async-supported>
         <init-param>
             <param-name>blackListURL</param-name>
-            <param-value>/static/**,*.js,*.css,*.jpg,*.gif,*.png,*.ico,/manage/monitor/druid/**</param-value>
+            <param-value>/static/**,*.ajax,*.json,*.js,*.css,*.jpg,*.gif,*.png,*.ico,/manage/monitor/druid/**
+            </param-value>
         </init-param>
         <init-param>
             <param-name>whiteListURL</param-name>

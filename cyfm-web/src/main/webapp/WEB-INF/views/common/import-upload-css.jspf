@@ -1,24 +1,29 @@
-<!-- Bootstrap Image Gallery styles -->
-<link rel="stylesheet" href="${ctx}/static/comp/fileupload/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
-<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet" href="${ctx}/static/comp/fileupload/jQuery-File-Upload/css/jquery.fileupload-ui.css">
-<!-- CSS adjustments for browsers with JavaScript disabled -->
-<noscript><link rel="stylesheet" href="${ctx}/static/comp/fileupload/jQuery-File-Upload/css/jquery.fileupload-ui-noscript.css"></noscript>
+<%-- Bootstrap CSS Toolkit styles --%>
+<link rel="stylesheet" href="${ctx}/static/plugins/upload/css/bootstrap.min.css">
+<%-- Generic page styles --%>
+<link rel="stylesheet" href="${ctx}/static/plugins/upload/css/style.css">
+<%-- Bootstrap styles for responsive website layout, supporting different screen sizes --%>
+<link rel="stylesheet" href="${ctx}/static/plugins/upload/css/bootstrap-responsive.min.css">
+<%-- Bootstrap CSS fixes for IE6 --%>
+<!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
+<%-- Bootstrap Image Gallery styles --%>
+<link rel="stylesheet" href="${ctx}/static/plugins/upload/css/bootstrap-image-gallery.min.css">
+<%-- CSS to style the file input field as button and adjust the Bootstrap progress bars --%>
+<link rel="stylesheet" href="${ctx}/static/plugins/upload/css/jquery.fileupload-ui.css">
+
+
 <style type="text/css">
-    /*此处删掉了jquery.fileupload-ui.css的配置*/
-    /*@media (max-width: 767px) {*/
-        /*.fileupload-buttonbar .toggle,*/
-        /*.files .toggle,*/
-        /*.files .btn span {*/
-            /*display: none;*/
-        /*}*/
-        /*.files .name {*/
-            /*width: 80px;*/
-            /*word-wrap: break-word;*/
-        /*}*/
-        /*.files audio,*/
-        /*.files video {*/
-            /*max-width: 80px;*/
-        /*}*/
-    /*}*/
+    pre {padding-top:20px;}
+    div#imgjgbox{
+        background:url("${ctx}/static/ding_styles/${map.css_address}/images/imgjg.jpg") left 3px no-repeat;
+        padding-left:20px;
+        font-size:12px;
+        color:#f00;
+        margin-bottom:10px;
+    }
+
+    div.filelist {
+        overflow: auto;
+        height: 280px;
+    }
 </style>

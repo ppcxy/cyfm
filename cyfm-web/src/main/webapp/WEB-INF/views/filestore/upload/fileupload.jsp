@@ -11,72 +11,11 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <%-- Bootstrap CSS Toolkit styles --%>
-    <link rel="stylesheet" href="${ctx}/static/plugins/upload/css/bootstrap.min.css">
-    <%-- Generic page styles --%>
-    <link rel="stylesheet" href="${ctx}/static/plugins/upload/css/style.css">
-    <%-- Bootstrap styles for responsive website layout, supporting different screen sizes --%>
-    <link rel="stylesheet" href="${ctx}/static/plugins/upload/css/bootstrap-responsive.min.css">
-    <%-- Bootstrap CSS fixes for IE6 --%>
-    <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
-    <%-- Bootstrap Image Gallery styles --%>
-    <link rel="stylesheet" href="${ctx}/static/plugins/upload/css/bootstrap-image-gallery.min.css">
-    <%-- CSS to style the file input field as button and adjust the Bootstrap progress bars --%>
-    <link rel="stylesheet" href="${ctx}/static/plugins/upload/css/jquery.fileupload-ui.css">
-    <style type="text/css">
-        pre {padding-top:20px;}
-        div#imgjgbox{
-            background:url("${ctx}/static/ding_styles/${map.css_address}/images/imgjg.jpg") left 3px no-repeat;
-            padding-left:20px;
-            font-size:12px;
-            color:#f00;
-            margin-bottom:10px;
-        }
+    <%@include file="/WEB-INF/views/common/import-upload-css.jspf"%>
 
-        div.filelist {
-            overflow: auto;
-            height: 280px;
-        }
-    </style>
-    <script type="text/javascript">
-        $.browser = {};
-        $.browser.mozilla = /firefox/.test(navigator.userAgent.toLowerCase());
-        $.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-        $.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
-        $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
-
-        _ctx = "${ctx}";
-    </script>
-    <script type="text/javascript">
-        function preview(fileTypes,url,title){
-            var suffix="bmp|jpg|jpeg|gif|png";
-            var reg="^.*?\.("+suffix+")$";
-            if (reg.match(fileTypes.toLowerCase())){
-
-                var previewJson = {
-                    "title": "", //相册标题
-                    "id": 123, //相册id
-                    "start": 0, //初始显示的图片序号，默认0
-                    "data": [   //相册包含的图片，数组格式
-                        {
-                            "alt": title,
-                            "pid": '', //图片id
-                            "src": url, //原图地址
-                            "thumb": url //缩略图地址
-                        }
-                    ]
-                };
-                layer.photos({
-                    photos: previewJson
-                    ,anim: 0 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-                });
-            }
-        }
-
-    </script>
 </head>
 <body>
-<form enctype="multipart/form-data"  method="POST" action="${ctx}/filestore/upload" id="fileupload" >
+<form enctype="multipart/form-data"  method="post" action="${ctx}/filestore/upload" id="fileupload" >
     <div class="container">
         <div>
             <%--<input type="hidden" id="ctx" value="">--%>
@@ -90,6 +29,7 @@
             <input type="hidden" id="onceNum" name="onceNum" value="20"/>
             <input type="hidden" id="type" name="type" value="${uploadParam.fileTypes}"/>
             <input type="hidden" id="identity" name="identity" value="${param['identity']}"/>
+            <input type="hidden" id="secondIdentity" name="secondIdentity" value="${param['secondIdentity']}"/>
             <input type="hidden" id="tag" name="tag" value="${param['tag']}"/>
 
             <div class="fileupload-buttonbar">
@@ -153,33 +93,6 @@
             <div class="filelist">
                 <%-- The table listing the files available for upload/download --%>
                 <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
-            </div>
-        </div>
-
-        <%-- modal-gallery is the modal dialog used for the image gallery --%>
-        <div id="modal-gallery" class="modal modal-gallery hide fade" data-filter=":odd">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <h3 class="modal-title"></h3>
-            </div>
-            <div class="modal-body"><div class="modal-image"></div></div>
-            <div class="modal-footer">
-                <a class="btn modal-download" target="_blank">
-                    <i class="icon-download"></i>
-                    <span>下载</span>
-                </a>
-                <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
-                    <i class="icon-play icon-white"></i>
-                    <span>幻灯片</span>
-                </a>
-                <a class="btn btn-info modal-prev">
-                    <i class="icon-arrow-left icon-white"></i>
-                    <span>上一个</span>
-                </a>
-                <a class="btn btn-primary modal-next">
-                    <span>下一个</span>
-                    <i class="icon-arrow-right icon-white"></i>
-                </a>
             </div>
         </div>
 

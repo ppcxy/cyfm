@@ -3,6 +3,7 @@
     var ctx = _ctx = "${ctx}";
 </script>
 <!-- 插件扩展区 bengin-->
+<script src="${ctx}/static/plugins/angular.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery/jquery.metadata.js" type="text/javascript"></script>
 <%-- cookie 扩展插件 --%>
