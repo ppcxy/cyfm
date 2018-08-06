@@ -9,7 +9,7 @@ import java.util.List;
 public class FileUploadModel {
     private Long totalSize;
     private Long singleSize;
-    private Long onceSize;
+    private Long onceAmount;
     private List<String> fileTypes = Lists.newArrayList();
     private List<String> contentTypes = Lists.newArrayList();
     private Long currentTotalSize;
@@ -21,7 +21,8 @@ public class FileUploadModel {
         
         fileUploadModel.setTotalSize(0l);
         fileUploadModel.setSingleSize(200 * 1024 * 1024l);
-        fileUploadModel.setSingleSize(200 * 1024 * 1024l);
+        fileUploadModel.setOnceAmount(20l);
+        
         fileUploadModel.getFileTypes().addAll(Arrays.asList(allows));
         
         fileUploadModel.setCurrentTotalSize(-1l);
@@ -45,12 +46,12 @@ public class FileUploadModel {
         this.singleSize = singleSize;
     }
     
-    public Long getOnceSize() {
-        return onceSize;
+    public Long getOnceAmount() {
+        return onceAmount;
     }
     
-    public void setOnceSize(Long onceSize) {
-        this.onceSize = onceSize;
+    public void setOnceAmount(Long onceAmount) {
+        this.onceAmount = onceAmount;
     }
     
     public List<String> getFileTypes() {

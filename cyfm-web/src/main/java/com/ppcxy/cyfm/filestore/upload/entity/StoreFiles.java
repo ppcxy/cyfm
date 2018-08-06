@@ -25,7 +25,9 @@ public class StoreFiles extends UUIDEntity {
     
     //上传模块
     private String identity;
-    //上传tag
+    //模块内识别id
+    private String secondIdentity;
+    //模块内识别tag
     private String tag;
     
     //上传时间
@@ -91,6 +93,14 @@ public class StoreFiles extends UUIDEntity {
     
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+    
+    public String getSecondIdentity() {
+        return secondIdentity;
+    }
+    
+    public void setSecondIdentity(String secondIdentity) {
+        this.secondIdentity = secondIdentity;
     }
     
     public String getTag() {

@@ -26,7 +26,7 @@
             <input type="hidden" id="ctx" value="${ctx}" />
             <input type="hidden" id="singleSize" name="size" value="${uploadParam.singleSize}"/>
             <input type="hidden" id="num" name="num" value="${requestScope.num}"/>
-            <input type="hidden" id="onceNum" name="onceNum" value="20"/>
+            <input type="hidden" id="onceAmount" name="onceAmount" value="${uploadParam.onceAmount}"/>
             <input type="hidden" id="type" name="type" value="${uploadParam.fileTypes}"/>
             <input type="hidden" id="identity" name="identity" value="${param['identity']}"/>
             <input type="hidden" id="secondIdentity" name="secondIdentity" value="${param['secondIdentity']}"/>
@@ -54,7 +54,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    &nbsp;|&nbsp;单次限制上传文件个数：20 个
+                    &nbsp;|&nbsp;单次限制上传文件个数：${uploadParam.onceAmount} 个
 
                     <br>支持的文件格式：${uploadParam.fileTypes}
                     <%--<c:if test="${fn:contains(uploadParam.fileTypes,'txt')}">文本文档 </c:if>--%>
@@ -153,29 +153,6 @@
     </tr>
 {% } %}
 </script>
-    <%-- The jQuery UI widget factory, can be omitted if jQuery UI is already included --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/vendor/jquery.ui.widget.js"></script>
-    <%-- The Templates plugin is included to render the upload/download listings --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/tmpl.min.js"></script>
-    <%-- The Load Image plugin is included for the preview images and image resizing functionality --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/load-image.min.js"></script>
-    <%-- The Canvas to Blob plugin is included for image resizing functionality --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/canvas-to-blob.min.js"></script>
-    <%-- Bootstrap JS and Bootstrap Image Gallery are not required, but included for the demo --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/bootstrap-image-gallery.min.js"></script>
-    <%-- The Iframe Transport is required for browsers without support for XHR file uploads --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/jquery.iframe-transport.js"></script>
-    <%-- The basic File Upload plugin --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/jquery.fileupload.js"></script>
-    <%-- The File Upload file processing plugin --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/jquery.fileupload-fp.js"></script>
-    <%-- The File Upload user interface plugin --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/jquery.fileupload-ui.js"></script>
-    <%-- The localization script --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/locale.js"></script>
-    <%-- The main application script --%>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/main.js"></script>
-    <script type="text/javascript" src="${ctx}/static/plugins/upload/js/cors/jquery.xdr-transport.js"></script>
+<%@include file="/WEB-INF/views/common/import-upload-js.jspf"%>
 </body>
 </html>

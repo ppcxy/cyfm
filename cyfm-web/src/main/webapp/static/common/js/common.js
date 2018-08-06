@@ -218,9 +218,37 @@ $cy = {
         }
     },
     tools: {
-        chooseUser: function (option) {
+        uuid: function (len, radix) {
+            var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+            var uuid = [], i;
+            radix = radix || chars.length;
 
-            var defalutOption = {
+            if (len) {
+                // Compact form
+                for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+            } else {
+                // rfc4122, version 4 form
+                var r;
+
+                // rfc4122 requires these characters
+                uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+                uuid[14] = '4';
+
+                // Fill in random data.  At i==19 set the high bits of clock sequence as
+                // per rfc4122, sec. 4.1.5
+                for (i = 0; i < 36; i++) {
+                    if (!uuid[i]) {
+                        r = 0 | Math.random() * 16;
+                        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                    }
+                }
+            }
+
+            return uuid.join('');
+        },
+        chooseUser: function (options) {
+
+            var configs = {
                 width: '600px',
                 height: '500px',
                 multi: false,
@@ -229,7 +257,7 @@ $cy = {
                 callback: $.noop
             };
 
-            defalutOption = jQuery.extend(defalutOption, option);
+            configs = jQuery.extend(configs, options);
 
             //iframe窗
             top.layer.open({
@@ -239,13 +267,13 @@ $cy = {
                 shadeClose: true,
                 shade: 0.3,
                 maxmin: true, //开启最大化最小化按钮
-                area: [defalutOption.width, defalutOption.height],
+                area: [configs.width, configs.height],
                 content: _ctx + '/sys/common/userChoose'
-                , btn: [defalutOption.okBtn, defalutOption.cancelBtn]
+                , btn: [configs.okBtn, configs.cancelBtn]
                 , btn1: function (index, layero) {
                     var results = undefined;
 
-                    if (defalutOption.multi) {
+                    if (configs.multi) {
                         results = top.$cy.table.getAllSelectedCheckbox($("table", $("#user_choose iframe", top.document)[0].contentWindow.document))
                     } else {
                         results = top.$cy.table.getFirstSelectedCheckbox($("table", $("#user_choose iframe", top.document)[0].contentWindow.document))
@@ -254,26 +282,28 @@ $cy = {
                     if (results.size() === 0) {
                         top.$cy.warn("请选择用户后确认...")
                     } else {
-                        defalutOption.callback(results.eq(0).data("show"), results);
+                        configs.callback(results.eq(0).data("show"), results);
                         top.layer.close(index)
                     }
                 }
             });
         },
 
-        uploadFile: function (option) {
+        uploadFile: function (options) {
+            options = options || {};
 
-            var defalutOption = {
+            var configs = {
                 width: '750px',
                 height: '550px',
                 multi: false,
                 okBtn: '关闭',
                 callback: $.noop,
                 identity: "common",
+                secondIdentity: "common",
                 tag: 'all'
             };
 
-            defalutOption = jQuery.extend(defalutOption, option);
+            configs = jQuery.extend(configs, options);
 
             //iframe窗
             top.layer.open({
@@ -283,15 +313,15 @@ $cy = {
                 shadeClose: false,
                 shade: 0.3,
                 maxmin: false, //开启最大化最小化按钮
-                area: [defalutOption.width, defalutOption.height],
-                content: _ctx + '/filestore/upload?identity=' + defalutOption.identity + '&tag=' + defalutOption.tag
-                , btn: [defalutOption.okBtn]
+                area: [configs.width, configs.height],
+                content: _ctx + '/filestore/upload?identity=' + configs.identity + '&secondIdentity=' + configs.secondIdentity + '&tag=' + configs.tag
+                , btn: [configs.okBtn]
                 , success: function (layero, index) {
                     //获取frame,并且传入参数
                     var childFrameWindow = top.layer.getChildFrameWindow(index)
                     childFrameWindow.param = {
                         parentWindow: window,
-                        callback: defalutOption.callback
+                        callback: configs.callback
                     }
                 }
             });
@@ -407,13 +437,14 @@ $cy = {
         }
     },
 
-    initAutocomplete: function (config) {
+    initAutocomplete: function (options) {
+        options = options || {};
 
-        var defaultConfig = {
+        var configs = {
             minLength: 1,
             enterSearch: false,
             focus: function (event, ui) {
-                jQuery(config.input).val(ui.item.label);
+                jQuery(options.input).val(ui.item.label);
                 return false;
             },
             renderItem: function (ul, item) {
@@ -424,22 +455,22 @@ $cy = {
             }
         };
 
-        config = jQuery.extend(true, defaultConfig, config);
+        configs = jQuery.extend(true, configs, options);
 
-        jQuery(config.input)
+        jQuery(configs.input)
             .on('keydown', function (e) {
                 var ev = window.event || e;
                 //回车查询
-                if (config.enterSearch && ev.keyCode === $.ui.keyCode.ENTER) {
-                    config.select(ev, {item: {value: jQuery(this).val()}});
+                if (configs.enterSearch && ev.keyCode === $.ui.keyCode.ENTER) {
+                    configs.select(ev, {item: {value: jQuery(this).val()}});
                 }
             })
             .autocomplete({
-                source: config.source,
-                minLength: config.minLength,
-                focus: config.focus,
-                select: config.select
-            }).data('ui-autocomplete')._renderItem = config.renderItem;
+                source: configs.source,
+                minLength: configs.minLength,
+                focus: configs.focus,
+                select: configs.select
+            }).data('ui-autocomplete')._renderItem = configs.renderItem;
     },
 
     initDatePick: function () {

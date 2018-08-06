@@ -11,7 +11,7 @@ import java.util.Calendar;
 @Service
 public class StoreFilesService extends BaseService<StoreFiles, String> {
     
-    public StoreFiles addFile(String filename, long fileSize, String contentType, User user, String filePath, String identity, String tag) {
+    public StoreFiles addFile(String filename, long fileSize, String contentType, User user,  String filePath, String identity, String secondIdentity, String tag) {
         
         StoreFiles storeFiles = new StoreFiles();
         
@@ -27,6 +27,7 @@ public class StoreFilesService extends BaseService<StoreFiles, String> {
         storeFiles.setUploadTime(Calendar.getInstance().getTime());
         
         storeFiles.setIdentity(identity);
+        storeFiles.setSecondIdentity(secondIdentity);
         storeFiles.setTag(tag);
         
         storeFiles.setState(tag);

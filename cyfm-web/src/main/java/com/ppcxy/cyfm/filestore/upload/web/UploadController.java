@@ -72,7 +72,7 @@ public class UploadController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public AjaxUploadResponse ajaxUpload(
-            HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "files[]", required = false) MultipartFile[] files, String identity, String tag, @CurrentUser User user) {
+            HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "files[]", required = false) MultipartFile[] files, String identity, String secondIdentity, String tag, @CurrentUser User user) {
         response.setContentType("text/plain");
         
         AjaxUploadResponse ajaxUploadResponse = new AjaxUploadResponse();
@@ -103,7 +103,7 @@ public class UploadController {
                 String filePath = FileUploadUtils.upload(request, UPLOAD_BASE_DESTPATH, file, FileUploadUtils.DEFAULT_ALLOWED_EXTENSION, SINGLE_MAX_SIZE, true);
                 
                 
-                StoreFiles storeFiles = storeFilesService.addFile(filename, fileSize, contentType, user, filePath, identity, tag);
+                StoreFiles storeFiles = storeFilesService.addFile(filename, fileSize, contentType, user, filePath, identity, secondIdentity, tag);
                 
                 // TODO 保存文件信息到本地文件上传记录
                 

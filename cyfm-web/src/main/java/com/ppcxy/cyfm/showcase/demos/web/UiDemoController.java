@@ -14,4 +14,9 @@ public class UiDemoController {
     public String dialogDemo() {
         return "/demo/ui/dialog";
     }
+    
+    @RequestMapping(value = "formDesigner")
+    public String formdesignerDemo() {
+        return "/demo/ui/formdesigner";
+    }
 }

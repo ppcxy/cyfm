@@ -11,8 +11,8 @@
 
 /*jslint nomen: true, unparam: true, regexp: true */
 /*global define, window, document, URL, webkitURL, FileReader */
-var size = parseInt($("#singleSize").val()) * 1024 * 1024;
-var num = parseInt($("#onceNum").val());
+var size = parseInt($("#singleSize").val());
+var onceAmount = parseInt($("#onceAmount").val());
 var type = '/(.|/)(' + $("#type").val().replace(/,/g, "|") + ')/i';
 
 (function (factory) {
@@ -49,7 +49,7 @@ var type = '/(.|/)(' + $("#type").val().replace(/,/g, "|") + ')/i';
             autoUpload: false,
             // The following option limits the number of files that are
             // allowed to be uploaded using this widget:
-            maxNumberOfFiles: num,
+            maxNumberOfFiles: onceAmount,
             // The maximum allowed file size:
             maxFileSize: size,
             // The minimum allowed file size:
