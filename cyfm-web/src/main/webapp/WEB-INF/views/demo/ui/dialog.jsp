@@ -104,7 +104,7 @@
                         console.debug('add file', data)
                         break;
                     case 'delete':
-                        console.log('delete file', data)
+                        console.debug('delete file', data)
                         break;
                 }
             }
