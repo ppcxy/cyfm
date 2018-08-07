@@ -107,7 +107,7 @@
     <!--<mvc:view-controller path="/" view-name="index"/>-->
     <mvc:view-controller path="/web/mashup-client" view-name="/web/mashup-client"/>
     <!-- 定义无需Controller的url<->view直接映射 -->
-    <mvc:view-controller path="/" view-name="redirect:/manage"/>
+    <mvc:view-controller path="/" view-name="redirect:/shop/v"/>
 
     <!-- ========================= VIEW定义 ========================= -->
     <!-- 内容协商视图解析器；根据客户端的不同的请求决定不同的 view进行响应, 如 /blog/1.json /blog/1.xml -->
