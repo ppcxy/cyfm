@@ -12,6 +12,9 @@
 <%@taglib prefix="maintain" tagdir="/WEB-INF/tags/maintain" %>
 <%@taglib prefix="cyform" uri="http://www.ppcxy.com/tags/cy-form" %>
 <%@taglib prefix="cyfn" uri="http://www.ppcxy.com/tags/cy-functions" %>
+
+<%@taglib prefix="gs" tagdir="/WEB-INF/tags/gs" %>
+
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
 <%

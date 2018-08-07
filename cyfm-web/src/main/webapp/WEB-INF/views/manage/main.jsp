@@ -83,7 +83,7 @@
                              border=0></iframe></div>
     <div class="content">
         <div class="left">
-            <iframe src="${ctx}/manage/left/1/" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame"
+            <iframe src="${ctx}/manage/left/2/" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame"
                     title="leftFrame" frameborder=no
                     border=0></iframe>
         </div>

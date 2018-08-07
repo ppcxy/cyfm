@@ -152,6 +152,7 @@
                 /polling = user,sysUser
                 /hystrix/** = anon
                 / = anon
+                /shop/v/** = anon
                 /WEB-INF/views/error/** = anon
                 /dp/execute/remote/** = anon
                 /** = user,sysUser,onlineSession,syncOnlineSession,perms,roles
