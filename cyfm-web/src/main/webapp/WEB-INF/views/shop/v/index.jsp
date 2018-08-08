@@ -571,17 +571,34 @@
 </footer>
 <%@include file="/WEB-INF/views/common/import-js.jspf"%>
 <script>
-    var titleTemplate = "<li><a href=\"#\"><i class=\"icon-main icon-3\"></i>{value}</a></li>";
-    var subUlTemplate = "<ul class=\"sub-item\"></ul>";
-    var subLiTemplate = "<li><a href=\"#\">{value}</a></li>";
+    var titleTemplate = "<li><a href=\"#\" data-type='{id}'><i class=\"icon-main icon-3\"></i>{value}</a><ul class=\"sub-item\"></ul></li>";
+    var subLiTemplate = "<li><a href=\"#\" data-type='{id}'>{value}</a><ul class=\"sub-item\"></ul></li>";
 
 
     var types = [];
-    $.get("${ctx}/shop/gs/type/ajax/load?async=true&asyncLoadAll=true&search.show_eq=true",function (data) {
+
+    // <li>
+    // <a href="#"><i class="icon-main icon-3"></i>运动 户外</a>
+    // <ul class="sub-item">
+    //     <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">家居 家具 厨具 清洁</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // <li><a href="#">运动 户外</a></li>
+    // </ul>
+    // </li>
+    $.get("${ctx}/shop/v/type/ajax/load?async=true&asyncLoadAll=true&search.show_eq=true",function (data) {
         $(data).each(function (i,o) {
             if (o.id != 1) {
                 if ( o.pId==1){
-                    titleTemplate.replace("{value}", o.name);
+                    $("#categories").append(titleTemplate.replace("{id}",o.id).replace("{value}", o.name));
+                }else {
+                    $("[data-type='"+o.pId+"']+ul.sub-item").append(subLiTemplate.replace("{id}",o.id).replace("{value}",o.name));
                 }
             }
             console.log(o.id, o.pId, o.name);

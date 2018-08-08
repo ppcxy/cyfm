@@ -112,7 +112,7 @@ public class GoodsType extends IdEntity implements Treeable<Long> {
         this.icon = icon;
     }
     
-    @Formula(value = "(select count(*) from cy_sys_resource f_t where f_t.parent_id = id)")
+    @Formula(value = "(select count(*) from gs_type f_t where f_t.parent_id = id)")
     public boolean isHasChildren() {
         return hasChildren;
     }
