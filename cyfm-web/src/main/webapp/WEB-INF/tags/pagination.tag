@@ -1,10 +1,14 @@
 <%@tag pageEncoding="UTF-8" %>
 <%@ attribute name="page" type="org.springframework.data.domain.PageImpl" required="true" %>
 <%@ attribute name="paginationSize" type="java.lang.Integer" required="true" %>
+<%@ attribute name="showMeg" type="java.lang.Boolean" required="false" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
+    if (showMeg == null) {
+        showMeg = true;
+    }
     int current = page.getNumber() + 1;
     int begin = Math.max(1, current - paginationSize / 2);
     int end = Math.min(begin + (paginationSize - 1), page.getTotalPages());
@@ -14,9 +18,11 @@
     request.setAttribute("end", end);
 %>
 <div class="pagin">
+    <% if(showMeg){%>
     <div class="message">共<i class="blue">${page.totalPages}</i>页，<i class="blue">${page.totalElements}</i>条记录，当前显示第&nbsp;<i
             class="blue">${current}&nbsp;</i>页
     </div>
+    <% } %>
     <ul class="paginList">
         <% if (page.hasPreviousPage()) {%>
         <li class="paginItem"><a href="?page.pn=${current-1}"><i class="fa fa-angle-left"></i></a></li>

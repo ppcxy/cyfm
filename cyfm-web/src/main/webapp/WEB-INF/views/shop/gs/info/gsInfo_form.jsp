@@ -224,7 +224,7 @@
                 callback: function (oper, data) {
                     if (oper == "add"){
                         var file = data.files[0];
-                        $(".pics").append("<li><div><img class='preview' title='"+file.name+"' src='" + _ctx + "/" + file.url + "'></div><div><a onclick='preViewImg(this)' class='btn btn-xs blue pull-left'>预览</a><a onclick='removeImg(this)' class='btn btn-xs red pull-right'>移除</a></div></li>")
+                        $(".pics").append("<li><div><img class='preview' title='"+file.name+"' src='" + _ctx + "/" + file.url.replace("/filestore/upload/ajaxDownload","/shop/v/pic") + "'></div><div><a onclick='preViewImg(this)' class='btn btn-xs blue pull-left'>预览</a><a onclick='removeImg(this)' class='btn btn-xs red pull-right'>移除</a></div></li>")
 
                         imgData.push({
                             "alt": '',

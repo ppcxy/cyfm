@@ -30,7 +30,7 @@ public class HttpClientUtils {
     public Long beginTimestamp;
     public Long timeout = 1000 * 60 * 10l;
     
-    private HttpClientUtils() {
+    public HttpClientUtils() {
         context = HttpClientContext.create();
         
         client = HttpClients.createDefault();

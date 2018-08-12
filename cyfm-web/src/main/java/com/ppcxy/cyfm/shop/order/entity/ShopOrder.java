@@ -10,22 +10,23 @@ import java.util.Date;
 @Entity
 @Table(name = "gs_shop_order")
 public class ShopOrder extends IdEntity {
-    private String userId;
+    private Long userId;
     private String orderNum;
     private String title;
     private String goodsBaseInfoId;
     private String goodsSpecIds;
     private String goodsSpecInfo;
+    private Integer goodsAmount;
     private BigDecimal orderPrice;
     private Date createDate;
     private String orderState;
     private String orderReturnState;
     
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
     
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
     
@@ -51,6 +52,14 @@ public class ShopOrder extends IdEntity {
     
     public void setGoodsBaseInfoId(String goodsBaseInfoId) {
         this.goodsBaseInfoId = goodsBaseInfoId;
+    }
+    
+    public Integer getGoodsAmount() {
+        return goodsAmount;
+    }
+    
+    public void setGoodsAmount(Integer goodsAmount) {
+        this.goodsAmount = goodsAmount;
     }
     
     public String getGoodsSpecIds() {

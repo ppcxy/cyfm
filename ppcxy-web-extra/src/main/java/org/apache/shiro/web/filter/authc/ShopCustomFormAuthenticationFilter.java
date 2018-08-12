@@ -21,7 +21,7 @@ import javax.servlet.ServletResponse;
  * 2.3、否则根据当前登录的用户决定返回到管理员首页/前台首页
  * <p/>
  */
-public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
+public class ShopCustomFormAuthenticationFilter extends FormAuthenticationFilter {
     
     @Autowired
     UserService userService;

@@ -248,7 +248,7 @@ input, button, select, textarea { outline: none; }
 
 #menu > a { width: 100%; display: block; text-align: center; }
 
-#categories { margin-top: 2px; -ms-border-radius: 0; border-radius: 0; padding: 0; border-top: 0; width: 195px; border-right: 0; }
+#categories { margin-top: 0px; -ms-border-radius: 0; border-radius: 0; padding: 0; border-top: 0; width: 195px; border-right: 0; }
 
 #categories > li { border-bottom: 1px solid #e0e0e0; border-right: 1px solid #cccccc; background-color: #f5f5f5; }
 #categories > li > a { display: block; padding: 5px 20px; clear: both; font-size: 12px; height: 40px; color: #333333; white-space: nowrap; }
@@ -275,7 +275,6 @@ input, button, select, textarea { outline: none; }
 #topic_scroll .carousel-control.right { background-repeat: no-repeat; background-image: none; width: 3%; height: 100%; background-color: #ededed; }
 #topic_scroll .carousel-control .glyphicon-chevron-left, #topic_scroll .carousel-control .glyphicon-chevron-right { position: absolute; top: 50%; z-index: 5; display: inline-block; }
 #topic_scroll .carousel-control .glyphicon-chevron-left { left: 50%; }
-#topic_scroll .carousel-control .glyphicon-chevron-right { right: -8%; }
 .topic-scroll { height: 108px; border: 1px solid #eee; margin: 0 10px; position: relative; }
 .topic-list { padding: 0 23px; margin: 0; list-style: none; overflow: hidden; }
 .topic-list > li { float: left; width: 25%; padding: 10px; border-right: 1px solid #eee; }
@@ -283,7 +282,7 @@ input, button, select, textarea { outline: none; }
 
 #mini_ucenter ul { width: 240px; }
 #mini_cart { color: #333; }
-#mini_cart .dropdown-box { position: absolute; top: 100%; right: 0; z-index: 1000; display: none; float: left; min-width: 285px; padding: 0; margin: 0; font-size: 14px; list-style: none; background-color: #ffffff; border: 1px solid #cccccc; border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 4px; -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); background-clip: padding-box; }
+#mini_cart .dropdown-box { position: absolute; top: 100%; right: 0; z-index: 1000; display: none; float: left; min-width: 320px; padding: 0; margin: 0; font-size: 14px; list-style: none; background-color: #ffffff; border: 1px solid #cccccc; border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 4px; -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); background-clip: padding-box; }
 #mini_cart.open .dropdown-box { display: block; }
 #mini_cart .dropdown-box > li { font-size: 12px; }
 
@@ -367,7 +366,7 @@ input, button, select, textarea { outline: none; }
 .tabs-border-5 { border-bottom: 3px solid #33b7e3; }
 
 /*帮助中心*/
-.help-center { border-top: 2px solid #e5e5e5; border-bottom: 1px solid #eee; }
+.help-center { border-top: 1px solid #e5e5e5; border-bottom: 1px solid #eee; }
 .help-list { margin: 0; padding: 0; list-style: none; overflow: hidden; background-color: #f9f9f9; border-right: 1px solid #eeeeee; }
 .help-list > li { width: 16.5%; float: left; border-left: 1px solid #eee; height: 122px; padding-left: 20px; }
 .help-on { margin: 0; padding: 10px 0; list-style: none; display: inline-block; }
@@ -395,7 +394,7 @@ input, button, select, textarea { outline: none; }
 
 /*详细页*/
 #sidebar > .widget { width: 100%; border: 1px solid #dfdfdf; }
-#sidebar > .widget > h5 { border-bottom: 2px solid #cbcbcb; height: 35px; line-height: 35px; margin: 0; }
+#sidebar > .widget > h5 { border-bottom: 1px solid #cbcbcb; height: 35px; line-height: 35px; margin: 0; }
 #sidebar > .widget > h5 > span { font-weight: normal; }
 #sidebar > .widget > .widget-list-1, .widget-list-2 { padding: 0; margin: 0; list-style: none; overflow: hidden; }
 #sidebar > .widget > .widget-list-1 li { width: 50%; float: left; line-height: 25px; padding: 3px 0 3px 10px; }

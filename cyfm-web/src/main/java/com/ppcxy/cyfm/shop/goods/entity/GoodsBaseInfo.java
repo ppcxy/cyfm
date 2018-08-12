@@ -1,11 +1,13 @@
 package com.ppcxy.cyfm.shop.goods.entity;
 
 import com.ppcxy.common.entity.IdEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 商品基础信息
@@ -28,6 +30,9 @@ public class GoodsBaseInfo extends IdEntity {
     private BigDecimal basePrice;
     //商品详情
     private String details;
+    //创建时间
+    private Date createDate;
+    private Long suggest;
     
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "goods_type_id")
@@ -89,5 +94,34 @@ public class GoodsBaseInfo extends IdEntity {
     
     public void setDetails(String details) {
         this.details = details;
+    }
+    
+    public Date getCreateDate() {
+        return createDate;
+    }
+    
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+    
+    @Transient
+    public String getFirstPic() {
+        if (StringUtils.isNotBlank(pics)) {
+            int index = pics.indexOf(",");
+            if (index > 0) {
+                return this.pics.substring(0, index);
+            }
+            return pics;
+        }
+        
+        return "";
+    }
+    
+    public void setSuggest(Long suggest) {
+        this.suggest = suggest;
+    }
+    
+    public Long getSuggest() {
+        return this.suggest;
     }
 }

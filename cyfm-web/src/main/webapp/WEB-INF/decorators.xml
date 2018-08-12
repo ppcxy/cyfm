@@ -13,6 +13,8 @@
         <pattern>/**/tree?*</pattern>
         <pattern>/shop/v</pattern>
         <pattern>/shop/v/**</pattern>
+        <pattern>/shop/member/</pattern>
+        <pattern>/shop/member/**</pattern>
     </excludes>
 
 
