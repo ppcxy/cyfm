@@ -14,7 +14,7 @@
                     <div class="meb-left-list">
                         <ul>
                             <li><a href="${ctx}/shop/member/order">我的订单</a></li>
-                            <li><a href="${ctx}/shop/member/cart">我的购物车</a></li>
+                            <li><a href="${ctx}/shop/member/carts">我的购物车</a></li>
                             <li><a href="${ctx}/shop/member/favorites">我的收藏</a></li>
                         </ul>
                     </div>

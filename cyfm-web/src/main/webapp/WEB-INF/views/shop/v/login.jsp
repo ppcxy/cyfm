@@ -44,7 +44,7 @@
                 <form role="form" class="login-form f14" action="${ctx}/shop/v/login" method="post" autocomplete="off" onsubmit="return validateVcode()">
                     <div class="form-group">
                         <label for="username">邮箱/用户名/已验证手机</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/用户名/已验证手机" />
+                        <input type="text" class="form-control" id="username" name="username" placeholder="邮箱/用户名/已验证手机" autofocus="autofocus"/>
                     </div>
                     <div class="form-group">
                         <label for="password">密码</label>

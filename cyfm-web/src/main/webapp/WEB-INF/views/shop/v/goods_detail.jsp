@@ -112,11 +112,11 @@
                             </div>
                             <div style="border-bottom: 1px dotted #ccc;"></div>
                             <div class="meta-btn">
-                                <div class="quantity mb10">购买数量：<span class="ui-spinner"><input type="text" class="input" value="1" aria-valuenow="1" autocomplete="off"><a class="ui-spinner-button ui-spinner-up" tabindex="-1"><span class="ui-icon">▲</span></a><a class="ui-spinner-button ui-spinner-down" tabindex="-1"><span class="ui-icon">▼</span></a></span>(库存充足)</div>
+                                <div class="quantity mb10">购买数量：<span class="ui-spinner"><input type="text" class="input" id="amount" value="1" aria-valuenow="1" autocomplete="off"><a class="ui-spinner-button ui-spinner-up" tabindex="-1"><span class="ui-icon">▲</span></a><a class="ui-spinner-button ui-spinner-down" tabindex="-1"><span class="ui-icon">▼</span></a></span>(库存充足)</div>
                                 <div class="button-group">
-                                    <button type="button" class="btn btn-danger btn-lg mr20">立即购买</button>
-                                    <button type="button" class="btn btn-addcart btn-lg mr20"><i class="icon-main icon-addcart"></i>加入购物车</button>
-                                    <button type="button" class="btn btn-collect btn-lg"><i class="icon-main icon-like"></i>收藏</button>
+                                    <button type="button" class="btn btn-danger btn-lg mr20" onclick="addCartsAndJump()">立即购买</button>
+                                    <button type="button" class="btn btn-addcart btn-lg mr20" onclick="addCarts()"><i class="icon-main icon-addcart"></i>加入购物车</button>
+                                    <button type="button" class="btn btn-collect btn-lg" onclick="addFavorite()"><i class="icon-main icon-like"></i>收藏</button>
                                 </div>
                             </div>
                         </div>
@@ -133,178 +133,7 @@
                 </div>
                 <div class="tab-pane active" id="intro" data-id="intro">
                 </div>
-                <%--<div class="item-review" id="review">--%>
-                    <%--<div class="item-title"><span>商品评价</span></div>--%>
-                    <%--<div class="review-per">--%>
-                        <%--<div class="rate">--%>
-                            <%--<div>--%>
-                                <%--78<span>%</span>--%>
-                            <%--</div>--%>
-                            <%--<br>--%>
-                            <%--<span>好评度</span>--%>
-                        <%--</div>--%>
-                        <%--<div class="percent">--%>
-                            <%--<dl>--%>
-                                <%--<dt>好评<span>(78%)</span></dt>--%>
-                                <%--<dd>--%>
-                                    <%--<div style="width: 78%;">--%>
-                                    <%--</div>--%>
-                                <%--</dd>--%>
-                            <%--</dl>--%>
-                            <%--<dl>--%>
-                                <%--<dt>中评<span>(20%)</span></dt>--%>
-                                <%--<dd class="d1">--%>
-                                    <%--<div style="width: 20%;">--%>
-                                    <%--</div>--%>
-                                <%--</dd>--%>
-                            <%--</dl>--%>
-                            <%--<dl>--%>
-                                <%--<dt>差评<span>(1%)</span></dt>--%>
-                                <%--<dd class="d1">--%>
-                                    <%--<div style="width: 1%;">--%>
-                                    <%--</div>--%>
-                                <%--</dd>--%>
-                            <%--</dl>--%>
-                        <%--</div>--%>
-                        <%--<div class="clearfix"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="review-show mt15  p15">--%>
-                        <%--<ul class="nav nav-tabs review-tabs" id="review-tabs">--%>
-                            <%--<li class="active"><a href="#all-eva" data-toggle="tab">全部评价(4558)</a></li>--%>
-                            <%--<li><a href="#good" data-toggle="tab">好评(1245)</a></li>--%>
-                            <%--<li><a href="#general" data-toggle="tab">中评(2584)</a></li>--%>
-                            <%--<li><a href="#poor" data-toggle="tab">差评(225)</a></li>--%>
-                        <%--</ul>--%>
 
-                        <%--<div class="tab-content p15">--%>
-                            <%--<div class="tab-pane active" id="all-eva">--%>
-                                <%--<div class="rev-list">--%>
-                                    <%--<div class="user">--%>
-                                        <%--<div class="user-avatar">--%>
-                                            <%--<a href="" target="_blank">--%>
-                                                <%--<img alt="唯***8" src="${ctx}/static/shop/assets/img/admin.png" data-original="" style="display: inline;" /></a>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="user-name">--%>
-                                            <%--<a href="" target="_blank">唯***8</a>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="rev-item">--%>
-                                        <%--<div class="rev-top">--%>
-                                            <%--<i class="rev-star icon-main icon-eva-5"></i><span class="rev-date">2014年01月15日</span>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="rev-content">--%>
-                                            <%--鞋子真的很靓，穿着挺舒服的，鞋码偏小点 平时穿42.5的 这次买的43的刚好 谢谢前面买家的意见--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<i class="corner icon-main icon-arrow"></i>--%>
-                                <%--</div>--%>
-                                <%--<div class="rev-list">--%>
-                                    <%--<div class="user">--%>
-                                        <%--<div class="user-avatar">--%>
-                                            <%--<a href="" target="_blank">--%>
-                                                <%--<img alt="唯***8" src="${ctx}/static/shop/assets/img/admin.png" data-original="" style="display: inline;" /></a>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="user-name">--%>
-                                            <%--<a href="" target="_blank">唯***8</a>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="rev-item">--%>
-                                        <%--<div class="rev-top">--%>
-                                            <%--<i class="rev-star icon-main icon-eva-5"></i><span class="rev-date">2014年01月15日</span>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="rev-content">--%>
-                                            <%--鞋子真的很靓，穿着挺舒服的，鞋码偏小点 平时穿42.5的 这次买的43的刚好 谢谢前面买家的意见--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<i class="corner icon-main icon-arrow"></i>--%>
-                                <%--</div>--%>
-                                <%--<div class="rev-list">--%>
-                                    <%--<div class="user">--%>
-                                        <%--<div class="user-avatar">--%>
-                                            <%--<a href="" target="_blank">--%>
-                                                <%--<img alt="唯***8" src="${ctx}/static/shop/assets/img/admin.png" data-original="" style="display: inline;" /></a>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="user-name">--%>
-                                            <%--<a href="" target="_blank">唯***8</a>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="rev-item">--%>
-                                        <%--<div class="rev-top">--%>
-                                            <%--<i class="rev-star icon-main icon-eva-5"></i><span class="rev-date">2014年01月15日</span>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="rev-content">--%>
-                                            <%--鞋子真的很靓，穿着挺舒服的，鞋码偏小点 平时穿42.5的 这次买的43的刚好 谢谢前面买家的意见--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<i class="corner icon-main icon-arrow"></i>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="tab-pane" id="good">--%>
-                                 <%--<div class="rev-list">--%>
-                                    <%--<div class="user">--%>
-                                        <%--<div class="user-avatar">--%>
-                                            <%--<a href="" target="_blank"><img alt="唯***8" src="${ctx}/static/shop/assets/img/admin.png" data-original="" style="display: inline;" /></a>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="user-name">--%>
-                                            <%--<a href="" target="_blank">唯***8</a>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="rev-item">--%>
-                                        <%--<div class="rev-top">--%>
-                                            <%--<i class="rev-star icon-main icon-eva-5"></i><span class="rev-date">2014年01月15日</span>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="rev-content">--%>
-                                            <%--鞋子真的很靓，穿着挺舒服的，鞋码偏小点 平时穿42.5的 这次买的43的刚好 谢谢前面买家的意见--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<i class="corner icon-main icon-arrow"></i>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="tab-pane" id="general">--%>
-                                 <%--<div class="rev-list">--%>
-                                    <%--<div class="user">--%>
-                                        <%--<div class="user-avatar">--%>
-                                            <%--<a href="" target="_blank"><img alt="唯***8" src="${ctx}/static/shop/assets/img/admin.png" data-original="" style="display: inline;" /></a>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="user-name">--%>
-                                            <%--<a href="" target="_blank">唯***8</a>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="rev-item">--%>
-                                        <%--<div class="rev-top">--%>
-                                            <%--<i class="rev-star icon-main icon-eva-5"></i><span class="rev-date">2014年01月15日</span>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="rev-content">--%>
-                                            <%--鞋子真的很靓，穿着挺舒服的，鞋码偏小点 平时穿42.5的 这次买的43的刚好 谢谢前面买家的意见--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<i class="corner icon-main icon-arrow"></i>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="tab-pane" id="poor">--%>
-                                 <%--<div class="rev-list">--%>
-                                    <%--<div class="user">--%>
-                                        <%--<div class="user-avatar">--%>
-                                            <%--<a href="" target="_blank"><img alt="唯***8" src="${ctx}/static/shop/assets/img/admin.png" data-original="" style="display: inline;" /></a>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="user-name">--%>
-                                            <%--<a href="" target="_blank">唯***8</a>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="rev-item">--%>
-                                        <%--<div class="rev-top">--%>
-                                            <%--<i class="rev-star icon-main icon-eva-5"></i><span class="rev-date">2014年01月15日</span>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="rev-content">--%>
-                                            <%--鞋子真的很靓，穿着挺舒服的，鞋码偏小点 平时穿42.5的 这次买的43的刚好 谢谢前面买家的意见--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<i class="corner icon-main icon-arrow"></i>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
                 <div class="item-after tab-pane" id="after">
                     <div class="p15">
                         <p class="lh200">
@@ -327,6 +156,78 @@
     <%@include file="../common/vFooter.jsp"%>
     <script type="text/javascript" src="${ctx}/static/shop/assets/js/modernizr.js"></script>
     <script type="text/javascript">
+        var goodsId = undefined;
+
+        function addCartsAndJump(goodsId,amount){
+            var amount = $("#amount").val();
+            window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+goodsId+"&amount="+amount);
+        }
+        
+        function addCarts(g) {
+            if (!g){
+                g = goodsId;
+            }
+            if (g){
+                var amount = $("#amount").val();
+                if (!amount) {
+                    amount = 1;
+                }
+
+                <shiro:notAuthenticated>
+                addCartsAndJump(g,amount);
+                return;
+                </shiro:notAuthenticated>
+
+                $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": g, "amount": amount}, function (data) {
+                    if (data.msg == 'success') {
+                        $cy.confirm({
+                            'title': '消息',
+                            'message': '已成功加入购物车，是非去购物车结算?',
+                            async: false,
+                            btn: ['去结算', '继续购物'],
+                            yes: function(){
+                                window.location.href = ctx+"/shop/member/carts"
+                            },
+                            no: $.noop})
+                    }else{
+                        // alert(data);
+                    }
+                })
+            }
+        }
+
+
+
+        function addFavoriteAndJump(goodsId){
+            window.open("${ctx}/shop/member/addFavorite?goodsBaseInfo.id="+goodsId);
+        }
+
+        function addFavorite(g) {
+            if (!g){
+                g = goodsId;
+            }
+            if (g){
+                <shiro:notAuthenticated>
+                addFavoriteAndJump(g);
+                return;
+                </shiro:notAuthenticated>
+
+                $.post("${ctx}/shop/member/addFavorite", {"goodsBaseInfo.id": g}, function (data) {
+                    if (data.msg == 'success') {
+                        $cy.confirm({
+                            'title': '消息',
+                            'message': '已收藏商品，后续可在我的收藏中查看！',
+                            async: false,
+                            btn: ['去我的收藏', '继续购物'],
+                            yes: function(){
+                                window.location.href = ctx+"/shop/member/favorites"
+                            },
+                            no: $.noop})
+                    }
+                })
+            }
+        }
+
         $(function(){
             var spinner = $( ".ui-spinner" );
             var v = $(spinner).find(".input");
@@ -364,6 +265,9 @@
             //获取商品数据
             $.post("#", {}, function (data) {
                 var info = data.info;
+
+                goodsId = info.id;
+
                 $("[data-id=title]").text(info.title)
                 $("[data-id=sub-title]").text("双11限时特惠")
                 $("[data-id=price-g]").text("￥"+(info.basePrice*1.2))
@@ -386,7 +290,6 @@
                 initGoodsPics();
                 $cy.waitingOver();
             });
-
         })
 
     </script>

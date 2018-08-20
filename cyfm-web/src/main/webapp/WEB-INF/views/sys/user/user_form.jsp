@@ -66,8 +66,8 @@
 					<p class="help-block">(点击提交保存信息.)</p>
 					<%--<p class="help-block">(保存后将发送JMS消息通知改动，而消息接收者将发送提醒邮件)</p>--%>
 				</div>
+			</div>
 		</form:form>
-	</div>
 	</div>
 </div>
 <script>

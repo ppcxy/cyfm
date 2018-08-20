@@ -31,22 +31,37 @@
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
-            <th>订单</th>
-            <th>订单价格</th>
+            <th>订单号</th>
+            <th>商品信息</th>
+            <th>下单用户</th>
             <th>下单日期</th>
+            <th>订单金额</th>
             <th>订单状态</th>
-            <th>退货状态</th>
+            <th class="action">操作</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${page.content}" var="order">
             <tr>
                 <td class="check"><input name="ids" type="checkbox" value="${order.id}"></td>
-                <td>${order.title}-${order.goodsSpecIdsnfo}</td>
-                <td>${order.orderPrice}</td>
+                <td>${order.orderNum}</td>
+                <td>${fn:length(order.orderLists)}件商品</td>
+                <td><sys:showUsername id="${order.userId}" needLink="false"/></td>
                 <td>${order.createDate}</td>
-                <td>${order.createState}</td>
-                <td>${order.returnState}</td>
+                <td>${order.orderPrice}</td>
+                <td>${order.orderStateInfo}</td>
+                <td class="action">
+                    <a href="${ctx}/shop/order/update/${order.id}" class="btn btn-xs green">查看详情</a>
+                    <c:if test="${order.orderReturnState eq '0' && order.orderState eq '0'}">
+                        <a class="btn btn-xs red">关闭订单</a>
+                    </c:if>
+                    <c:if test="${order.orderReturnState  eq '0' && order.orderState eq '1'}">
+                        <a class="btn btn-xs blue">发货</a>
+                    </c:if>
+                    <c:if test="${order.orderReturnState eq '1'}">
+                        <a class="btn btn-xs blue">删除订单</a>
+                    </c:if>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

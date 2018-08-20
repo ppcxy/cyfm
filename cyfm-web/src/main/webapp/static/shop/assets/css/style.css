@@ -532,8 +532,8 @@ input, button, select, textarea { outline: none; }
 .sort-left a:hover { text-decoration: none; background: #e04f4f; color: #fff; }
 .sort-right { width: 28%; }
 .pro-list-show > ul { padding: 0; margin: 0; list-style: none; overflow: hidden; border-right: 1px solid #eee; }
-.pro-list-show > ul > li { float: left; width: 25%; border-left: 1px solid #eee; border-bottom: 1px solid #eee; padding: 10px; position: relative; }
-.pro-list-show > ul > li:hover { height: 361px; border: 1px solid #e04f4f; }
+.pro-list-show > ul > li { float: left; width: 25%; border: 1px solid #eee; border-bottom: 1px solid #eee; padding: 10px; position: relative; }
+.pro-list-show > ul > li:hover {  border: 1px solid #e04f4f; }
 .pro-list-show > ul > li > a { width: 100%; height: 220px; display: block; position: relative; }
 .pro-list-show > ul > li > a > img { position: absolute; top: 0; right: 0; bottom: 0; left: 0; margin: auto; max-width: 100%; max-height: 100%; }
 .list-show-eva { padding: 0 5px 5px 5px; }

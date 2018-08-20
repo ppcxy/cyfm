@@ -111,26 +111,13 @@
                                     <div class="summary"><a href="">${g.title}</a></div>
                                     <div class="price"><span class="pull-right red-font"></span><b>${g.basePrice}</b></div>
                                     <div class="list-show-eva"><a href="">推荐指数</a>：<i class="icon-main icon-eva-6"></i>（${g.suggest}）</div>
-                                    <button type="button" class="btn btn-default btn-xs">加入购物车</button>
-                                    <button type="button" class="btn btn-default btn-xs">收藏</button>
+                                    <button type="button" class="btn btn-default btn-xs" onclick="addCarts('${g.id}')">加入购物车</button>
+                                    <button type="button" class="btn btn-default btn-xs" onclick="addFavorite('${g.id}')">收藏</button>
                                 </li>
                             </c:forEach>
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="list-pagination pull-right">
-                    <ul class="pagination">
-                        <li class="previous disabled"><a href="#">&laquo;&laquo;</a></li>
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                        <li class="next"><a href="#">&raquo;&raquo;</a></li>
-                    </ul>
-                </div> -->
             </div>
             <!-- 内容区域结束 -->
         </div>
@@ -147,6 +134,74 @@
         var url = "${ctx}/shop/v/list?typeId=${param['typeId']}&brandId=${param['brandId']}&searchParam=${param['searchParam']}&sort=" + sortFiled;
         window.location.href = url;
     }
+
+    function addCartsAndJump(goodsId,amount){
+        window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+goodsId+"&amount="+amount);
+    }
+    
+    function addCarts(g) {
+        if (!g){
+            g = goodsId;
+        }
+        if (g){
+            var amount = $("#amount").val();
+            if (!amount) {
+                amount = 1;
+            }
+
+            <shiro:notAuthenticated>
+            addCartsAndJump(g,amount);
+            return;
+            </shiro:notAuthenticated>
+
+            $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": g, "amount": amount}, function (data) {
+                if (data.msg == 'success') {
+                    $cy.confirm({
+                        'title': '消息',
+                        'message': '已成功加入购物车，是非去购物车结算?',
+                        async: false,
+                        btn: ['去结算', '继续购物'],
+                        yes: function(){
+                            window.location.href = ctx+"/shop/member/carts"
+                        },
+                        no: $.noop})
+                }else{
+                    // alert(data);
+                }
+            })
+        }
+    }
+
+    function addFavoriteAndJump(goodsId){
+        window.open("${ctx}/shop/member/addFavorite?goodsBaseInfo.id="+goodsId);
+    }
+
+    function addFavorite(g) {
+        if (!g){
+            g = goodsId;
+        }
+        if (g){
+            <shiro:notAuthenticated>
+            addFavoriteAndJump(g);
+            return;
+            </shiro:notAuthenticated>
+
+            $.post("${ctx}/shop/member/addFavorite", {"goodsBaseInfo.id": g}, function (data) {
+                if (data.msg == 'success') {
+                    $cy.confirm({
+                        'title': '消息',
+                        'message': '已收藏商品，后续可在我的收藏中查看！',
+                        async: false,
+                        btn: ['去我的收藏', '继续购物'],
+                        yes: function(){
+                            window.location.href = ctx+"/shop/member/favorites"
+                        },
+                        no: $.noop})
+                }
+            })
+        }
+    }
+
 </script>
 </body>
 </html>

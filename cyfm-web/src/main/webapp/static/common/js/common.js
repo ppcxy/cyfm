@@ -404,13 +404,16 @@ $cy = {
             'message': '确定执行操作?',
             width: 'auto',
             height: 'auto',
-            async: false
+            async: false,
+            btn: ['确定', '取消'],
+            yes: $.noop,
+            no: $.noop
         }, options);
         layer.confirm(opts.message, {
             area: [opts.width, opts.height]
             , title: opts.title
             , icon: 3
-            , btn: ['确定', '取消'] //按钮
+            , btn: opts.btn //按钮
         }, function (index, layero) {
             if (opts.yes) {
                 opts.yes();
@@ -841,6 +844,10 @@ window.onbeforeunload = function () {
             //TODO 暂时不处理
             $cy.waiting();
         }, 100);
+        setTimeout(function () {
+            //TODO 暂时不处理
+            $cy.waitingOver();
+        }, 1000);
     }
 };
 

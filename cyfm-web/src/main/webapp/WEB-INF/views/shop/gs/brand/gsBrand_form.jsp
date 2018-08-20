@@ -7,7 +7,7 @@
 <body>
 
 <div class="portlet box editBox">
-    <div class="portlet-title"><span>团队信息</span></div>
+    <div class="portlet-title"><span>品牌信息</span></div>
     <div class="portlet-body form">
         <form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
         <div class="form-body">
@@ -35,8 +35,8 @@
                 <input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>
-            </form:form>
         </div>
+        </form:form>
     </div>
 </div>
 <script>

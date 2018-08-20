@@ -157,5 +157,8 @@
         })
 
     })
-    $cy.waitingOver();
+    setTimeout(function () {
+        $cy.waitingOver();
+    }, 200);
+
 </script>

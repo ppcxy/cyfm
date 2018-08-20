@@ -75,21 +75,21 @@
                             <div class="box-title">最新订单状态：<span><a href="/shop/member/order">查看所有订单</a></span></div>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/shop/member/order?status=0">待处理订单<i class="gray-font">(0)</i></a></li>
-                        <li><a href="/shop/member/order?status=1">待处理订单<i class="gray-font">(1)</i></a></li>
-                        <li><a href="/shop/member/order?status=2">待处理订单<i class="gray-font">(2)</i></a></li>
-                        <li><a href="/shop/member/order?status=3">待处理订单<i class="gray-font">(3)</i></a></li>
+                        <%--<li><a href="/shop/member/order?status=0">待处理订单<i class="gray-font">(0)</i></a></li>--%>
+                        <%--<li><a href="/shop/member/order?status=1">待处理订单<i class="gray-font">(1)</i></a></li>--%>
+                        <%--<li><a href="/shop/member/order?status=2">待处理订单<i class="gray-font">(2)</i></a></li>--%>
+                        <%--<li><a href="/shop/member/order?status=3">待处理订单<i class="gray-font">(3)</i></a></li>--%>
                     </ul>
                    </shiro:authenticated>
                 </div>
                 <div id="mini_cart" class="btn-group mt30 ml15">
-                    <a href="/shop/member/cart" class="btn btn-radius-none btn-default dropdown-toggle f12" --data-toggle="dropdown">
+                    <a href="/shop/member/carts" class="btn btn-radius-none btn-default dropdown-toggle f12" --data-toggle="dropdown">
                         <i class="icon-main icon-cart ilb"></i>去购物车结算 <%--<span class="caret">--%></span>
                     </a>
                     <%--<shiro:notAuthenticated>--%>
                     <%--<!--未登录-->--%>
                     <%--<ul class="dropdown-box" role="menu">--%>
-                        <%--<li style="text-align: center"><a href="${ctx}/shop/member/cart" ><i class="icon-main icon-mini-cart ilb"></i>还没有登录呢，赶紧登录选购吧！</a></li>--%>
+                        <%--<li style="text-align: center"><a href="${ctx}/shop/member/carts" ><i class="icon-main icon-mini-cart ilb"></i>还没有登录呢，赶紧登录选购吧！</a></li>--%>
                     <%--</ul>--%>
                     <%--</shiro:notAuthenticated>--%>
                     <%--<shiro:authenticated>--%>
@@ -119,7 +119,7 @@
                             <%--</div>--%>
                             <%--<div class="box-settlement tr">--%>
                                 <%--共 <b class="red-font">3</b> 件商品&nbsp;&nbsp;共计<b class="red-font f16">￥ 2008.00</b>--%>
-                                <%--<a href="${ctx}/shop/member/cart" class="btn btn-danger">去购物车结算</a>--%>
+                                <%--<a href="${ctx}/shop/member/carts" class="btn btn-danger">去购物车结算</a>--%>
                             <%--</div>--%>
                         <%--</li>--%>
                     <%--</ul>--%>
