@@ -368,17 +368,17 @@ public class JsonDemo {
         newMapper.getMapper().registerModule(moneyModule);
         
         // tojson
-        User user = new User();
-        user.setName("foo");
-        user.setSalary(new Money(1.2));
+        Employe employe = new Employe();
+        employe.setName("foo");
+        employe.setSalary(new Money(1.2));
         
-        String jsonString = newMapper.toJson(user);
+        String jsonString = newMapper.toJson(employe);
         
         assertThat(jsonString).isEqualTo("{\"name\":\"foo\",\"salary\":\"1.2\"}");
         
         // from
-        User resultUser = newMapper.fromJson(jsonString, User.class);
-        assertThat(resultUser.getSalary().value).isEqualTo(1.2);
+        Employe resultEmploye = newMapper.fromJson(jsonString, Employe.class);
+        assertThat(resultEmploye.getSalary().value).isEqualTo(1.2);
         
     }
     
@@ -685,7 +685,7 @@ public class JsonDemo {
     /**
      * 包含Money属性的对象.
      */
-    public static class User {
+    public static class Employe {
         private String name;
         private Money salary;
         

@@ -98,7 +98,7 @@ public class JaxbDemo {
     
     @Test
     public void objectToXml() {
-        User user = new User();
+        DemoUser user = new DemoUser();
         user.setId(1L);
         user.setName("calvin");
         
@@ -118,7 +118,7 @@ public class JaxbDemo {
     @Test
     public void xmlToObject() {
         String xml = generateXmlByDom4j();
-        User user = JaxbMapper.fromXml(xml, User.class);
+        DemoUser user = JaxbMapper.fromXml(xml, DemoUser.class);
         
         System.out.println("Jaxb Xml to Object result:\n" + user);
         
@@ -134,17 +134,17 @@ public class JaxbDemo {
      */
     @Test
     public void toXmlWithListAsRoot() {
-        User user1 = new User();
+        DemoUser user1 = new DemoUser();
         user1.setId(1L);
         user1.setName("calvin");
         
-        User user2 = new User();
+        DemoUser user2 = new DemoUser();
         user2.setId(2L);
         user2.setName("kate");
         
-        List<User> userList = Lists.newArrayList(user1, user2);
+        List<DemoUser> userList = Lists.newArrayList(user1, user2);
         
-        String xml = JaxbMapper.toXml(userList, "userList", User.class, "UTF-8");
+        String xml = JaxbMapper.toXml(userList, "userList", DemoUser.class, "UTF-8");
         System.out.println("Jaxb Object List to Xml result:\n" + xml);
     }
 }

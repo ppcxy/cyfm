@@ -21,7 +21,7 @@ import java.util.Map;
 @XmlRootElement
 // 指定子节点的顺序
 @XmlType(propOrder = {"name", "roles", "interests", "houses"})
-public class User {
+public class DemoUser {
     
     private Long id;
     private String name;

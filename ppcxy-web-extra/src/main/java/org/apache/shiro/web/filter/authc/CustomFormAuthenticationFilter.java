@@ -5,7 +5,6 @@ import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,7 +21,7 @@ import javax.servlet.ServletResponse;
  * <p/>
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
-
+    
     @Autowired
     UserService userService;
     /**
@@ -33,32 +32,32 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      * 管理员默认的成功地址
      */
     private String adminDefaultSuccessUrl;
-
+    
     @Override
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);
     }
-
+    
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
+    
     public String getDefaultSuccessUrl() {
         return defaultSuccessUrl;
     }
-
+    
     public void setDefaultSuccessUrl(String defaultSuccessUrl) {
         this.defaultSuccessUrl = defaultSuccessUrl;
     }
-
+    
     public String getAdminDefaultSuccessUrl() {
         return adminDefaultSuccessUrl;
     }
-
+    
     public void setAdminDefaultSuccessUrl(String adminDefaultSuccessUrl) {
         this.adminDefaultSuccessUrl = adminDefaultSuccessUrl;
     }
-
+    
     /**
      * 根据用户选择成功地址
      *
@@ -74,7 +73,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
         }
         return getDefaultSuccessUrl();
     }
-
+    
     /**
      * 覆盖父类避免登录后跳转到记录的前一个访问链接
      *
@@ -84,23 +83,16 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
-        //TODO 区分登录成功页面
-        //if (haveAdminRole()) {
-            ((ShiroHttpServletRequest) request).getSession().removeAttribute(WebUtils.SAVED_REQUEST_KEY);
-        //}
+        //TODO 区分登录成功页面,管理员登录到成功页
+        if (haveAdminRole()) {
+            WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+        }
         
         super.issueSuccessRedirect(request, response);
     }
     
     private boolean haveAdminRole() {
-        String username = ShiroUserInfoUtils.getUsername();
-        
-        User user = userService.findByUsername(username);
-        if (user != null && Boolean.TRUE.equals(user.getRoleNames().indexOf("Admin") != -1)) {
-            return true;
-            
-        }
-        return false;
+        return haveRole("Admin");
     }
     
     private boolean haveRole(String roleName) {
