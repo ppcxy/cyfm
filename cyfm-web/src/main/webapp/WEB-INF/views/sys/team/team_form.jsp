@@ -7,6 +7,7 @@
 <body>
 
 <div class="portlet box editBox">
+    <div class="portlet-title"><span>团队信息</span></div>
     <div class="portlet-body form">
         <form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
         <div class="form-body">
@@ -32,7 +33,6 @@
         </div>
         </form:form>
     </div>
-    <div class="portlet-title"><span>团队信息</span></div>
 </div>
 <script>
     $cy.handleUniform();

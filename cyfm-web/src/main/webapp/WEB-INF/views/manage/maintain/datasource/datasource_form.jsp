@@ -77,8 +77,8 @@
                 <input id="submit_btn" class="btn btn-primary disabled" type="submit" value="提交"/>&nbsp;
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>
-        </form:form>
         </div>
+        </form:form>
     </div>
 </div>
 <script>

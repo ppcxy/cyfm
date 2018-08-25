@@ -363,6 +363,7 @@ $cy = {
             , content: message
             , time: 3000
             , closeBtn: 0
+            , btn: ['关闭']
             , shift: 5 //动画类型
         }, callback);
     },
@@ -374,6 +375,7 @@ $cy = {
             , time: 5000
             , icon: 0
             , closeBtn: 0
+            , btn: ['关闭']
             , shift: 5 //动画类型
         }, callback);
     },
@@ -386,6 +388,7 @@ $cy = {
             , icon: 1
             , shift: 5 //动画类型
             , closeBtn: 0
+            , btn: ['关闭']
         }, callback);
     },
     error: function (message, callback) {
@@ -395,6 +398,7 @@ $cy = {
             , content: message
             , icon: 2
             , closeBtn: 0
+            , btn: ['关闭']
             , shift: 5 //动画类型
         }, callback);
     },
@@ -404,13 +408,16 @@ $cy = {
             'message': '确定执行操作?',
             width: 'auto',
             height: 'auto',
-            async: false
+            async: false,
+            btn: ['确定', '取消'],
+            yes: $.noop,
+            no: $.noop
         }, options);
         layer.confirm(opts.message, {
             area: [opts.width, opts.height]
             , title: opts.title
             , icon: 3
-            , btn: ['确定', '取消'] //按钮
+            , btn: opts.btn //按钮
         }, function (index, layero) {
             if (opts.yes) {
                 opts.yes();

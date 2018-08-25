@@ -5,6 +5,7 @@ import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +22,7 @@ import javax.servlet.ServletResponse;
  * <p/>
  */
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
-    
+
     @Autowired
     UserService userService;
     /**
@@ -32,32 +33,32 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      * 管理员默认的成功地址
      */
     private String adminDefaultSuccessUrl;
-    
+
     @Override
     protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
         request.setAttribute(getFailureKeyAttribute(), ae);
     }
-    
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-    
+
     public String getDefaultSuccessUrl() {
         return defaultSuccessUrl;
     }
-    
+
     public void setDefaultSuccessUrl(String defaultSuccessUrl) {
         this.defaultSuccessUrl = defaultSuccessUrl;
     }
-    
+
     public String getAdminDefaultSuccessUrl() {
         return adminDefaultSuccessUrl;
     }
-    
+
     public void setAdminDefaultSuccessUrl(String adminDefaultSuccessUrl) {
         this.adminDefaultSuccessUrl = adminDefaultSuccessUrl;
     }
-    
+
     /**
      * 根据用户选择成功地址
      *
@@ -65,15 +66,13 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     public String getSuccessUrl() {
-        String username = ShiroUserInfoUtils.getUsername();
-        User user = userService.findByUsername(username);
         //TODO 区分登录成功页面
         if (haveAdminRole()) {
             return getAdminDefaultSuccessUrl();
         }
         return getDefaultSuccessUrl();
     }
-    
+
     /**
      * 覆盖父类避免登录后跳转到记录的前一个访问链接
      *

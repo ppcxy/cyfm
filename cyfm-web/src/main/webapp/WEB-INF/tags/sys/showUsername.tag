@@ -18,17 +18,14 @@
         return;
     }
     String username = user.getUsername();
-    String deletedInfo = "";
-    
-    //    String deletedInfo = (Boolean.TRUE.equals(user.getDeleted()) ? "<span class='label label-important'>[用户已删除]</span>" : "");
-    //    if(Boolean.FALSE.equals(needLink)) {
-    //        out.write(username + deletedInfo);
-    //        return;
-    //    }
+
+    if (Boolean.FALSE.equals(needLink)) {
+        out.write(username);
+        return;
+    }
     
     out.write(
             String.format(
-                    "<a class='btn btn-default btn-link no-padding'>%s</a>%s",
-                    username,
-                    deletedInfo));
+                    "<a class='btn btn-default btn-link no-padding'>%s</a>",
+                    username));
 %>
