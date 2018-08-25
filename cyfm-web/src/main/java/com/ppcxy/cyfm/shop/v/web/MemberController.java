@@ -276,6 +276,12 @@ public class MemberController {
         return "redirect:/shop/member/favorites";
     }
     
+    /**
+     * 参数绑定适配器，处理时间类型参数绑定
+     * @param request
+     * @param binder
+     * @throws Exception
+     */
     @InitBinder
     protected void initBinder(HttpServletRequest request,
                               ServletRequestDataBinder binder) throws Exception {

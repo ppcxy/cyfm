@@ -16,6 +16,11 @@ public class GoodsSpecService extends BaseService<GoodsSpec,Long> {
     @Autowired
     private GoodsSpecDao goodsSpecDao;
     
+    /**
+     * 通过商品id获得商品规格列表
+     * @param goodsId
+     * @return
+     */
     public List<GoodsSpec> findByGoodsId(Long goodsId) {
         return goodsSpecDao.findBygoods(goodsId);
     }

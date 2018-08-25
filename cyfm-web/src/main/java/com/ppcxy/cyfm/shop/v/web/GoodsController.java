@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 前端商品相关web层控制器
+ */
 @Controller
 @RequestMapping(value = "/shop/v")
 public class GoodsController {
@@ -39,9 +42,20 @@ public class GoodsController {
     @Autowired
     private GoodsBrandService brandService;
     
+    /**
+     * 前端商品列表，支持分页筛选排序等操作
+     *
+     * @param typeId
+     * @param brandId
+     * @param searchParam
+     * @param pn
+     * @param sort
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Long typeId, Long brandId, String searchParam, Integer pn, @RequestParam(value = "sort", defaultValue = "") String sort, Model model) {
-        
+        //构造查询参数
         Searchable searchable = Searchable.newSearchable();
         if (typeId != null) {
             searchable.addSearchFilter("goodsType.id", SearchOperator.eq, typeId);
@@ -52,10 +66,11 @@ public class GoodsController {
         if (brandId != null) {
             searchable.addSearchFilter("goodsBrand.id", SearchOperator.eq, brandId);
         }
+        //如果没有页参数默认第一页
         if (pn == null) {
             pn = 0;
         }
-        
+        //构造排序参数
         switch (sort) {
             case "xl":
                 searchable.addSort(Sort.Direction.DESC, "suggest");
@@ -72,15 +87,22 @@ public class GoodsController {
             default:
                 break;
         }
+        //设置每页显示条数
         searchable.setPage(pn, 50);
-        
+        //进行查询讲返回结果设置到请求中，供页面显示
         Page<GoodsBaseInfo> page = goodsBaseInfoService.findAll(searchable);
-        
+        //顺便查询品牌列表
         model.addAttribute("brands", brandService.findAll());
         model.addAttribute("page", page);
         return "/shop/v/goods_list";
     }
     
+    /**
+     * 进入商品详情页面
+     * @param goodsBaseInfo
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/detail/{goodsId}", method = RequestMethod.GET)
     public String detail(@PathVariable(value = "goodsId") GoodsBaseInfo goodsBaseInfo, Model model) {
         model.addAttribute("typeId", goodsBaseInfo.getGoodsType().getId());
@@ -88,7 +110,11 @@ public class GoodsController {
         return "/shop/v/goods_detail";
     }
     
-    
+    /**
+     * 商品详情信息ajax获取，在页面用js绑定数据
+     * @param goodsId
+     * @return
+     */
     @RequestMapping(value = "/detail/{goodsId}", method = RequestMethod.POST)
     @ResponseBody
     public String detailInfo(@PathVariable(value = "goodsId") Long goodsId) {
@@ -108,6 +134,12 @@ public class GoodsController {
     @Autowired
     private StoreFilesService storeFilesService;
     
+    /**
+     * 前端用户的图片加载方法（在未登录状态下查看图片）
+     * @param fileId
+     * @param request
+     * @param response
+     */
     @RequestMapping(value = "pic", method = RequestMethod.GET)
     @ResponseBody
     public void downloadLocal(@RequestParam(value = "fileIds", required = false) String fileId, HttpServletRequest request, HttpServletResponse response) {

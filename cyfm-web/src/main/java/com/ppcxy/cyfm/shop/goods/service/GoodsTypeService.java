@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 树型结构支持，为了满足事物要求需要实现
+ */
 @Service
 @Transactional
 public class GoodsTypeService extends BaseTreeableService<GoodsType, Long> {

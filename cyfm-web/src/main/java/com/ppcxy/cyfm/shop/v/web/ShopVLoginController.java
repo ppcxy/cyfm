@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
+/**
+ * 登录页面
+ */
 @Controller
 @RequestMapping("/shop/v")
 public class ShopVLoginController {
@@ -27,5 +30,5 @@ public class ShopVLoginController {
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, userName);
         return "/shop/v/login";
     }
-
+    
 }

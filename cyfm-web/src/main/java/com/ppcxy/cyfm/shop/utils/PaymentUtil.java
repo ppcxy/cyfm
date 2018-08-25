@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+/**
+ * 支付签名计算工具类
+ */
 public class PaymentUtil {
 
 	private static String encodingCharset = "UTF-8";

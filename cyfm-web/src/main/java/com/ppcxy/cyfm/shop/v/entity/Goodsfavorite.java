@@ -11,8 +11,17 @@ import java.util.Date;
 @Entity
 @Table(name = "gs_favorite")
 public class Goodsfavorite extends IdEntity {
+    /**
+     * 商品收藏所属用户
+     */
     private Long userId;
+    /**
+     * 商品基础新
+     */
     private GoodsBaseInfo goodsBaseInfo;
+    /**
+     * 添加时间
+     */
     private Date createDate;
     
     public Long getUserId() {
