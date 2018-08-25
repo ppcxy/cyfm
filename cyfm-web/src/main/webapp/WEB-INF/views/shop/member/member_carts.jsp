@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>我的购物车</title>
     <link href="${ctx}/static/shop/assets/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="${ctx}/static/shop/assets/css/style.css" rel="stylesheet"/>
 </head>

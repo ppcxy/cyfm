@@ -88,9 +88,6 @@
 
     if(error != null){
 %>
-<%--<div class="alert alert-error controls input-large">--%>
-<%--<button class="close" data-dismiss="alert">×</button>--%>
-
 <script>
     $(function () {
         <%
@@ -103,15 +100,21 @@
         %>
     })
 </script>
-<%--</div>--%>
 <%
     }
 %>
     <script type="text/javascript">
+        /**
+         *点击验证码图片切换验证码
+         */
         $('#vcode_img').click(function  () {
             $(this).attr('src',  "${ctx}/jcaptcha.jpg");
         });
 
+        /**
+         * 验证验证码是否输入正确
+         * @returns {boolean}
+         */
         function validateVcode() {
             var result = true;
             $.ajax({

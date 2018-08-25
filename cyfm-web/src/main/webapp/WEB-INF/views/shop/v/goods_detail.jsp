@@ -158,11 +158,20 @@
     <script type="text/javascript">
         var goodsId = undefined;
 
+        /**
+         * 添加商品到购物车并跳转到购物车
+         * @param goodsId
+         * @param amount
+         */
         function addCartsAndJump(goodsId,amount){
             var amount = $("#amount").val();
             window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+goodsId+"&amount="+amount);
         }
-        
+
+        /**
+         * 添加商品到购物车，未登录则添加并跳转，登录则ajax请求
+         * @param g
+         */
         function addCarts(g) {
             if (!g){
                 g = goodsId;
@@ -197,11 +206,17 @@
         }
 
 
-
+        /**
+         * 添加商品到收藏，同购物车
+         * @param goodsId
+         */
         function addFavoriteAndJump(goodsId){
             window.open("${ctx}/shop/member/addFavorite?goodsBaseInfo.id="+goodsId);
         }
-
+        /**
+         * 添加商品到收藏，同购物车
+         * @param goodsId
+         */
         function addFavorite(g) {
             if (!g){
                 g = goodsId;
@@ -228,7 +243,11 @@
             }
         }
 
+
         $(function(){
+            /**
+             * 商品数量调整初始化
+             */
             var spinner = $( ".ui-spinner" );
             var v = $(spinner).find(".input");
             v.change(function () {
@@ -243,6 +262,11 @@
                 v.val(parseInt(v.val()) - 1).change();
 
             })
+            //---------------------------------------
+
+            /**
+             * 初始化商品图片
+             */
             function initGoodsPics(){
                 var $navimg=$('.nav-img>div');
                 var $bigimg=$('.big-img>img');
@@ -256,13 +280,11 @@
                 }
 
             }
-            $('#vcode_img').click(function  () {
-                $(this).attr('src',  $(this).data('src')+'?'+ Math.random());
-            });
-
 
             $cy.waiting()
-            //获取商品数据
+            /**
+             * ajax获取商品数据并初始化到页面上
+             */
             $.post("#", {}, function (data) {
                 var info = data.info;
 
@@ -291,9 +313,6 @@
                 $cy.waitingOver();
             });
         })
-
-    </script>
-    <script type="text/javascript">
 
     </script>
 </body>

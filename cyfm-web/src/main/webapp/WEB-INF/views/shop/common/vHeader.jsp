@@ -68,62 +68,20 @@
                    <!--登录之后-->
                     <ul class="dropdown-menu p10 f12" style="width: 240px;" role="menu">
                         <li>
-                            <div class="box-title fb"><span class="pull-right"><a href="/shop/member/" class="blue-font">去我的商城首页</a></span><shiro:principal property="username"/></div>
+                            <div class="box-title fb"><span class="pull-right"><a href="/shop/member/" class="blue-font">去我的个人中心</a></span><shiro:principal property="username"/></div>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <div class="box-title">最新订单状态：<span><a href="/shop/member/order">查看所有订单</a></span></div>
                         </li>
                         <li class="divider"></li>
-                        <%--<li><a href="/shop/member/order?status=0">待处理订单<i class="gray-font">(0)</i></a></li>--%>
-                        <%--<li><a href="/shop/member/order?status=1">待处理订单<i class="gray-font">(1)</i></a></li>--%>
-                        <%--<li><a href="/shop/member/order?status=2">待处理订单<i class="gray-font">(2)</i></a></li>--%>
-                        <%--<li><a href="/shop/member/order?status=3">待处理订单<i class="gray-font">(3)</i></a></li>--%>
                     </ul>
                    </shiro:authenticated>
                 </div>
                 <div id="mini_cart" class="btn-group mt30 ml15">
                     <a href="/shop/member/carts" class="btn btn-radius-none btn-default dropdown-toggle f12" --data-toggle="dropdown">
-                        <i class="icon-main icon-cart ilb"></i>去购物车结算 <%--<span class="caret">--%></span>
+                        <i class="icon-main icon-cart ilb"></i>去购物车结算 </span>
                     </a>
-                    <%--<shiro:notAuthenticated>--%>
-                    <%--<!--未登录-->--%>
-                    <%--<ul class="dropdown-box" role="menu">--%>
-                        <%--<li style="text-align: center"><a href="${ctx}/shop/member/carts" ><i class="icon-main icon-mini-cart ilb"></i>还没有登录呢，赶紧登录选购吧！</a></li>--%>
-                    <%--</ul>--%>
-                    <%--</shiro:notAuthenticated>--%>
-                    <%--<shiro:authenticated>--%>
-
-                    <%--<ul class="dropdown-box" role="menu">--%>
-                        <%--<li><i class="icon-main icon-mini-cart ilb"></i>购物车中还没有商品，赶紧选购吧！</li>--%>
-                    <%--</ul>--%>
-                    <%--<!--购物车有商品-->--%>
-                    <%--<ul class="dropdown-box" role="menu">--%>
-                        <%--<li>--%>
-                            <%--<div class="box-title fb p10">最新加入的商品</div>--%>
-                            <%--<div class="box-content ">--%>
-                                <%--<ul class="box-list">--%>
-
-                                    <%--<li>--%>
-                                        <%--<div class="pull-left product-info">--%>
-                                            <%--<img class="pull-left" alt="" src="" />--%>
-                                            <%--<div class="summary"><a href="">【五折】自然素材 蜜桃芒果味果冻 255g 台湾地区进口</a></div>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="pull-right price-info">--%>
-                                            <%--<b class="red-font">￥779.00</b>×1<br>--%>
-                                            <%--<span class="blue-font pull-right"><a href="">删除</a></span>--%>
-                                        <%--</div>--%>
-                                    <%--</li>--%>
-
-                                <%--</ul>--%>
-                            <%--</div>--%>
-                            <%--<div class="box-settlement tr">--%>
-                                <%--共 <b class="red-font">3</b> 件商品&nbsp;&nbsp;共计<b class="red-font f16">￥ 2008.00</b>--%>
-                                <%--<a href="${ctx}/shop/member/carts" class="btn btn-danger">去购物车结算</a>--%>
-                            <%--</div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                    <%--</shiro:authenticated>--%>
                 </div>
             </div>
         </div>
@@ -147,15 +105,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav f14">
                     <li class="active"><a href="${ctx}/">首页</a></li>
-                    <!--<li class="dropdown"> <a href="#">Dropdown </a> </li>-->
                 </ul>
-                <!--<ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="./">Default</a></li>
-                    <li><a href="../navbar-static-top/">Static top</a></li>
-                    <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-                </ul>-->
+
             </div>
-            <!--/.nav-collapse -->
         </div>
     </div>
 </div>

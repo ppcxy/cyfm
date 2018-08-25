@@ -70,17 +70,31 @@
         <%@include file="../common/vFooter.jsp"%>
     </div>
     <script type="text/javascript">
+        /**
+         * 错误重定向到注册页面，显示错误信息
+         */
         if ('${param[error]}'==='0'){
             alert("未知原因注册失败，请重试.")
         }
+        /**
+         * 点击验证码图片切换验证密码
+         */
         $('#vcode_img').click(function  () {
             $(this).attr('src',  "${ctx}/jcaptcha.jpg");
         });
 
+        /**
+         * 验证密码验证码和注册信息是否重复
+         * @returns {*|boolean}
+         */
         function validate() {
             return validatePassword() && validateVcode() && validateIdentity();
         }
 
+        /**
+         * 验证注册身份信息是否被使用
+         * @returns {boolean}
+         */
         function validateIdentity() {
 
             var result = true;
@@ -143,10 +157,18 @@
 
         }
 
+        /**
+         * 验证两次密码输入是否一致
+         * @returns {boolean}
+         */
         function validatePassword() {
             return $("#password").val() == $("#confirmPassword").val();
         }
 
+        /**
+         * 验证验证码是否输入正确
+         * @returns {boolean}
+         */
         function validateVcode() {
             var result = true;
             $.ajax({

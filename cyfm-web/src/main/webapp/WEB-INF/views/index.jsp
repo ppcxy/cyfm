@@ -3,7 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-	<title>快速开发框架</title>
+	<title>shopping商城</title>
 	<style type="text/css">
 	</style>
 </head>

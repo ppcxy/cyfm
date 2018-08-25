@@ -20,8 +20,6 @@
     <div class="container">
         <!-- 内容部分开始 -->
 
-
-
         <!-- 列表页部分开始 -->
         <div class="row">
             <!-- 面包屑导航开始 -->
@@ -130,15 +128,28 @@
     </div>
 
 <script>
+    /**
+     * 商品排序事件，需要将筛选参数带入
+     * @param sortFiled
+     */
     function sort(sortFiled) {
         var url = "${ctx}/shop/v/list?typeId=${param['typeId']}&brandId=${param['brandId']}&searchParam=${param['searchParam']}&sort=" + sortFiled;
         window.location.href = url;
     }
 
+    /**
+     * 添加到购物车并跳转到购物车页面
+     * @param goodsId
+     * @param amount
+     */
     function addCartsAndJump(goodsId,amount){
         window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+goodsId+"&amount="+amount);
     }
-    
+
+    /**
+     * 添加商品到购物车
+     * @param g
+     */
     function addCarts(g) {
         if (!g){
             g = goodsId;
@@ -149,11 +160,13 @@
                 amount = 1;
             }
 
+            //如果当前没有登录则调用添加并跳转到购物车
             <shiro:notAuthenticated>
             addCartsAndJump(g,amount);
             return;
             </shiro:notAuthenticated>
 
+            //如果当前是登录状态，ajax添加到购物车并提示是否继续购物或者去购物车
             $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": g, "amount": amount}, function (data) {
                 if (data.msg == 'success') {
                     $cy.confirm({
@@ -172,10 +185,18 @@
         }
     }
 
+    /**
+     * 添加商品到收藏并跳转到收藏
+     * @param goodsId
+     */
     function addFavoriteAndJump(goodsId){
         window.open("${ctx}/shop/member/addFavorite?goodsBaseInfo.id="+goodsId);
     }
 
+    /**
+     * 同添加商品到购物车
+     * @param g
+     */
     function addFavorite(g) {
         if (!g){
             g = goodsId;

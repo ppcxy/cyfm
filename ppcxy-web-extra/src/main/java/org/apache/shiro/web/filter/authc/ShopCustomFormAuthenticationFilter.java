@@ -5,11 +5,13 @@ import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 基于几点修改：
@@ -82,7 +84,15 @@ public class ShopCustomFormAuthenticationFilter extends FormAuthenticationFilter
      */
     @Override
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
-        WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+        //TODO 区分登录成功页面
+        
+        HttpSession session = ((ShiroHttpServletRequest) request).getSession();
+        if ((String) session.getAttribute(WebUtils.SAVED_REQUEST_KEY) != null && ((String) session.getAttribute(WebUtils.SAVED_REQUEST_KEY)).indexOf("/polling") >= 0) {
+            WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+            return;
+        }
+        
+        super.issueSuccessRedirect(request, response);
     }
     
     private boolean haveAdminRole() {

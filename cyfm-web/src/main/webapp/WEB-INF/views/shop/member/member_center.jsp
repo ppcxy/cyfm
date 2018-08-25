@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>个人中心</title>
     <link href="${ctx}/static/shop/assets/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="${ctx}/static/shop/assets/css/style.css" rel="stylesheet" />
 </head>
@@ -52,19 +52,8 @@
                 </div>
             </div>
         </div>
-
-        
-
-
         <!-- 内容部分结束 -->
         <%@include file="../common/vFooter.jsp"%>
     </div>
-   
-
-    <script type="text/javascript">
-        $('#vcode_img').click(function  () {
-            $(this).attr('src',  $(this).data('src')+'?'+ Math.random());
-        });
-    </script>
 </body>
 </html>
