@@ -163,31 +163,34 @@
          * @param goodsId
          * @param amount
          */
-        function addCartsAndJump(goodsId,amount){
+        function addCartsAndJump(gid,amount){
+            if (!gid){
+                gid = goodsId;
+            }
             var amount = $("#amount").val();
-            window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+goodsId+"&amount="+amount);
+            window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+gid+"&amount="+amount);
         }
 
         /**
          * 添加商品到购物车，未登录则添加并跳转，登录则ajax请求
          * @param g
          */
-        function addCarts(g) {
-            if (!g){
-                g = goodsId;
+        function addCarts(gid) {
+            if (!gid){
+                gid = goodsId;
             }
-            if (g){
+            if (gid){
                 var amount = $("#amount").val();
                 if (!amount) {
                     amount = 1;
                 }
 
                 <shiro:notAuthenticated>
-                addCartsAndJump(g,amount);
+                addCartsAndJump(gid,amount);
                 return;
                 </shiro:notAuthenticated>
 
-                $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": g, "amount": amount}, function (data) {
+                $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": gid, "amount": amount}, function (data) {
                     if (data.msg == 'success') {
                         $cy.confirm({
                             'title': '消息',
@@ -210,24 +213,24 @@
          * 添加商品到收藏，同购物车
          * @param goodsId
          */
-        function addFavoriteAndJump(goodsId){
-            window.open("${ctx}/shop/member/addFavorite?goodsBaseInfo.id="+goodsId);
+        function addFavoriteAndJump(gid){
+            window.open("${ctx}/shop/member/addFavorite?goodsBaseInfo.id="+gid);
         }
         /**
          * 添加商品到收藏，同购物车
          * @param goodsId
          */
-        function addFavorite(g) {
-            if (!g){
-                g = goodsId;
+        function addFavorite(gid) {
+            if (!gid){
+                gid = goodsId;
             }
-            if (g){
+            if (gid){
                 <shiro:notAuthenticated>
-                addFavoriteAndJump(g);
+                addFavoriteAndJump(gid);
                 return;
                 </shiro:notAuthenticated>
 
-                $.post("${ctx}/shop/member/addFavorite", {"goodsBaseInfo.id": g}, function (data) {
+                $.post("${ctx}/shop/member/addFavorite", {"goodsBaseInfo.id": gid}, function (data) {
                     if (data.msg == 'success') {
                         $cy.confirm({
                             'title': '消息',

@@ -6,6 +6,7 @@ import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
+import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -87,7 +88,7 @@ public class ShopCustomFormAuthenticationFilter extends FormAuthenticationFilter
         //TODO 区分登录成功页面
         
         HttpSession session = ((ShiroHttpServletRequest) request).getSession();
-        if ((String) session.getAttribute(WebUtils.SAVED_REQUEST_KEY) != null && ((String) session.getAttribute(WebUtils.SAVED_REQUEST_KEY)).indexOf("/polling") >= 0) {
+        if ( session.getAttribute(WebUtils.SAVED_REQUEST_KEY) != null && ((SavedRequest)session.getAttribute(WebUtils.SAVED_REQUEST_KEY)).getRequestURI().indexOf("/polling") >= 0) {
             WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
             return;
         }

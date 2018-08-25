@@ -142,19 +142,19 @@
      * @param goodsId
      * @param amount
      */
-    function addCartsAndJump(goodsId,amount){
-        window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+goodsId+"&amount="+amount);
+    function addCartsAndJump(gid,amount){
+        window.open("${ctx}/shop/member/addCarts?goodsBaseInfo.id="+gid+"&amount="+amount);
     }
 
     /**
      * 添加商品到购物车
-     * @param g
+     * @param gid
      */
-    function addCarts(g) {
-        if (!g){
-            g = goodsId;
+    function addCarts(gid) {
+        if (!gid){
+            gid = goodsId;
         }
-        if (g){
+        if (gid){
             var amount = $("#amount").val();
             if (!amount) {
                 amount = 1;
@@ -162,12 +162,12 @@
 
             //如果当前没有登录则调用添加并跳转到购物车
             <shiro:notAuthenticated>
-            addCartsAndJump(g,amount);
+            addCartsAndJump(gid,amount);
             return;
             </shiro:notAuthenticated>
 
             //如果当前是登录状态，ajax添加到购物车并提示是否继续购物或者去购物车
-            $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": g, "amount": amount}, function (data) {
+            $.post("${ctx}/shop/member/addCarts", {"goodsBaseInfo.id": gid, "amount": amount}, function (data) {
                 if (data.msg == 'success') {
                     $cy.confirm({
                         'title': '消息',
@@ -195,19 +195,19 @@
 
     /**
      * 同添加商品到购物车
-     * @param g
+     * @param gid
      */
-    function addFavorite(g) {
-        if (!g){
-            g = goodsId;
+    function addFavorite(gid) {
+        if (!gid){
+            gid = goodsId;
         }
-        if (g){
+        if (gid){
             <shiro:notAuthenticated>
-            addFavoriteAndJump(g);
+            addFavoriteAndJump(gid);
             return;
             </shiro:notAuthenticated>
 
-            $.post("${ctx}/shop/member/addFavorite", {"goodsBaseInfo.id": g}, function (data) {
+            $.post("${ctx}/shop/member/addFavorite", {"goodsBaseInfo.id": gid}, function (data) {
                 if (data.msg == 'success') {
                     $cy.confirm({
                         'title': '消息',
