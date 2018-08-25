@@ -5,7 +5,6 @@ import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -83,12 +82,7 @@ public class ShopCustomFormAuthenticationFilter extends FormAuthenticationFilter
      */
     @Override
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
-        //TODO 区分登录成功页面
-        if (haveAdminRole()) {
-            ((ShiroHttpServletRequest) request).getSession().removeAttribute(WebUtils.SAVED_REQUEST_KEY);
-        }
-        
-        super.issueSuccessRedirect(request, response);
+        WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
     }
     
     private boolean haveAdminRole() {

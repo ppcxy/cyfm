@@ -1,12 +1,12 @@
 package com.ppcxy.cyfm.shop.order.entity;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import com.ppcxy.common.entity.IdEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "gs_shop_order")
@@ -22,7 +22,7 @@ public class ShoppingOrder extends IdEntity {
     private String trackNum;
     private Date finishDate;
     
-    private Set<ShoppingOrderList> orderLists = Sets.newHashSet();
+    private List<ShoppingOrderList> orderLists = Lists.newArrayList();
     
     
     public Long getUserId() {
@@ -96,11 +96,11 @@ public class ShoppingOrder extends IdEntity {
     
     @OneToMany(mappedBy = "shoppingOrder")
     @OrderBy(value = "ID ASC")
-    public Set<ShoppingOrderList> getOrderLists() {
+    public List<ShoppingOrderList> getOrderLists() {
         return orderLists;
     }
     
-    public void setOrderLists(Set<ShoppingOrderList> orderLists) {
+    public void setOrderLists(List<ShoppingOrderList> orderLists) {
         this.orderLists = orderLists;
     }
     
@@ -126,5 +126,15 @@ public class ShoppingOrder extends IdEntity {
     
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
+    }
+    
+    @Transient
+    public String getTitle() {
+        StringBuilder sb = new StringBuilder(orderLists.get(0).getTitle());
+        if (orderLists.size() > 1) {
+            sb.append("等").append(orderLists.size()).append("件商品");
+        }
+        return sb.toString();
+        
     }
 }

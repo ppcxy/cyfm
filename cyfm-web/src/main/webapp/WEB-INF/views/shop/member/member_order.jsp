@@ -172,7 +172,7 @@
                                                <td width="15%" align="center" class="lie" rowspan="${fn:length(o.orderLists)}">${o.orderStateInfo}</td>
                                                    <td width="15%" align="center" class="lie" rowspan="${fn:length(o.orderLists)}">
                                                        <c:if test="${o.orderState eq '0'}">
-                                                           <button class="btn btn-xs btn-primary">付款</button>
+                                                           <button class="btn btn-xs btn-primary" onclick="goPay('${o.orderNum}')">付款</button>
                                                        </c:if>
                                                        <c:if test="${o.orderState eq '2'}">
                                                            <button class="btn btn-xs btn-primary" onclick="showOrderInfo('${o.id}')">订单信息</button>
@@ -214,6 +214,9 @@
             });
         }
 
+        function goPay(orderNum) {
+            window.open("${ctx}/shop/order/goPay?orderNum=" + orderNum);
+        }
     </script>
 </body>
 </html>

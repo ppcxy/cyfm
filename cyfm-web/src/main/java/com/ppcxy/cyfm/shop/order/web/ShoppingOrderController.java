@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.ResourceBundle;
 
 @Controller
@@ -56,12 +57,17 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
         return redirectToUrl(backURL);
     }
     
-
-    @RequestMapping("pay")
-    public String pay(Long orderId, HttpServletRequest request) {
+    @RequestMapping(value = "goPay", method = RequestMethod.GET)
+    public String goPay(String orderNum, Model model) {
+        model.addAttribute("order", shoppingOrderService.findByOrderNum(orderNum));
+        return "/shop/order/shopOrder_pay";
+    }
+    
+    @RequestMapping(value = "pay", method = RequestMethod.POST)
+    public String pay(String orderNum, HttpServletRequest request) throws Exception {
         
-        ShoppingOrder order = shoppingOrderService.findOne(orderId);
-        if (order == null || ("0".equalsIgnoreCase(order.getOrderState()) && "0".equalsIgnoreCase(order.getOrderReturnState()))) {
+        ShoppingOrder order = shoppingOrderService.findByOrderNum(orderNum);
+        if (order == null || (!"0".equalsIgnoreCase(order.getOrderState()) || !"0".equalsIgnoreCase(order.getOrderReturnState()))) {
             throw new BaseException("订单已支付，或已关闭，请刷新订单列表。");
         }
         // 支付渠道id
@@ -73,7 +79,7 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
         String p2_Order = order.getOrderNum();
         String p3_Amt = "0.01";
         String p4_Cur = "CNY";
-        String p5_Pid = "";
+        String p5_Pid = order.getTitle();
         String p6_Pcat = "";
         String p7_Pdesc = "";
         // 支付成功回调地址 ---- 第三方支付公司会访问、用户访问
@@ -96,7 +102,7 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
         sb.append("p2_Order=").append(p2_Order).append("&");
         sb.append("p3_Amt=").append(p3_Amt).append("&");
         sb.append("p4_Cur=").append(p4_Cur).append("&");
-        sb.append("p5_Pid=").append(p5_Pid).append("&");
+        sb.append("p5_Pid=").append(URLEncoder.encode(order.getTitle(), "GBK")).append("&");
         sb.append("p6_Pcat=").append(p6_Pcat).append("&");
         sb.append("p7_Pdesc=").append(p7_Pdesc).append("&");
         sb.append("p8_Url=").append(p8_Url).append("&");
@@ -145,7 +151,6 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
                 
             } else if (r9_BType.equals("2")) {
                 // 服务器点对点 --- 支付公司通知你
-                System.out.println("付款成功！222");
                 // 修改订单状态 为已付款
                 // 回复支付公司
                 response.getWriter().print("success");
@@ -161,9 +166,9 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
             // 数据无效
             throw new BaseException("支付过程发生错误，请联系客服。");
         }
-        
-        
-        return "/order/paysuccess";
+    
+    
+        return "redirect:/shop/member/order";
         
     }
 }
