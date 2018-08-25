@@ -117,6 +117,9 @@
             <%@include file="member_left.jsp"%>
             <!-- 内容部分开始 -->
             <div id="content" class="col-lg-10">
+                <c:if test="${not empty message or not empty error}">
+                    <cy:showMessage/>
+                </c:if>
                 <div class="nav-status">
                     <ul>
                         <li><a href="${ctx}/shop/member/order">所有订单</a></li>

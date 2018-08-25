@@ -116,7 +116,7 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
     }
     
     @RequestMapping("callback")
-    public String callback(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String callback(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
         String p1_MerId = request.getParameter("p1_MerId");
         String r0_Cmd = request.getParameter("r0_Cmd");
         String r1_Code = request.getParameter("r1_Code");
@@ -146,28 +146,23 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
             // 响应数据有效
             if (r9_BType.equals("1")) {
                 // 浏览器重定向
-                System.out.println("111");
-                request.setAttribute("msg", "您的订单号为:" + r6_Order + ",金额为:" + r3_Amt + "已经支付成功,等待发货~~");
-                
+                //修改订单状态
+                redirectAttributes.addFlashAttribute(Constants.MESSAGE, "您的订单号为:" + r6_Order + ",金额为:" + r3_Amt + "已经支付成功,等待发货~~");
             } else if (r9_BType.equals("2")) {
                 // 服务器点对点 --- 支付公司通知你
                 // 修改订单状态 为已付款
                 // 回复支付公司
+                ShoppingOrder order = shoppingOrderService.findByOrderNum(r6_Order);
+                order.setOrderState("1");
+                shoppingOrderService.update(order);
                 response.getWriter().print("success");
             }
             
-            //修改订单状态
-            
-            ShoppingOrder order = shoppingOrderService.findByOrderNum(r6_Order);
-            order.setOrderState("1");
-            shoppingOrderService.update(order);
             
         } else {
             // 数据无效
             throw new BaseException("支付过程发生错误，请联系客服。");
         }
-    
-    
         return "redirect:/shop/member/order";
         
     }
