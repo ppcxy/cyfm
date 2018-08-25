@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-6">
                 <ul class="pull-right bar-link">
-                    <li><a href="/shop/member/order">我的订单</a> | </li>
+                    <li><a href="${ctx}/shop/member/order">我的订单</a> | </li>
                     <li><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=27102514&amp;site=qq&amp;menu=yes">客服服务</a> | </li>
                     <li class="tel-num"><i class="icon-main icon-tel mt8 mr5"></i>800-1234-5678</li>
                 </ul>
@@ -36,7 +36,7 @@
     <div class="container">
         <div class="row search">
             <div class="col-lg-4">
-                <h1 class="logo"><a href="/">
+                <h1 class="logo"><a href="${ctx}/">
                     <img src="${ctx}/static/shop/assets/img/logo/logo.png" alt="商城" /></a><img src="${ctx}/static/shop/assets/img/logo/logo-text.png" alt="让每个人都满意！" /></h1>
             </div>
             <div class="col-lg-5">
@@ -58,28 +58,26 @@
                     <ul class="dropdown-menu p10 f12" role="menu">
                         <li><a href="${ctx}/shop/v/login" class="btn btn-warning btn-block">立即登录</a>新客户？<a class="blue-font" href="${ctx}/shop/v/register">免费注册</a></li>
                         <li class="divider"></li>
-                        <li><a href="/shop/member/">我的账户</a></li>
-                        <li><a href="/shop/member/order">我的订单</a></li>
-                        <li><a href="#">评论已购商品</a></li>
-                        <li><a href="#">为我推荐</a></li>
+                        <li><a href="${ctx}/shop/member/">我的账户</a></li>
+                        <li><a href="${ctx}/shop/member/order">我的订单</a></li>
                     </ul>
                     </shiro:notAuthenticated>
                    <shiro:authenticated>
                    <!--登录之后-->
                     <ul class="dropdown-menu p10 f12" style="width: 240px;" role="menu">
                         <li>
-                            <div class="box-title fb"><span class="pull-right"><a href="/shop/member/" class="blue-font">去我的个人中心</a></span><shiro:principal property="username"/></div>
+                            <div class="box-title fb"><span class="pull-right"><a href="${ctx}/shop/member/" class="blue-font">去我的个人中心</a></span><shiro:principal property="username"/></div>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <div class="box-title">最新订单状态：<span><a href="/shop/member/order">查看所有订单</a></span></div>
+                            <div class="box-title">最新订单状态：<span><a href="${ctx}/shop/member/order">查看所有订单</a></span></div>
                         </li>
                         <li class="divider"></li>
                     </ul>
                    </shiro:authenticated>
                 </div>
                 <div id="mini_cart" class="btn-group mt30 ml15">
-                    <a href="/shop/member/carts" class="btn btn-radius-none btn-default dropdown-toggle f12" --data-toggle="dropdown">
+                    <a href="${ctx}/shop/member/carts" class="btn btn-radius-none btn-default dropdown-toggle f12" --data-toggle="dropdown">
                         <i class="icon-main icon-cart ilb"></i>去购物车结算 </span>
                     </a>
                 </div>
