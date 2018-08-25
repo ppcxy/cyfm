@@ -4,22 +4,27 @@ import com.ppcxy.common.entity.search.SearchOperator;
 import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
+import com.ppcxy.common.web.controller.DateEditor;
 import com.ppcxy.cyfm.shop.order.entity.ShoppingCarts;
 import com.ppcxy.cyfm.shop.order.entity.ShoppingOrder;
 import com.ppcxy.cyfm.shop.order.service.ShoppingCartsService;
 import com.ppcxy.cyfm.shop.order.service.ShoppingOrderService;
+import com.ppcxy.cyfm.shop.user.entity.UserDetail;
+import com.ppcxy.cyfm.shop.user.service.UserDetailService;
 import com.ppcxy.cyfm.shop.v.entity.Goodsfavorite;
 import com.ppcxy.cyfm.shop.v.service.GoodsfavoriteService;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.service.user.PasswordService;
+import com.ppcxy.cyfm.sys.service.user.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -28,6 +33,12 @@ import java.util.Date;
 @Controller
 @RequestMapping("/shop/member")
 public class MemberController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserDetailService userDetailService;
+    @Autowired
+    private PasswordService passwordService;
     @Autowired
     private ShoppingOrderService orderService;
     
@@ -46,6 +57,69 @@ public class MemberController {
     @RequestMapping(value = {"", "center"})
     public String index(Model model) {
         return "shop/member/member_center";
+    }
+    
+    /**
+     * 进入修改密码页面
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "changePassword", method = RequestMethod.GET)
+    public String changePassword(Model model) {
+        return "shop/member/changePassword";
+    }
+    
+    /**
+     * 提交修改密码表单
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public String changePassword(@CurrentUser User user, String oldPassword, String newPassword, Model model) {
+        
+        if (passwordService.matches(user, oldPassword)) {
+            user.setPlainPassword(newPassword);
+            userService.update(user);
+            SecurityUtils.getSubject().logout();
+            return "true";
+        }
+        
+        return "false";
+        
+    }
+    
+    /**
+     * 进入个人信息修改页面
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "info", method = RequestMethod.GET)
+    public String personalDetails(@CurrentUser User user, Model model) {
+        model.addAttribute("detail", userDetailService.findByUserId(user.getId()));
+        
+        return "shop/member/personalInfo";
+    }
+    
+    /**
+     * 修改个人信息
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "info", method = RequestMethod.POST)
+    public String updatePersonalDetails(@CurrentUser User user, UserDetail userDetail, Model model) {
+        UserDetail detail = userDetailService.findByUserId(user.getId());
+        if (detail != null) {
+            userDetail.setId(detail.getId());
+        }
+        
+        userDetail.setUserId(user.getId());
+        userDetailService.save(userDetail);
+        return "redirect:/shop/member/info";
     }
     
     /**
@@ -202,5 +276,11 @@ public class MemberController {
         return "redirect:/shop/member/favorites";
     }
     
+    @InitBinder
+    protected void initBinder(HttpServletRequest request,
+                              ServletRequestDataBinder binder) throws Exception {
+        //对于需要转换为Date类型的属性，使用DateEditor进行处理
+        binder.registerCustomEditor(Date.class, new DateEditor());
+    }
     
 }

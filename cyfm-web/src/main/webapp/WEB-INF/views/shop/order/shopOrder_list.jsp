@@ -53,13 +53,13 @@
                 <td class="action">
                     <a href="${ctx}/shop/order/update/${order.id}" class="btn btn-xs green">查看详情</a>
                     <c:if test="${order.orderReturnState eq '0' && order.orderState eq '0'}">
-                        <a class="btn btn-xs red">关闭订单</a>
+                        <a href="${ctx}/shop/order/close/${order.id}" class="btn btn-xs red">关闭订单</a>
                     </c:if>
                     <c:if test="${order.orderReturnState  eq '0' && order.orderState eq '1'}">
-                        <a class="btn btn-xs blue">发货</a>
+                        <a href="${ctx}/shop/order/update/${order.id}" class="btn btn-xs blue">发货</a>
                     </c:if>
                     <c:if test="${order.orderReturnState eq '1'}">
-                        <a class="btn btn-xs blue">删除订单</a>
+                        <a href="${ctx}/shop/order/delete/${order.id}" class="btn btn-xs blue">删除订单</a>
                     </c:if>
                 </td>
             </tr>
@@ -68,5 +68,10 @@
     </table>
 </div>
  <cy:pagination page="${page}" paginationSize="5"/>
+<script>
+    $(".action a").each(function (i, o) {
+        $(this).attr("href", o.href + "?BackURL=" + encodeURIComponent(window.location.href));
+    });
+</script>
 </body>
 </html>

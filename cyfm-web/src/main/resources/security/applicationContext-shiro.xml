@@ -151,6 +151,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /favicon.ico = anon
                 /static/** = anon
                 /jcaptcha* = anon
                 /cxf/** = anon
@@ -159,13 +160,12 @@
                 /jolokia/** = shopAuthc,roles[Admin]
                 /javasimon/** = shopAuthc,roles[Admin]
                 /api/secure/** = authcBasic
-                /polling = user,sysUser
+                /dp/execute/remote/** = anon
                 /shop/v/login = jCaptchaValidate,shopAuthc
                 /shop/v/logout = logout
                 /shop/v/** = anon
-                /dp/execute/remote/** = anon
                 / = anon
-                /favicon.ico = anon
+                /polling = user,sysUser
                 /** = user,sysUser,onlineSession,syncOnlineSession,perms,roles
             </value>
         </property>

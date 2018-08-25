@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.sys.entity;
+package com.ppcxy.cyfm.shop.user.entity;
 
 import com.ppcxy.common.entity.IdEntity;
 
@@ -74,5 +74,13 @@ public class UserDetail extends IdEntity {
     
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+    
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+    
+    public Long getUserId() {
+        return userId;
     }
 }

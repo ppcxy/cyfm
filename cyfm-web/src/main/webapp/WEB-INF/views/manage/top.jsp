@@ -66,7 +66,7 @@ $(function(){
 
     <ul class="nav">
     <c:forEach items="${roots}" var="root" varStatus="s">
-        <li><a href="${ctx}/manage/left/${root.id}/" target="leftFrame" onclick="parent.contentUrl('${ctx}${root.url}');" class="${s.index eq 0 ? 'selected' : ''}"><div class="root-icon"><i class="${root.icon}"></i></div><h2>${root.name}</h2></a></li>
+        <li><a href="${ctx}/manage/left/${root.id}/" target="leftFrame" onclick="parent.contentUrl('${ctx}${root.url}');" class="${s.index eq 1 ? 'selected' : ''}"><div class="root-icon"><i class="${root.icon}"></i></div><h2>${root.name}</h2></a></li>
     </c:forEach>
     <%--<li><a href="imgtable.html" target="rightFrame"><img src="${ctx}/static/manage/images/icon02.png" title="模型管理" /><h2>模型管理</h2></a></li>--%>
     <%--<li><a href="imglist.html"  target="rightFrame"><img src="${ctx}/static/manage/images/icon03.png" title="模块设计" /><h2>模块设计</h2></a></li>--%>

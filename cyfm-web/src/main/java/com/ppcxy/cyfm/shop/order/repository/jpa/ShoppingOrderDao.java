@@ -11,7 +11,9 @@ public interface ShoppingOrderDao extends BaseRepository<ShoppingOrder, Long> {
     List<ShoppingOrder> findByUserId(Long id);
     
     
-    @Query(value = "update ShoppingOrder set trackNum=?1,orderState='2' where orderNum=?2")
+    @Query(value = "update ShoppingOrder set trackNum=?1,orderState='2',deliverDate=CURRENT_TIMESTAMP where orderNum=?2")
     @Modifying
     void updateTrackUnmByOrderNum(String trackNum, String orderNum);
+    
+    ShoppingOrder findByOrderNum(String orderNum);
 }

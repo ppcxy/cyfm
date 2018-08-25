@@ -15,14 +15,14 @@
             <div class="form-group">
                 <label class="control-label">买家信息:</label>
                 <div class="controls">
-                    <div class="col-xs-12">${entity.orderNum}</div>
+                    <div class="col-xs-12">${shopUser.realName}</div>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="form-group">
                 <label class="control-label">收货地址:</label>
                 <div class="controls">
-                    <div class="col-xs-12">${entity.orderNum}</div>
+                    <div class="col-xs-12">${shopUser.address}</div>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="col-xs-6">
                     <label class="control-label">发货日期:</label>
                     <div class="controls">
-                        <fmt:formatDate value="${entity.createDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <fmt:formatDate value="${entity.deliverDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                 <div class="col-xs-12">
                     <label class="control-label">收货日期:</label>
                     <div class="controls">
-                        <fmt:formatDate value="${entity.createDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <fmt:formatDate value="${entity.finishDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -117,7 +117,10 @@
 
     $("#submit_btn").click(function () {
         $.post("${ctx}/shop/order/deliver", {orderNum: "${entity.orderNum}", trackNum: $("#trackNum").val()}, function (data) {
-            console.log(data)
+            $cy.info("发货完成。",function (index) {
+                window.location.reload();
+                layer.close(index)
+            })
         })
 
     })

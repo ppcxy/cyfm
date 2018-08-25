@@ -363,6 +363,7 @@ $cy = {
             , content: message
             , time: 3000
             , closeBtn: 0
+            , btn: ['关闭']
             , shift: 5 //动画类型
         }, callback);
     },
@@ -374,6 +375,7 @@ $cy = {
             , time: 5000
             , icon: 0
             , closeBtn: 0
+            , btn: ['关闭']
             , shift: 5 //动画类型
         }, callback);
     },
@@ -386,6 +388,7 @@ $cy = {
             , icon: 1
             , shift: 5 //动画类型
             , closeBtn: 0
+            , btn: ['关闭']
         }, callback);
     },
     error: function (message, callback) {
@@ -395,6 +398,7 @@ $cy = {
             , content: message
             , icon: 2
             , closeBtn: 0
+            , btn: ['关闭']
             , shift: 5 //动画类型
         }, callback);
     },

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.JsonMapper;
 
 import java.util.Date;
@@ -62,11 +63,10 @@ public class UserService extends BaseService<User, Long> {
     
     @Override
     public User save(User user) {
-        if (isSupervisor(user)) {
-            logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getUsername());
-            throw new BaseException("不能修改超级管理员用户");
+        if (user.getId()!=null) {
+            throw new BaseException("修改用户请调用UserService.update");
         }
-        
+       
         if (user.getCreateDate() == null) {
             user.setCreateDate(new Date());
         }
@@ -77,11 +77,11 @@ public class UserService extends BaseService<User, Long> {
         
         User resultUser = super.save(user);
         return resultUser;
-        
     }
     
     
     @Override
+    @Transactional
     public User update(User user) {
         NotificationApi bean = SpringContextHolder.getBean(NotificationApi.class);
         Map<String, Object> map = new HashMap<>();
@@ -91,7 +91,7 @@ public class UserService extends BaseService<User, Long> {
         
         if (!ShiroUserInfoUtils.getUsername().equals(user.getUsername()) && isSupervisor(user)) {
             logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getUsername());
-            throw new BaseException("不能修改超级管理员用户");
+            throw new BaseException("普通用户不能修改超级管理员用户");
         }
         
         if (StringUtils.isNotBlank(user.getPlainPassword())) {

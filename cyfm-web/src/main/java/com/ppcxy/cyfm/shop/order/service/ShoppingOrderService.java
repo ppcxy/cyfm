@@ -86,4 +86,14 @@ public class ShoppingOrderService extends BaseService<ShoppingOrder, Long> {
         shopOrderDao.updateTrackUnmByOrderNum(trackNum, orderNum);
         return Boolean.TRUE;
     }
+    
+    public void close(Long id) {
+        ShoppingOrder shoppingOrder = findOne(id);
+        shoppingOrder.setOrderReturnState("1");
+        save(shoppingOrder);
+    }
+    
+    public  ShoppingOrder findByOrderNum(String orderNum) {
+        return shopOrderDao.findByOrderNum(orderNum);
+    }
 }
