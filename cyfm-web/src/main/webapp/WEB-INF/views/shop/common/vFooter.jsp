@@ -73,12 +73,14 @@
 
     $.get("${ctx}/shop/v/type/ajax/load?async=true&asyncLoadAll=true&search.show_eq=true", function (data) {
         $(data).each(function (i, o) {
-            //便利获取的分类数据，组织成多级结构
-            if (o.id != 1) {
-                if (o.pId == 1) {
-                    $("#categories").append(titleTemplate.replace("{id}", o.id).replace("{value}", o.name).replace("{icon}", o.id));
-                } else {
-                    $("[data-type='" + o.pId + "']+ul.sub-item").append(subLiTemplate.replace("{id}", o.id).replace("{value}", o.name));
+            if (o.show){
+                //便利获取的分类数据，组织成多级结构
+                if (o.id != 1) {
+                    if (o.pId == 1) {
+                        $("#categories").append(titleTemplate.replace("{id}", o.id).replace("{value}", o.name).replace("{icon}", o.id));
+                    } else {
+                        $("[data-type='" + o.pId + "']+ul.sub-item").append(subLiTemplate.replace("{id}", o.id).replace("{value}", o.name));
+                    }
                 }
             }
         })

@@ -5,7 +5,7 @@
     <title>订单支付</title>
 </head>
 <body>
-<div style="margin-top:5px;" class="col-xs-6 col-lg-offset-3">
+<div style="margin-top:5px;min-width: 800px;" class="col-md-10 col-lg-offset-1 col-lg-6 col-lg-offset-3">
     <div>
         <h2>
         订单信息：[${order.orderNum}] ${order.title}

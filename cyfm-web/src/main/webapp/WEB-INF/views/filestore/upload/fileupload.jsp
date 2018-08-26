@@ -118,7 +118,7 @@
         {% } else { %}
             <td colspan="2"></td>
         {% } %}
-        <td class="cancel1">{% if (!i) { %}
+        <td class="cancel">{% if (!i) { %}
             <button class="btn btn-warning">
                 <span>{%=locale.fileupload.cancel%}</span>
             </button>

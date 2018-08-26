@@ -26,7 +26,7 @@
             <th>名称</th>
             <th>计量单位</th>
             <th>基础单价</th>
-            <th class="action">管理</th>
+            <%--<th class="action">管理</th>--%>
         </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@
                 <td>${baseInfo.title}</td>
                 <td>${baseInfo.unit}</td>
                 <td>${baseInfo.basePrice}</td>
-                <td class="action"><a class="btn btn-xs blue" href="${ctx}/shop/gs/spec?goodsBaseInfoId=${baseInfo.id}&search.goodsBaseInfo.id_eq=${baseInfo.id}">规格管理</a></td>
+                <%--<td class="action"><a class="btn btn-xs blue" href="${ctx}/shop/gs/spec?goodsBaseInfoId=${baseInfo.id}&search.goodsBaseInfo.id_eq=${baseInfo.id}">规格管理</a></td>--%>
             </tr>
         </c:forEach>
         </tbody>
