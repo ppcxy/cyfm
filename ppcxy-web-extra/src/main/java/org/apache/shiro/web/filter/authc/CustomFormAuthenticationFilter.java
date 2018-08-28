@@ -86,6 +86,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
         //TODO 区分登录成功页面,管理员登录到成功页
         if (haveAdminRole()) {
             WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+            return;
         }
         
         super.issueSuccessRedirect(request, response);
