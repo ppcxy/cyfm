@@ -117,7 +117,7 @@ public class MemberController {
             userDetail.setId(detail.getId());
         }
         
-        userDetail.setUserId(user.getId());
+        userDetail.setUser(user);
         userDetailService.save(userDetail);
         return "redirect:/shop/member/info";
     }

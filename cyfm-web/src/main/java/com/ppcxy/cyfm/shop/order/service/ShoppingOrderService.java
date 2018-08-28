@@ -82,18 +82,41 @@ public class ShoppingOrderService extends BaseService<ShoppingOrder, Long> {
         return results;
     }
     
+    /**
+     * 发货
+     * @param orderNum
+     * @param trackNum
+     * @return
+     */
     public Boolean deliver(String orderNum, String trackNum) {
         shopOrderDao.updateTrackUnmByOrderNum(trackNum, orderNum);
         return Boolean.TRUE;
     }
     
+    /**
+     * 关闭订单
+     * @param id
+     */
     public void close(Long id) {
         ShoppingOrder shoppingOrder = findOne(id);
         shoppingOrder.setOrderReturnState("1");
         save(shoppingOrder);
     }
     
-    public  ShoppingOrder findByOrderNum(String orderNum) {
+    public ShoppingOrder findByOrderNum(String orderNum) {
         return shopOrderDao.findByOrderNum(orderNum);
+    }
+    
+    public Boolean receipt(Long id, Long userId) {
+        ShoppingOrder shoppingOrder = findOne(id);
+        //防御性编程验证，避免确认收货其他用户的订单，验证收货订单是否是当前登录用户的订单。以及订单是否存在
+        if (shoppingOrder == null || !userId.equals(shoppingOrder.getUserId()) || !shoppingOrder.getOrderState().equals("2")) {
+            return false;
+        }
+        shoppingOrder.setOrderState("3");
+        shoppingOrder.setFinishDate(new Date());
+        save(shoppingOrder);
+        
+        return true;
     }
 }

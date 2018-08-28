@@ -174,12 +174,12 @@
                                                <td width="10%" align="center" class="lie" rowspan="${fn:length(o.orderLists)}">￥<fmt:formatNumber value="${o.orderPrice}"/></td>
                                                <td width="15%" align="center" class="lie" rowspan="${fn:length(o.orderLists)}">${o.orderStateInfo}</td>
                                                    <td width="15%" align="center" class="lie" rowspan="${fn:length(o.orderLists)}">
+                                                       <button class="btn btn-xs btn-info" onclick="showOrderInfo('${o.id}')">订单信息</button>
                                                        <c:if test="${o.orderState eq '0'}">
                                                            <button class="btn btn-xs btn-primary" onclick="goPay('${o.orderNum}')">付款</button>
                                                        </c:if>
                                                        <c:if test="${o.orderState eq '2'}">
-                                                           <button class="btn btn-xs btn-primary" onclick="showOrderInfo('${o.id}')">订单信息</button>
-                                                           <button class="btn btn-xs btn-danger">确认收货</button>
+                                                           <button class="btn btn-xs btn-danger" onclick="confirmReceipt('${o.id}',this)">确认收货</button>
                                                    </c:if>
                                                </td>
                                                </c:if>
@@ -204,7 +204,10 @@
             $(this).attr('src',  $(this).data('src')+'?'+ Math.random());
         });
 
-
+        /**
+         * 显示订单详情
+         * @param orderId
+         */
         function showOrderInfo(orderId) {
             top.layer.open({
                 type: 2,
@@ -217,6 +220,24 @@
             });
         }
 
+        /**
+         * 确认收货
+         */
+        function confirmReceipt(oid,btn) {
+            if (confirm("是否确认收货，确认后无法取消。")){
+                $.post("${ctx}/shop/order/receipt/" + oid, {}, function (data) {
+                    if (data) {
+                        $(btn).parent().prev().text("已收货");
+                        $(btn).remove()
+                    }
+                });
+            }
+        }
+
+        /**
+         * 支付商品
+         * @param orderNum
+         */
         function goPay(orderNum) {
             window.open("${ctx}/shop/order/goPay?orderNum=" + orderNum);
         }

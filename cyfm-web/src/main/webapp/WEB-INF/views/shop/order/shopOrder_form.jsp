@@ -44,7 +44,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <c:if test="${entity.orderState eq '2'}">
+            <c:if test="${entity.orderState eq '2' or entity.orderState eq '3'}">
             <div class="form-group">
                 <div class="col-xs-6">
                     <label class="control-label">发货日期:</label>

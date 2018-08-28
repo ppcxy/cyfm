@@ -2,11 +2,13 @@ package com.ppcxy.cyfm.shop.order.web;
 
 import com.ppcxy.common.Constants;
 import com.ppcxy.common.exception.BaseException;
+import com.ppcxy.common.web.bind.annotation.CurrentUser;
 import com.ppcxy.common.web.controller.BaseCRUDController;
 import com.ppcxy.cyfm.shop.order.entity.ShoppingOrder;
 import com.ppcxy.cyfm.shop.order.service.ShoppingOrderService;
 import com.ppcxy.cyfm.shop.user.service.UserDetailService;
 import com.ppcxy.cyfm.shop.utils.PaymentUtil;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,12 @@ public class ShoppingOrderController extends BaseCRUDController<ShoppingOrder, L
         return shoppingOrderService.deliver(orderNum, trackNum).toString();
     }
     
+    @RequestMapping("receipt/{id}")
+    @ResponseBody
+    public String receipt(@PathVariable(value = "id") Long id, @CurrentUser User user) {
+        
+        return shoppingOrderService.receipt(id,user.getId()).toString();
+    }
     
     @Override
     public void afterUpdateForm(ShoppingOrder entity, Model model) {

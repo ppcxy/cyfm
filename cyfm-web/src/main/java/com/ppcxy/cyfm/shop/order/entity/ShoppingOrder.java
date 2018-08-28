@@ -76,6 +76,9 @@ public class ShoppingOrder extends IdEntity {
             case "2":
                 result = "待收货";
                 break;
+            case "3":
+                result = "已收货";
+                break;
             default:
                 result = "异常";
         }

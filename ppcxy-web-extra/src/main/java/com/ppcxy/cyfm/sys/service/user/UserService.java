@@ -93,6 +93,11 @@ public class UserService extends BaseService<User, Long> {
             logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getUsername());
             throw new BaseException("普通用户不能修改超级管理员用户");
         }
+    
+        // TODO 本人不刻意禁用本人账号...
+        if (ShiroUserInfoUtils.getUsername().equals(user.getUsername())) {
+            user.setStatus("enabled");
+        }
         
         if (StringUtils.isNotBlank(user.getPlainPassword())) {
             user.randomSalt();

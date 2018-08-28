@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label>出生日期</label>
-                        <input type="input" class="form-control" id="birthDate" name="birthDate"  data-format="both" placeholder="出生日期" value="${detail.birthDate}">
+                        <input type="input" class="form-control" id="birthDate" name="birthDate"  data-format="date" placeholder="出生日期" value="<fmt:formatDate value="${detail.birthDate}" type="both" pattern="yyyy-MM-dd"/>">
                     </div>
                     <div class="form-group">
                         <label>省</label>

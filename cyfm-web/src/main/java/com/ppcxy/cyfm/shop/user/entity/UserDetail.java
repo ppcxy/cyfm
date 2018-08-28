@@ -1,9 +1,9 @@
 package com.ppcxy.cyfm.shop.user.entity;
 
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.cyfm.sys.entity.user.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -17,7 +17,7 @@ public class UserDetail extends IdEntity {
     private String city;
     private String address;
     private String zipCode;
-    private Long userId;
+    private User user;
     
     
     public String getRealName() {
@@ -76,11 +76,13 @@ public class UserDetail extends IdEntity {
         this.zipCode = zipCode;
     }
     
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    @OneToOne()
+    @JoinColumn(name = "user_id", unique = true, nullable = false, updatable = false)
+    public User getUser() {
+        return user;
     }
     
-    public Long getUserId() {
-        return userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
