@@ -131,16 +131,23 @@ $.zTree = {
             $("#addBtn_" + treeNode.id).unbind().remove();
         }
 
-        function beforeRename(treeId, treeNode, newName) {
+        function beforeRename(treeId, treeNode, newName, isCancel) {
+            if (isCancel){
+                //取消的时候直接取消操作，不做下方处理
+                return true;
+            }
+
             var oldName = treeNode.name;
+
             if (newName.length == 0) {
-                $cy.warn("节点名称不能为空。");
+                top.$cy.warn("节点名称不能为空。");
                 return false;
             }
-            //TODO 重命名逻辑需要修改
             if (!confirm("确认重命名吗？")) {
-                var zTree = $.fn.zTree.getZTreeObj(treeId);
-                zTree.cancelEditName(treeNode.name);
+                setTimeout(function () {
+                    var zTree = $.fn.zTree.getZTreeObj(treeId);
+                    zTree.cancelEditName(treeNode.name);
+                },1)
                 return false;
             }
             return true;

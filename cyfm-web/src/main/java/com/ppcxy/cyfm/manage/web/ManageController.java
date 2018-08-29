@@ -35,7 +35,7 @@ public class ManageController {
     @RequestMapping
     public String main(@CurrentUser User user, @RequestParam(name = "root", defaultValue = "1") Long mobileRootId, HttpServletRequest request, Model model) {
         
-        if (Servlets.getCookie("skin", request).getValue().equals("mobile")) {
+        if (Servlets.getCookie("skin", request)!=null && "mobile".equals(Servlets.getCookie("skin", request).getValue())) {
             model.addAttribute("roots", resourceService.findRoots());
             model.addAttribute("root", resourceService.findOne(mobileRootId));
             model.addAttribute("menus", resourceService.findMenus(user, mobileRootId));

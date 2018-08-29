@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+@Transactional
 public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeable<ID>, ID extends Serializable>
         extends BaseService<M, ID> {
 

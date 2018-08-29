@@ -144,16 +144,16 @@
                 /static/** = anon
                 /jcaptcha* = anon
                 /cxf/** = anon
-                /login = jCaptchaValidate,authc
-                /logout = logout
-                /jolokia/** = authc,roles[Admin]
-                /javasimon/** = authc,roles[Admin]
-                /api/secure/** = authcBasic
-                /polling = user,sysUser
                 /hystrix/** = anon
-                / = anon
                 /WEB-INF/views/error/** = anon
                 /dp/execute/remote/** = anon
+                /jolokia/** = authc,roles[Admin]
+                /javasimon/** = authc,roles[Admin]
+                /login = jCaptchaValidate,authc
+                /logout = logout
+                /api/secure/** = authcBasic
+                / = anon
+                /polling = user,sysUser,onlineSession
                 /** = user,sysUser,onlineSession,syncOnlineSession,perms,roles
             </value>
         </property>

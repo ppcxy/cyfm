@@ -1,9 +1,9 @@
 package com.ppcxy.cyfm.sys.entity;
 
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.cyfm.sys.entity.user.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -17,7 +17,7 @@ public class UserDetail extends IdEntity {
     private String city;
     private String address;
     private String zipCode;
-    private Long userId;
+    private User user;
     
     
     public String getRealName() {
@@ -74,5 +74,15 @@ public class UserDetail extends IdEntity {
     
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+    
+    @OneToOne()
+    @JoinColumn(name = "user_id", unique = true, nullable = false, updatable = false)
+    public User getUser() {
+        return user;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
     }
 }

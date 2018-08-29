@@ -11,8 +11,6 @@
         <pattern>/dp/execute/remote/**</pattern>
         <pattern>/javasimon/*</pattern>
         <pattern>/**/tree?*</pattern>
-        <pattern>/shop/v</pattern>
-        <pattern>/shop/v/**</pattern>
     </excludes>
 
 
