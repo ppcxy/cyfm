@@ -525,7 +525,7 @@ $cy = {
                 icon: ''
             }, options);
 
-            $('<li><a class=" + opts.classText + " href="' + opts.href + '">' + opts.text + '</a></li>').insertBefore($toolsMoreList, null)
+            $('<li><a class="' + opts.classText + '" href="' + opts.href + '">' + opts.text + '</a></li>').insertBefore($toolsMoreList, null)
 
         }
     },

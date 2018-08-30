@@ -57,41 +57,7 @@
 </div>
 <div class="clearfix"></div>
 <script type="text/javascript">
-$("div.pagin a:not(.disabled)").click(function(){
-    $(this).attr("href",$(this).attr("href")+"&"+$('form.form-search').serialize()+"&"+$cy.urlTools.findSortParam(currentUrl))
-});
+    $("div.pagin a:not(.disabled)").click(function(){
+        $(this).attr("href",$(this).attr("href")+"&"+$('form.form-search').serialize()+"&"+$cy.urlTools.findSortParam(currentUrl))
+    });
 </script>
-
-<%--
-
-<div class="pagination">
-    <ul>
-        <% if (page.hasPreviousPage()){%>
-        <li><a href="?page=1&sortType=${sortType}&${searchParams}">&lt;&lt;</a></li>
-        <li><a href="?page=${current-1}&sortType=${sortType}&${searchParams}">&lt;</a></li>
-        <%}else{%>
-        <li class="disabled"><a href="#">&lt;&lt;</a></li>
-        <li class="disabled"><a href="#">&lt;</a></li>
-        <%} %>
-
-        <c:forEach var="i" begin="${begin}" end="${end}">
-            <c:choose>
-                <c:when test="${i == current}">
-                    <li class="active"><a href="?page=${i}&sortType=${sortType}&${searchParams}">${i}</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="?page=${i}&sortType=${sortType}&${searchParams}">${i}</a></li>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-
-        <% if (page.hasNextPage()){%>
-        <li><a href="?page=${current+1}&sortType=${sortType}&${searchParams}">&gt;</a></li>
-        <li><a href="?page=${page.totalPages}&sortType=${sortType}&${searchParams}">&gt;&gt;</a></li>
-        <%}else{%>
-        <li class="disabled"><a href="#">&gt;</a></li>
-        <li class="disabled"><a href="#">&gt;&gt;</a></li>
-        <%} %>
-
-    </ul>
-</div>--%>
