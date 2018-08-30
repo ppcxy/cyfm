@@ -6,36 +6,63 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
 
+/**
+ * 文件管理实体,管理上传文件相关信息
+ */
 @Entity
 @Table(name = "fs_files")
 public class StoreFiles extends UUIDEntity {
-    //文件基础信息
-    //文件真实存储名
+    
+    /**
+     * 文件真实存储名
+     */
     private String realName;
-    //文件逻辑名称(上传文件名)
+    /**
+     * 文件逻辑名称(上传文件名)
+     */
     private String logicName;
-    //文件存储路径
+    /**
+     * 文件存储路径
+     */
     private String location;
-    //文件大小
+    /**
+     * 文件大小
+     */
     private Long fileSize;
-    //文件类型
+    /**
+     * 文件类型
+     */
     private String typeContent;
-    //文件拓展名
+    /**
+     * 文件拓展名
+     */
     private String fileSuffix;
     
-    //上传模块
+    /**
+     * 上传模块
+     */
     private String identity;
-    //模块内识别id
+    /**
+     * 模块内识别id
+     */
     private String secondIdentity;
-    //模块内识别tag
+    /**
+     * 模块内识别tag
+     */
     private String tag;
     
-    //上传时间
+    /**
+     * 上传时间
+     */
     private Date uploadTime;
-    //上传人
+    /**
+     * 上传人
+     */
     private String uploader;
     
-    //使用状态
+    /**
+     * 使用状态
+     */
     private String state;
     
     
