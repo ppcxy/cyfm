@@ -14,11 +14,9 @@
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
             <div class="form-group">
-                <div class="form-group">
-                    <label for="dsName" class="control-label">数据源名称:</label>
-                    <div class="controls">
-                        <input type="text" id="dsName" name="dsName" value="${entity.dsName}" class="form-control required" placeholder="数据源名称"/>
-                    </div>
+                <label for="dsName" class="control-label">数据源名称:</label>
+                <div class="controls">
+                    <input type="text" id="dsName" name="dsName" value="${entity.dsName}" class="form-control required" placeholder="数据源名称"/>
                 </div>
             </div>
 
@@ -73,7 +71,7 @@
             </div>
 
             <div class="form-actions">
-                <a id="validate_datasource_btn" class="btn green">校验</a>${backURl}
+                <a id="validate_datasource_btn" class="btn green">校验</a>
                 <input id="submit_btn" class="btn btn-primary disabled" type="submit" value="提交"/>&nbsp;
                 <p class="help-block">(点击提交保存信息.)</p>
             </div>

@@ -73,7 +73,7 @@
             font-size: 13px;
             font-weight: 300;
             position: absolute;
-            right: 10px;
+            right: 20px;
             border: 0;
             margin-top: -1px;
         }
@@ -84,7 +84,7 @@
     <ul class="notice_list">
         <li class="external">
             <h3><span class="bold">${fn:length(unreads)}</span> 条未读通知</h3>
-            <a href="${ctx}/manage/maintain/notification" target="rightFrame" onclick="$cy.closeme();">查看全部</a>
+            <a href="${ctx}/manage/maintain/notification" target="rightFrame" onclick="$cy.closeme();">查看全部 </a>
         </li>
         <c:forEach items="${unreads}" var="item">
             <%--        <li style="cursor: pointer;">

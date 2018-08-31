@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Component(value = "dsourceTemplate")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DsourceTemplate extends JdbcTemplate {
-
-
+    
+    
     public boolean changeDatasource(DruidDataSource dataSource) {
         try {
             this.setDataSource(dataSource);
@@ -23,11 +23,12 @@ public class DsourceTemplate extends JdbcTemplate {
         }
         return true;
     }
-
+    
     @Override
     public void afterPropertiesSet() {
         if (!isLazyInit()) {
             getExceptionTranslator();
         }
     }
+    
 }
