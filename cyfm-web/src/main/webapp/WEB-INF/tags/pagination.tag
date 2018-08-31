@@ -13,12 +13,21 @@
     int begin = Math.max(1, current - paginationSize / 2);
     int end = Math.min(begin + (paginationSize - 1), page.getTotalPages());
 
+    //当已经到尾页,开始到结束不足 paginationSize 时,重新计算开始页.
+
+    if (page.getTotalPages() < paginationSize) {
+        begin = 1;
+    } else  if (end - begin < paginationSize) {
+        begin = end - paginationSize + 1;
+    }
+
     request.setAttribute("current", current);
     request.setAttribute("begin", begin);
     request.setAttribute("end", end);
+
 %>
 <div class="pagin">
-    <% if(showMeg){%>
+    <% if (showMeg) {%>
     <div class="message">共<i class="blue">${page.totalPages}</i>页，<i class="blue">${page.totalElements}</i>条记录，当前显示第&nbsp;<i
             class="blue">${current}&nbsp;</i>页
     </div>
@@ -57,7 +66,7 @@
 </div>
 <div class="clearfix"></div>
 <script type="text/javascript">
-    $("div.pagin a:not(.disabled)").click(function(){
-        $(this).attr("href",$(this).attr("href")+"&"+$('form.form-search').serialize()+"&"+$cy.urlTools.findSortParam(currentUrl))
+    $("div.pagin a:not(.disabled)").click(function () {
+        $(this).attr("href", $(this).attr("href") + "&" + $('form.form-search').serialize() + "&" + $cy.urlTools.findSortParam(currentUrl))
     });
 </script>

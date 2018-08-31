@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * 2、currentURL---->当前地址
  */
 public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
-
+    
     private static final String[] DEFAULT_EXCLUDE_PARAMETER_PATTERN = new String[]{
             "\\&\\w*page.pn=\\d+",
             "\\?\\w*page.pn=\\d+",
@@ -27,22 +27,22 @@ public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
     private final PathMatcher pathMatcher = new AntPathMatcher();
     private String[] excludeParameterPatterns = DEFAULT_EXCLUDE_PARAMETER_PATTERN;
     private String[] excludeUrlPatterns = null;
-
+    
     public void setExcludeParameterPatterns(String[] excludeParameterPatterns) {
         this.excludeParameterPatterns = excludeParameterPatterns;
     }
-
+    
     public void setExcludeUrlPatterns(final String[] excludeUrlPatterns) {
         this.excludeUrlPatterns = excludeUrlPatterns;
     }
-
+    
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        if(isExclude(request)) {
+        
+        if (isExclude(request)) {
             return true;
         }
-
+        
         if (request.getAttribute(Constants.CONTEXT_PATH) == null) {
             request.setAttribute(Constants.CONTEXT_PATH, request.getContextPath());
         }
@@ -55,23 +55,23 @@ public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
         if (request.getAttribute(Constants.BACK_URL) == null) {
             request.setAttribute(Constants.BACK_URL, extractBackURL(request));
         }
-
+        
         return true;
     }
-
+    
     private boolean isExclude(final HttpServletRequest request) {
-        if(excludeUrlPatterns == null) {
+        if (excludeUrlPatterns == null) {
             return false;
         }
-        for(String pattern : excludeUrlPatterns) {
-            if(pathMatcher.match(pattern, request.getServletPath())) {
+        for (String pattern : excludeUrlPatterns) {
+            if (pathMatcher.match(pattern, request.getServletPath())) {
                 return true;
             }
         }
         return false;
     }
-
-
+    
+    
     private String extractCurrentURL(HttpServletRequest request, boolean needQueryString) {
         String url = request.getRequestURI();
         String queryString = request.getQueryString();
@@ -89,7 +89,7 @@ public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
         }
         return getBasePath(request) + url;
     }
-
+    
     /**
      * 上一次请求的地址
      * 1、先从request.parameter中查找BackURL
@@ -100,31 +100,31 @@ public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
      */
     private String extractBackURL(HttpServletRequest request) {
         String url = request.getParameter(Constants.BACK_URL);
-
+        
         //使用Filter时 文件上传时 getParameter时为null 所以改成Interceptor
-
+        
         if (StringUtils.isEmpty(url)) {
             url = request.getHeader("Referer");
         }
-
-        if(!StringUtils.isEmpty(url) && (url.startsWith("http://") || url.startsWith("https://"))) {
+        
+        if (!StringUtils.isEmpty(url) && (url.startsWith("http://") || url.startsWith("https://"))) {
             return url;
         }
-
+        
         if (!StringUtils.isEmpty(url) && url.startsWith(request.getContextPath())) {
             url = getBasePath(request) + url;
         }
         return url;
     }
-
+    
     private String getBasePath(HttpServletRequest req) {
-        StringBuffer baseUrl = new StringBuffer();
+        StringBuilder baseUrl = new StringBuilder();
         String scheme = req.getScheme();
         int port = req.getServerPort();
-
+        
         //String		servletPath = req.getServletPath ();
         //String		pathInfo = req.getPathInfo ();
-
+        
         baseUrl.append(scheme);        // http, https
         baseUrl.append("://");
         baseUrl.append(req.getServerName());
@@ -134,6 +134,6 @@ public class SetCommonDataInterceptor extends HandlerInterceptorAdapter {
         }
         return baseUrl.toString();
     }
-
-
+    
+    
 }

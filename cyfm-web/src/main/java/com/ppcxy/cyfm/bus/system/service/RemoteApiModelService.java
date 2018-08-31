@@ -41,7 +41,7 @@ public class RemoteApiModelService extends BaseService<RemoteApiModel, Long> {
         if (map == null) {
             return url;
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             sb.append(entry.getKey() + "=" + entry.getValue());
             sb.append("&");
