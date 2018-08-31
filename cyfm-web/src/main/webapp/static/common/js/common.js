@@ -525,21 +525,21 @@ $cy = {
                 icon: ''
             }, options);
 
-            $('<li><a class=" + opts.classText + " href="' + opts.href + '">' + opts.text + '</a></li>').insertBefore($toolsMoreList, null)
+            $('<li><a class="' + opts.classText + '" href="' + opts.href + '"><i class="' + opts.icon + '"></i>' + opts.text + '</a></li>').insertBefore($toolsMoreList, null)
 
         }
     },
     table: {
-        getFirstSelectedCheckbox: function ($table) {
+        getFirstSelectedCheckbox: function ($table,quiet) {
             var checkbox = $table.find('td.check input[type=checkbox]:checked');//:first
             if (!checkbox.length) {
-
-                //表示不选中 不可以用，此时没必要弹窗
-                if (jQuery(this).hasClass('.no-disable') == false) {
+                //静默模式不做任何提示
+                if (quiet) {
                     return checkbox;
                 }
 
                 $cy.warn('请先选择要操作的数据！');
+                return [];
             }
             if (checkbox.size() > 1) {
                 $cy.warn('只能选择一条记录进行操作！');
@@ -547,12 +547,11 @@ $cy = {
             }
             return checkbox;
         },
-        getAllSelectedCheckbox: function ($table) {
+        getAllSelectedCheckbox: function ($table,quiet) {
             var checkbox = $table.find('td.check input[type=checkbox]:checked');
             if (!checkbox.length) {
-
-                //表示不选中 不可以用，此时没必要弹窗
-                if (jQuery(this).hasClass('.no-disable') == false) {
+                //静默模式不做任何提示
+                if (quiet) {
                     return checkbox;
                 }
 
@@ -880,23 +879,49 @@ $(function () {
         var ev = window.event || event;
         // console.log(ev.keyCode, ev.key)
 
+
+        //ctrl+回车|s 或cmd+回车|s 提交表单
+        if ((ev.ctrlKey || ev.metaKey) && (ev.keyCode == 13 || ev.key == 's' || ev.key == 'S')) {
+            if ($('#inputForm', rdoc).size() > 0) {
+                $('#inputForm', rdoc).submit();
+                return false;
+            }
+            return true;
+        }
+
+        //shift+d 删除选中行
+        if (ev.shiftKey && (ev.key == 'D' || ev.key == 'd')) {
+            $('.btn.delete', rdoc).click();
+            return true;
+        }
+
+        //空格快速关闭提示框
+        if ((ev.keyCode == 32)) {
+            var $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', top.document).children('a,input,button').eq(0);
+
+            if ($btn.size() <= 0) {
+                $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', rdoc).children('a,input,button').eq(0);
+            }
+
+            if ($btn.size() > 0) {
+                $btn.click();
+                return false;
+            }
+
+            return true;
+        }
+
         var focusInput = $(':input:focus').size() > 0;
 
+        if (focusInput) {
+            return true;
+        }
 
         //无焦点输入框状态按e进入选中行编辑界面
         if (!focusInput && (ev.key == 'e' || ev.keyCode == 13)) {
             if ($('.btn.update', rdoc).size() > 0) {
                 //如果存在修改按钮,则点击按钮
                 $('.btn.update', rdoc).click();
-                return false;
-            }
-            return true;
-        }
-
-        //无焦点状态输入框s 活ctrl+回车 活cmd+回车 提交表单
-        if ((ev.ctrlKey || ev.metaKey) && (ev.keyCode == 13 || ev.key == 's' || ev.key == 'S')) {
-            if ($('#inputForm', rdoc).size() > 0) {
-                $('#inputForm', rdoc).submit();
                 return false;
             }
             return true;
@@ -913,56 +938,36 @@ $(function () {
             return true;
         }
 
-        //shift+d 删除选中行
-        if (ev.shiftKey && (ev.key == 'D' || ev.key == 'd')) {
-            $('.btn.delete', rdoc).click();
-            return true;
-        }
 
-        var $table = $('#contentTable', rdoc);
-        var checkbox = rdow.$cy.table.getFirstSelectedCheckbox($table);
+        if (((ev.keyCode == 38) || (ev.keyCode == 40))) {
+            var $table = $('#contentTable', rdoc);
+            var checkbox = rdow.$cy.table.getFirstSelectedCheckbox($table,true);
 
-        //上下切换选中table行
-        if (!focusInput && (ev.keyCode == 38)) {
-            if ($('#contentTable', rdoc).size() > 0) {
-                if (checkbox.size() > 0) {
-                    checkbox.parents('tr').prev().find('td').eq(2).click()
-                } else {
-                    $('#contentTable tbody tr:last', rdoc).find('input[type=checkbox]').attr('checked', true);
+            //上下切换选中table行
+            if (!focusInput && (ev.keyCode == 38)) {
+                if ($('#contentTable', rdoc).size() > 0) {
+                    if (checkbox.size() > 0) {
+                        checkbox.parents('tr').prev().find('td').eq(2).click()
+                    } else {
+                        $('#contentTable tbody tr:last', rdoc).find('input[type=checkbox]').attr('checked', true);
+                    }
+                    return false;
                 }
-                return false;
+                return true;
             }
-            return true;
-        }
-        //上下切换选中table行
-        if (!focusInput && (ev.keyCode == 40)) {
-            if ($('#contentTable', rdoc).size() > 0) {
-                if (checkbox.size() > 0) {
-                    checkbox.parents('tr').next().find('td').eq(2).click()
-                } else {
-                    $('#contentTable tbody tr:first', rdoc).find('input[type=checkbox]').attr('checked', true);
+            //上下切换选中table行
+            if (!focusInput && (ev.keyCode == 40)) {
+                if ($('#contentTable', rdoc).size() > 0) {
+                    if (checkbox.size() > 0) {
+                        checkbox.parents('tr').next().find('td').eq(2).click()
+                    } else {
+                        $('#contentTable tbody tr:first', rdoc).find('input[type=checkbox]').attr('checked', true);
+                    }
+                    return false;
                 }
-                return false;
+
+                return true;
             }
-
-            return true;
-        }
-
-
-        //空格快速关闭提示框
-        if (!focusInput && (ev.keyCode == 32)) {
-            var $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', top.document).children('a,input,button').eq(0);
-
-            if ($btn.size() <= 0) {
-                $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', rdoc).children('a,input,button').eq(0);
-            }
-
-            if ($btn.size() > 0) {
-                $btn.click();
-                return false;
-            }
-
-            return true;
         }
 
     });
