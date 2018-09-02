@@ -105,14 +105,14 @@
         %>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <label class="control-label visible-ie8 visible-ie9">用户名</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
                 <input class="form-control placeholder-no-fix required" type="text" autocomplete="off" placeholder="账号/Email/手机号" id="username" name="username"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <label class="control-label visible-ie8 visible-ie9">密码</label>
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
                 <input class="form-control placeholder-no-fix required" type="password" autocomplete="off" placeholder="登录密码" id="password" name="password"/>
