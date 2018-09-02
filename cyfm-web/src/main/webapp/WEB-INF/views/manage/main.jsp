@@ -19,6 +19,10 @@
     <link href="${ctx}/static/manage/css/darkblue.css?2" rel="stylesheet" type="text/css"/>
     <style>
         body{
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
             overflow: hidden;
         }
     </style>
