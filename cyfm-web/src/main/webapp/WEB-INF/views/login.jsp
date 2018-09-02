@@ -3,6 +3,7 @@
 <%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" %>
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <script>
+    ctx = _ctx = "${ctx}"
     if (top != window) {
         top.location.href = "${ctx}/";
     }
@@ -16,178 +17,167 @@
         }
     }
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
     <title>登录页面</title>
-    <style>
-        *{
-            box-sizing: content-box;
-            -moz-box-sizing: content-box;
-            -webkit-box-sizing: content-box;
-        }
-        body {
-            background-color: #1c77ac;
-            background-image: url(${ctx}/static/manage/images/light.png);
-            background-repeat: no-repeat;
-            background-position: center top;
-            overflow: hidden;
-        }
-    </style>
-    <link href="${ctx}/static/manage/css/style.css" rel="stylesheet" type="text/css"/>
-    <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="${ctx}/static/manage/js/cloud.js" type="text/javascript"></script>
-
-    <script language="javascript">
-        $(function () {
-            $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
-            $(window).resize(function () {
-                $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
-            });
-
-            setTimeout(function(){
-                $(":input").attr("disabled", false).eq(0).focus();
-            },0)
-        });
-
-    </script>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="${ctx}/static/manage/css/login-soft.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="${ctx}/static/common/styles/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/common/styles/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/manage/css/layout.css?2" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="${ctx}/static/manage/css/darkblue.css?2" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
 </head>
-<body class="login-page">
-<div id="mainBody">
-    <div id="cloud1" class="cloud"></div>
-    <div id="cloud2" class="cloud"></div>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login">
+<!-- BEGIN LOGO -->
+<div class="logo">
+    <a href="index.html">
+        <%--<img src="../../assets/admin/layout/img/logo-big.png" alt=""/>--%>
+    </a>
 </div>
-<div class="logintop">
-    <span>欢迎登陆CYFM快速开发平台</span>
-    <ul>
-        <li><a href="${ctx}/">回首页</a></li>
-        <li><a href="#">帮助</a></li>
-        <li><a href="#">关于</a></li>
-    </ul>
+<!-- END LOGO -->
+<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+<div class="menu-toggler sidebar-toggler">
 </div>
-<div class="loginbody">
-    <span class="systemlogo"></span>
-    <div class="loginbox">
-        <form id="loginForm" action="${ctx}/login" method="post" autocomplete="off">
-        <%--
-            &lt;%&ndash;&lt;%&ndash;dash;%&gt;
-            &lt;%&ndash;Object object = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);&ndash;%&gt;
-            &lt;%&ndash;if (object != null) {&ndash;%&gt;
-            &lt;%&ndash;if (object instanceof Exception) {&ndash;%&gt;
-            &lt;%&ndash;Exception exception = (Exception)object;&ndash;%&gt;
-            &lt;%&ndash;exception.printStackTrace();&ndash;%&gt;
-            &lt;%&ndash;} else {&ndash;%&gt;
-            &lt;%&ndash;System.out.println(object);&ndash;%&gt;
-            &lt;%&ndash;}&ndash;%&gt;
-            &lt;%&ndash;}&ndash;%&gt;
-            &lt;%&ndash;dash;%&gt;&ndash;%&gt;
-            &lt;%&ndash;&lt;%&ndash;dash;%&gt;
-            &lt;%&ndash;String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);&ndash;%&gt;
-            &lt;%&ndash;if(error != null){&ndash;%&gt;
-            &lt;%&ndash;dash;%&gt;&ndash;%&gt;
-            &lt;%&ndash;<div class="alert alert-error controls input-large">&ndash;%&gt;
-            &lt;%&ndash;<button class="close" data-dismiss="alert">×</button>&ndash;%&gt;
-            &lt;%&ndash;&lt;%&ndash;dash;%&gt;
-            &lt;%&ndash;if(error.contains("DisabledAccountException")){&ndash;%&gt;
-            &lt;%&ndash;out.print("用户已被屏蔽,请登录其他用户.");&ndash;%&gt;
-            &lt;%&ndash;}&ndash;%&gt;
-            &lt;%&ndash;else{&ndash;%&gt;
-            &lt;%&ndash;out.print("登录失败，请重试.");&ndash;%&gt;
-            &lt;%&ndash;}&ndash;%&gt;
-            &lt;%&ndash;dash;%&gt;&ndash;%&gt;
-            &lt;%&ndash;</div>&ndash;%&gt;
-            &lt;%&ndash;&lt;%&ndash;dash;%&gt;
-            &lt;%&ndash;}&ndash;%&gt;
-            &lt;%&ndash;dash;%&gt;&ndash;%&gt;
-            <div class="control-group">
-                <label for="username" class="control-label">名称:</label>
-                <div class="controls">
-                    <input type="text" id="username" name="username" value="${username}" class="input-medium required"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="password" class="control-label">密码:</label>
-                <div class="controls">
-                    <input type="password" id="password" name="password" class="input-medium required"/>
-                </div>
-            </div>
-            <c:if test="${jcaptchaEbabled}">
-                <div class="control-group">
-                    <label for="jcaptchaCode">验证码</label>
-                    <div class="input-prepend">
-                        <span class="add-on icon-circle-blank"></span>
-                        <input type="text" id="jcaptchaCode" name="jcaptchaCode"
-                               class="input-medium validate[required,ajax[ajaxJcaptchaCall]]" placeholder="请输入验证码">
-                    </div>
-                    <img class="jcaptcha-btn jcaptcha-img" style="margin-left: 10px;" src="${ctx}/jcaptcha.jpg"
-                         title="点击更换验证码">
-                    <a class="jcaptcha-btn btn btn-link">换一张</a>
-                </div>
-            </c:if>
+<!-- END SIDEBAR TOGGLER BUTTON -->
+<!-- BEGIN LOGIN -->
+<div class="content">
 
-            <div class="control-group">
-                <div class="controls">
-                    <label class="checkbox inline" for="rememberMe"> <input type="checkbox" id="rememberMe"
-                                                                            name="rememberMe"/> 记住我</label>
-                    <input id="submit_btn" class="btn" type="submit" value="登录"/>
-                    <p class="help-block">(管理员：<b>admin/admin</b>, 普通用户：<b>user/user</b>)</p>
-                </div>
-            </div>
-        --%>
-        <ul>
-            <li>
-                <input type="text" id="username" name="username" value="${username}" class="loginuser required" autocomplete="off" disabled/>
-            </li>
-            <li>
-                <input style="display:none">
-                <input type="password" id="password" name="password" class="loginpwd required" autocomplete="off" disabled/>
-            <li>
-            <input type="submit" class="loginbtn" value="登录" id="submit_btn"/>
-            <label><input name="rememberMe" id="rememberMe" type="checkbox" value="true"/>记住登录</label><label><a href="#">忘记密码？</a></label></li>
-        </ul>
-    </form>
-
-    </div>
-
-</div>
-
-
-<div class="loginbm">版权所有 2013 <a href="http://www.ppcxy.com">ppcxy.com</a> 仅供学习交流，勿用于任何商业用途</div>
-
-<%
-    String error = null;
-
-    Object message = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
-    if(message instanceof Exception){
-        error = ((Exception) message).getMessage();
-    } else {
-        error = (String) message;
-    }
-
-    if(error != null){
-%>
-<%--<div class="alert alert-error controls input-large">--%>
-<%--<button class="close" data-dismiss="alert">×</button>--%>
-
-<script>
-    $(function () {
+    <!-- BEGIN LOGIN FORM -->
+    <cy:showMessage/>
+    <form class="login-form" action="${ctx}/login" method="post">
+        <h3 class="form-title">登录您的账号</h3>
         <%
-            if(error.contains("DisabledAccountException")){
-                out.print("alert('用户已被屏蔽,请登录其他用户.')");
+            String error = null;
+
+            Object message = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
+            if(message instanceof Exception){
+                error = ((Exception) message).getMessage();
+            } else {
+                error = (String) message;
             }
-            else{
-                out.print("alert('"+error+"')");
+
+            if(error != null){
+        %>
+        <%--<div class="alert alert-error controls input-large">--%>
+        <%--<button class="close" data-dismiss="alert">×</button>--%>
+
+        <div class="alert alert-danger display">
+            <button class="close" data-close="alert"></button>
+            <span>
+			<%
+                if(error.contains("DisabledAccountException")){
+                    out.print("用户已被屏蔽,请登录其他用户.");
+                }
+                else{
+                    out.print(error);
+                }
+            %>. </span>
+        </div>
+        <%--</div>--%>
+        <%
             }
         %>
-    })
+        <div class="form-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <div class="input-icon">
+                <i class="fa fa-user"></i>
+                <input class="form-control placeholder-no-fix required" type="text" autocomplete="off" placeholder="账号/Email/手机号" id="username" name="username"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input class="form-control placeholder-no-fix required" type="password" autocomplete="off" placeholder="登录密码" id="password" name="password"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <label class="checkbox">
+                <input type="checkbox" name="remember" value="1"/> 记住登录 </label>
+            <button type="submit" class="btn blue pull-right">
+                登录 <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
+    <a href="http://www.ppcxy.com">ppcxy.com</a> 欢迎使用并反馈问题。
+</div>
+<!-- END COPYRIGHT -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="${ctx}/static/plugins/respond.min.js"></script>
+<script src="${ctx}/static/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery.blockUI.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="${ctx}/static/plugins/jquery-validation/1.15.0/jquery.validate.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="${ctx}/static/manage/js/metronic.js" type="text/javascript"></script>
+<script src="${ctx}/static/manage/js/layout.js" type="text/javascript"></script>
+<script src="${ctx}/static/manage/js/login-soft.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Login.init();
+        // init background slide images
+        $.backstretch([
+                _ctx+"/static/manage/img/media/bg/1.jpg",
+                _ctx+"/static/manage/img/media/bg/2.jpg",
+                _ctx+"/static/manage/img/media/bg/3.jpg",
+                _ctx+"/static/manage/img/media/bg/4.jpg"
+            ], {
+                fade: 1000,
+                duration: 8000
+            }
+        );
+    });
 </script>
-<%--</div>--%>
-<%
-    }
-%>
+
+<%--<div class="alert alert-error controls input-large">--%>
+<%--<button class="close" data-dismiss="alert">×</button>--%>
+<!-- END JAVASCRIPTS -->
 </body>
-
+<!-- END BODY -->
 </html>
-

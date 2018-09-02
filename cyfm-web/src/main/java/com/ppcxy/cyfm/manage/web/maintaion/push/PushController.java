@@ -62,7 +62,9 @@ public class PushController {
                 //data.put("unreadNotifications", notifications);
                 
                 Long unreadNotificationsCount = notificationApi.countUnread(userId);
+                
                 data.put("unreadNotificationsCount", unreadNotificationsCount);
+                data.put("unreadNotifications", notificationApi.topFiveNotification(user.getId()));
 
                 return data;
             } else {

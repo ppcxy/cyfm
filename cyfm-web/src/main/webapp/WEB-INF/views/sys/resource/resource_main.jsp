@@ -14,8 +14,8 @@
     </div>
 </div>
 <script>
-    var height = $("[name=leftFrame]", top.document)[0].clientHeight;
-    $("#treeMain").css("height", height-40);
+    var height = $(".page-content", top.document)[0].clientHeight;
+    $("#treeMain").css("height", height-46);
 </script>
 <script type="text/javascript">
     var layout = $('#treeMain').layout({

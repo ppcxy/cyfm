@@ -24,7 +24,7 @@ $cy.maintain = {
                         newVersion: version
                     },
                     success: function (result) {
-                        $cy.waitingOver();
+                        top.$cy.waitingOver();
                         tr.find("[name='version']").text(version);
                         tr.find("[name='content']").val(result.content);
                         $cy.info('操作成功');
