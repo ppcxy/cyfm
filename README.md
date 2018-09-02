@@ -1,7 +1,7 @@
 # cyfm 快速开发框架
 
 ## qq交流群 18692071
-~~<a href="http://123.207.221.254:8081/login" target="_blank">在线演示</a> 用户名：admin 密码：admin 暂时关闭在线演示
+~~<a href="http://123.207.221.254:8081/login" target="_blank">在线演示</a> 用户名：admin 密码：admin 暂时关闭在线演示~~
 
 ## 简介
 
