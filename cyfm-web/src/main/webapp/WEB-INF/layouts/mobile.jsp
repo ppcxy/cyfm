@@ -44,8 +44,15 @@
             -webkit-appearance: none; /* 方法2 */
         }
 
-        .rightinfo{
-            margin: 1px;
+        .mobile-content {
+            padding: 65px 10px 50px 10px;
+        }
+
+        div.listTableWrap {
+            overflow-x: auto;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            width: 100%;
         }
     </style>
     <!-- ================================= JS 区域 ========================================== -->
@@ -106,6 +113,7 @@
     <sitemesh:body/>
 </div>
 <script>
+    $cy.handleUniform();
     var index = parent.layer.getFrameIndex(window.name);
     if (top == parent && !index) {
         $cy.place.appendUrl(document.title.substring("${cy_systemName}".length + 1), urlPrefix, urlSuffix);

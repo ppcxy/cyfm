@@ -29,6 +29,8 @@ $cy = {
         console.log("获取系统消息")
     },
     initNotice: function () {
+        var $notice_count = $(".notice_count");
+        var $notification_list = $("ul.notification-list");
         var pollingUrl = ctx + "/polling";
 
         var longPolling = function (url, callback, auto) {
@@ -74,12 +76,12 @@ $cy = {
         $cy.flushPolling = function () {
             //console.log("lc");
             longPolling(pollingUrl + "?flush=true", function (data) {
-                $("#notice_count").text(data.unreadNotificationsCount);
+                refreshNotification(data);
 
                 longPolling(pollingUrl, function (data) {
                     console.debug("长轮训获取推送...");
                     if (data) {
-                        $("#notice_count").text(data.unreadNotificationsCount);
+                        refreshNotification(data);
                     }
                 }, true);
             }, false)
@@ -87,13 +89,61 @@ $cy = {
 
         $cy.flushPolling();
 
+
+
+        var notice_template="<li data-id='' data-content='{content}'><a href=\"javascript:;\">" +
+                            "   <span class=\"time\">{time}</span>" +
+                            "   <span class=\"details\">" +
+                            "       <span class=\"label label-sm label-icon label-info\">" +
+                           //TODO 先不适用消息通知图标，后续扩展 "           <i class=\"fa fa-bullhorn\"></i>" +
+                            "       </span> </span>" +
+                            "</a></li>"
+
+        function refreshNotification(data) {
+            $notification_list.html("");
+
+            $notice_count.text(data.unreadNotificationsCount);
+
+            $(data.unreadNotifications).each(function (i, o) {
+                var notice = $(notice_template)
+                notice.data("id", o.id).data("content", o.content);
+                notice.find(".time").text(o.date);
+                notice.find(".details").append(o.title);
+                $notification_list.append(notice);
+            });
+        }
+
+        $("ul.notification-list").on("click","li",function(){
+            var $item = $(this);
+
+            var id = $item.data("id");
+            var title = $item.find(".details").text();
+            var content = $item.data("content");
+
+            var message = top.layer.alert(content, {
+                skin: 'layui-layer-lan'
+                , title: title
+                , closeBtn: 0
+                , shift: 5 //动画类型
+            }, function(){
+                $.get(_ctx+"/manage/maintain/notification/markRead/" + id,function (result) {
+                    top.$cy.flushPolling()
+                });
+                top.layer.close(message)
+            });
+
+            $item.remove();
+            $("li.external .bold").text($(".notice_list li").size()-1);
+        });
+
+
     },
     refreshPage: function () {
         window.location.href = window.location.href;
     },
     place: {
         appendUrl: function (title, url, param) {
-            var item = $("<li><a target='rightFrame' href='" + url + '?' + param + "'>" + title + "</a></li>");
+            var item = $("<li><i class=\"fa fa-angle-right\"></i><a target='rightFrame' href='" + url + '?' + param + "'>" + title + "</a></li>");
 
             var exist = false;
             $(".placeul", top.document).find("a").each(function (i, o) {
@@ -126,6 +176,9 @@ $cy = {
         },
         preUrl: function () {
             return $(".placeul li:not(.default):last", top.document).prev().find("a").attr("href");
+        },
+        defaultUrl: function () {
+            return $(".placeul li.default", top.document).find("a").attr("href");
         }
     },
     urlTools: {
@@ -530,7 +583,7 @@ $cy = {
         }
     },
     table: {
-        getFirstSelectedCheckbox: function ($table,quiet) {
+        getFirstSelectedCheckbox: function ($table, quiet) {
             var checkbox = $table.find('td.check input[type=checkbox]:checked');//:first
             if (!checkbox.length) {
                 //静默模式不做任何提示
@@ -547,7 +600,7 @@ $cy = {
             }
             return checkbox;
         },
-        getAllSelectedCheckbox: function ($table,quiet) {
+        getAllSelectedCheckbox: function ($table, quiet) {
             var checkbox = $table.find('td.check input[type=checkbox]:checked');
             if (!checkbox.length) {
                 //静默模式不做任何提示
@@ -626,8 +679,13 @@ $cy = {
             });
 
             //Table init 开始
-            $('th input[type=checkbox]').on('click', function () {
-                $('td.check input[type=checkbox]').prop('checked', $(this).is(':checked'))
+            $('th input[type=checkbox],th div.checker').on('click', function () {
+                var $ck = $(this);
+                if (!$ck.is("[type=checkbox]")) {
+                    $ck = $ck.find("[type=checkbox]");
+                }
+                $('td.check input[type=checkbox]').prop('checked', $ck.is(':checked'));
+                $.uniform.update($('td.check input[type=checkbox]'))
             });
 
             var beginCheck = undefined;
@@ -645,6 +703,7 @@ $cy = {
                     }
 
                 }
+                $.uniform.update($('td.check input[type=checkbox]'))
             });
 
             //如果没有数据自动添加无数据提示行
@@ -683,6 +742,7 @@ $cy = {
                                     $('tr').eq(i).find('td.check input[type=checkbox]').prop('checked', !checked);
                                 }
                             }
+                            $.uniform.update($('td.check input[type=checkbox]'));
                             beginCheck = undefined;
                             return false
                         }
@@ -691,10 +751,12 @@ $cy = {
 
                         if (ev.ctrlKey) {
                             tdCheckBox.prop('checked', !checked);
+                            $.uniform.update($('td.check input[type=checkbox]'))
                             return false
                         }
 
                         tdCheckBox.prop('checked', !checked).parents('tr').siblings().find('td.check input[type=checkbox]').prop('checked', false);
+                        $.uniform.update($('td.check input[type=checkbox]'))
                         return false;
                     }
                 }, 50)
@@ -718,9 +780,9 @@ $cy = {
 
                 var $tr = $('tr td.check input:checked');
 
-                var checkItemVal = $tr.val();
+                if ($tr.length) {
+                    var checkItemVal = $tr.val();
 
-                if (checkItemVal) {
                     if ($(this).hasClass('delete')) {
                         if ($(this).hasClass('batch')) {
                             checkItemVal = '';
@@ -775,7 +837,7 @@ $cy = {
                 }
                 , submitHandler: function (form) {
                     submiting = true;
-                    $cy.waiting();
+                    top.$cy.waiting();
                     form.submit();
                 }
                 , success: function (label, element) {
@@ -844,8 +906,7 @@ if ($.validator) {
 window.onbeforeunload = function () {
     if (!$cy.validate.submiting) {
         setTimeout(function () {
-            //TODO 暂时不处理
-            $cy.waiting();
+            top.$cy.waiting();
         }, 100);
     }
 };
@@ -857,19 +918,12 @@ if (currentUrl.indexOf('?') > 0) {
     urlSuffix = currentUrl.substring(currentUrl.indexOf('?') + 1);
 }
 
+
 //初始化页面
 $(function () {
-    var nowtime = $('.nowtime');
-    //时间
-    if (nowtime[0]) {
-        var set = setInterval(function () {
-            nowtime.html(laydate.now(0, 'yyyy年MM月dd日 HH:mm:ss'));
-        }, 1000);
-    }
-
+    $cy.handleUniform();
     $cy.initDatePick();
     $cy.table.init();
-    // $cy.handleUniform();
 
     var isFrame = top != window;
     var rdow = top.document.getElementById('rightFrame') ? top.document.getElementById('rightFrame').contentWindow : top;
@@ -928,7 +982,7 @@ $(function () {
         }
 
         if (!focusInput && (ev.key == 'Backspace' || ev.key == 'z')) {
-            if ($cy.place.preUrl() != '/') {
+            if ($cy.place.preUrl()) {
                 if (isFrame) {
                     //无焦点状态输入框 'Backspace' 返回上一层
                     rdow.location.href = $cy.place.preUrl();
@@ -941,7 +995,7 @@ $(function () {
 
         if (((ev.keyCode == 38) || (ev.keyCode == 40))) {
             var $table = $('#contentTable', rdoc);
-            var checkbox = rdow.$cy.table.getFirstSelectedCheckbox($table,true);
+            var checkbox = rdow.$cy.table.getFirstSelectedCheckbox($table, true);
 
             //上下切换选中table行
             if (!focusInput && (ev.keyCode == 38)) {
@@ -982,7 +1036,7 @@ $(function () {
         setTimeout(function () {
             //TODO 暂时不处理
             $cy.waitingOver();
-        }, 800);
+        }, 2000);
     }
 
 });

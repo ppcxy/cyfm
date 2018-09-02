@@ -23,16 +23,16 @@
     <sitemesh:head/>
 </head>
 <body>
-<div class="rightinfo">
-    <c:if test="${not empty message or not empty error}">
-        <cy:showMessage/>
-    </c:if>
-    <c:if test="${not empty page && not customToolbar}">
-        <div class="tools">
-            <cy:listToolBarActions/>
-        </div>
-    </c:if>
-    <sitemesh:body/>
+<c:if test="${not empty message or not empty error}">
+    <cy:showMessage/>
+</c:if>
+<c:if test="${not empty page && not customToolbar}">
+    <div class="tools">
+        <cy:listToolBarActions/>
+    </div>
+</c:if>
+<div>
+<sitemesh:body/>
 </div>
 <script>
     var index = parent.layer.getFrameIndex(window.name);

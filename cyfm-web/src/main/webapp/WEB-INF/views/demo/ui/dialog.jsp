@@ -72,7 +72,7 @@
 <div>
     <dd>
         <div class="title">
-            <span><img src="${ctx}/static/manage/images/leftico02.png"/></span>演示说明
+            <span>演示说明</span>
         </div>
         <ul class="menuson">
             <li><cite></cite><a id="persistence-tab" href="${ctx}/story/persistence"

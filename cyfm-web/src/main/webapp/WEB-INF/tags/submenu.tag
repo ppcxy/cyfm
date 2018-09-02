@@ -6,15 +6,24 @@
 <%@taglib prefix="cy" tagdir="/WEB-INF/tags" %>
 <c:choose>
     <c:when test="${!menu.hasChildren}">
-        <li><cite class="${menu.icon}"></cite><a href="<%=menuUrl(request, menu.getUrl())%>" target="rightFrame" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}">${menu.name}</a><i></i></li>
+        <li class="nav-item">
+            <a href="<%=menuUrl(request, menu.getUrl())%>" class="nav-link " target="rightFrame" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}">
+                <i class="${menu.icon}"></i>
+                <span class="title">${menu.name}</span>
+                <span class="selected"></span>
+                <%--标记新功能支持--%>
+                <%--<span class="badge badge-roundless badge-danger">New</span>--%>
+            </a>
+        </li>
     </c:when>
     <c:otherwise>
-        <li>
-            <a href="javascript:;">
+        <li class="nav-item">
+            <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="${menu.icon}"></i>
-                <span class="title">${menu.name}</span><span class="arrow"></span>
+                <span class="title">${menu.name}</span>
+                <span class="arrow"></span>
             </a>
-            <ul class="sub-menu">
+            <ul class="sub-menu" style="display: none;">
                 <c:forEach items="${menu.children}" var="menu2">
                     <cy:submenu menu="${menu2}" parentName="${parentName},${menu.name}"/>
                 </c:forEach>

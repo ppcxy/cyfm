@@ -140,7 +140,7 @@ table.table-list th.check, table.table-list td.check {
 }
 
 table.table-list .check input[type=checkbox] {
-    width: 18px;
+    -webkit-appearance: none;
     height: 16px;
     clear: left;
 }
