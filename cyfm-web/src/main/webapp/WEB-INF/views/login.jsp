@@ -172,6 +172,8 @@
                 duration: 8000
             }
         );
+
+        $("#username").focus();
     });
 </script>
 
