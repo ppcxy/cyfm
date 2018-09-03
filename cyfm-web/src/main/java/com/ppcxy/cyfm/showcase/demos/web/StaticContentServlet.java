@@ -29,8 +29,8 @@ import java.util.zip.GZIPOutputStream;
  * 可使用com.ppcxy.cyfm.showcase.cache包下的Ehcache或本地Map缓存静态内容基本信息(未演示).
  * <p>
  * 演示访问地址为：
- * static-content?contentPath=static/images/logo.jpg
- * static-content?contentPath=static/images/logo.jpg&download=true
+ * static-content?contentPath=static/images/logo.png
+ * static-content?contentPath=static/images/logo.png&download=true
  *
  * @author calvin
  */

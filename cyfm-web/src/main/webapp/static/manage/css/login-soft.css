@@ -92,7 +92,7 @@ h2 {
 }
 body {
   background-color: #1c77ac;
-  background-image: url(${ctx}/static/manage/img/light.png);
+  background-image: url(../img/light.png);
   background-repeat: no-repeat;
   background-position: center top;
   overflow: hidden;

@@ -60,7 +60,7 @@
         .loginbox-body {
             width: 320px;
             margin-left: 285px;
-            margin-top: 88px;
+            margin-top: 95px;
         }
         .login-form .form-actions .checkbox {
             margin-top: 8px;
@@ -73,10 +73,16 @@
         .login-form .alert.alert-danger{
             margin-bottom: 5px;
         }
+
+        .login-form .input-icon i {
+            padding-top: 6px;
+
+        }
     </style>
-     <script>
-         ctx = _ctx = "${ctx}";
-     </script>
+    <script>
+        ctx = _ctx = "${ctx}";
+    </script>
+    <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
 </head>
 <body class="login-page">
 <div id="mainBody">
@@ -92,15 +98,24 @@
     </ul>
 </div>
 <div class="loginbody">
-    <span class="systemlogo"></span>
+    <span class="systemlogo display-hide"></span>
     <div class="loginbox display-hide">
         <div class="loginbox-body">
             <form class="login-form" action="${ctx}/login" method="post" autocomplete="off">
                 <cy:showMessage/>
-                <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button>
-                    <span>请填写用户名密码.</span>
-                </div>
+                <c:if test="${not empty error || not empty message}">
+                    <script>
+                        $(function () {
+                            $(".loginbox-body").css({'margin-top':'78px'});
+                        })
+                    </script>
+                </c:if>
+                <c:if test="${empty error || empty message}">
+                    <div class="alert alert-error alert-danger valid-alert display-hide">
+                        <button type="button" class="close">&times;</button>
+                        <span class="icon-remove-sign icon-large"></span>&nbsp;请输入正确的用户名和密码
+                    </div>
+                </c:if>
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label class="control-label visible-ie8 visible-ie9">用户名</label>
@@ -138,7 +153,7 @@
 <script src="${ctx}/static/plugins/respond.min.js"></script>
 <script src="${ctx}/static/plugins/excanvas.min.js"></script>
 <![endif]-->
-<script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+
 <script src="${ctx}/static/plugins/jquery/jquery-migrate.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery.blockUI.js" type="text/javascript"></script>
@@ -155,13 +170,19 @@
 <script src="${ctx}/static/manage/js/cloud.js" type="text/javascript"></script>
 <script language="javascript">
     $(function () {
+        $(".valid-alert .close").click(function () {
+            $(this).parent(".valid-alert").hide();
+        });
+        $(".alert .close").click(function () {
+            $(".loginbox-body").css({'margin-top': '95px'});
+        });
         $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
         $(window).resize(function () {
             $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
         });
         $("[name=remember]").uniform();
         setTimeout(function(){
-            $('.loginbox').fadeIn({duration: 1000});
+            $('.loginbox,.systemlogo').fadeIn({duration: 1000});
             $(":input").attr("disabled", false).eq(0).focus();
             Login.init();
             $("#username").focus();
@@ -172,4 +193,3 @@
 </body>
 
 </html>
-

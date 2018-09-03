@@ -182,8 +182,8 @@
 <body>
 <div class="mobile-header">
     <div class="title">
-        <img src="${ctx}/static/manage/images/loginlogo.png" height="45">
-        统一数据平台
+        <img src="${ctx}/static/images/logo.png" height="45">
+        ${cy_systemName}
     </div>
 </div>
 <div class="mobile-main">
