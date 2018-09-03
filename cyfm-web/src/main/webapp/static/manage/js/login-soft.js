@@ -19,15 +19,15 @@ var Login = function () {
 
 	            messages: {
 	                username: {
-	                    required: "Username is required."
+	                    required: "请填写用户名."
 	                },
 	                password: {
-	                    required: "Password is required."
+	                    required: "请填写密码."
 	                }
 	            },
 
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
-	                $('.alert-danger', $('.login-form')).show();
+	                $('.alert-danger', $('.loginbody')).show();
 	            },
 
 	            highlight: function (element) { // hightlight error inputs
@@ -41,7 +41,7 @@ var Login = function () {
 	            },
 
 	            errorPlacement: function (error, element) {
-	                error.insertAfter(element.closest('.input-icon'));
+	                // error.insertAfter(element.closest('.input-icon'));
 	            },
 
 	            submitHandler: function (form) {

@@ -63,10 +63,10 @@ public class UserService extends BaseService<User, Long> {
     
     @Override
     public User save(User user) {
-        if (user.getId()!=null) {
+        if (user.getId() != null) {
             throw new BaseException("修改用户请调用UserService.update");
         }
-       
+        
         if (user.getCreateDate() == null) {
             user.setCreateDate(new Date());
         }
@@ -83,17 +83,11 @@ public class UserService extends BaseService<User, Long> {
     @Override
     @Transactional
     public User update(User user) {
-        NotificationApi bean = SpringContextHolder.getBean(NotificationApi.class);
-        Map<String, Object> map = new HashMap<>();
-        map.put("title", String.format("修改了用户[%s]的信息,请注意!!", user.getUsername()));
-        map.put("message", String.format("用户的详细信息为:%s", JsonMapper.nonDefaultMapper().toJson(user)));
-        bean.notify(1l, "xxxx", map);
-        
         if (!ShiroUserInfoUtils.getUsername().equals(user.getUsername()) && isSupervisor(user)) {
             logger.warn("操作员{}尝试修改超级管理员用户", ShiroUserInfoUtils.getUsername());
             throw new BaseException("普通用户不能修改超级管理员用户");
         }
-    
+        
         // TODO 本人不可以禁用本人账号...
         if (ShiroUserInfoUtils.getUsername().equals(user.getUsername())) {
             user.setStatus("enabled");
@@ -104,7 +98,15 @@ public class UserService extends BaseService<User, Long> {
             user.setPassword(passwordService.encryptPassword(user.getPlainPassword(), user.getSalt()));
         }
         User resultUser = super.update(user);
+        
+        NotificationApi bean = SpringContextHolder.getBean(NotificationApi.class);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", user.getShowName());
+        map.put("userInfo", JsonMapper.nonDefaultMapper().toJson(user));
+        bean.notify(1l, "changeUser", map);
+        
         authorizeService.refresh(user.getId());
+        
         return resultUser;
     }
     

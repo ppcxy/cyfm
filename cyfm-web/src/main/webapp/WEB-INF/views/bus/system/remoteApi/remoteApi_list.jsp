@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>接入API管理</title>
+  <title>接入API配置</title>
 </head>
 
 <body>

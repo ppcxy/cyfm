@@ -3,7 +3,6 @@
 <%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" %>
 <%@include file="/WEB-INF/views/common/taglibs.jspf" %>
 <script>
-    ctx = _ctx = "${ctx}"
     if (top != window) {
         top.location.href = "${ctx}/";
     }
@@ -17,15 +16,21 @@
         }
     }
 %>
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
-<head>
-    <meta charset="utf-8"/>
+<%
+    String error = null;
+
+    Object message = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
+    if(message instanceof Exception){
+        error = ((Exception) message).getMessage();
+        request.setAttribute("error", error);
+    } else {
+        request.setAttribute("message", message);
+    }
+
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>       <meta charset="utf-8"/>
     <title>登录页面</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -50,89 +55,82 @@
     <link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="${ctx}/static/manage/css/login-soft.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .loginbox-body {
+            width: 320px;
+            margin-left: 285px;
+            margin-top: 88px;
+        }
+        .login-form .form-actions .checkbox {
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .login-form .form-actions .checkbox {
+            margin-left: 0;
+            padding-left: 0;
+        }
+        .login-form .alert.alert-danger{
+            margin-bottom: 5px;
+        }
+    </style>
+     <script>
+         ctx = _ctx = "${ctx}";
+     </script>
 </head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
-<body class="login">
-<!-- BEGIN LOGO -->
-<div class="logo">
-    <a href="index.html">
-        <%--<img src="../../assets/admin/layout/img/logo-big.png" alt=""/>--%>
-    </a>
+<body class="login-page">
+<div id="mainBody">
+    <div id="cloud1" class="cloud"></div>
+    <div id="cloud2" class="cloud"></div>
 </div>
-<!-- END LOGO -->
-<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-<div class="menu-toggler sidebar-toggler">
+<div class="logintop">
+    <span>欢迎登陆${cy_systemName}</span>
+    <ul>
+        <li><a href="${ctx}/">回首页</a></li>
+        <li><a href="#">帮助</a></li>
+        <li><a href="#">关于</a></li>
+    </ul>
 </div>
-<!-- END SIDEBAR TOGGLER BUTTON -->
-<!-- BEGIN LOGIN -->
-<div class="content">
-
-    <!-- BEGIN LOGIN FORM -->
-    <cy:showMessage/>
-    <form class="login-form" action="${ctx}/login" method="post">
-        <h3 class="form-title">登录您的账号</h3>
-        <%
-            String error = null;
-
-            Object message = request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
-            if(message instanceof Exception){
-                error = ((Exception) message).getMessage();
-            } else {
-                error = (String) message;
-            }
-
-            if(error != null){
-        %>
-        <%--<div class="alert alert-error controls input-large">--%>
-        <%--<button class="close" data-dismiss="alert">×</button>--%>
-
-        <div class="alert alert-danger display">
-            <button class="close" data-close="alert"></button>
-            <span>
-			<%
-                if(error.contains("DisabledAccountException")){
-                    out.print("用户已被屏蔽,请登录其他用户.");
-                }
-                else{
-                    out.print(error);
-                }
-            %>. </span>
+<div class="loginbody">
+    <span class="systemlogo"></span>
+    <div class="loginbox display-hide">
+        <div class="loginbox-body">
+            <form class="login-form" action="${ctx}/login" method="post" autocomplete="off">
+                <cy:showMessage/>
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    <span>请填写用户名密码.</span>
+                </div>
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input class="form-control placeholder-no-fix loginuser required" type="text" autocomplete="off" placeholder="账号/Email/手机号" id="username" name="username" disabled/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <div class="input-icon">
+                        <i class="fa fa-lock"></i>
+                        <input class="form-control placeholder-no-fix loginpwd required" type="password" autocomplete="off" placeholder="登录密码" id="password" name="password" disabled/>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember" value="1"/> 记住登录 </label>
+                    <button type="submit" class="btn blue pull-right">
+                        登录 <i class="m-icon-swapright m-icon-white"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-        <%--</div>--%>
-        <%
-            }
-        %>
-        <div class="form-group">
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">用户名</label>
-            <div class="input-icon">
-                <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix required" type="text" autocomplete="off" placeholder="账号/Email/手机号" id="username" name="username"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">密码</label>
-            <div class="input-icon">
-                <i class="fa fa-lock"></i>
-                <input class="form-control placeholder-no-fix required" type="password" autocomplete="off" placeholder="登录密码" id="password" name="password"/>
-            </div>
-        </div>
-        <div class="form-actions">
-            <label class="checkbox">
-                <input type="checkbox" name="remember" value="1"/> 记住登录 </label>
-            <button type="submit" class="btn blue pull-right">
-                登录 <i class="m-icon-swapright m-icon-white"></i>
-            </button>
-        </div>
-    </form>
-    <!-- END LOGIN FORM -->
+    </div>
+
 </div>
-<!-- END LOGIN -->
-<!-- BEGIN COPYRIGHT -->
-<div class="copyright">
-    <a href="http://www.ppcxy.com">ppcxy.com</a> 欢迎使用并反馈问题。
-</div>
+
+
+<div class="loginbm">版权所有 2018 <a href="http://www.ppcxy.com">www.ppcxy.com</a> 欢迎反馈使用中遇到的问题.</div>
 <!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -152,34 +150,26 @@
 <script src="${ctx}/static/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="${ctx}/static/manage/js/metronic.js" type="text/javascript"></script>
-<script src="${ctx}/static/manage/js/layout.js" type="text/javascript"></script>
 <script src="${ctx}/static/manage/js/login-soft.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Login.init();
-        // init background slide images
-        $.backstretch([
-                _ctx+"/static/manage/img/media/bg/1.jpg",
-                _ctx+"/static/manage/img/media/bg/2.jpg",
-                _ctx+"/static/manage/img/media/bg/3.jpg",
-                _ctx+"/static/manage/img/media/bg/4.jpg"
-            ], {
-                fade: 1000,
-                duration: 8000
-            }
-        );
 
-        $("#username").focus();
+<script src="${ctx}/static/manage/js/cloud.js" type="text/javascript"></script>
+<script language="javascript">
+    $(function () {
+        $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
+        $(window).resize(function () {
+            $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
+        });
+        $("[name=remember]").uniform();
+        setTimeout(function(){
+            $('.loginbox').fadeIn({duration: 1000});
+            $(":input").attr("disabled", false).eq(0).focus();
+            Login.init();
+            $("#username").focus();
+        },300)
+
     });
 </script>
-
-<%--<div class="alert alert-error controls input-large">--%>
-<%--<button class="close" data-dismiss="alert">×</button>--%>
-<!-- END JAVASCRIPTS -->
 </body>
-<!-- END BODY -->
+
 </html>
+

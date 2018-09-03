@@ -200,7 +200,7 @@ public class CheckInTaskMult {
                     
                     map.put("title", String.format("用户[%d]心跳失败,请补充凭证[%s]", index, DateFormatUtils.ISO_DATETIME_FORMAT.format(new Date())));
                     map.put("message", String.format("心跳检测失败,当前sessionId[%s],当前sessionToken[%s]", clientUtils.checkCookie("JSESSIONID"), clientUtils.checkCookie("sessionToken")));
-                    bean.notify(1l, "xxxx", map);
+                    bean.notify(1l, "commonTemplate", map);
                     
                     
                 }
@@ -248,7 +248,7 @@ public class CheckInTaskMult {
         
         map.put("title", String.format("打卡%s通知[%s]", type, DateFormatUtils.ISO_DATETIME_FORMAT.format(new Date())));
         map.put("message", String.format("打卡返回信息: %s", s));
-        bean.notify(1l, "xxxx", map);
+        bean.notify(1l, "commonTemplate", map);
     }
     
     

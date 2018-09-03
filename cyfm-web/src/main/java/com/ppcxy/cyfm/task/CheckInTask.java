@@ -160,7 +160,7 @@ public class CheckInTask {
             
             map.put("title", "心跳检测失败,请补充打卡凭证");
             map.put("message", String.format("心跳检测失败,当前sessionId[%s],当前sessionToken[%s]", lastJSESSIONID, lastSessionToken));
-            bean.notify(1l, "xxxx", map);
+            bean.notify(1l, "commonTemplate", map);
             
             System.err.println("检测失败,请补充打卡凭证");
         }
@@ -203,7 +203,7 @@ public class CheckInTask {
         }
         map.put("title", String.format("打卡%s通知[]", type));
         map.put("message", String.format("打卡返回信息: %s", s));
-        bean.notify(1l, "xxxx", map);
+        bean.notify(1l, "commonTemplate", map);
     }
     
     

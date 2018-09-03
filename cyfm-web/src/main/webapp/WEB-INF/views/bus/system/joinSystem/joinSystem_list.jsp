@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>接入系统管理</title>
+  <title>接入系统配置</title>
 </head>
 
 <body>

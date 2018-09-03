@@ -29,7 +29,7 @@ public class TestTask1 {
         Map<String, Object> map = new HashMap<>();
         map.put("title", "测试消息推送");
         map.put("message", "测试消息推送实时刷新.");
-        bean.notify(1l, "xxxx", map);
+        bean.notify(1l, "commonTemplate", map);
     
     }
 }

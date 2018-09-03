@@ -184,6 +184,11 @@ public class User extends IdEntity {
         this.setSalt(Encodes.encodeHex(salt));
     }
     
+    /**
+     * 显示用户名用户姓名的组合,格式:用户姓名[用户名]
+     *
+     * @return
+     */
     @Transient
     public String getShowName() {
         return String.format("%s[%s]", this.getName(), this.getUsername());

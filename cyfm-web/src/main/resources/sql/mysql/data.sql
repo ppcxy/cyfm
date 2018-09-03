@@ -7,7 +7,7 @@ INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, 
 
 
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'fa fa-sun-o', 'root', 0, '0', '/manage/index/', 1, true, 0);
-INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (2, '工作流管理', 'fa fa-cubes', 'root', 0, '0', '/manage/index/', 2, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (2, '我的工作台', 'fa fa-cubes', 'root', 0, '0', '/manage/index/', 2, true, 0);
 
 
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (20, '系统管理', 'fa fa-cogs', 'sys', 1, '01/', '', 1, true, 0);
@@ -45,6 +45,10 @@ INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids,
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (72, '接入API配置', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi', 2, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (73, '接入API调试', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi/test', 3, true, 0);
 
+
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (1, 'changeUser', 'system', '用户{user}信息变更.', '用户{user}信息发生变更,变更信息为:{userInfo}', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (2, 'collectTaskExecute', 'system', '采集任务执行[{state}]通知', '采集任务执行完成, 任务实例 [{taskId}], 开始时间: {beginDate}, 结束时间: {endDate}, 总耗时: {totalTime}. 采集记录总数: {total}', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (3, 'commonTemplate', 'system', '{title}', '{message}', 0);
 
 
 INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(1,'超级管理员','Admin','超级管理员角色','*');
