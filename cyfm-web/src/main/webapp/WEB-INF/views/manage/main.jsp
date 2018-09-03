@@ -92,7 +92,7 @@
         <div class="page-logo">
             <a href="${ctx}/">
                 <%--<img src="${ctx}/static/images/logo.png" width="22" alt="logo" class="logo-default">--%>
-                <b class="logo-default">CYFM快速开发脚手架</b>
+                <b class="logo-default">${cy_systemName}</b>
             </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
