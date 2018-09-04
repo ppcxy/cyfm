@@ -32,4 +32,24 @@
         <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
                                    properties="replicatePuts=false,replicateUpdatesViaCopy=false"/>
     </cache>
+
+    <cache
+            name="org.hibernate.cache.internal.StandardQueryCache"
+            maxEntriesLocalHeap="5000"
+            eternal="false"
+            timeToLiveSeconds="3600"
+            overflowToDisk="false">
+        <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+                                   properties="replicatePuts=false,replicateUpdatesViaCopy=false"/>
+    </cache>
+
+    <cache
+            name="org.hibernate.cache.spi.UpdateTimestampsCache"
+            maxEntriesLocalHeap="5000"
+            eternal="true"
+            overflowToDisk="true">
+        <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+                                   properties="replicatePuts=false,replicateUpdatesViaCopy=false"/>
+    </cache>
+
 </ehcache>

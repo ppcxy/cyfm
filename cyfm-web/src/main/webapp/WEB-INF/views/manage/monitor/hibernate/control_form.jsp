@@ -10,79 +10,115 @@
     <c:set var="type" value="invalidate"/>
     <%@include file="nav.jspf" %>
     <div class="tab-content">
-    <div class="muted">注意：如果想失效所有，只要不输入编号即可</div><br/>
+        <%
+            Statistics statistics = (Statistics) request.getAttribute("statistics");
+            String[] entityNames = statistics.getEntityNames();
+            String[] collectionRoleNames = statistics.getCollectionRoleNames();
+            String[] queries = statistics.getQueries();
+            pageContext.setAttribute("entityNames", entityNames);
+            pageContext.setAttribute("collectionRoleNames", collectionRoleNames);
+            pageContext.setAttribute("queries", queries);
 
-    <a class="btn btn-evict-all">失效整个二级缓存</a>
-
-    <a class="btn btn-clear-all">清空二级缓存，重新计算</a>
-
-
-    <%
-        Statistics statistics = (Statistics) request.getAttribute("statistics");
-        String[] entityNames = statistics.getEntityNames();
-        String[] collectionRoleNames = statistics.getCollectionRoleNames();
-        String[] queries = statistics.getQueries();
-        pageContext.setAttribute("entityNames", entityNames);
-        pageContext.setAttribute("collectionRoleNames", collectionRoleNames);
-        pageContext.setAttribute("queries", queries);
-
-    %>
-    <div class="form-inline">
-        <h4>失效实体缓存：</h4>
-
-        <form class="span7">
-
-            <select id="entityNames" name="entityNames" multiple="true">
-                <c:forEach items="${entityNames}" var="e">
-                     <option value="${e}" title="${e}">${e}</option>
-                </c:forEach>
-            </select>
-            &nbsp;&nbsp;
-            <cyform:label path="entityIds">实体编号：</cyform:label>
-            <cyform:input path="entityIds" cssClass="input-medium" placeholder="多个之间，逗号分隔"/>
-        </form>
-        <div style="line-height: 70px;">
-            <a class="btn btn-evict-entity">确定</a>
-            &nbsp;&nbsp;
-            <a class="btn btn-evict-entity-all">失效所有实体缓存</a>
-        </div>
-        <br/><br/><br/>
-        <h4>失效集合缓存：</h4>
-
-        <form class="span7">
-            <select id="collectionRoleNames" name="collectionRoleNames" multiple="true">
-                <c:forEach items="${collectionRoleNames}" var="e">
-                    <option value="${e}" title="${e}">${e}</option>
-                </c:forEach>
-            </select>
-            &nbsp;&nbsp;
-            <cyform:label path="collectionEntityIds">集合所属实体编号：</cyform:label>
-            <cyform:input path="collectionEntityIds" cssClass="input-medium" placeholder="多个之间，逗号分隔"/>
-        </form>
-        <div style="line-height: 70px;">
-            <a class="btn btn-evict-collection">确定</a>
-            &nbsp;
-            <a class="btn btn-evict-collection-all">失效所有集合缓存</a>
+        %>
+        <div class="portlet box editBox">
+            <div class="portlet-title"><span>全局操作</span></div>
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div>
+                        <a class="btn btn-evict-all btn-danger">失效整个二级缓存</a>
+                        <a class="btn btn-clear-all btn-danger">清空二级缓存，重新计算</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <br/><br/><br/>
-        <h4>失效查询缓存：</h4>
-
-        <form class="span7">
-            <select id="queries" name="queries" multiple="true">
-                <c:forEach items="${queries}" var="e">
-                    <option value="${e}" title="${e}">${e}</option>
-                </c:forEach>
-            </select>
-        </form>
-        <div style="line-height: 70px;">
-            <a class="btn btn-evict-query">确定</a>
-            &nbsp;
-            <a class="btn btn-evict-query-all">失效所有查询缓存</a>
+        <div class="portlet box editBox">
+            <div class="portlet-title"><span>失效实体缓存</span></div>
+            <div class="portlet-body form">
+                <form>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <cyform:label path="entityNames">实体缓存：</cyform:label>
+                            <div class="controls">
+                                <select id="entityNames" name="entityNames" multiple="true" class="form-control">
+                                    <c:forEach items="${entityNames}" var="e">
+                                        <option value="${e}" title="${e}">${e}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <cyform:label path="entityIds">实体编号：</cyform:label>
+                            <div class="controls">
+                                <cyform:input path="entityIds" cssClass="form-control" placeholder="多个之间，逗号分隔"/>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <a class="btn btn-evict-entity btn-primary">确定</a>
+                            &nbsp;&nbsp;
+                            <a class="btn btn-evict-entity-all btn-danger">失效所有实体缓存</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
+        <div class="portlet box editBox">
+            <div class="portlet-title"><span>失效集合缓存</span></div>
+            <div class="portlet-body form">
+                <form>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <cyform:label path="entityNames">集合缓存：</cyform:label>
+                            <div class="controls">
+                                <select id="collectionRoleNames" name="collectionRoleNames"  cssClass="form-control" multiple="true">
+                                    <c:forEach items="${collectionRoleNames}" var="e">
+                                        <option value="${e}" title="${e}">${e}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <cyform:label path="collectionEntityIds">集合所属实体编号：</cyform:label>
+                                <div class="controls">
+                                    <cyform:input path="collectionEntityIds" cssClass="form-control" placeholder="多个之间，逗号分隔"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-actions">
+                    <a class="btn btn-evict-collection btn-primary">确定</a>
+                    &nbsp;
+                    <a class="btn btn-evict-collection-all btn-danger">失效所有集合缓存</a>
+                </div>
+            </div>
+        </div>
+        <div class="portlet box editBox">
+            <div class="portlet-title"><span>失效查询缓存</span></div>
+            <div class="portlet-body form">
+                <form>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <cyform:label path="entityNames">查询缓存：</cyform:label>
+                            <div class="controls">
+                                <select id="queries" name="queries"  cssClass="form-control" multiple="true">
+                                    <c:forEach items="${queries}" var="e">
+                                        <option value="${e}" title="${e}">${e}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-actions">
+                    <a class="btn btn-evict-query btn-primary">确定</a>
+                    &nbsp;
+                    <a class="btn btn-evict-query-all btn-danger">失效所有查询缓存</a>
+                </div>
 
-    </div>
-    <br/><br/>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -138,7 +174,7 @@
                         type: "GET",
                         dataType: "text",
                         success: function (data) {
-                           $cy.waitingOver();
+                            $cy.waitingOver();
                             $cy.success(data)
                         }
                     });
@@ -147,7 +183,7 @@
         });
         $(".btn-evict-entity").click(function() {
             if(!$("#entityNames").val()) {
-                $(".btn-evict-entity-all").click();
+                $cy.warn("未选择失效项,未进行任何失效操作.")
                 return;
             }
             var form = $("#entityNames").closest("form");
@@ -187,7 +223,7 @@
         });
         $(".btn-evict-collection").click(function() {
             if(!$("#collectionRoleNames").val()) {
-                $(".btn-evict-collection-all").click();
+                $cy.warn("未选择失效项,未进行任何失效操作.")
                 return;
             }
             var form = $("#collectionRoleNames").closest("form");
@@ -227,7 +263,7 @@
         });
         $(".btn-evict-query").click(function() {
             if(!$("#queries").val()) {
-                $(".btn-evict-query-all").click();
+                $cy.warn("未选择失效项,未进行任何失效操作.")
                 return;
             }
             var form = $("#quries").closest("form");

@@ -18,4 +18,16 @@
            eternal="true" overflowToDisk="true" maxEntriesLocalDisk="1000"/>
     <cache name="com.ppcxy.cyfm.sys.entity.SysResource" maxEntriesLocalHeap="10000"
            eternal="true" overflowToDisk="true" maxEntriesLocalDisk="100000"/>
+
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+            maxEntriesLocalHeap="5000"
+            eternal="false"
+            timeToLiveSeconds="3600"
+            overflowToDisk="false"/>
+
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+            maxEntriesLocalHeap="5000"
+            eternal="true"
+            overflowToDisk="true"/>
+
 </ehcache>

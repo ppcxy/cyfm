@@ -37,7 +37,6 @@
 
             </tbody>
         </table>
-        <br/><br/>
     </div>
 </div>
 <script type="text/javascript">
@@ -77,7 +76,6 @@
                 detailInfo += " | ";
                 detailInfo += "version:" + data.version;
 
-                detailInfo += "<br/><br/>";
                 detailInfo += "值:" + data.objectValue;
 
                 detail.append(detailInfo);

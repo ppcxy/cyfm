@@ -158,10 +158,8 @@
         <%
             }
         %>
-
         </tbody>
     </table>
-    <br/><br/>
     </div>
 </div>
 </body>
