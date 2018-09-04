@@ -58,7 +58,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
         model.addAttribute("modelName", modelName);
     }
     
-    private String getViewPrefix() {
+    public String getViewPrefix() {
         return viewPrefix;
     }
     

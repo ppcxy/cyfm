@@ -55,7 +55,7 @@
     <link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
-    <link href="${ctx}/static/manage/css/login-soft.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/manage/css/login-soft.css?1" rel="stylesheet" type="text/css"/>
     <style>
         .loginbox-body {
             width: 320px;
@@ -165,7 +165,7 @@
 <script src="${ctx}/static/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="${ctx}/static/manage/js/login-soft.js" type="text/javascript"></script>
+<script src="${ctx}/static/manage/js/login-soft.js?1" type="text/javascript"></script>
 
 <script src="${ctx}/static/manage/js/cloud.js" type="text/javascript"></script>
 <script language="javascript">

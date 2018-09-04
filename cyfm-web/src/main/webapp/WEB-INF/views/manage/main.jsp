@@ -217,24 +217,8 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="extra_profile.html">
+                            <a href="${ctx}/personal/profile" target="rightFrame">
                                 <i class="icon-user"></i> 我的信息 </a>
-                        </li>
-                        <li>
-                            <a href="page_calendar.html">
-                                <i class="icon-calendar"></i> 我的日历 </a>
-                        </li>
-                        <li>
-                            <a href="page_todo.html">
-                                <i class="icon-rocket"></i> 我的任务 <span class="badge badge-success">
-							7 </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="inbox.html">
-                                <i class="icon-envelope-open"></i> 我的邮件 <span class="badge badge-danger">
-							3 </span>
-                            </a>
                         </li>
                         <li class="divider">
                         </li>
