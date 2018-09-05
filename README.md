@@ -18,10 +18,9 @@
 2. 访问 [http://localhost:8081/](http://localhost:8081/)，按上面的提示体验.
 
 3. 在cyfm项目基础上进行开发.
->* 将 cyfm-web 项目已 maven 项目的形式导入 Eclipse 或者 Idea(推荐)
->* 可选择修改  src/main/resources/application.properties 或 test/resources/application.development.properties 
-更换数据库连接为本地 mysql 数据库.
->* 运行 cyfm-web 项目中的 test/java/QuickstartServer.
+>* 将 cyfm-web 项目已 maven 项目的形式导入 Idea(推荐) 或者 Eclipse 
+>* 修改 src/test/resources/application.development.properties 中的数据库连接参数,更换数据库连接为本地 mysql 数据库.运行 cyfm-web 项目中的 test/java/QuickstartServer.启动项目
+>* 或选择修改src/main/resources/application.properties 中的数据库连接参数,然后部署到本地tomcat启动.
 
 
 ## 当前版本亮点

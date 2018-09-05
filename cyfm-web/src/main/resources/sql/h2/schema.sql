@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS cy_sys_role;
 
 DROP TABLE IF EXISTS cy_sys_user;
 
+DROP TABLE IF EXISTS cy_sys_user_detail;
+
 DROP TABLE IF EXISTS cy_sys_team;
 
 DROP TABLE IF EXISTS cy_sys_resource;

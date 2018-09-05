@@ -67,9 +67,9 @@ INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(6,2);
 INSERT INTO cy_sys_team (id, name, master_id) VALUES(1,'Dolphin',1);
 
 
-INSERT INTO cy_sys_permission (id, name, value, description) VALUES (1, '创建权限', 'create', '资源的创建权限----值为:create 实际用法 资源标识:create');
-INSERT INTO cy_sys_permission (id, name, value, description) VALUES (2, '修改权限', 'update', '资源的创建权限----值为:update 实际用法 资源标识:update ');
-INSERT INTO cy_sys_permission (id, name, value, description) VALUES (3, '删除权限', 'delete', '资源的删除权限----值为:delete 实际用法 资源标识:delete ');
-INSERT INTO cy_sys_permission (id, name, value, description) VALUES (4, '查看权限', 'view', '资源的查看权限----值为:view 实际用法 资源标识:view  ');
-INSERT INTO cy_sys_permission (id, name, value, description) VALUES (5, '导入权限', 'import', '资源的导入权限----值为:import 实际用法 资源标识:import ');
-INSERT INTO cy_sys_permission (id, name, value, description) VALUES (6, '导出权限', 'export', '资源的导出权限----值为:export 实际用法 资源标识:export ');
+INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (1, '创建权限', 'create', '资源的创建权限----值为:create 实际用法 资源标识:create');
+INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (2, '修改权限', 'update', '资源的创建权限----值为:update 实际用法 资源标识:update ');
+INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (3, '删除权限', 'delete', '资源的删除权限----值为:delete 实际用法 资源标识:delete ');
+INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (4, '查看权限', 'view', '资源的查看权限----值为:view 实际用法 资源标识:view');
+INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (5, '导入权限', 'import', '资源的导入权限----值为:import 实际用法 资源标识:import ');
+INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (6, '导出权限', 'export', '资源的导出权限----值为:export 实际用法 资源标识:export ');
