@@ -9,7 +9,6 @@ import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.common.service.UserLogUtils;
-import com.ppcxy.common.spring.SpringContextHolder;
 import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.manage.maintain.notification.support.NotificationApi;
 import com.ppcxy.cyfm.sys.entity.user.User;
@@ -23,6 +22,7 @@ import org.apache.shiro.exception.UserPasswordNotMatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +49,10 @@ public class UserService extends BaseService<User, Long> {
     private PasswordService passwordService;
     @Autowired
     private AuthorizeService authorizeService;
+    
+    @Autowired
+    @Lazy
+    private NotificationApi notificationApi;
     
     private UserDao getUserRepository() {
         return (UserDao) baseRepository;
@@ -99,11 +103,10 @@ public class UserService extends BaseService<User, Long> {
         }
         User resultUser = super.update(user);
         
-        NotificationApi bean = SpringContextHolder.getBean(NotificationApi.class);
         Map<String, Object> map = new HashMap<>();
         map.put("user", user.getShowName());
         map.put("userInfo", JsonMapper.nonDefaultMapper().toJson(user));
-        bean.notify(1l, "changeUser", map);
+        notificationApi.notify(1l, "changeUser", map);
         
         authorizeService.refresh(user.getId());
         

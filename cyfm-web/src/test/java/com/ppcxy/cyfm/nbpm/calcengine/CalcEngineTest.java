@@ -9,7 +9,7 @@ import org.springside.modules.test.spring.SpringContextTestCase;
 import java.util.List;
 
 
-@ContextConfiguration(locations = {"/applicationContext.xml", "/cache/applicationContext-ehcache.xml", "/nbpm/calc-engine.xml"})
+@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-cyfm.xml"})
 public class CalcEngineTest extends SpringContextTestCase {
     
     

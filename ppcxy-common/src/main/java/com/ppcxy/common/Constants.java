@@ -3,6 +3,7 @@ package com.ppcxy.common;
 /**
  */
 public interface Constants {
+    
     /**
      * 操作名称
      */

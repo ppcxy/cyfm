@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Category(UnStable.class)
 @DirtiesContext
-@ContextConfiguration(locations = { "/applicationContext.xml", "/jms/applicationContext-jms-simple.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml","/cache/applicationContext-ehcache.xml", "/jms/applicationContext-jms-simple.xml" })
 public class JmsSimpleTest extends SpringContextTestCase {
 
 	@Autowired

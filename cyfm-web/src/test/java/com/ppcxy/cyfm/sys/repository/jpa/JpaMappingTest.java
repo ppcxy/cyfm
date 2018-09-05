@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import org.springside.modules.test.spring.Profiles;
+import com.ppcxy.common.Profiles;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import javax.persistence.EntityManager;
@@ -23,8 +23,8 @@ import javax.persistence.metamodel.Metamodel;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
-@ContextConfiguration(locations = {"/applicationContext.xml", "/cache/applicationContext-ehcache.xml"})
-// 如果存在多个transactionManager，可以需显式指定
+@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-cyfm.xml"})
+// 如果存在多个transactionManager，可以显式指定
 @Transactional(transactionManager = "transactionManager")
 @ActiveProfiles(Profiles.UNIT_TEST)
 public class JpaMappingTest extends SpringTransactionalTestCase {
@@ -45,7 +45,6 @@ public class JpaMappingTest extends SpringTransactionalTestCase {
             if (entityType.getBindableJavaType().getName().startsWith("com.ppcxy.common")) {
                 continue;
             }
-            System.err.println("select o from " + entityName + " o");
             em.createQuery("select o from " + entityName + " o").getResultList();
             logger.info("ok: " + entityName);
         }

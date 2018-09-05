@@ -5,6 +5,7 @@
  *******************************************************************************/
 package org.springside.modules.test.spring;
 
+import com.ppcxy.common.Profiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;

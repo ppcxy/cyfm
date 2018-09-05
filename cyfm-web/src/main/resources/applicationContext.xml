@@ -247,6 +247,10 @@
                                       location="classpath*:/application.properties,
           			  classpath*:/application.development.properties"/>
 
+        <bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+            <property name="resultSetLogEnabled" value="false" />
+        </bean>
+
         <!-- Druid 连接池 -->
         <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
             <!-- 基本属性 url、user、password -->
@@ -317,6 +321,7 @@
         <!-- 初始化数据结构 -->
         <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
             <jdbc:script location="classpath:sql/${run.dbtype}/schema.sql"/>
+            <jdbc:script location="classpath:sql/${run.dbtype}/import-data.sql"/>
         </jdbc:initialize-database>
 
     </beans>

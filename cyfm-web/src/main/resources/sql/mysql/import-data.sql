@@ -1,3 +1,29 @@
+INSERT INTO cy_sys_team (id, name, master_id) VALUES(1,'Dolphin',1);
+
+INSERT INTO cy_sys_permission (id,name,value,description) VALUES(1,'创建权限','create','资源的创建权限-值为:create 实际用法 资源标识:create');
+INSERT INTO cy_sys_permission (id,name,value,description) VALUES(2,'修改权限','update','资源的创建权限-值为:update 实际用法 资源标识:update');
+INSERT INTO cy_sys_permission (id,name,value,description) VALUES(3,'删除权限','delete','资源的删除权限-值为:delete 实际用法 资源标识:delete');
+INSERT INTO cy_sys_permission (id,name,value,description) VALUES(4,'查看权限','view','资源的查看权限-值为:view 实际用法 资源标识:view');
+INSERT INTO cy_sys_permission (id,name,value,description) VALUES(5,'导入权限','import','资源的导入权限-值为:import 实际用法 资源标识:import');
+INSERT INTO cy_sys_permission (id,name,value,description) VALUES(6,'导出权限','export','资源的导出权限-值为:export 实际用法 资源标识:export');
+
+INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(1,'超级管理员','Admin','超级管理员角色','*');
+INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(2,'普通用户','User','普通用户角色','user:view');
+
+
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(1,1);
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(1,2);
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(2,2);
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(3,2);
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(4,2);
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(5,2);
+INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(6,2);
+
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (1, 'changeUser', 'system', '用户{user}信息变更.', '用户{user}信息发生变更,变更信息为:{userInfo}', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (2, 'collectTaskExecute', 'system', '采集任务执行[{state}]通知', '采集任务执行完成, 任务实例 [{taskId}], 开始时间: {beginDate}, 结束时间: {endDate}, 总耗时: {totalTime}. 采集记录总数: {total}', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (3, 'commonTemplate', 'system', '{title}', '{message}', 0);
+
+
 INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(1,'admin','管理员','admin@springside.org.cn','13888888888','691b14d79bf0fa2215f155235df5e670b64394cc','7efbd59d9741d34f','enabled',1,0,'2012-01-01 00:00:00');
 INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(2,'user','Calvin','user@springside.org.cn','13211111112','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
 INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date)VALUES(3,'user2','Jack','jack@springside.org.cn','13211111113','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
@@ -44,32 +70,3 @@ INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids,
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (71, '接入系统配置', 'fa fa-folder-open', 'bus:system:joinSystem', 70, '01/1006/', '/bus/system/joinSystem', 1, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (72, '接入API配置', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi', 2, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (73, '接入API调试', 'fa fa-folder-open', 'bus:system:remoteApi', 70, '01/1006/', '/bus/system/remoteApi/test', 3, true, 0);
-
-
-INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (1, 'changeUser', 'system', '用户{user}信息变更.', '用户{user}信息发生变更,变更信息为:{userInfo}', 0);
-INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (2, 'collectTaskExecute', 'system', '采集任务执行[{state}]通知', '采集任务执行完成, 任务实例 [{taskId}], 开始时间: {beginDate}, 结束时间: {endDate}, 总耗时: {totalTime}. 采集记录总数: {total}', 0);
-INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (3, 'commonTemplate', 'system', '{title}', '{message}', 0);
-
-
-INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(1,'超级管理员','Admin','超级管理员角色','*');
-INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(2,'普通用户','User','普通用户角色','user:view');
-
-
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(1,1);
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(1,2);
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(2,2);
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(3,2);
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(4,2);
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(5,2);
-INSERT INTO cy_sys_user_role (user_id, role_id) VALUES(6,2);
-
-
-INSERT INTO cy_sys_team (id, name, master_id) VALUES(1,'Dolphin',1);
-
-
-INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (1, '创建权限', 'create', '资源的创建权限----值为:create 实际用法 资源标识:create');
-INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (2, '修改权限', 'update', '资源的创建权限----值为:update 实际用法 资源标识:update ');
-INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (3, '删除权限', 'delete', '资源的删除权限----值为:delete 实际用法 资源标识:delete ');
-INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (4, '查看权限', 'view', '资源的查看权限----值为:view 实际用法 资源标识:view');
-INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (5, '导入权限', 'import', '资源的导入权限----值为:import 实际用法 资源标识:import ');
-INSERT INTO cy_sys_permission (id, `name`, `value`, description) VALUES (6, '导出权限', 'export', '资源的导出权限----值为:export 实际用法 资源标识:export ');

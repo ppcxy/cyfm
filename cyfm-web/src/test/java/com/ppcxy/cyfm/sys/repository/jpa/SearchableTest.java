@@ -24,13 +24,12 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
-@ContextConfiguration(locations = {"/applicationContext.xml"})
+@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-cyfm.xml"})
 public class SearchableTest extends SpringTransactionalTestCase {
     
     @Autowired
     private UserDao userDao;
     
-    //TODO WEEP searchFilter Test
     @Test
     public void fineUserByFilter() {
         //EQ

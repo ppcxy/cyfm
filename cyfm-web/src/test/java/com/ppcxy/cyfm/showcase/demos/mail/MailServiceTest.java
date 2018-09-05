@@ -25,7 +25,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
-@ContextConfiguration(locations = { "/applicationContext.xml", "/email/applicationContext-email.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml","/cache/applicationContext-ehcache.xml", "/email/applicationContext-email.xml" })
 public class MailServiceTest extends SpringContextTestCase {
 
 	@Autowired

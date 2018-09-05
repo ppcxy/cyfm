@@ -28,8 +28,8 @@ if [ $? -ne 0 ];then
   exit -1
 fi
 
-echo "[Step 3] Start cyfm-web projects."
-mvn clean jetty:run -Djetty.port=8081
 
+echo "[Step 3] Start cyfm-web projects."
 echo "[INFO] Please wait a moment. When you see "[INFO] Started Jetty Server" in both 2 popup consoles, you can access below demo sites: "
 echo "[INFO] http://localhost:8081/cyfm-web"
+mvn clean jetty:run -Djetty.port=8081

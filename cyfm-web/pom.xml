@@ -95,10 +95,10 @@
         <!-- SPRING end -->
 
         <!-- AOP begin -->
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.aspectj</groupId>-->
+            <!--<artifactId>aspectjrt</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -409,13 +409,10 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>RELEASE</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -430,7 +427,6 @@
         <dependency>
             <groupId>com.yahoo.platform.yui</groupId>
             <artifactId>yuicompressor</artifactId>
-            <version>2.4.2</version>
         </dependency>
         <!-- GENERAL UTILS end -->
 
@@ -656,7 +652,7 @@
 
             <!-- jetty插件, 设定context path与spring profile -->
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <systemProperties>
@@ -670,6 +666,7 @@
                         <contextPath>/${project.artifactId}</contextPath>
                     </webAppConfig>
                 </configuration>
+                <version>${jetty-maven-plugin.version}</version>
             </plugin>
 
             <!-- tomcat7 插件 -->
@@ -797,14 +794,13 @@
                         <artifactId>maven-antrun-plugin</artifactId>
                         <configuration>
                             <target>
-                                <property file="src/main/resources/application.development.properties"/>
-                                <property file="src/main/resources/application.properties"/>
+                                <property file="src/test/resources/application.development.properties"/>
                                 <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
                                      password="${jdbc.password}"
                                      onerror="continue" encoding="${project.build.sourceEncoding}">
                                     <classpath refid="maven.test.classpath"/>
                                     <transaction src="src/main/resources/sql/${run.dbtype}/schema.sql"/>
-                                    <transaction src="src/test/resources/sql/${run.dbtype}/import-data.sql"/>
+                                    <transaction src="src/main/resources/sql/${run.dbtype}/import-data.sql"/>
                                 </sql>
                             </target>
                         </configuration>

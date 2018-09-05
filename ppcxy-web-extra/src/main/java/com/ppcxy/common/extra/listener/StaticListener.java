@@ -1,5 +1,6 @@
 package com.ppcxy.common.extra.listener;
 
+import com.ppcxy.common.Profiles;
 import com.ppcxy.common.repository.jpa.support.hibernate.HibernateUtils;
 import com.ppcxy.common.spring.SpringContextHolder;
 import com.ppcxy.common.utils.LinkedProperties;
@@ -7,7 +8,6 @@ import com.ppcxy.common.utils.LogUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.ResourceUtils;
-import org.springside.modules.test.spring.Profiles;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -154,7 +154,7 @@ public class StaticListener implements ServletContextListener {
         String dir = "classpath:sql/sqlserver/";
 
         File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
-        File dataFile = ResourceUtils.getFile(dir + "data.sql");
+        File dataFile = ResourceUtils.getFile(dir + "import-data.sql");
 
         initDb(schemaFlie, dataFile);
     }
@@ -168,7 +168,7 @@ public class StaticListener implements ServletContextListener {
         String dir = "classpath:sql/oracle/";
 
         File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
-        File dataFile = ResourceUtils.getFile(dir + "data.sql");
+        File dataFile = ResourceUtils.getFile(dir + "import-data.sql");
 
         initDb(schemaFlie, dataFile);
     }
@@ -182,7 +182,7 @@ public class StaticListener implements ServletContextListener {
         String dir = "classpath:sql/mysql/";
 
         File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
-        File dataFile = ResourceUtils.getFile(dir + "data.sql");
+        File dataFile = ResourceUtils.getFile(dir + "import-data.sql");
 
         initDb(schemaFlie, dataFile);
     }
@@ -196,7 +196,7 @@ public class StaticListener implements ServletContextListener {
         String dir = "classpath:sql/h2/";
 
         File schemaFlie = ResourceUtils.getFile(dir + "schema.sql");
-        File dataFile = ResourceUtils.getFile(dir + "data.sql");
+        File dataFile = ResourceUtils.getFile(dir + "import-data.sql");
 
         initDb(schemaFlie, dataFile);
     }

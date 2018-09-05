@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springside.modules.test.data.DataFixtures;
 import org.springside.modules.test.jetty.JettyFactory;
-import org.springside.modules.test.spring.Profiles;
+import com.ppcxy.common.Profiles;
 import org.springside.modules.utils.PropertiesLoader;
 
 import java.net.URL;

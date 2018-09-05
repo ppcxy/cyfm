@@ -118,8 +118,8 @@ public class PersonalProfileController extends BaseController<User, Long> {
             @RequestParam(value = "newPassword2") String newPassword2,
             Model model,
             RedirectAttributes redirectAttributes) {
-    
-       
+        
+        
         if (!passwordService.matches(user, oldPassword)) {
             model.addAttribute(Constants.ERROR, "旧密码不正确");
             return changePasswordForm(user, model);

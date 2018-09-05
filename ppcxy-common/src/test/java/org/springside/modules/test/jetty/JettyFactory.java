@@ -29,6 +29,7 @@ public class JettyFactory {
 	 * 创建用于开发运行调试的Jetty Server, 以src/main/webapp为Web应用目录.
 	 */
 	public static Server createServerInSource(int port, String contextPath) {
+		
 		Server server = new Server();
 		// 设置在JVM退出时关闭Jetty的钩子。
 		server.setStopAtShutdown(true);

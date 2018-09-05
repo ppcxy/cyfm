@@ -123,7 +123,7 @@ public class RepositoryHelperIT extends BaseStudentIT {
         
         String ql = "select o from Student o";
         
-        Assert.assertEquals(4, repositoryHelper.findAll(ql, null).size());
+        Assert.assertEquals(4, repositoryHelper.findAll(ql).size());
         
         List<Student> list = repositoryHelper.findAll(ql, new PageRequest(0, 2));
         Assert.assertEquals(2, list.size());

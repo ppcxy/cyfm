@@ -15,7 +15,7 @@ import org.springside.modules.test.spring.SpringTransactionalTestCase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
-@ContextConfiguration(locations = {"/applicationContext.xml", "/cache/applicationContext-ehcache.xml"})
+@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-cyfm.xml"})
 public class TeamMybatisDaoTest extends SpringTransactionalTestCase {
     
     @Autowired

@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS cy_sys_role;
 
 DROP TABLE IF EXISTS cy_sys_user;
 
+DROP TABLE IF EXISTS cy_sys_user_detail;
+
 DROP TABLE IF EXISTS cy_sys_team;
 
 DROP TABLE IF EXISTS cy_sys_resource;
@@ -30,6 +32,8 @@ DROP TABLE IF EXISTS bus_join_system;
 
 DROP TABLE IF EXISTS bus_remote_api;
 
+DROP TABLE IF EXISTS fs_files;
+
 CREATE TABLE cy_sys_role (
   id BIGINT  NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL UNIQUE,
@@ -55,6 +59,22 @@ CREATE TABLE cy_sys_user (
   PRIMARY KEY (id)
 )
 AUTO_INCREMENT = 100;
+
+create table cy_sys_user_detail
+(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	real_Name varchar(255) null,
+	gender varchar(2) null,
+	birth_date date null,
+	province varchar(255) null,
+	city varchar(255) null,
+	address varchar(3000) null,
+	zip_code varchar(10) null,
+	user_id bigint null ,
+  PRIMARY KEY (id)
+)
+AUTO_INCREMENT = 100;
+
 
 CREATE TABLE cy_sys_user_role (
   user_id BIGINT NOT NULL,

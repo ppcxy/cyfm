@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
-@ContextConfiguration(locations = {"/applicationContext.xml", "/cache/applicationContext-ehcache.xml"})
+@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-cyfm.xml"})
 public class UserMybatisDaoTest extends SpringTransactionalTestCase {
     
     @Autowired

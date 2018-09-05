@@ -57,10 +57,6 @@
         <!-- AOP begin -->
         <dependency>
             <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
         </dependency>
         <!-- AOP end -->
@@ -324,7 +320,6 @@
         <dependency>
             <groupId>com.yahoo.platform.yui</groupId>
             <artifactId>yuicompressor</artifactId>
-            <version>2.4.2</version>
         </dependency>
         <!-- GENERAL UTILS end -->
 
@@ -391,29 +386,6 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.ppcxy</groupId>
-            <artifactId>ppcxy-common</artifactId>
-            <classifier>tests</classifier>
-            <scope>compile</scope>
-        </dependency>
-     <!--   <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <classifier>tests</classifier>
-            &lt;!&ndash; for xxxDemo class &ndash;&gt;
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-extension</artifactId>
-            <classifier>tests</classifier>
-            &lt;!&ndash; for xxxDemo class &ndash;&gt;
-            <scope>compile</scope>
-        </dependency>-->
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -429,18 +401,6 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-remote-driver</artifactId>
-        </dependency>
-
-        <!-- jetty for functional test and executable war -->
-        <dependency>
-            <groupId>org.eclipse.jetty.aggregate</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-jsp</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- h2 如果生产数据库不是H2，解开下面的注释-->

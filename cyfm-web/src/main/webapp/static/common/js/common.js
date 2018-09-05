@@ -561,7 +561,7 @@ $cy = function () {
                         } else {
                             beginCheck = 'no';
                         }
-
+                        return false;
                     }
 
                     //shift+d 删除选中行
@@ -1066,19 +1066,19 @@ jQuery(document).ready(function () {
     $("form.form-search :input").change(function () {
         $("form.form-search button[type=submit]").addClass("blue");
     })
+});
 
-    //锁屏加载
-    window.onbeforeunload = function () {
-        //非页面提交情况下离开页面启动加载锁屏
-        if (!$cy.validate.submiting) {
-            setTimeout(function () {
-                top.$cy.waiting();
-            }, 100);
-        }
-    };
+//锁屏加载
+window.onbeforeunload = function () {
+    if (!$cy.validate.submiting) {
+        setTimeout(function () {
+            top.$cy.waiting();
+        }, 100);
+    }
+};
 
-
-    //初始化页面当前页面
+//初始化页面
+$(function () {
     $cy.handleUniform();
     $cy.initDatePick();
 
