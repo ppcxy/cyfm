@@ -96,9 +96,12 @@
 	<!-- END SAMPLE FORM PORTLET-->
 </div>
 <script>
+    $(function () {
+        $cy.handleUniform();
+        $("#inputForm").validate({
 
-    $cy.handleUniform();
-    $("#inputForm").validate({});
+        });
+    })
 </script>
 </body>
 </html>

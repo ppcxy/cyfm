@@ -49,33 +49,36 @@
     </div>
 </div>
 <script>
-    $cy.handleUniform();
-    $("#inputForm").validate({
-        rules: {
-            name: {
-                required: true
-                , variable: true
-                , rangelength: [4, 20]
-                , remote: {                               //验证用户名是否存在
-                    type: "POST",
-                    url: "${ctx}/manage/maintain/notificationTemplate/validate",
-                    data: {
-                        'fieldId': 'name'
-                        , 'fieldValue': function () {
-                            return $("#name").val();
+    $(function () {
+        $cy.handleUniform();
+        $("#inputForm").validate({
+            rules: {
+                name: {
+                    required: true
+                    , variable: true
+                    , rangelength: [4, 20]
+                    , remote: {                               //验证用户名是否存在
+                        type: "POST",
+                        url: "${ctx}/manage/maintain/notificationTemplate/validate",
+                        data: {
+                            'fieldId': 'name'
+                            , 'fieldValue': function () {
+                                return $("#name").val();
+                            }
+                            , 'id': '${entity.id}'
                         }
-                        , 'id': '${entity.id}'
                     }
                 }
-            }
 
-        }
-        , messages: {
-            name: {
-                remote: "模板名称已经被其他记录使用"
             }
-        }
-    });
+            , messages: {
+                name: {
+                    remote: "模板名称已经被其他记录使用"
+                }
+            }
+        });
+    })
+
 </script>
 </body>
 </html>

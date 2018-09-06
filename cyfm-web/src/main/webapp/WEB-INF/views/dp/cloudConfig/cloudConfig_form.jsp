@@ -2,28 +2,39 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>团队详情</title>
+  <title>cloud实例详情</title>
 </head>
 <body>
 
 <div class="portlet box editBox">
-    <div class="portlet-title"><span>团队信息</span></div>
+    <div class="portlet-title"><span>cloud实例</span></div>
     <div class="portlet-body form">
         <form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
             <div class="form-group">
-                <label for="name" class="control-label">团队名称:</label>
+                <label for="application" class="control-label">APPLICATION:</label>
                 <div class="controls">
-                    <input type="text" id="name" name="name" value="${entity.name}" class="form-control required"/>
+                    <input type="text" id="application" name="application" value="datatask" class="form-control required" readonly="readonly"/>
                 </div>
             </div>
             <div class="form-group">
-                <label for="master" class="control-label">管理人员:</label>
+                <label for="profile" class="control-label">profile:</label>
                 <div class="controls">
-                    <input type="text" id="masterInfo" value="${entity.master.showName}" class="form-control required" readonly/>
-                    <input type="hidden" id="master" name="master" value="${entity.master.id}"/>
+                    <input type="text" id="profile" name="profile" value="" class="form-control required"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="profile" class="control-label">可用数据源:</label>
+                <div class="controls">
+                    <select class="form-control required" name="sourceManageId">
+                        <option value="">请选择</option>
+                        <c:forEach items="${datasources}" var="item">
+                            <option value="${item.id}">${item.dsName}</option>
+                        </c:forEach>
+                    </select>
+
                 </div>
             </div>
             <div class="form-actions">
@@ -35,17 +46,10 @@
     </div>
 </div>
 <script>
-    $(function(){
+    $(function () {
+        $cy.handleUniform();
         $("#inputForm").validate({
-        });
 
-        $("#masterInfo").focus(function () {
-            $cy.tools.chooseUser({
-                callback: function (show, results) {
-                    $("#masterInfo").val(show);
-                    $("#master").val(results.data("id"));
-                }
-            })
         });
     })
 </script>

@@ -400,7 +400,9 @@ $cy = function () {
     return {
         //表单验证初始化
         validate: {
-            submiting: submiting,
+            submiting: function () {
+                return submiting;
+            },
             validFiledTips: validFiledTips,
             init: function () {
                 $.validator.setDefaults({
@@ -448,7 +450,7 @@ $cy = function () {
                             validFiledTips[fieldName] = layer.tips($('<div></div>').append(error).html(), target, {
                                 id: 'error-tips-' + fieldName
                                 , tipsMore: true
-                                , tips: [point, '#F24100']
+                                , tips: [point, '#f98932']
                                 , time: 0
                                 , area: ['auto', '30px']
                                 , topRevised: -6
@@ -1070,7 +1072,7 @@ jQuery(document).ready(function () {
 
 //锁屏加载
 window.onbeforeunload = function () {
-    if (!$cy.validate.submiting) {
+    if (!$cy.validate.submiting()) {
         setTimeout(function () {
             top.$cy.waiting();
         }, 100);
@@ -1098,4 +1100,10 @@ $(function () {
             // $("#inputForm input:visible:not([readonly],[disabled])").eq(0).focus()
         }
     }, 100);
+
+    if (parent !== top) {
+        setTimeout(function () {
+            top.$cy.waitingOver();
+        }, 200);
+    }
 });

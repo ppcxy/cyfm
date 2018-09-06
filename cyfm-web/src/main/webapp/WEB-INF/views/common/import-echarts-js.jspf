@@ -1,0 +1,1 @@
+<script type="text/javascript" charset="utf-8" src="${ctx}/static/plugins/echarts/echarts.js"></script><script type="text/javascript" charset="utf-8" src="${ctx}/static/plugins/echarts/echarts-gl.js"></script>

@@ -42,9 +42,8 @@
     </div>
 </div>
 <script>
-    $cy.handleUniform();
     $(function () {
-
+        $cy.handleUniform();
         $("#joinSystem").change(function () {
             $("#params").val(JSON.stringify($(this).find("option:checked").data("param")));
         });

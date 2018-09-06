@@ -52,10 +52,12 @@
 </div>
 </body>
 <script>
-    $cy.handleUniform();
-    $("#inputForm").validate({
+    $(function () {
+        $cy.handleUniform();
+        $("#inputForm").validate({
 
-    });
+        });
+    })
 </script>
 </body>
 </html>

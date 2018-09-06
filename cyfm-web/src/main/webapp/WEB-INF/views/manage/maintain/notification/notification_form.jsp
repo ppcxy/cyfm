@@ -28,7 +28,12 @@
     </div>
 </div>
 <script>
-    $cy.handleUniform();
+    $(function () {
+        $cy.handleUniform();
+        $("#inputForm").validate({
+
+        });
+    })
 </script>
 </body>
 </html>
