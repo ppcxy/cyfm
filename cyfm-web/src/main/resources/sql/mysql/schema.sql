@@ -26,13 +26,15 @@ DROP TABLE IF EXISTS cy_maintain_notification_data;
 
 DROP TABLE IF EXISTS cy_maintain_notification_template;
 
+DROP TABLE IF EXISTS fs_files;
+
 DROP TABLE IF EXISTS properties;
 
 DROP TABLE IF EXISTS bus_join_system;
 
 DROP TABLE IF EXISTS bus_remote_api;
 
-DROP TABLE IF EXISTS fs_files;
+
 
 CREATE TABLE cy_sys_role (
   id BIGINT  NOT NULL AUTO_INCREMENT,
@@ -201,7 +203,23 @@ create table cy_maintain_notification_template
 )
 AUTO_INCREMENT=1000;
 
-
+create table fs_files
+(
+	id varchar(36) not null
+		primary key,
+	real_name varchar(300) null,
+	logic_name varchar(300) null,
+	location varchar(4000) null,
+	file_size bigint,
+	type_content varchar(300) null,
+	file_suffix varchar(10) null,
+	identity varchar(255) null,
+	second_identity varchar(255) null,
+	tag varchar(255) null,
+  upload_time datetime,
+  uploader varchar(255),
+  state varchar(255)
+);
 
 CREATE TABLE PROPERTIES
 (
@@ -243,23 +261,4 @@ CREATE TABLE BUS_REMOTE_API
     remark VARCHAR(3000)
 )
 AUTO_INCREMENT=1000;
-
-
-create table fs_files
-(
-	id varchar(36) not null
-		primary key,
-	real_name varchar(300) null,
-	logic_name varchar(300) null,
-	location varchar(4000) null,
-	file_size bigint,
-	type_content varchar(300) null,
-	file_suffix varchar(10) null,
-	identity varchar(255) null,
-	second_identity varchar(255) null,
-	tag varchar(255) null,
-  upload_time datetime,
-  uploader varchar(255),
-  state varchar(255)
-);
 
