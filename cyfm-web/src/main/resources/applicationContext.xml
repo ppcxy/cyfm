@@ -87,12 +87,12 @@
     </jpa:repositories>
 
     <!-- MyBatis配置 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.CustomSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSourceProxy"/>
         <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-        <property name="typeAliasesPackage" value="com.ppcxy.cyfm.sys.entity"/>
+        <property name="typeAliasesPackage" value="com.ppcxy.cyfm.**.entity"/>
         <!-- 显式指定Mapper文件位置 -->
-        <property name="mapperLocations" value="classpath:/mybatis/**/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath*:/mybatis/**/*Mapper.xml"/>
     </bean>
     <!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

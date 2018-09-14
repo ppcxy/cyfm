@@ -32,4 +32,4 @@
 		where t.master_id=m.id and t.id=u.team_id
 		and t.id=#{id}
 	</select>
-</mapper> 
+</mapper>
