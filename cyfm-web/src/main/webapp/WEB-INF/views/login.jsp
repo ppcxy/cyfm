@@ -55,7 +55,6 @@
     <link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
-    <link href="${ctx}/static/manage/css/login-soft.css?1" rel="stylesheet" type="text/css"/>
     <style>
         .loginbox-body {
             width: 320px;

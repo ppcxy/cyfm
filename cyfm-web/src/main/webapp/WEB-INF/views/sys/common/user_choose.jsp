@@ -55,7 +55,7 @@
             </tbody>
         </table>
     </div>
-</div>
 <cy:pagination page="${choosePage}" paginationSize="5"></cy:pagination>
+</div>
 </body>
 </html>
