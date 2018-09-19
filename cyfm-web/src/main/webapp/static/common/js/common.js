@@ -147,6 +147,7 @@ $cy = function () {
             , title: '消息(3秒后自动关闭)'
             , content: message
             , time: 3000
+            , zindex: 10000
             , closeBtn: 0
             , btn: ['关闭']
             , shift: 5 //动画类型
@@ -160,6 +161,7 @@ $cy = function () {
             , content: message
             , time: 5000
             , icon: 0
+            , zindex: 10000
             , closeBtn: 0
             , btn: ['关闭']
             , shift: 5 //动画类型
@@ -173,6 +175,7 @@ $cy = function () {
             , content: message
             , time: 3000
             , icon: 1
+            , zindex: 10000
             , shift: 5 //动画类型
             , closeBtn: 0
             , btn: ['关闭']
@@ -185,6 +188,7 @@ $cy = function () {
             , title: '错误消息'
             , content: message
             , icon: 2
+            , zindex: 10000
             , closeBtn: 0
             , btn: ['关闭']
             , shift: 5 //动画类型
@@ -358,7 +362,7 @@ $cy = function () {
         if (!backUrl) {
             var $form = $('form.form-search');
             var backUrlPrefix = removeSearchParam(removeBackURLParam(currentUrl), $form);
-            backUrl = backUrlPrefix + (backUrlPrefix.indexOf("?") > 0 ? "&" : "?") + $form.serialize()
+            backUrl = backUrlPrefix + (backUrlPrefix.indexOf("?") > 0 ? "&" : "?") + $form.find(":not(:hidden)").serialize()
 
         }
         return encodeURIComponent(backUrl);
@@ -679,8 +683,7 @@ $cy = function () {
                     if (updateUrl) {
                         var selectTR = $(this).parents('tr');
                         var tdCheckBox = selectTR.find('td.check').find('input[type=checkbox]');
-
-                        window.location.href = updateUrl.replace('{id}', tdCheckBox.val())
+                        window.location.href = updateUrl.replace('{id}', tdCheckBox.val())+ (updateUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
                     }
 
                 });
@@ -695,15 +698,15 @@ $cy = function () {
                     if ($tr.length) {
                         var checkItemVal = $tr.val();
 
-                        if ($(this).hasClass('delete')) {
-                            if ($(this).hasClass('batch')) {
-                                checkItemVal = '';
-                                $tr.each(function () {
-                                    checkItemVal = checkItemVal + $(this).val() + ',';
-                                });
-                                checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
-                            }
+                        if ($(this).hasClass('batch')) {
+                            checkItemVal = '';
+                            $tr.each(function () {
+                                checkItemVal = checkItemVal + $(this).val() + ',';
+                            });
+                            checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
+                        }
 
+                        if ($(this).hasClass('delete')) {
                             confirm({
                                 message: '将要执行删除数据操作,是否继续?', yes: function () {
                                     window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
@@ -712,8 +715,16 @@ $cy = function () {
 
                             return false;
                         }
-
-                        window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
+                        var confirmMessage = $(this).data("confirm");
+                        if (confirmMessage){
+                            confirm({
+                                message: confirmMessage, yes: function () {
+                                    window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
+                                }
+                            });
+                        } else{
+                            window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
+                        }
                     } else {
                         warn('请选择一条记录.');
                     }
