@@ -5,10 +5,8 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.showcase.demos.schedule;
 
-import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,9 +16,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserCountScanner {
-    
-    @Autowired
-    private UserService userService;
     
     public void executeByJdk() {
         execute("jdk timer job");
@@ -45,7 +40,7 @@ public class UserCountScanner {
      */
     private void execute(String by) {
         Logger logger = LoggerFactory.getLogger(UserCountScanner.class.getName() + "." + by);
-        long userCount = userService.count();
-        logger.info("There are {} user in database.", userCount);
+       
+        logger.info("There are {} user in database.", "test");
     }
 }

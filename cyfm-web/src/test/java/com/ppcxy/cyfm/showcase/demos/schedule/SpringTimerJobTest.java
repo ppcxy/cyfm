@@ -13,15 +13,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.category.UnStable;
 import org.springside.modules.test.log.LogbackListAppender;
-import org.springside.modules.test.spring.SpringTransactionalTestCase;
+import org.springside.modules.test.spring.SpringContextTestCase;
 import org.springside.modules.utils.Threads;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Category(UnStable.class)
 @DirtiesContext
-@ContextConfiguration(locations = { "/applicationContext.xml","/cache/applicationContext-ehcache.xml", "/schedule/applicationContext-spring-scheduler.xml" })
-public class SpringTimerJobTest extends SpringTransactionalTestCase {
+@ContextConfiguration(locations = { "/applicationContext-test.xml","/schedule/applicationContext-spring-scheduler.xml" })
+public class SpringTimerJobTest extends SpringContextTestCase {
 
 	private static LogbackListAppender appender;
 
@@ -42,8 +42,8 @@ public class SpringTimerJobTest extends SpringTransactionalTestCase {
 		// 等待任务执行完毕
 		Threads.sleep(2000);
 
-		// 验证任务已执行
+		// 验证任务已执行   UserCountScanner
 		assertThat(appender.getLogsCount()).isEqualTo(1);
-		assertThat(appender.getFirstMessage()).isEqualTo("There are 6 user in database.");
+		assertThat(appender.getFirstMessage()).isEqualTo("There are test user in database.");
 	}
 }
