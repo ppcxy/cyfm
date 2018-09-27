@@ -57,7 +57,7 @@
             icon: ""
         });
 
-        $(".btn-delete").click(function() {
+        $(".btn.delete").click(function() {
             var checkbox = $cy.table.getAllSelectedCheckbox($("#contentTable"));
             if(!checkbox.length) {
                 return;
