@@ -10,7 +10,7 @@
     </bean>
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="shared" value="true"/>
+        <property name="shared" value="false"/>
         <property name="configLocation" value="classpath:/cache/ehcache-cyfm.xml"/>
     </bean>
 </beans>
