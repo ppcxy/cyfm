@@ -33,7 +33,7 @@ public interface DsmConstant {
     public static final String MYSQL_TABLE_NAME = "SELECT TABLE_NAME,TABLE_TYPE FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=?"; //AND TABLE_TYPE='BASE TABLE' orVIEW
     
     // MySql查字段
-    public static final String MYSQL_COLUMN_NAME = "SELECT COLUMN_NAME,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?";
+    public static final String MYSQL_COLUMN_NAME = "SELECT COLUMN_NAME,COLUMN_TYPE,COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE 1<>? and TABLE_SCHEMA=(select database() as dbName) AND TABLE_NAME=?";
     
     
     //SQL SERVER constant***********************************************

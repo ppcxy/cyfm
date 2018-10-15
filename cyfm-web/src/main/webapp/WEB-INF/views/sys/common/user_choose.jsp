@@ -34,7 +34,7 @@
     </div>
     <div class="listTableWrap">
         <table id="contentTable" data-tid="user_choose"
-               class="table table-list table-striped table-bordered table-hover table-condensed table-advance">
+               class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
             <thead>
             <tr>
                 <th class="check"><input type="checkbox"></th>

@@ -135,6 +135,18 @@ public class CheckInTaskMult {
         String s = clientUtils.get("https://qy.do1.com.cn/wxqyh/jsp/wap/checkwork/calendarDetail.jsp?agentCode=checkwork&corp_id=wx77ea70808725d904&stoken=9735daf425ef450da86691efbb4c545c");
         
         if (s.indexOf("抱歉，出错了") > 0) {
+            FileInputStream fis = null;//属性文件流
+            
+            try {
+                propFile = ResourceUtils.getFile("classpath:dp/taskConfig.properties");
+                
+                fis = new FileInputStream(propFile);
+                prop.load(fis);//将属性文件流装载到Properties对象中
+                
+            } catch (Exception e) {
+                ///加载失败无所谓
+            }
+            
             logger.warn("刷新信息凭证无效,重新加载凭证...");
             clientUtils.addCookie("sessionToken", prop.getProperty("CHECKIN.SESSIONTOKEN." + index), "qy.do1.com.cn", "/wxqyh");
             clientUtils.addCookie("JSESSIONID", prop.getProperty("CHECKIN.JSESSIONID." + index), "qy.do1.com.cn", "/wxqyh");
@@ -289,8 +301,9 @@ public class CheckInTaskMult {
         Thread.sleep(1000);
         checkInTask.execute();
         checkInTask.timer.cancel();
-    
-        KeyGenerator keygen = KeyGenerator.getInstance("AES");SecretKey deskey = keygen.generateKey();
+        
+        KeyGenerator keygen = KeyGenerator.getInstance("AES");
+        SecretKey deskey = keygen.generateKey();
         System.out.println(Base64Utils.encodeToString(deskey.getEncoded()));
     }
 }

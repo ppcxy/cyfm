@@ -229,3 +229,11 @@ body {
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(255, 255, 255, 0.4);
 }
+
+/* 用来控制超宽 table 适应当前窗口展示 */
+div.listTableWrap {
+    overflow-x: auto;
+    /*border-left: 1px solid #ccc;*/
+    /*border-right: 1px solid #ccc;*/
+    width: 100%;
+}

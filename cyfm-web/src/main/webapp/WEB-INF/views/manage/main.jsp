@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -58,7 +58,7 @@
                 $("#rightFrame").on("load", function () {
                     top.$cy.waitingOver();
                 });
-            }, 2000);
+            }, 500);
             $(".manage-main").css("display", "block");
 
             layoutManageMain();

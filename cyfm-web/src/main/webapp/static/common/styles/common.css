@@ -64,7 +64,7 @@
 .pagin .paginList .paginItem a {
     float: left;
     width: 31px;
-    height: 32px;
+    height: 28px;
     border: 1px solid #DDD;
     text-align: center;
     line-height: 32px;
@@ -113,6 +113,7 @@
 }
 .pagin .paginList .paginItem a.disabled i {
     color: #cccccc;
+    
 }
 .pagepre {
     background: url(../images/pre.gif) no-repeat center center;

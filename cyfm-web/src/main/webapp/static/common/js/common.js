@@ -480,6 +480,7 @@ $cy = function () {
             }
         },
         // table组件工具
+        // update to 2018-10-11 代码重构,使所有初始化范围固定在$table里,默认仅初始化当前选择器获取到的第一个table
         table: {
             //获取第一个选中行
             getFirstSelectedCheckbox: getFirstSelectedCheckbox,
@@ -488,43 +489,55 @@ $cy = function () {
             //初始化table
             init: function (table) {
                 //根据选择器获取table
-                var $table = $(table);
+                var $table = $(table).eq(0);
                 //如果table不存在则结束
                 if ($table.size() == 0) return;
 
+
                 //给table添加按钮和注册resize table
                 if ($table.find('td.action').size() > 0 && $table.find('th.action').size() == 0) {
-                    $('table thead tr').append('<th class="action">操作</th>');
+                    $table.find('thead tr').append('<th class="action">操作</th>');
                 }
+
                 //初始化排序和变更列宽支持
-                new TableDragSortResize(document.getElementById('contentTable'), {
-                    cidAttrName: 'data-tid',
-                    sort: {
-                        callback: function (cell, type, event) {
-                            var ev = window.event || event;
+                if ($table.is(".table-sort")) {
+                    new TableDragSortResize($table[0], {
+                        cidAttrName: 'data-tid',
+                        sort: {
+                            callback: function (cell, type, event) {
+                                if ($table.is(".table-ajax")) {
+                                    //TODO 自行实现
+                                    try {
+                                        tableAjaxSort(cell, type, event);
+                                    } catch (e) {
+                                        console.error("未实现 tableAjaxSort(cell, type, event) 方法.")
+                                    }
+                                } else {
+                                    var ev = window.event || event;
 
-                            var sortName = $(cell).data('sort');
-                            if (sortName) {
+                                    var sortName = $(cell).data('sort');
+                                    if (sortName) {
 
+                                        var softType = type == 'sort-down' ? 'desc' : 'asc';
 
-                                var softType = type == 'sort-down' ? 'desc' : 'asc';
+                                        var currentSortParam = '';
 
-                                var currentSortParam = '';
+                                        if ((ev.ctrlKey || ev.metaKey)) {
+                                            currentSortParam = findSortParam().replace('sort.' + sortName + '=' + (softType == 'desc' ? 'asc' : 'desc'), '');
+                                        }
 
-                                if ((ev.ctrlKey || ev.metaKey)) {
-                                    currentSortParam = findSortParam().replace('sort.' + sortName + '=' + (softType == 'desc' ? 'asc' : 'desc'), '');
+                                        var sortParam = '?sort.' + sortName + '=' + softType + (currentSortParam.indexOf('sort') >= 0 ? ('&' + currentSortParam) : '');
+                                        window.location.href = (sortParam + '&' + $('form.form-search').serialize())
+                                    }
                                 }
-
-                                var sortParam = '?sort.' + sortName + '=' + softType + (currentSortParam.indexOf('sort') >= 0 ? ('&' + currentSortParam) : '');
-                                window.location.href = (sortParam + '&' + $('form.form-search').serialize())
-                            }
-                        },
-                        localEnable: false
-                    }
-                });
+                            },
+                            localEnable: false
+                        }
+                    });
+                }
 
                 var sortURL = currentUrl;
-                $('#contentTable').find('[data-sort]').each(function () {
+                $table.find('[data-sort]').each(function () {
                     var th = jQuery(this);
                     var sortPropertyName = 'sort.' + th.data('sort');
 
@@ -544,13 +557,13 @@ $cy = function () {
                 });
 
                 //Table init 开始
-                $('th input[type=checkbox],th div.checker').on('click', function () {
+                $table.find('th input[type=checkbox],th div.checker').on('click', function () {
                     var $ck = $(this);
                     if (!$ck.is("[type=checkbox]")) {
                         $ck = $ck.find("[type=checkbox]");
                     }
-                    $('td.check input[type=checkbox]').prop('checked', $ck.is(':checked'));
-                    $.uniform.update($('td.check input[type=checkbox]'))
+                    $table.find('td.check input[type=checkbox]').prop('checked', $ck.is(':checked'));
+                    $.uniform.update($table.find('td.check input[type=checkbox]'))
                 });
 
                 var beginCheck = undefined;
@@ -559,7 +572,7 @@ $cy = function () {
                     var ev = window.event || event;
                     //shfit按住多选操作支持
                     if (ev.shiftKey) {
-                        var $tr = $('tr:hover.selected');
+                        var $tr = $table.find('tr:hover.selected');
 
                         var check = $tr.find('td.check input[type=checkbox]');
                         if (check.size() != 0) {
@@ -591,44 +604,38 @@ $cy = function () {
                     }
 
                     if (((ev.keyCode == 38) || (ev.keyCode == 40))) {
-                        var $table = $('#contentTable');
                         var checkbox = getFirstSelectedCheckbox($table, true);
+                        var focusInput = $(':input:focus').size() > 0;
 
                         //上下切换选中table行
                         if (!focusInput && (ev.keyCode == 38)) {
-                            if ($('#contentTable').size() > 0) {
-                                if (checkbox.size() > 0) {
-                                    checkbox.parents('tr').prev().find('td').eq(2).click()
-                                } else {
-                                    $('#contentTable tbody tr:last').find('input[type=checkbox]').attr('checked', true);
-                                }
-                                return false;
+                            if (checkbox.size() > 0) {
+                                checkbox.parents('tr').prev().find('td').eq(2).click()
+                            } else {
+                                $table.find('tbody tr:last').find('td').eq(2).click()
                             }
-                            return true;
+                            return false;
                         }
                         //上下切换选中table行
                         if (!focusInput && (ev.keyCode == 40)) {
-                            if ($('#contentTable').size() > 0) {
-                                if (checkbox.size() > 0) {
-                                    checkbox.parents('tr').next().find('td').eq(2).click()
-                                } else {
-                                    $('#contentTable tbody tr:first').find('input[type=checkbox]').attr('checked', true);
-                                }
-                                return false;
+                            if (checkbox.size() > 0) {
+                                checkbox.parents('tr').next().find('td').eq(2).click()
+                            } else {
+                                $table.find('tbody tr:first').find('td').eq(2).click()
                             }
-
-                            return true;
+                            return false;
                         }
                     }
                 });
 
                 //如果没有数据自动添加无数据提示行
-                if ($('table.table-list tbody tr').size() == 0) {
-                    $('<tr></tr>').append($('<td align="center">暂无可查看数据</td>').attr('colspan', $('table.table-list thead th').size())).appendTo('table.table-list tbody');
+                if ($table.find('tbody tr').size() == 0) {
+                    $('<tr></tr>').append($('<td align="center">暂无可查看数据</td>').attr('colspan', $('table.table-list thead th').size())).appendTo($table.find("tbody:not(.nullable)"));
                     return;
                 }
                 //注册点击行选中当前行
-                $('table.table-list tr td:not(.check):not(.action)').on('click', function (event) {
+
+                $table.on('click', 'tr td:not(.check):not(.action)', function (event) {
                     var $current = $(this);
                     setTimeout(function () {
                         var selectTR = $current.parents('tr');
@@ -677,13 +684,13 @@ $cy = function () {
                         }
                     }, 50)
 
-                }).on('dblclick', function (event) {
+                }).on('dblclick', 'tr td:not(.check):not(.action)', function (event) {
                     //如果存在修改按钮,则双击条进入修改页面
                     var updateUrl = $('.btn.update').data('baseurl');
                     if (updateUrl) {
                         var selectTR = $(this).parents('tr');
                         var tdCheckBox = selectTR.find('td.check').find('input[type=checkbox]');
-                        window.location.href = updateUrl.replace('{id}', tdCheckBox.val())+ (updateUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
+                        window.location.href = updateUrl.replace('{id}', tdCheckBox.val()) + (updateUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
                     }
 
                 });
@@ -716,13 +723,13 @@ $cy = function () {
                             return false;
                         }
                         var confirmMessage = $(this).data("confirm");
-                        if (confirmMessage){
+                        if (confirmMessage) {
                             confirm({
                                 message: confirmMessage, yes: function () {
                                     window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
                                 }
                             });
-                        } else{
+                        } else {
                             window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
                         }
                     } else {
@@ -1053,7 +1060,15 @@ jQuery(document).ready(function () {
         //ctrl+回车|s 或cmd+回车|s 提交表单
         if ((ev.ctrlKey || ev.metaKey) && (ev.keyCode == 13 || ev.key == 's' || ev.key == 'S')) {
             if ($('#inputForm').size() > 0) {
-                $('#inputForm').submit();
+                // fixbug to 2018-10-11 快捷键提交表单的onsubmit事件支持修复
+                if ($('#inputForm').size() > 0 && $('#inputForm')[0].onsubmit) {
+                    if ($('#inputForm')[0].onsubmit() !== false) {
+                        $('#inputForm').submit();
+                    }
+                } else {
+                    $('#inputForm').submit();
+                }
+
                 return false;
             }
             return true;
@@ -1081,17 +1096,19 @@ jQuery(document).ready(function () {
     })
 });
 
-//锁屏加载
-window.onbeforeunload = function () {
-    if (!$cy.validate.submiting()) {
-        setTimeout(function () {
-            top.$cy.waiting();
-        }, 100);
-    }
-};
 
 //初始化页面
 $(function () {
+    //锁屏加载
+    window.onbeforeunload = function () {
+        if (!$cy.validate.submiting()) {
+            setTimeout(function () {
+                console.debug("加载页面锁屏状态", $cy.validate.submiting());
+                top.$cy.waiting();
+            }, 100);
+        }
+    };
+
     $cy.handleUniform();
     $cy.initDatePick();
 
@@ -1115,6 +1132,6 @@ $(function () {
     if (parent !== top) {
         setTimeout(function () {
             top.$cy.waitingOver();
-        }, 200);
+        }, 500);
     }
 });

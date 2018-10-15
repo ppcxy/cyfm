@@ -47,13 +47,6 @@
         .mobile-content {
             padding: 65px 10px 50px 10px;
         }
-
-        div.listTableWrap {
-            overflow-x: auto;
-            border-left: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-            width: 100%;
-        }
     </style>
     <!-- ================================= JS 区域 ========================================== -->
     <script>
