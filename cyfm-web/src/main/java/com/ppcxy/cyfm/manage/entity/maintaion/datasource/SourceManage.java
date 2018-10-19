@@ -1,8 +1,8 @@
 package com.ppcxy.cyfm.manage.entity.maintaion.datasource;
 
 import com.ppcxy.common.entity.IdEntity;
-import com.ppcxy.cyfm.manage.maintain.datasource.conf.DataBaseType;
-import com.ppcxy.cyfm.manage.maintain.datasource.conf.DataSourceType;
+import com.ppcxy.manage.maintain.datasource.conf.DataBaseType;
+import com.ppcxy.manage.maintain.datasource.conf.DataSourceType;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

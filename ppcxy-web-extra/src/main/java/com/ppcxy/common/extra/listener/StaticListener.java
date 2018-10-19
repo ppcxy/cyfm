@@ -1,10 +1,10 @@
 package com.ppcxy.common.extra.listener;
 
 import com.ppcxy.common.Profiles;
-import com.ppcxy.common.repository.jpa.support.hibernate.HibernateUtils;
 import com.ppcxy.common.spring.SpringContextHolder;
 import com.ppcxy.common.utils.LinkedProperties;
 import com.ppcxy.common.utils.LogUtils;
+import com.ppcxy.jdbc.dialect.DialectUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.ResourceUtils;
@@ -78,7 +78,7 @@ public class StaticListener implements ServletContextListener {
 
         String runModel = prop.getProperty("run.model");
         String jdbcUrl = prop.getProperty("jdbc.url");
-        String dbType = HibernateUtils.getDatabaseName(jdbcUrl);
+        String dbType = DialectUtils.getDatabaseName(jdbcUrl);
 
 
         System.out.println(String.format("=============>%s", "运行模式:") + runModel);

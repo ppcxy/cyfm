@@ -1,11 +1,17 @@
 package com.ppcxy.common.web.controller;
 
+import com.google.common.collect.Maps;
 import com.ppcxy.common.Constants;
 import com.ppcxy.common.entity.AbstractEntity;
 import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.service.BaseService;
+import com.ppcxy.common.spring.SpringContextHolder;
+import com.ppcxy.common.utils.ShiroUserInfoUtils;
+import com.ppcxy.common.utils.excel.support.impl.ExcelDatasExportUtils;
+import com.ppcxy.common.utils.excel.support.impl.ExcelDatasImpontUtils;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
 import com.ppcxy.common.web.controller.permission.PermissionList;
+import com.ppcxy.manage.maintain.notification.support.NotificationApi;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,12 +20,17 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 基础CRUD 控制器
@@ -369,6 +380,89 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "删除成功");
         afterDeleteInBatch(ids, backURL, redirectAttributes);
         return redirectToUrl(backURL);
+    }
+    
+    @RequestMapping(value = "exportExcel")
+    @PageableDefaults(sort = {"id=desc"})
+    @ResponseBody
+    public String exportExcel(final Searchable searchable, final String title, HttpServletRequest request) {
+        final List<T> datas = baseService.findAllWithSort(searchable);
+        final ExcelDatasExportUtils<T> export = new ExcelDatasExportUtils<>(entityClass);
+        
+        final String realPath = request.getServletContext().getRealPath("/");
+        try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    export.exportTableDatas(title != null ? title : entityClass.getName(), datas, ShiroUserInfoUtils.getUsername(), realPath);
+                }
+            }).start();
+        } catch (Exception e) {
+            return "error";
+        }
+        
+        return "success";
+    }
+    
+    private boolean canImport(final MultipartFile file, final Model model) {
+        if (file == null || file.isEmpty()) {
+            model.addAttribute(Constants.ERROR, "请选择要导入的文件");
+            return false;
+        }
+        
+        String filename = file.getOriginalFilename().toLowerCase();
+        if (!(filename.endsWith("xls") || filename.endsWith("xlsx"))) {
+            model.addAttribute(Constants.ERROR, "导入的文件格式错误，允许的格式：xls、xlsx");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    @RequestMapping(value = "importExcel", method = RequestMethod.GET)
+    public String importExcel(String title, Model model) {
+        model.addAttribute("title", title);
+        return "common/excel/importExcelForm";
+    }
+    
+    @RequestMapping(value = "importExcel", method = RequestMethod.POST)
+    @ResponseBody
+    public String importExcel(final String title, @RequestParam("file") MultipartFile file, Model model) {
+        if (!canImport(file, model)) {
+            return "error";
+        }
+        
+        
+        InputStream is = null;
+        try {
+            is = file.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "导入错误,请重试.";
+        }
+        final InputStream iis = is;
+        try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ExcelDatasImpontUtils<T> deletedSampleDatasImpontAndExportService = new ExcelDatasImpontUtils<>();
+                    try {
+                        deletedSampleDatasImpontAndExportService.importExcel(title, iis, entityClass, baseService);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Map<String, Object> context = Maps.newHashMap();
+                        context.put("model", title);
+                        context.put("error", e.getMessage());
+                        SpringContextHolder.getBean(NotificationApi.class).notify(ShiroUserInfoUtils.getUsername(), "excelImportError", context);
+                    }
+                    
+                }
+            }).start();
+        } catch (Exception e) {
+            return "导入过程发生异常,请联系管理员.";
+        }
+        
+        return "导入成功,导入结果可能有延迟,请刷新查看.";
     }
     
     /**

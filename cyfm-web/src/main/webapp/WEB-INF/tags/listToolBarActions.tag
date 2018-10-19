@@ -32,6 +32,9 @@
                 <i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
             </button>
             <ul class="dropdown-menu">
+                <li><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出数据</a></li>
+                <li><a href="javascript:;"><i class="fa fa-file-excel-o"></i>导入数据</a></li>
+                <li class="divider"></li>
                 <li class="more_list">
                 </li>
             </ul>
@@ -48,13 +51,27 @@
                 </button>
                 <ul class="dropdown-menu pull-right">
                     <li class="more_list">
-                        <a href="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
-                        <a href="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
-                        <a href="javascript:$('.search-toolbar').toggle()">显示/隐藏查询</a>
+                        <a onclick="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
+                        <a onclick="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
+                        <a onclick="javascript:$('.search-toolbar').toggle()">显示/隐藏查询</a>
                     </li>
                 </ul>
             </div>
         </li>
     </ul>
 </shiro:hasPermission>
+<script>
+    $(".data-ajax").click(function () {
+        var href = $(this).data("ajax-href");
+        var callback = $(this).data("ajax-callback")
+        $.ajax({
+            type:"get",
+            url:href,
+            dataType:"text",
+            success:function(data){
+                eval(callback);
+            }
+        })
+    })
+</script>
 

@@ -19,7 +19,7 @@ public abstract class BaseController<T extends AbstractEntity, ID extends Serial
     /**
      * 实体类型
      */
-    private final Class<T> entityClass;
+    protected final Class<T> entityClass;
     
     private String viewPrefix;
     

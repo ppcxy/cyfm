@@ -46,7 +46,7 @@ public class Hibernates {
 		}
 	}
 
-	private static String getJdbcUrlFromDataSource(DataSource dataSource) {
+	protected static String getJdbcUrlFromDataSource(DataSource dataSource) {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();

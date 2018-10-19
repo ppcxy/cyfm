@@ -1,11 +1,10 @@
 package com.ppcxy.cyfm.manage.maintain.datasource.support;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import javax.sql.DataSource;
 
 /**
  * Created by weep on 2016-5-23.
@@ -15,7 +14,7 @@ import javax.sql.DataSource;
 public class DsourceTemplate extends JdbcTemplate {
     
     
-    public boolean changeDatasource(DataSource dataSource) {
+    public boolean changeDatasource(DruidDataSource dataSource) {
         try {
             this.setDataSource(dataSource);
         } catch (Exception e) {

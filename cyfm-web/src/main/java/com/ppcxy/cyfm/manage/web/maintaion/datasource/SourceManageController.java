@@ -2,9 +2,9 @@ package com.ppcxy.cyfm.manage.web.maintaion.datasource;
 
 import com.ppcxy.common.web.controller.BaseCRUDController;
 import com.ppcxy.cyfm.manage.entity.maintaion.datasource.SourceManage;
-import com.ppcxy.cyfm.manage.maintain.datasource.conf.DataBaseType;
-import com.ppcxy.cyfm.manage.maintain.datasource.conf.DataSourceType;
 import com.ppcxy.cyfm.manage.service.maintaion.datasource.SourceManageService;
+import com.ppcxy.manage.maintain.datasource.conf.DataBaseType;
+import com.ppcxy.manage.maintain.datasource.conf.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import com.ppcxy.common.spring.SpringContextHolder;
 import com.ppcxy.common.utils.LinkedProperties;
 import com.ppcxy.cyfm.bus.common.HttpClientUtils;
-import com.ppcxy.cyfm.manage.maintain.notification.support.NotificationApi;
+import com.ppcxy.manage.maintain.notification.support.NotificationApi;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

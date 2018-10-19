@@ -32,9 +32,9 @@
                     </button>
                     <ul class="dropdown-menu pull-right">
                         <li class="more_list">
-                            <a href="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
-                            <a href="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
-                            <a href="javascript:$('.search-toolbar').toggle()">显示/隐藏查询</a>
+                            <a onclick="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
+                            <a onclick="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
+                            <a onclick="javascript:$('.search-toolbar').toggle()">显示/隐藏查询</a>
                         </li>
                     </ul>
                 </div>

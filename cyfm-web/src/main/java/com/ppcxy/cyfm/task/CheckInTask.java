@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.ppcxy.common.spring.SpringContextHolder;
 import com.ppcxy.common.utils.LinkedProperties;
 import com.ppcxy.cyfm.bus.common.HttpClientUtils;
-import com.ppcxy.cyfm.manage.maintain.notification.support.NotificationApi;
+import com.ppcxy.manage.maintain.notification.support.NotificationApi;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springside.modules.mapper.JsonMapper;

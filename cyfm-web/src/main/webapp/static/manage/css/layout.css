@@ -212,7 +212,7 @@ Page Header
     position: absolute;
     top: 10px;
     right: 20px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 3px 6px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:focus {
@@ -281,7 +281,7 @@ Page Header
     background: none;
     clear: inherit;
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;
     position: absolute;
     right: 10px;
     border: 0;
@@ -298,7 +298,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu .dropdown-menu-list > li > a {
     display: block;
     clear: both;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 20px;
     white-space: normal;
     font-size: 13px;
@@ -334,7 +334,7 @@ Page Header
     float: right;
     max-width: 75px;
     font-size: 11px;
-    font-weight: 400;
+    font-weight: 500;
     opacity: 0.7 ;
     filter: alpha(opacity=70) ;
     text-align: right;
@@ -363,7 +363,7 @@ Page Header
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject .time {
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
     opacity: 0.5 ;
     filter: alpha(opacity=50) ;
     float: right;
@@ -379,7 +379,7 @@ Page Header
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-tasks .dropdown-menu .dropdown-menu-list > li .task .desc {
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-tasks .dropdown-menu .dropdown-menu-list > li .task .percent {
     float: right;
@@ -400,7 +400,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > .username {
     display: inline-block;
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > img {
     float: left;
@@ -420,7 +420,7 @@ Page Header
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a i {
     width: 15px;
@@ -535,7 +535,7 @@ Horizontal Menu
     margin-top: 5px;
     padding-left: 6px;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 500;
 }
 .page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown > .dropdown-menu .mega-menu-content .mega-menu-submenu li > a {
     white-space: normal;
@@ -543,7 +543,7 @@ Horizontal Menu
     padding: 7px;
     margin: 0;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown > .dropdown-menu .mega-menu-content .mega-menu-submenu li > a.iconify {
     padding: 7px 7px 7px 30px;
@@ -568,7 +568,7 @@ Horizontal Menu
 }
 .page-header.navbar .hor-menu .navbar-nav > li > a {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     padding: 13px 13px;
 }
 .page-header.navbar .hor-menu .navbar-nav > li > a:focus {
@@ -595,13 +595,13 @@ Horizontal Menu
 .page-header.navbar .hor-menu .navbar-nav > li .dropdown-menu li > a {
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 9px 10px;
     white-space: normal;
 }
 .page-header.navbar .hor-menu .navbar-nav > li .dropdown-menu li > a .label,
 .page-header.navbar .hor-menu .navbar-nav > li .dropdown-menu li > a .badge {
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-header.navbar .hor-menu .navbar-nav > li.classic-menu-dropdown .dropdown-menu {
     min-width: 195px;
@@ -966,7 +966,7 @@ Page sidebar
     padding: 10px 15px;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-sidebar .page-sidebar-menu > li > a > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i {
@@ -1003,7 +1003,7 @@ Page sidebar
     margin: 0;
     padding: 0;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-sidebar .page-sidebar-menu > li.heading + li > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.heading + li > a {
@@ -1063,7 +1063,7 @@ Page sidebar
     font-family: FontAwesome;
     height: auto;
     content: "\f104";
-    font-weight: 300;
+    font-weight: 400;
     text-shadow: none;
 }
 .page-sidebar .page-sidebar-menu li > a > .arrow.open:before,
@@ -1098,7 +1098,7 @@ Page sidebar
     padding: 6px 15px 6px 43px;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     background: none;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > a > i,
@@ -1990,11 +1990,11 @@ Quick Sidebar Content
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages .post .name {
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages .post .datetime {
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-chat .page-quick-sidebar-chat-user .page-quick-sidebar-chat-user-messages .post .message {
     display: block;
@@ -2083,13 +2083,13 @@ Page content
     display: block;
     color: #666;
     margin: 0px 0px 15px 0px;
-    font-weight: 300;
+    font-weight: 400;
     /* subtitle */
 }
 .page-title small {
     font-size: 14px;
     letter-spacing: 0px;
-    font-weight: 300;
+    font-weight: 400;
     color: #888;
 }
 .page-container-bg-solid .page-title {
@@ -2530,7 +2530,7 @@ Theme Panel
     display: inline-block;
     width: 145px;
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;
 }
 .theme-panel > .theme-options > .theme-option > select.form-control {
     display: inline;

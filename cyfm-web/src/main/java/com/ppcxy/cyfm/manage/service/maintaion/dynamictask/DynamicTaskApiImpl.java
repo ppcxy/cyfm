@@ -4,7 +4,7 @@ package com.ppcxy.cyfm.manage.service.maintaion.dynamictask;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ppcxy.cyfm.manage.entity.maintaion.dynamictask.TaskDefinition;
-import com.ppcxy.cyfm.manage.maintain.dynamictask.exception.DynamicTaskException;
+import com.ppcxy.manage.maintain.dynamictask.exception.DynamicTaskException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

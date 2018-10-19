@@ -1,7 +1,7 @@
 package com.ppcxy.cyfm.task;
 
 import com.ppcxy.common.spring.SpringContextHolder;
-import com.ppcxy.cyfm.manage.maintain.notification.support.NotificationApi;
+import com.ppcxy.manage.maintain.notification.support.NotificationApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;

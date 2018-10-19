@@ -62,9 +62,11 @@
                         onchange="jumpPage($(this).val(), 1);">
                     <option value="5" <c:if test="${pageSize eq 5}">selected="selected" </c:if>>5</option>
                     <option value="10" <c:if test="${pageSize eq 10}">selected="selected" </c:if>>10</option>
+                    <option value="15" <c:if test="${pageSize eq 15}">selected="selected" </c:if>>15</option>
                     <option value="20" <c:if test="${pageSize eq 20}">selected="selected" </c:if>>20</option>
-                    <option value="30" <c:if test="${pageSize eq 30}">selected="selected" </c:if>>30</option>
                     <option value="50" <c:if test="${pageSize eq 50}">selected="selected" </c:if>>50</option>
+                    <option value="100" <c:if test="${pageSize eq 100}">selected="selected" </c:if>>100</option>
+                    <option value="200" <c:if test="${pageSize eq 200}">selected="selected" </c:if>>200</option>
                 </select>
                 条
             </label>
