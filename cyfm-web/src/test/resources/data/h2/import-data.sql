@@ -49,7 +49,10 @@ INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids,
 INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (1, 'changeUser', 'system', '用户{user}信息变更.', '用户{user}信息发生变更,变更信息为:{userInfo}', 0);
 INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (2, 'collectTaskExecute', 'system', '采集任务执行[{state}]通知', '采集任务执行完成, 任务实例 [{taskId}], 开始时间: {beginDate}, 结束时间: {endDate}, 总耗时: {totalTime}. 采集记录总数: {total}', 0);
 INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (3, 'commonTemplate', 'system', '{title}', '{message}', 0);
-
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (4, 'excelExportError', 'excel', '导出Excel失败', '导出Excel失败了，请把错误报告给管理员，可能的失败原因：文件格式不对；错误码：{error}', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (5, 'excelExportSuccess', 'excel', '导出Excel成功', '[{model}]导出Excel成功，耗时{seconds}秒钟，<a href="{ctx}/{url}" target="_blank">点击下载</a>（注意：导出的文件只保留3天，请尽快下载，过期将删除）', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (6, 'excelImportSuccess', 'system', '导入Excel成功', '导入Excel成功，耗时{seconds}秒钟，<a onclick="$($.find(\\''#menu a:contains(Excel导入/导出)\\'')).click();;$(\\''.notification-list .close-notification-list\\'').click();;">点击前往查看</a>', 0);
+INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (7, 'excelImportError', 'system', '导入Excel失败', '导入Excel失败了，请把错误报告给管理员，可能的失败原因：文件格式不对；错误码：{error}', 0);
 
 INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(1,'超级管理员','Admin','超级管理员角色','*');
 INSERT INTO cy_sys_role (id, name,value,description, permissions) VALUES(2,'普通用户','User','普通用户角色','user:view');
