@@ -395,7 +395,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
                     if (exportModel.equals("all")) {
                         searchable.setPage(0, 200);
                         //TODO 导出全部需要按照分页异步导出
-                        export.ready("导出数据", ShiroUserInfoUtils.getUsername(), "/users/zxq/");
+                        export.ready("导出数据", ShiroUserInfoUtils.getUsername(), realPath);
                         Page<T> page = null;
                         do {
                             searchable.setPage(searchable.getPage().getPageNumber() + 1, 200);

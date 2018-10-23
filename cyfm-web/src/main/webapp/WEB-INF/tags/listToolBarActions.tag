@@ -26,7 +26,7 @@
         </c:if>
     </shiro:hasPermission>
     <shiro:hasPermission name="${resourceIdentity}:custom">
-        <div class="btn-group more hidden">
+        <div class="btn-group more">
             <button type="button" class="btn  btn-default dropdown-toggle no-disabled" data-toggle="dropdown"
                     aria-expanded="false">
                 <i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
