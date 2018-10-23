@@ -14,7 +14,7 @@
         <ppcxy.version>1.0-Snapshot</ppcxy.version>
         <kotlin.version>RELEASE</kotlin.version>
         <springside.version>5.0.0-RC1</springside.version>
-        <spring.version>4.2.1.RELEASE</spring.version>
+        <spring.version>4.3.20.RELEASE</spring.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mybatis.version>3.2.7</mybatis.version>
         <spring-data-jpa.version>1.6.4.RELEASE</spring-data-jpa.version>
@@ -35,7 +35,7 @@
         <jolokia.version>1.2.1</jolokia.version>
         <hystrix.version>1.3.16</hystrix.version>
         <javasimon.version>3.5.1</javasimon.version>
-        <jackson.version>2.6.1</jackson.version>
+        <jackson.version>2.9.7</jackson.version>
         <slf4j.version>1.7.12</slf4j.version>
         <logback.version>1.1.3</logback.version>
         <httpclient.version>4.5.6</httpclient.version>
@@ -52,7 +52,7 @@
         <yuicompressor.version>2.4.8</yuicompressor.version>
         <dozer.version>5.5.1</dozer.version>
         <orika.version>1.4.6</orika.version>
-        <freemarker.version>2.3.20</freemarker.version>
+        <freemarker.version>2.3.28</freemarker.version>
         <aspectj.version>1.7.4</aspectj.version>
         <junit.version>4.12</junit.version>
         <assertj.version>2.2.0</assertj.version>

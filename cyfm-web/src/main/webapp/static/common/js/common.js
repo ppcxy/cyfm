@@ -1099,6 +1099,18 @@ jQuery(document).ready(function () {
 
 //初始化页面
 $(function () {
+    $(".data-ajax").click(function () {
+        var href = $(this).data("ajax-href");
+        var callback = $(this).data("ajax-callback")
+        $.ajax({
+            type:"get",
+            url:href,
+            dataType:"text",
+            success:function(data){
+                eval(callback);
+            }
+        })
+    })
     //锁屏加载
     window.onbeforeunload = function () {
         if (!$cy.validate.submiting()) {

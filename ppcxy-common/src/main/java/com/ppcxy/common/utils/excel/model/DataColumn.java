@@ -16,6 +16,7 @@ public class DataColumn implements Serializable {
     private Integer order;
     
     public DataColumn() {
+        this.order = 0;
     }
     
     public DataColumn(String title, String columnName) {

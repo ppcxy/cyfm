@@ -45,7 +45,11 @@
     $(function () {
         $cy.handleUniform();
         $("#joinSystem").change(function () {
-            $("#params").val(JSON.stringify($(this).find("option:checked").data("param")));
+            var data = $(this).find("option:checked").data("param");
+            if (!data) {
+                data = {};
+            }
+            $("#params").val(JSON.stringify(data));
         });
         
         $("#submit_btn").click(function () {

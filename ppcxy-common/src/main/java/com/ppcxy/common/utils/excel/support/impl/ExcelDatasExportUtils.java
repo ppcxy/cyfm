@@ -60,9 +60,6 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         
         String resultUrl = null;
         
-        int rowAccessWindowSize = 200; //内存中保留的行数，超出后会写到磁盘
-        int totalRows = 0; //统计总行数
-        
         String fileName = generateFilename(username, contextRootPath, "xlsx");
         File file = new File(fileName);
         BufferedOutputStream out = null;
@@ -83,41 +80,8 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
                 idHeaderCell.setCellValue(columns.get(i).getTitle() + "[" + columns.get(i).getColumnName() + "]");
             }
             
-            totalRows = 1;
-            
-            for (T data : datas) {
-                Row row = sheet.createRow(totalRows);
-                //根据反射取得导出数据
-                for (int i = 0; i < columns.size(); i++) {
-                    Cell cell = row.createCell(i);
-                    Object cellValue = Reflections.getFieldValue(data, columns.get(i).getColumnName());
-                    if (cellValue == null) {
-                        continue;
-                    }
-                    //对于导出配置中明确是关联类型的单独处理
-                    if (cellValue instanceof Collection) {
-                        List ids = Collections3.extractToList((Collection) cellValue, "id");
-                        
-                        if (columns.get(i).getRefColumnName() != null && !"id".equals(columns.get(i).getRefColumnName())) {
-                            Object fieldValue = Reflections.getFieldValue(data, columns.get(i).getRefColumnName());
-                            for (int i1 = 0; i1 < ids.size(); i1++) {
-                                String newVal = ids.get(i1).toString() + ";" + fieldValue;
-                                ids.set(i1, newVal);
-                            }
-                            
-                        }
-                        cell.setCellValue(Collections3.convertToString(ids, ","));
-                    } else if (columns.get(i).getRefColumnName() != null) {
-                        String id = Reflections.getFieldValue(cellValue, "id").toString();
-                        String value = Reflections.getFieldValue(cellValue, columns.get(i).getRefColumnName()).toString();
-                        cell.setCellValue(id + ";" + value);
-                    } else {
-                        setterCellValue(cell, cellValue);
-                    }
-                    
-                }
-                totalRows++;
-            }
+            this.currentSheet = sheet;
+            additionalDataForBean(datas);
             
             //设定冻结表头
             sheet.createFreezePane(0, 1, 0, 1);
@@ -215,13 +179,13 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
             Map<String, Object> context = Maps.newHashMap();
             context.put("model", sheetName);
             context.put("error", e.getMessage());
-            notification("excelExportError",context);
+            notification("excelExportError", context);
             throw new BaseException("导出过程发生错误:" + e.getMessage(), e);
             
         }
     }
     
-    public void additionalData(List<Map<String, Object>> datas) {
+    public void additionalDataForMap(List<Map<String, Object>> datas) {
         for (Map<String, Object> data : datas) {
             Row row = currentSheet.createRow(totalRows);
             //根据反射取得导出数据
@@ -234,6 +198,41 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         }
     }
     
+    public void additionalDataForBean(List<T> datas) {
+        for (T data : datas) {
+            Row row = currentSheet.createRow(totalRows);
+            //根据反射取得导出数据
+            for (int i = 0; i < columns.size(); i++) {
+                Cell cell = row.createCell(i);
+                Object cellValue = Reflections.getFieldValue(data, columns.get(i).getColumnName());
+                if (cellValue == null) {
+                    continue;
+                }
+                //对于导出配置中明确是关联类型的单独处理
+                if (cellValue instanceof Collection) {
+                    List ids = Collections3.extractToList((Collection) cellValue, "id");
+                    
+                    if (columns.get(i).getRefColumnName() != null && !"id".equals(columns.get(i).getRefColumnName())) {
+                        Object fieldValue = Reflections.getFieldValue(data, columns.get(i).getRefColumnName());
+                        for (int i1 = 0; i1 < ids.size(); i1++) {
+                            String newVal = ids.get(i1).toString() + ";" + fieldValue;
+                            ids.set(i1, newVal);
+                        }
+                        
+                    }
+                    cell.setCellValue(Collections3.convertToString(ids, ","));
+                } else if (columns.get(i).getRefColumnName() != null) {
+                    String id = Reflections.getFieldValue(cellValue, "id").toString();
+                    String value = Reflections.getFieldValue(cellValue, columns.get(i).getRefColumnName()).toString();
+                    cell.setCellValue(id + ";" + value);
+                } else {
+                    setterCellValue(cell, cellValue);
+                }
+                
+            }
+            totalRows++;
+        }
+    }
     
     public void complete() {
         String fileName = file.getName();
@@ -251,12 +250,12 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
             context.put("model", sheetName);
             context.put("seconds", (endTime - beginTime) / 1000);
             context.put("url", fileName.replace(contextRootPath, ""));
-            notification("excelExportSuccess",context);
+            notification("excelExportSuccess", context);
         } catch (Exception e) {
             Map<String, Object> context = Maps.newHashMap();
             context.put("model", sheetName);
             context.put("error", e.getMessage());
-            notification("excelExportError",context);
+            notification("excelExportError", context);
             throw new BaseException("导出过程发生错误:" + e.getMessage(), e);
         } finally {
             IOUtils.closeQuietly(out);
@@ -266,7 +265,7 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
     }
     
     
-    public void notification(String template,Map<String, Object> context) {
+    public void notification(String template, Map<String, Object> context) {
         
         SpringContextHolder.getBean(NotificationApi.class).notify(username, template, context);
     }
@@ -277,9 +276,6 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         }
         
         String resultUrl = null;
-        
-        
-        int totalRows = 0; //统计总行数
         
         String fileName = generateFilename(username, contextRootPath, "xlsx");
         File file = new File(fileName);
@@ -302,18 +298,8 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
                 idHeaderCell.setCellValue(columns.get(i).getTitle() + "[" + columns.get(i).getColumnName() + "]");
             }
             
-            totalRows = 1;
-            
-            for (Map<String, Object> data : datas) {
-                Row row = sheet.createRow(totalRows);
-                //根据反射取得导出数据
-                for (int i = 0; i < columns.size(); i++) {
-                    Cell cell = row.createCell(i);
-                    Object cellValue = data.get(columns.get(i).getColumnName());
-                    setterCellValue(cell, cellValue);
-                }
-                totalRows++;
-            }
+            this.currentSheet = sheet;
+            additionalDataForMap(datas);
             
             //设定冻结表头
             sheet.createFreezePane(0, 1, 0, 1);
@@ -356,25 +342,6 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
     
     
     public static void main(String[] args) throws FileNotFoundException {
-        //ExcelDatasImpontUtils<DeletedSample> deletedSampleDatasImpontAndExportService = new ExcelDatasImpontUtils<>();
-        //List<DeletedSample> ds = Lists.newArrayList();
-        //
-        //for (Long i = 0l; i < 20; i++) {
-        //    DeletedSample d = new DeletedSample();
-        //    d.setId(i);
-        //    d.setAge(i.intValue());
-        //    d.setName("名字" + i);
-        //    d.setBirthday(new DateTime(2012, 12, 12, 11, 22, 11).plusDays(i.intValue()).toDate());
-        //    d.setCreateDate(new Date());
-        //    d.setSex(Sex.valueOf(i % 2 == 0 ? "male" : "female"));
-        //    ds.add(d);
-        //}
-        //User user = new User();
-        //user.setUsername("111");
-        
-        //deletedSampleDatasImpontAndExportService.exportTableDatas("测试导出", ds, user, "d:/");
-        
-        //deletedSampleDatasImpontAndExportService.importExcel(new FileInputStream(new File("d:/excel_20160810134051297.xlsx")),DeletedSample.class,new DeletedSampleService());
-        
+    
     }
 }

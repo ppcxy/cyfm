@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -385,8 +384,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @RequestMapping(value = "exportExcel")
     @PageableDefaults(sort = {"id=desc"})
     @ResponseBody
-    public String exportExcel(final Searchable searchable, final String title, HttpServletRequest request) {
-        final List<T> datas = baseService.findAllWithSort(searchable);
+    public String exportExcel(final Searchable searchable, final String exportModel, final String title, HttpServletRequest request) {
         final ExcelDatasExportUtils<T> export = new ExcelDatasExportUtils<>(entityClass);
         
         final String realPath = request.getServletContext().getRealPath("/");
@@ -394,7 +392,21 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    export.exportTableDatas(title != null ? title : entityClass.getName(), datas, ShiroUserInfoUtils.getUsername(), realPath);
+                    if (exportModel.equals("all")) {
+                        searchable.setPage(0, 200);
+                        //TODO 导出全部需要按照分页异步导出
+                        export.ready("导出数据", ShiroUserInfoUtils.getUsername(), "/users/zxq/");
+                        Page<T> page = null;
+                        do {
+                            searchable.setPage(searchable.getPage().getPageNumber() + 1, 200);
+                            page = baseService.findAll(searchable);
+                            export.additionalDataForBean(page.getContent());
+                        } while (page.hasNext());
+                        
+                        export.complete();
+                    } else {
+                        export.exportTableDatas(title != null ? title : entityClass.getName(), baseService.findAll(searchable).getContent(), ShiroUserInfoUtils.getUsername(), realPath);
+                    }
                 }
             }).start();
         } catch (Exception e) {
@@ -403,6 +415,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         
         return "success";
     }
+    
     
     private boolean canImport(final MultipartFile file, final Model model) {
         if (file == null || file.isEmpty()) {

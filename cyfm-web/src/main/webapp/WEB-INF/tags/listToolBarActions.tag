@@ -32,8 +32,16 @@
                 <i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出数据</a></li>
-                <li><a href="javascript:;"><i class="fa fa-file-excel-o"></i>导入数据</a></li>
+                <shiro:hasPermission name="${resourceIdentity}:export">
+                    <li title="当前查询条件本页数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=current" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出当前数据</a></li>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="${resourceIdentity}:export">
+                    <li title="当前查询条件全部数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=all" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出全部数据</a></li>
+                    <li class="divider"></li>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="${resourceIdentity}:import">
+                    <li><a href="javascript:;"><i class="fa fa-file-excel-o"></i>导入数据</a></li>
+                </shiro:hasPermission>
                 <li class="divider"></li>
                 <li class="more_list">
                 </li>
@@ -60,18 +68,3 @@
         </li>
     </ul>
 </shiro:hasPermission>
-<script>
-    $(".data-ajax").click(function () {
-        var href = $(this).data("ajax-href");
-        var callback = $(this).data("ajax-callback")
-        $.ajax({
-            type:"get",
-            url:href,
-            dataType:"text",
-            success:function(data){
-                eval(callback);
-            }
-        })
-    })
-</script>
-
