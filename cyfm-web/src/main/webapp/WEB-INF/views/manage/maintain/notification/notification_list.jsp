@@ -62,7 +62,7 @@
             <select name="search.read_eq" class="form-control input-small">
                 <option value="">全部</option>
                 <c:forEach items="${readList}" var="read">
-                    <option value="${read}">${read.info}</option>
+                    <option value="${read.value}">${read.info}</option>
                 </c:forEach>
             </select>
             <script>
