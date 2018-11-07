@@ -132,7 +132,7 @@
                 </div>
                 <div class="form-actions">
                     <label class="checkbox">
-                        <input type="checkbox" name="remember" value="1"/> 记住登录 </label>
+                        <input type="checkbox" name="rememberMe" value="1"/> 记住登录 </label>
                     <button type="submit" class="btn blue pull-right">
                         登录 <i class="m-icon-swapright m-icon-white"></i>
                     </button>
@@ -179,7 +179,7 @@
         $(window).resize(function () {
             $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
         });
-        $("[name=remember]").uniform();
+        $("[name=rememberMe]").uniform();
         setTimeout(function(){
             $('.loginbox,.systemlogo').fadeIn({duration: 1000});
             $(":input").attr("disabled", false).eq(0).focus();
