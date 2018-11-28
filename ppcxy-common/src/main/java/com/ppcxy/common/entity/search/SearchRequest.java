@@ -94,8 +94,14 @@ public final class SearchRequest extends Searchable {
             addSearchFilter(SearchFilterHelper.newCondition(key, value));
         }
     }
-
-
+    
+    
+    @Override
+    public Searchable logicDelete(Boolean deleted) {
+        addSearchFilter("deleted", SearchOperator.eq, deleted);
+        return this;
+    }
+    
     @Override
     public Searchable addSearchParam(final String key, final Object value) throws SearchException {
         addSearchFilter(SearchFilterHelper.newCondition(key, value));

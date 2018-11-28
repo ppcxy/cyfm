@@ -420,8 +420,15 @@ $cy = function () {
                     }
                     , submitHandler: function (form) {
                         submiting = true;
-                        waiting();
-                        form.submit();
+                        if (form.onsubmit) {
+                            if (form.onsubmit() !== false) {
+                                waiting();
+                                form.submit();
+                            }
+                        } else {
+                            waiting();
+                            form.submit();
+                        }
                     }
                     , success: function (label, element) {
                         var fieldName = element.name;
@@ -1111,6 +1118,7 @@ $(function () {
             }
         })
     })
+
     //锁屏加载
     window.onbeforeunload = function () {
         if (!$cy.validate.submiting()) {

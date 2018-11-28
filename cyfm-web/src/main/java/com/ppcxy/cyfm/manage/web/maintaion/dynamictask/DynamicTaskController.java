@@ -1,21 +1,19 @@
 package com.ppcxy.cyfm.manage.web.maintaion.dynamictask;
 
 import com.ppcxy.common.Constants;
+import com.ppcxy.common.task.TaskApi;
 import com.ppcxy.common.web.controller.BaseCRUDController;
-import com.ppcxy.common.web.validate.ValidateResponse;
-import com.ppcxy.cyfm.manage.entity.maintaion.dynamictask.TaskDefinition;
-import com.ppcxy.cyfm.manage.service.maintaion.dynamictask.DynamicTaskApi;
-import com.ppcxy.cyfm.manage.service.maintaion.dynamictask.TaskDefinitionService;
+import com.ppcxy.cyfm.manage.entity.maintaion.dynamictask.DynamicTaskDefinition;
+import com.ppcxy.cyfm.manage.service.maintaion.dynamictask.DynamicTaskDefinitionService;
 import com.ppcxy.manage.maintain.dynamictask.utils.CronParseUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springside.modules.mapper.JsonMapper;
 import org.springside.modules.web.MediaTypes;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
@@ -24,7 +22,10 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping(value = "/manage/maintain/dynamicTask")
-public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Long> {
+public class DynamicTaskController extends BaseCRUDController<DynamicTaskDefinition, Long> {
+    
+    @Resource(name = "dynamicTaskApiImpl")
+    private TaskApi dynamicTaskApi;
     
     public DynamicTaskController() {
         setResourceIdentity("maintain:dynamicTask");
@@ -32,11 +33,8 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
         setModelName("task");
     }
     
-    @Autowired
-    private DynamicTaskApi dynamicTaskApi;
-    
     @Override
-    public String create(Model model, @Valid @ModelAttribute("entity") TaskDefinition entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
+    public String create(Model model, @Valid @ModelAttribute("entity") DynamicTaskDefinition entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         if (permissionList != null) {
             this.permissionList.assertHasCreatePermission();
         }
@@ -50,7 +48,7 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
     }
     
     @Override
-    public String update(Model model, @Valid @ModelAttribute("entity") TaskDefinition entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
+    public String update(Model model, @Valid @ModelAttribute("entity") DynamicTaskDefinition entity, BindingResult result, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         if (permissionList != null) {
             this.permissionList.assertHasUpdatePermission();
         }
@@ -66,7 +64,7 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
     @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
     public String delete(
             @RequestParam(value = "forceTermination") boolean forceTermination,
-            @PathVariable("id") TaskDefinition entity,
+            @PathVariable("id") DynamicTaskDefinition entity,
             @RequestParam(value = Constants.BACK_URL, required = false) String backURL,
             RedirectAttributes redirectAttributes) {
         if (permissionList != null) {
@@ -111,7 +109,7 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
             redirectAttributes.addFlashAttribute(Constants.ERROR, "启动任务失败");
         }
         
-       
+        
         return redirectToUrl(backURL);
     }
     
@@ -152,22 +150,22 @@ public class DynamicTaskController extends BaseCRUDController<TaskDefinition, Lo
     }
     
     
-    @RequestMapping(value = "validate", method = RequestMethod.GET)
+    @RequestMapping(value = "validate", method = RequestMethod.POST)
     @ResponseBody
     public Object validate(
-            @RequestParam("fieldId") String fieldId, @RequestParam("fieldValue") String fieldValue,
+            @RequestParam("fieldName") String fieldName, @RequestParam("fieldValue") String fieldValue,
             @RequestParam(value = "id", required = false) Long id) {
-        ValidateResponse response = ValidateResponse.newInstance();
+        //ValidateResponse response = ValidateResponse.newInstance();
         
-        if ("name".equals(fieldId)) {
-            TaskDefinition task = ((TaskDefinitionService) baseService).findByName(fieldValue);
+        if ("name".equals(fieldName)) {
+            DynamicTaskDefinition task = ((DynamicTaskDefinitionService) baseService).findByName(fieldValue);
             if (task == null || (task.getId().equals(id))) {
-                //如果msg 不为空 将弹出提示框
-                response.validateSuccess(fieldId, "");
+                //
             } else {
-                response.validateFail(fieldId, "该名称已被使用");
+                return false;
             }
         }
-        return JsonMapper.nonDefaultMapper().toJson(response.result());
+        
+        return true;
     }
 }

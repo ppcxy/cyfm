@@ -3,7 +3,9 @@ package com.ppcxy.cyfm.manage.service.maintaion.dynamictask;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ppcxy.cyfm.manage.entity.maintaion.dynamictask.TaskDefinition;
+import com.ppcxy.common.task.TaskApi;
+import com.ppcxy.common.task.TaskDefinition;
+import com.ppcxy.cyfm.manage.entity.maintaion.dynamictask.DynamicTaskDefinition;
 import com.ppcxy.manage.maintain.dynamictask.exception.DynamicTaskException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +30,7 @@ import java.util.concurrent.ScheduledFuture;
  */
 @Service
 @Transactional
-public class DynamicTaskApiImpl implements DynamicTaskApi {
+public class DynamicTaskApiImpl implements TaskApi {
     
     private final Logger logger = LoggerFactory.getLogger(DynamicTaskApiImpl.class);
     
@@ -36,7 +38,7 @@ public class DynamicTaskApiImpl implements DynamicTaskApi {
     
     
     @Autowired
-    private TaskDefinitionService taskDefinitionService;
+    private DynamicTaskDefinitionService taskDefinitionService;
     
     @Autowired
     private TaskScheduler taskScheduler;
@@ -47,7 +49,7 @@ public class DynamicTaskApiImpl implements DynamicTaskApi {
     @PostConstruct
     public void initTask() { //系统启动后，自动加载任务
         List<Long> ids = Lists.newArrayList();
-        for (TaskDefinition td : taskDefinitionService.findAll()) {
+        for (DynamicTaskDefinition td : taskDefinitionService.findAll()) {
             if (Boolean.TRUE.equals(td.getStart())) {
                 ids.add(td.getId());
             }
@@ -65,6 +67,8 @@ public class DynamicTaskApiImpl implements DynamicTaskApi {
     @Override
     public void updateTaskDefinition(TaskDefinition taskDefinition) {
         taskDefinitionService.update(taskDefinition);
+        stopTask(false, taskDefinition.getId());
+        startTask(taskDefinition.getId());
     }
     
     @Override
@@ -75,7 +79,7 @@ public class DynamicTaskApiImpl implements DynamicTaskApi {
     
     private synchronized void startTask(boolean forceStart, Long... taskDefinitionIds) {
         for (Long taskDefinitionId : taskDefinitionIds) {
-            TaskDefinition td = taskDefinitionService.findOne(taskDefinitionId);
+            DynamicTaskDefinition td = taskDefinitionService.findOne(taskDefinitionId);
             if (td == null || (!forceStart && Boolean.TRUE.equals(td.getStart()))) {
                 return;
             }
@@ -102,7 +106,7 @@ public class DynamicTaskApiImpl implements DynamicTaskApi {
     @Override
     public synchronized void stopTask(boolean forceTermination, Long... taskDefinitionIds) {
         for (Long taskDefinitionId : taskDefinitionIds) {
-            TaskDefinition td = taskDefinitionService.findOne(taskDefinitionId);
+            DynamicTaskDefinition td = taskDefinitionService.findOne(taskDefinitionId);
             
             if (td == null || Boolean.FALSE.equals(td.getStart())) {
                 return;
@@ -123,16 +127,18 @@ public class DynamicTaskApiImpl implements DynamicTaskApi {
         
     }
     
+    
     private Runnable createTask(TaskDefinition td) {
+        DynamicTaskDefinition dynamicTask = (DynamicTaskDefinition) td;
         final MethodInvoker methodInvoker = new MethodInvoker();
-        final Long taskId = td.getId();
+        final Long taskId = dynamicTask.getId();
         try {
-            methodInvoker.setTargetMethod(td.getMethodName());
+            methodInvoker.setTargetMethod(dynamicTask.getMethodName());
             Object bean = null;
-            if (StringUtils.isNotEmpty(td.getBeanName())) {
-                bean = applicationContext.getBean(td.getBeanName());
+            if (StringUtils.isNotEmpty(dynamicTask.getBeanName())) {
+                bean = applicationContext.getBean(dynamicTask.getBeanName());
             } else {
-                bean = applicationContext.getAutowireCapableBeanFactory().createBean(Class.forName(td.getBeanClass()));
+                bean = applicationContext.getAutowireCapableBeanFactory().createBean(Class.forName(dynamicTask.getBeanClass()));
             }
             methodInvoker.setTargetObject(bean);
             methodInvoker.prepare();

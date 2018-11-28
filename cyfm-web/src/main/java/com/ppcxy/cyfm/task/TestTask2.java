@@ -13,6 +13,6 @@ public class TestTask2 {
     private ApplicationContext ctx;
 
     public void run() {
-        System.out.println("====hello test task2::" + ctx);
+        System.out.println("====hello test task2::" + ctx.getDisplayName());
     }
 }

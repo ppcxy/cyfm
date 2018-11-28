@@ -1,13 +1,11 @@
-package com.ppcxy.cyfm.manage.service.maintaion.dynamictask;
+package com.ppcxy.common.task;
 
-
-import com.ppcxy.cyfm.manage.entity.maintaion.dynamictask.TaskDefinition;
 
 /**
  * <p>Date: 14-1-17
  * <p>Version: 1.0
  */
-public interface DynamicTaskApi {
+public interface TaskApi {
     
     public void addTaskDefinition(TaskDefinition taskDefinition);
     
@@ -19,6 +17,5 @@ public interface DynamicTaskApi {
     public void startTask(Long... taskDefinitionIds);
     
     public void stopTask(boolean forceTermination, Long... taskDefinitionId);
-    
     
 }

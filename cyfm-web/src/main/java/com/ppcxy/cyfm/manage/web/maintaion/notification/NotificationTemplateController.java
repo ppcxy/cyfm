@@ -4,7 +4,6 @@ import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
 import com.ppcxy.common.web.bind.annotation.SearchableDefaults;
 import com.ppcxy.common.web.controller.BaseCRUDController;
-import com.ppcxy.common.web.validate.ValidateResponse;
 import com.ppcxy.cyfm.manage.entity.maintaion.notification.NotificationSystem;
 import com.ppcxy.cyfm.manage.entity.maintaion.notification.NotificationTemplate;
 import com.ppcxy.cyfm.manage.service.maintaion.notification.NotificationTemplateService;
@@ -90,7 +89,6 @@ public class NotificationTemplateController extends BaseCRUDController<Notificat
     public Object validate(
             @RequestParam("fieldId") String fieldId, @RequestParam("fieldValue") String fieldValue,
             @RequestParam(value = "id", required = false) Long id) {
-        ValidateResponse response = ValidateResponse.newInstance();
         
         if ("name".equals(fieldId)) {
             NotificationTemplate template = notificationTemplateService.findByName(fieldValue);

@@ -30,7 +30,7 @@ public interface DsmConstant {
     public static final String MYSQL_TABLE_NAME = "SELECT TABLE_NAME,TABLE_TYPE FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=?"; //AND TABLE_TYPE='BASE TABLE' orVIEW
     
     // MySql查字段
-    public static final String MYSQL_COLUMN_NAME = "SELECT COLUMN_NAME,COLUMN_TYPE,COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE 1<>? and TABLE_SCHEMA=(select database() as dbName) AND TABLE_NAME=?";
+    public static final String MYSQL_COLUMN_NAME = "SELECT COLUMN_NAME,COLUMN_TYPE,COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=(select database() as dbName) AND TABLE_NAME=?";
     
     
     //SQL SERVER constant***********************************************
@@ -44,7 +44,7 @@ public interface DsmConstant {
     public static final String MSSQLSERVER_TABLE_NAME = "SELECT TABLE_NAME,TABLE_TYPE FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_CATALOG=?";
     
     // MSSQLSERVER查字段   1 != ? 为了兼容其他类型数据库的查询
-    public static final String MSSQLSERVER_COLUMN_NAME = "SELECT NAME COLUMN_NAME , ( TYPE_NAME(SYSTEM_TYPE_ID) + '('  + cast(MAX_LENGTH as VARCHAR)  + ')') AS COLUMN_TYPE FROM SYS.COLUMNS WHERE '1'!=? and OBJECT_ID=OBJECT_ID(?)";// order by ColumnName" ;
+    public static final String MSSQLSERVER_COLUMN_NAME = "SELECT NAME COLUMN_NAME , ( TYPE_NAME(SYSTEM_TYPE_ID) + '('  + cast(MAX_LENGTH as VARCHAR)  + ')') AS COLUMN_TYPE FROM SYS.COLUMNS WHERE OBJECT_ID=OBJECT_ID(?)";// order by ColumnName" ;
     
     
     // MsSql2000查库名
@@ -68,7 +68,7 @@ public interface DsmConstant {
     public static final String ORACLE_TABLE_NAME = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER=?";
     
     // Oracle查字段
-    public static final String ORACLE_COLUMN_NAME = "SELECT COLUMN_NAME AS COLUMN_NAME,DATA_TYPE AS DATA_TYPE FROM ALL_TAB_COLUMNS WHERE OWNER=? AND TABLE_NAME=?";
+    public static final String ORACLE_COLUMN_NAME = "SELECT COLUMN_NAME AS COLUMN_NAME,(DATA_TYPE || '(' || cast(DATA_LENGTH as VARCHAR(50))  || ')') AS COLUMN_TYPE FROM ALL_TAB_COLUMNS WHERE OWNER=(select user from dual) AND TABLE_NAME=?";
     
     
 }

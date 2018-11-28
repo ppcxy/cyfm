@@ -1,6 +1,7 @@
 package com.ppcxy.cyfm.manage.entity.maintaion.dynamictask;
 
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.common.task.TaskDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "cy_maintain_task_definition")
-public class TaskDefinition extends IdEntity {
+public class DynamicTaskDefinition extends IdEntity implements TaskDefinition {
     
     
     private String name;
