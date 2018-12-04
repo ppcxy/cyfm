@@ -146,7 +146,7 @@
             <td class="size" ><span>上传成功</span></td>
         {% } %}
         <td class="delete" >
-            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="${ctx}/{%=file.delete_url%}">
                 <span>{%=locale.fileupload.destroy%}</span>
             </button>
         </td>

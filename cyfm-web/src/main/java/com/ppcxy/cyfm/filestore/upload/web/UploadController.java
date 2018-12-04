@@ -1,6 +1,7 @@
 package com.ppcxy.cyfm.filestore.upload.web;
 
 import com.google.common.collect.Lists;
+import com.ppcxy.common.config.SystemConfigs;
 import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.utils.ImagesUtils;
 import com.ppcxy.common.utils.LogUtils;
@@ -42,7 +43,7 @@ public class UploadController {
     
     //单个文件大小限制100M
     private static final Integer SINGLE_MAX_SIZE = 100 * 1024 * 1024;
-    private static final String UPLOAD_BASE_DESTPATH = "/Users/weep/uploadfiles";
+    private static final String UPLOAD_BASE_DESTPATH = SystemConfigs.UPLOAD_BASE_DESTPATH;
     
     @Autowired
     private StoreFilesService storeFilesService;

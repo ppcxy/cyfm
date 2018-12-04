@@ -55,7 +55,7 @@ INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids,
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (34, 'Ehcache监控', 'fa fa-cloud', 'monitor:ehcache', 30, '01/30/', '/manage/monitor/ehcache', 4, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (35, 'Hibernate监控', 'fa fa-ge', 'monitor:hibernate', 30, '01/30/', '/manage/monitor/hibernate', 5, true, 0);
 
-INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (40, '系统维护', 'fa fa-medkit', '', 1, '01/', 'maintain', 3, true, 0);
+INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (40, '系统维护', 'fa fa-medkit', 'maintain', 1, '01/', '', 3, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (41, '静态资源管理', 'fa fa-folder-open', 'maintain:staticResource', 40, '01/40/', '/manage/maintain/staticResource', 1, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (42, '任务调度管理', 'fa fa-folder-open', 'maintain:dynamicTask', 40, '01/40/', '/manage/maintain/dynamicTask', 2, true, 0);
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (43, '动态数据源管理', 'fa fa-folder-open', 'maintain:datasource', 40, '01/40/', '/manage/maintain/datasource', 3, true, 0);
