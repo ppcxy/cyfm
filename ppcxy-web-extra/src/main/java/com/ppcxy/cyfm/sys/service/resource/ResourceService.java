@@ -182,8 +182,8 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         Iterator<Resource> iter = resources.iterator();
         while (iter.hasNext()) {
             Resource next = iter.next();
-            //无权限,且无子节点时,移除这个菜单项目
-            if (!hasPermission(next, userPermissions) && !next.isHasChildren()) {
+            //无权限,/**且无子节点时**/,移除这个菜单项目
+            if (!hasPermission(next, userPermissions) /** && !next.isHasChildren()**/) {
                 iter.remove();
             }
         }

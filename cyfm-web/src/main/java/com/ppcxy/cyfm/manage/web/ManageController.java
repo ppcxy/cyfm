@@ -1,7 +1,6 @@
 package com.ppcxy.cyfm.manage.web;
 
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
-import com.ppcxy.cyfm.sys.entity.resource.dto.Menu;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.resource.ResourceService;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springside.modules.web.Servlets;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by weep on 2016-5-16.
@@ -37,7 +35,6 @@ public class ManageController {
     @RequestMapping(value = "{rootId}")
     public String main(@CurrentUser User user, @PathVariable(value = "rootId") Long rootId, HttpServletRequest request, Model model) {
         
-        List<Menu> menus = resourceService.findMenus(user, rootId);
         model.addAttribute("rootId", rootId);
         model.addAttribute("roots", resourceService.findRoots());
         model.addAttribute("root", resourceService.findOne(rootId));
