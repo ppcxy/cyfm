@@ -54,7 +54,7 @@
     <link id="style_color" href="${ctx}/static/manage/css/darkblue.css?2" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="shortcut icon" href="${ctx}/static/images/favicon.ico"/>
     <style>
         .loginbox-body {
             width: 320px;
