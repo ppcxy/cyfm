@@ -239,16 +239,18 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         super.deleteSelfAndChild(resource);
     }
     
-    public List<Resource> findRoots() {
+    public List<Resource> findRoots(User user) {
         Searchable searchable =
                 Searchable.newSearchable()
                         .addSearchFilter("show", SearchOperator.eq, true)
                         .addSort(new Sort(Sort.Direction.ASC, "parentId", "weight"));
         
+        Set<String> userPermissions = authorizeService.findStringPermissions(user);
+        
         List<Resource> rootResources = findAllWithSort(searchable).stream().filter(new Predicate<Resource>() {
             @Override
             public boolean test(Resource resource) {
-                return resource.getParentId() == 0;
+                return resource.getParentId() == 0 && hasPermission(resource, userPermissions);
             }
         }).collect(Collectors.toList());
         

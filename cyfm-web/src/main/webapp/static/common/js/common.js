@@ -7,6 +7,7 @@ $cy = function () {
 
         var longPolling = function (url, callback, auto) {
             $.ajax({
+                type: 'post',
                 url: url,
                 async: true,
                 cache: false,

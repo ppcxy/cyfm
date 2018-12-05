@@ -29,14 +29,14 @@ public class ManageController {
     //}
     @RequestMapping
     public String main() {
-        return "redirect:/manage/1/";
+        return "redirect:/manage/2/";
     }
     
     @RequestMapping(value = "{rootId}")
     public String main(@CurrentUser User user, @PathVariable(value = "rootId") Long rootId, HttpServletRequest request, Model model) {
         
         model.addAttribute("rootId", rootId);
-        model.addAttribute("roots", resourceService.findRoots());
+        model.addAttribute("roots", resourceService.findRoots(user));
         model.addAttribute("root", resourceService.findOne(rootId));
         model.addAttribute("menus", resourceService.findMenus(user, rootId));
         
