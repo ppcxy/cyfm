@@ -643,7 +643,7 @@ $cy = function () {
                 }
                 //注册点击行选中当前行
 
-                $table.on('click', 'tr td:not(.check):not(.action)', function (event) {
+                $table.on('click', 'tbody:not(.notc)>tr>td:not(.check):not(.action)', function (event) {
                     var $current = $(this);
                     setTimeout(function () {
                         var selectTR = $current.parents('tr');
@@ -692,7 +692,7 @@ $cy = function () {
                         }
                     }, 50)
 
-                }).on('dblclick', 'tr td:not(.check):not(.action)', function (event) {
+                }).on('dblclick', 'tbody:not(.notdbc)>tr>td:not(.check):not(.action)', function (event) {
                     //如果存在修改按钮,则双击条进入修改页面
                     var updateUrl = $('.btn.update').data('baseurl');
                     if (updateUrl) {
