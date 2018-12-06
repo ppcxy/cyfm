@@ -58,7 +58,7 @@
   </script>
 </head>
 <body>
-<form enctype="multipart/form-data"  method="POST" action="${ctx}/filelibs/filemanage/zipUpload?filePathId=${filePathId}&fileLibsId=${fileLibsId}" id="fileupload" >
+<form enctype="multipart/form-data" method="POST" action="${ctx}/filelibs/filemanage/zipUpload?filePathId=${filePathId}&fileLibsId=${fileLibsId}" id="fileupload" >
   <div class="container">
 
     <div>

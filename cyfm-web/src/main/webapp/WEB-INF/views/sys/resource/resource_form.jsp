@@ -9,10 +9,10 @@
 	<%@include file="/WEB-INF/views/common/import-js.jspf"%>
 	<title>资源管理-新增</title>
 	<script>
-		$(document).ready(function() {
-			$("#entity-tab").addClass("active");
-			$cy.handleUniform();
-		});
+        $(document).ready(function() {
+            $("#entity-tab").addClass("active");
+            $cy.handleUniform();
+        });
 	</script>
 </head>
 <body>
@@ -20,7 +20,7 @@
 	<!-- form -->
 	<!-- BEGIN SAMPLE FORM PORTLET-->
 	<div class="portlet-body form">
-		<form:form id="editForm" method="post" commandName="m"  role="form" enctype="multipart/form-data">
+		<form:form id="editForm" method="post" commandName="m" role="form" enctype="multipart/form-data">
 			<cy:showGlobalError commandName="m"/>
 
 			<form:hidden path="id"/>
@@ -52,10 +52,10 @@
 				<div class="form-group">
 					<form:label path="resourceType">打开方式</form:label>
 					<div>
-					<div class="radio-list">
-						<cyform:radiobuttons
-								path="resourceType" items="${resourceTypes}" itemLabel="info" itemValue="value" cssClass="required"/>
-					</div>
+						<div class="radio-list">
+							<cyform:radiobuttons
+									path="resourceType" items="${resourceTypes}" itemLabel="info" itemValue="value" cssClass="required"/>
+						</div>
 					</div>
 				</div>
 

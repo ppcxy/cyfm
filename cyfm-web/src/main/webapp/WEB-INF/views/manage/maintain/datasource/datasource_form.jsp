@@ -9,7 +9,7 @@
 <div class="portlet box editBox">
     <div class="portlet-title"><span>数据源信息</span></div>
     <div class="portlet-body form">
-        <form:form id="inputForm"  modelAttribute="entity" method="post">
+        <form:form id="inputForm" modelAttribute="entity" method="post">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
@@ -25,7 +25,7 @@
                 <div class="controls">
                     <form:select path="dsType" cssClass="form-control required">
                         <form:option label="请选择" value=""/>
-                        <form:options items="${dsTypes}"  itemLabel="info"></form:options>
+                        <form:options items="${dsTypes}" itemLabel="info"></form:options>
                     </form:select>
                 </div>
             </div>
@@ -48,25 +48,25 @@
             <div class="form-group">
                 <label name="dbHost">库IP</label>
                 <div class="controls">
-                    <input id="dbHost" name="dbHost" class="form-control required"  value="${entity.dbHost}" placeholder="数据库IP"/>
+                    <input id="dbHost" name="dbHost" class="form-control required" value="${entity.dbHost}" placeholder="数据库IP"/>
                 </div>
             </div>
             <div class="form-group">
                 <label name="dbPort">库端口</label>
                 <div class="controls">
-                    <input id="dbPort" name="dbPort" class="form-control required"  value="${entity.dbPort}" placeholder="数据库端口"/>
+                    <input id="dbPort" name="dbPort" class="form-control required" value="${entity.dbPort}" placeholder="数据库端口"/>
                 </div>
             </div>
             <div class="form-group">
                 <label name="dbUsername">库用户名</label>
                 <div class="controls">
-                    <input id="dbUsername" name="dbUsername" class="form-control required"  value="${entity.dbUsername}" placeholder="数据库用户名"/>
+                    <input id="dbUsername" name="dbUsername" class="form-control required" value="${entity.dbUsername}" placeholder="数据库用户名"/>
                 </div>
             </div>
             <div class="form-group">
                 <label name="dbPassword">库密码</label>
                 <div class="controls">
-                    <input id="dbPassword" name="dbPassword" class="form-control required"  value="${entity.dbPassword}" placeholder="数据库密码"/>
+                    <input id="dbPassword" name="dbPassword" class="form-control required" value="${entity.dbPassword}" placeholder="数据库密码"/>
                 </div>
             </div>
 

@@ -10,7 +10,7 @@
 <div class="portlet box editBox">
 	<div class="portlet-title"><span>用户信息</span></div>
 	<div class="portlet-body form">
-		<form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
+		<form:form id="inputForm" modelAttribute="entity" action="#" method="post">
 		<div class="form-body">
 			<input type="hidden" name="id" value="${entity.id}"/>
 			<div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
@@ -23,7 +23,7 @@
 			<div class="form-group">
 				<label for="name" class="control-label">用户名:</label>
 				<div class="controls">
-					<input type="text" id="name" name="name"  value="${entity.name}" class="form-control required" autocomplete="off" />
+					<input type="text" id="name" name="name" value="${entity.name}" class="form-control required" autocomplete="off" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -35,13 +35,13 @@
 			<div class="form-group">
 				<label for="email" class="control-label">邮箱:</label>
 				<div class="controls">
-					<input type="text" id="email" name="email"  value="${entity.email}" class="form-control required email"/>
+					<input type="text" id="email" name="email" value="${entity.email}" class="form-control required email"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="tel" class="control-label">手机:</label>
 				<div class="controls">
-					<input type="text" id="tel" name="tel"  value="${entity.tel}" class="form-control required"/>
+					<input type="text" id="tel" name="tel" value="${entity.tel}" class="form-control required"/>
 				</div>
 			</div>
 			<div class="form-group">

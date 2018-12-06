@@ -46,7 +46,7 @@
             <tbody>
             <c:forEach items="${choosePage.content}" var="user">
                 <tr>
-                    <td class="check"><input name="ids" type="checkbox" value="${user.id}" data-id="${user.id}" data-username="${user.username}" data-name="${user.name}" data-email="${user.email}"  data-tel="${user.tel}" data-show="${user.name}[${user.username}]"></td>
+                    <td class="check"><input name="ids" type="checkbox" value="${user.id}" data-id="${user.id}" data-username="${user.username}" data-name="${user.name}" data-email="${user.email}" data-tel="${user.tel}" data-show="${user.name}[${user.username}]"></td>
                     <td>${user.username}</td>
                     <td>${user.name}</td>
                     <td>${user.email}</td>

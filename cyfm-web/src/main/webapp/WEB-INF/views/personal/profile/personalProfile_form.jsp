@@ -41,7 +41,7 @@
                 <div class="control-group">
                     <label for="email">邮箱</label>
                     <div class="controls">
-                        <input type="email" id="email" name="email"  value="${user.email}" class="form-control" placeholder="zzzzz@163.com"/>
+                        <input type="email" id="email" name="email" value="${user.email}" class="form-control" placeholder="zzzzz@163.com"/>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@
    <div class="toolbar-right">
        <form class="form-search form-inline text-right" action="#">
          <div class="form-group">
-             <label>接入系统名称：</label> <input type="text" name="search.sysName_like"   class="form-control input-small"  value="${param['search.sysName_like']}">
+             <label>接入系统名称：</label> <input type="text" name="search.sysName_like" class="form-control input-small" value="${param['search.sysName_like']}">
              <button type="submit" class="btn btn-default" id="search_btn">查询</button>
          </div>
        </form>

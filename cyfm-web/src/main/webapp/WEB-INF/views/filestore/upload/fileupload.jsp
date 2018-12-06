@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<form enctype="multipart/form-data"  method="post" action="${ctx}/filestore/upload" id="fileupload" >
+<form enctype="multipart/form-data" method="post" action="${ctx}/filestore/upload" id="fileupload" >
     <div class="container">
         <div>
             <%--<input type="hidden" id="ctx" value="">--%>

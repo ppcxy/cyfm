@@ -46,7 +46,7 @@
     <div class="toolbar-right">
     <form class="form-search form-inline text-right" action="#">
         <div class="form-group">
-            <label>通知标题：</label> <input type="text" name="search.title_like"   class="form-control input-small"  value="${param['search.title_like']}">
+            <label>通知标题：</label> <input type="text" name="search.title_like" class="form-control input-small" value="${param['search.title_like']}">
         </div>
         <div class="form-group">
             <label>所属系统：</label>
@@ -73,9 +73,9 @@
         <div class="form-group">
             <label>通知时间：</label>
             <div class="input-group">
-                <input type="text" name="search.date_gte"   class="form-control"  value="${param['search.date_gte']}" data-format="date">
+                <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}" data-format="date">
                 <span class="input-group-addon">到</span>
-                <input type="text" name="search.date_lte"   class="form-control"  value="${param['search.date_lte']}" data-format="date">
+                <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}" data-format="date">
             </div>
 
         </div>

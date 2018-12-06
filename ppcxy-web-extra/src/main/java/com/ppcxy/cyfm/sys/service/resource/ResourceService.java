@@ -8,11 +8,11 @@ import com.ppcxy.cyfm.sys.entity.resource.Resource;
 import com.ppcxy.cyfm.sys.entity.resource.dto.Menu;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.authorize.AuthorizeService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.Iterator;
@@ -208,7 +208,7 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
     
     private boolean hasPermission(String permission, String actualResourceIdentity) {
         //具有所有权限
-        if ("*".equals(permission)) {
+        if ("*".equals(permission) || permission.startsWith(":")) {
             return true;
         }
         

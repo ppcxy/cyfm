@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <cyform:label path="entityNames">集合缓存：</cyform:label>
                             <div class="controls">
-                                <select id="collectionRoleNames" name="collectionRoleNames"  cssClass="form-control" multiple="true">
+                                <select id="collectionRoleNames" name="collectionRoleNames" cssClass="form-control" multiple="true">
                                     <c:forEach items="${collectionRoleNames}" var="e">
                                         <option value="${e}" title="${e}">${e}</option>
                                     </c:forEach>
@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <cyform:label path="entityNames">查询缓存：</cyform:label>
                             <div class="controls">
-                                <select id="queries" name="queries"  cssClass="form-control" multiple="true">
+                                <select id="queries" name="queries" cssClass="form-control" multiple="true">
                                     <c:forEach items="${queries}" var="e">
                                         <option value="${e}" title="${e}">${e}</option>
                                     </c:forEach>

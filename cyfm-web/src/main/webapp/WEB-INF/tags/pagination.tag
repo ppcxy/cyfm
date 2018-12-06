@@ -51,7 +51,7 @@
                             class="fa fa-angle-right"></i></a>
                 </c:when>
                 <c:otherwise>
-                    <a href="javascript:;" class="btn btn-sm default next" title="下一页"  style="height: 28px;"
+                    <a href="javascript:;" class="btn btn-sm default next" title="下一页" style="height: 28px;"
                        onclick="jumpPage('${pageSize}', ${current + 1});"><i
                             class="fa fa-angle-right"></i></a>
                 </c:otherwise>

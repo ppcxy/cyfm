@@ -10,8 +10,8 @@
    <div class="toolbar-right">
        <form class="form-search form-inline text-right" action="#">
          <div class="form-group">
-             <label>模板名称：</label> <input type="text" name="search.name_like"   class="form-control input-small"  value="${param['search.name_like']}">
-             <label>模板内容：</label> <input type="text" name="search.template_like"   class="form-control input-small"  value="${param['search.template_like']}">
+             <label>模板名称：</label> <input type="text" name="search.name_like" class="form-control input-small" value="${param['search.name_like']}">
+             <label>模板内容：</label> <input type="text" name="search.template_like" class="form-control input-small" value="${param['search.template_like']}">
              <button type="submit" class="btn btn-default" id="search_btn">查询</button>
          </div>
        </form>

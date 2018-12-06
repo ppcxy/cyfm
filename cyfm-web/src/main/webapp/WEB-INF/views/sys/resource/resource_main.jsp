@@ -7,10 +7,10 @@
 <body>
 <div id="treeMain" style="height: 500px">
     <div class="ui-layout-west tree" style="overflow-y: hidden">
-        <iframe name="treeFrame" width="100%" height="100%"  frameborder="0" scrolling="auto" src="${ctx}/sys/resource/tree?async=true"></iframe>
+        <iframe name="treeFrame" width="100%" height="100%" frameborder="0" scrolling="auto" src="${ctx}/sys/resource/tree?async=true"></iframe>
     </div>
     <div class="ui-layout-center tree" style="overflow-y: hidden">
-        <iframe name="listFrame" width="100%" height="100%"  frameborder="0" scrolling="auto"></iframe>
+        <iframe name="listFrame" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>
     </div>
 </div>
 <script>

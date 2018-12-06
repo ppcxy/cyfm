@@ -10,11 +10,11 @@
    <div class="toolbar-right">
        <form class="form-search form-inline text-right" action="#">
          <div class="form-group">
-             <label>接入系统：</label> <input type="text" name="search.joinSystem.sysName_like"   class="form-control input-small"  value="${param['search.joinSystem.sysName_like']}">
+             <label>接入系统：</label> <input type="text" name="search.joinSystem.sysName_like" class="form-control input-small" value="${param['search.joinSystem.sysName_like']}">
 
-             <label>访问方法：</label> <input type="text" name="search.requestMethod_eq" class="form-control input-small"  value="${param['search.requestMethod_eq']}">
+             <label>访问方法：</label> <input type="text" name="search.requestMethod_eq" class="form-control input-small" value="${param['search.requestMethod_eq']}">
 
-             <label>接入API名称：</label> <input type="text" name="search.remoteApiPath_eq"   class="form-control input-small"  value="${param['search.remoteApiName_like']}">
+             <label>接入API名称：</label> <input type="text" name="search.remoteApiPath_eq" class="form-control input-small" value="${param['search.remoteApiName_like']}">
              <button type="submit" class="btn btn-default" id="search_btn">查询</button>
          </div>
        </form>
