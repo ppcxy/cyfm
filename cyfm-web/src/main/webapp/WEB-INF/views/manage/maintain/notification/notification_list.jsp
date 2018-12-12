@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>系统通知管理</title>
+    <title>系统通知管理</title>
 </head>
 
 <body>
@@ -11,14 +11,15 @@
         <a class="btn btn-primary update" data-baseurl="${ctx}/${viewPrefix}/{id}"><i class="fa fa-eye"></i> 查看</a>
         <a class="btn btn-success custom batchMarkRead" data-baseurl="${ctx}/${viewPrefix}/markRead?ids={id}"><i class="fa fa-envelope-open-o"></i> 已读</a>
         <shiro:hasPermission name="${resourceIdentity}:delete">
-        <a class="btn btn-warning delete batch" data-baseurl="${ctx}/${viewPrefix}/batch/delete?ids={id}"><i class="fa fa-trash-o"></i> 删除</a>
+            <a class="btn btn-warning delete batch" data-baseurl="${ctx}/${viewPrefix}/batch/delete?ids={id}"><i class="fa fa-trash-o"></i> 删除</a>
         </shiro:hasPermission>
-        <div class="btn-group more hidden">
+        <div class="btn-group more">
             <button type="button" class="btn  btn-default dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
             </button>
             <ul class="dropdown-menu">
                 <li class="more_list">
+                    <a class="markReadAll" data-baseurl="${ctx}/${viewPrefix}/markReadAll"><i class="fa fa-envelope-open-o"></i> 全部已读</a>
                 </li>
             </ul>
         </div>
@@ -44,51 +45,50 @@
 </div>
 <div class="tools search-toolbar">
     <div class="toolbar-right">
-    <form class="form-search form-inline text-right" action="#">
-        <div class="form-group">
-            <label>通知标题：</label> <input type="text" name="search.title_like" class="form-control input-small" value="${param['search.title_like']}">
-        </div>
-        <div class="form-group">
-            <label>所属系统：</label>
-            <select name="search.system_eq" class="form-control input-small">
-                <option value="">请选择</option>
-                <c:forEach items="${systemList}" var="system">
-                 <option value="${system}">${system.info}</option>
-                </c:forEach>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>阅读状态：</label>
-            <select name="search.read_eq" class="form-control input-small">
-                <option value="">全部</option>
-                <c:forEach items="${readList}" var="read">
-                    <option value="${read.value}">${read.info}</option>
-                </c:forEach>
-            </select>
-            <script>
-                $("[name='search.read_eq']").val("${param['search.read_eq']}")
-                $("[name='search.system_eq']").val("${param['search.system_eq']}")
-            </script>
-        </div>
-        <div class="form-group">
-            <label>通知时间：</label>
-            <div class="input-group">
-                <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}" data-format="date">
-                <span class="input-group-addon">到</span>
-                <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}" data-format="date">
+        <form class="form-search form-inline text-right" action="#">
+            <div class="form-group">
+                <label>通知标题：</label> <input type="text" name="search.title_like" class="form-control input-small" value="${param['search.title_like']}">
             </div>
+            <div class="form-group">
+                <label>所属系统：</label>
+                <select name="search.system_eq" class="form-control input-small">
+                    <option value="">请选择</option>
+                    <c:forEach items="${systemList}" var="system">
+                        <option value="${system}">${system.info}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>阅读状态：</label>
+                <select name="search.read_eq" class="form-control input-small">
+                    <option value="">全部</option>
+                    <c:forEach items="${readList}" var="read">
+                        <option value="${read.value}">${read.info}</option>
+                    </c:forEach>
+                </select>
+                <script>
+                    $("[name='search.read_eq']").val("${param['search.read_eq']}")
+                    $("[name='search.system_eq']").val("${param['search.system_eq']}")
+                </script>
+            </div>
+            <div class="form-group">
+                <label>通知时间：</label>
+                <div class="input-group">
+                    <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}" data-format="date">
+                    <span class="input-group-addon">到</span>
+                    <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}" data-format="date">
+                </div>
 
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default" id="search_btn">查询</button>
-        </div>
-         </div>
-       </form>
-   </div>
- </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" id="search_btn">查询</button>
+            </div>
+    </div>
+    </form>
+</div>
+</div>
 <div class="listTableWrap">
-
-    <table id="contentTable" data-tid="notification" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
+    <table id="contentTable" data-tid="${modelName}" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
@@ -111,7 +111,7 @@
         </tbody>
     </table>
 </div>
- <cy:pagination page="${page}" paginationSize="5"/>
+<cy:pagination page="${page}" paginationSize="5"/>
 <script>
     $(".batchMarkRead").click(function () {
         var baseUrl = $(this).data("baseurl");
@@ -130,6 +130,23 @@
             }
         });
     })
+    $(".markReadAll").click(function () {
+        var baseUrl = $(this).data("baseurl");
+
+        $cy.confirm({
+            message: "将要执行全部已读操作,此操作会将全部未读消息标记为已读,是否继续?", yes: function () {
+                $.get(baseUrl,function (data) {
+                    if (data) {
+                        $cy.info("全部已读操作执行完毕.",function () {
+
+                        })
+                    }
+                })
+            }
+        });
+    })
+
+    l
 </script>
 </body>
 </html>

@@ -1,85 +1,90 @@
 $cy = function () {
+    var noticeTimer;
+    var $notice_count;
+    var $notification_list;
+    var pollingUrl = ctx + "/polling";
+
+    var notice_template = "<li data-id='' data-content='{content}'><a href=\"javascript:;\">" +
+        "   <span class=\"time\">{time}</span>" +
+        "   <span class=\"details\">" +
+        "       <span class=\"label label-sm label-icon label-info\">" +
+        //TODO 先不适用消息通知图标，后续扩展 "           <i class=\"fa fa-bullhorn\"></i>" +
+        "       </span> </span>" +
+        "</a></li>"
+
+    var longPolling = function (url, callback, auto) {
+        $.ajax({
+            type: 'post',
+            url: url,
+            async: true,
+            cache: false,
+            global: false,
+            timeout: 30 * 1000,
+            dataType: "json",
+            success: function (data, status, request) {
+                //console.log(data)
+                callback(data);
+                data = null;
+                status = null;
+                request = null;
+                if (auto) {
+                    noticeTimer = setTimeout(
+                        function () {
+                            longPolling(url, callback, auto);
+                        },
+                        1000
+                    );
+                }
+            },
+            error: function (xmlHR, textStatus, errorThrown) {
+                xmlHR = null;
+                textStatus = null;
+                errorThrown = null;
+                if (auto) {
+                    noticeTimer = setTimeout(
+                        function () {
+                            longPolling(url, callback, true);
+                        },
+                        8 * 1000
+                    );
+                }
+            }
+        });
+    };
+
+    function refreshNotification(data) {
+        $notification_list.html("");
+
+        $notice_count.text(data.unreadNotificationsCount);
+
+        $(data.unreadNotifications).each(function (i, o) {
+            var notice = $(notice_template)
+            notice.data("id", o.id).data("content", o.content);
+            notice.find(".time").text(o.date);
+            notice.find(".details").append(o.title);
+            $notification_list.append(notice);
+        });
+    }
+
+    var flushPolling = function () {
+        //console.log("lc");
+        longPolling(pollingUrl + "?flush=true", function (data) {
+            refreshNotification(data);
+            clearTimeout(noticeTimer);
+            longPolling(pollingUrl, function (data) {
+                console.debug("长轮训获取推送...");
+                if (data) {
+                    refreshNotification(data);
+                }
+            }, true);
+        }, false)
+    };
+
     //初始化系统消息推送
     var initNotice = function () {
-        var $notice_count = $(".notice_count");
-        var $notification_list = $("ul.notification-list");
-        var pollingUrl = ctx + "/polling";
-
-        var longPolling = function (url, callback, auto) {
-            $.ajax({
-                type: 'post',
-                url: url,
-                async: true,
-                cache: false,
-                global: false,
-                timeout: 30 * 1000,
-                dataType: "json",
-                success: function (data, status, request) {
-                    //console.log(data)
-                    callback(data);
-                    data = null;
-                    status = null;
-                    request = null;
-                    if (auto) {
-                        setTimeout(
-                            function () {
-                                longPolling(url, callback, auto);
-                            },
-                            1000
-                        );
-                    }
-                },
-                error: function (xmlHR, textStatus, errorThrown) {
-                    xmlHR = null;
-                    textStatus = null;
-                    errorThrown = null;
-                    if (auto) {
-                        setTimeout(
-                            function () {
-                                longPolling(url, callback, true);
-                            },
-                            8 * 1000
-                        );
-                    }
-                }
-            });
-        };
-        var flushPolling = function () {
-            //console.log("lc");
-            longPolling(pollingUrl + "?flush=true", function (data) {
-                refreshNotification(data);
-
-                longPolling(pollingUrl, function (data) {
-                    console.debug("长轮训获取推送...");
-                    if (data) {
-                        refreshNotification(data);
-                    }
-                }, true);
-            }, false)
-        };
+        $notice_count = $(".notice_count");
+        $notification_list = $("ul.notification-list");
         flushPolling();
-
-        var notice_template = "<li data-id='' data-content='{content}'><a href=\"javascript:;\">" +
-            "   <span class=\"time\">{time}</span>" +
-            "   <span class=\"details\">" +
-            "       <span class=\"label label-sm label-icon label-info\">" +
-            //TODO 先不适用消息通知图标，后续扩展 "           <i class=\"fa fa-bullhorn\"></i>" +
-            "       </span> </span>" +
-            "</a></li>"
-
-        function refreshNotification(data) {
-            $notification_list.html("");
-
-            $notice_count.text(data.unreadNotificationsCount);
-
-            $(data.unreadNotifications).each(function (i, o) {
-                var notice = $(notice_template)
-                notice.data("id", o.id).data("content", o.content);
-                notice.find(".time").text(o.date);
-                notice.find(".details").append(o.title);
-                $notification_list.append(notice);
-            });
-        }
 
         $("ul.notification-list").on("click", "li", function () {
             var $item = $(this);
@@ -104,6 +109,8 @@ $cy = function () {
             $("li.external .bold").text($(".notice_list li").size() - 1);
         });
     };
+
+
     //当前页面刷新,避免冲洗提交表单的刷新操作
     //刷新页面
     var refreshPage = function () {
@@ -987,7 +994,10 @@ $cy = function () {
             }
         },
         //初始化推送通知
-        initNotice: initNotice,
+        sysNotice: {
+            init: initNotice,
+            flush: flushPolling
+        },
         //表单加工美化
         handleUniform: handleUniform,
         //初始化自动补全
@@ -1111,10 +1121,10 @@ $(function () {
         var href = $(this).data("ajax-href");
         var callback = $(this).data("ajax-callback")
         $.ajax({
-            type:"get",
-            url:href,
-            dataType:"text",
-            success:function(data){
+            type: "get",
+            url: href,
+            dataType: "text",
+            success: function (data) {
                 eval(callback);
             }
         })

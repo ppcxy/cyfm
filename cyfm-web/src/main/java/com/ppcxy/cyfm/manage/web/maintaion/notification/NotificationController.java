@@ -3,6 +3,7 @@ package com.ppcxy.cyfm.manage.web.maintaion.notification;
 import com.ppcxy.common.Constants;
 import com.ppcxy.common.entity.enums.ReadEnum;
 import com.ppcxy.common.entity.search.Searchable;
+import com.ppcxy.common.utils.MessageUtils;
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
 import com.ppcxy.common.web.controller.BaseCRUDController;
@@ -10,6 +11,8 @@ import com.ppcxy.cyfm.manage.entity.maintaion.notification.NotificationData;
 import com.ppcxy.cyfm.manage.entity.maintaion.notification.NotificationSystem;
 import com.ppcxy.cyfm.manage.service.maintaion.notification.NotificationDataService;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,6 +87,17 @@ public class NotificationController extends BaseCRUDController<NotificationData,
         notificationDataService.markRead(id);
         return "true";
     }
+    
+    @RequestMapping(value = "/markReadAll", method = RequestMethod.GET)
+    @ResponseBody
+    public String markReadAll(@CurrentUser User user) {
+        if (!SecurityUtils.getSubject().hasRole("Admin") && SecurityUtils.getSubject().isPermitted("maintain:notification:markReadAll") ) {
+            throw new UnauthorizedException(MessageUtils.message(null, "maintain:notification:markReadAll"));
+        }
+        notificationDataService.markReadAll(user.getId());
+        return "true";
+    }
+    
     
     @RequestMapping(value = "markRead", method = RequestMethod.GET)
     public String markRead(@RequestParam("ids") Long[] ids, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {

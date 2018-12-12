@@ -5,6 +5,7 @@ import com.ppcxy.cyfm.manage.entity.maintaion.notification.NotificationData;
 import com.ppcxy.cyfm.manage.repository.jpa.maintaion.notification.NotificationDataDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * <p>Version: 1.0
  */
 @Service
+@Transactional
 public class NotificationDataService extends BaseService<NotificationData, Long> {
     
     @Autowired

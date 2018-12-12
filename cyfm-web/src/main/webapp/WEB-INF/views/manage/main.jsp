@@ -406,7 +406,7 @@
 <script type="text/javascript">
     $(function(){
         //顶部导航切换
-        $cy.initNotice();
+        $cy.sysNotice.init();
 
         $(".user").click(function () {
             //iframe窗
