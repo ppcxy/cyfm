@@ -21,7 +21,9 @@
             <div class="form-group">
                 <label class="control-label">通知内容:</label>
                 <div class="controls">
-                    <textarea class="form-control" rows="18" readonly>${entity.content}</textarea>
+                    <div style="border:1px solid #ccc;padding:10px;background: #eee">
+                        ${entity.content}
+                    </div>
                 </div>
             </div>
         </div>
