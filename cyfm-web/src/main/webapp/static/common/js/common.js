@@ -726,6 +726,11 @@ $cy = function () {
                                 checkItemVal = checkItemVal + $(this).val() + ',';
                             });
                             checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
+                        } else {
+                            if ($tr.length > 1) {
+                                warn('仅可选择一条记录.');
+                                return false;
+                            }
                         }
 
                         if ($(this).hasClass('delete')) {
