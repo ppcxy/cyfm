@@ -83,9 +83,8 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-default" id="search_btn">查询</button>
             </div>
+        </form>
     </div>
-    </form>
-</div>
 </div>
 <div class="listTableWrap">
     <table id="contentTable" data-tid="${modelName}" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
@@ -113,40 +112,40 @@
 </div>
 <cy:pagination page="${page}" paginationSize="5"/>
 <script>
-    $(".batchMarkRead").click(function () {
-        var baseUrl = $(this).data("baseurl");
+    $(function () {
+        $(".batchMarkRead").click(function () {
+            var baseUrl = $(this).data("baseurl");
 
-        $cy.confirm({
-            message: "将要执行标记已读操作,标记后将不在显示未读状态,是否继续?", yes: function () {
+            $cy.confirm({
+                message: "将要执行标记已读操作,标记后将不在显示未读状态,是否继续?", yes: function () {
 
-                var checkItemVal = "";
+                    var checkItemVal = "";
 
-                $("tr td.check input:checked").each(function () {
-                    checkItemVal = checkItemVal + $(this).val() + ",";
-                });
-                checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
+                    $("tr td.check input:checked").each(function () {
+                        checkItemVal = checkItemVal + $(this).val() + ",";
+                    });
+                    checkItemVal = checkItemVal.substring(0, checkItemVal.length - 1);
 
-                window.location.href = baseUrl.replace("{id}", checkItemVal) + (baseUrl.indexOf("?") > 0 ? "&" : "?") + "BackURL=" + $cy.urlTools.encodeBackURL();
-            }
-        });
+                    window.location.href = baseUrl.replace("{id}", checkItemVal) + (baseUrl.indexOf("?") > 0 ? "&" : "?") + "BackURL=" + $cy.urlTools.encodeBackURL();
+                }
+            });
+        })
+
+        $(".markReadAll").click(function () {
+            var baseUrl = $(this).data("baseurl");
+
+            $cy.confirm({
+                message: "将要执行全部已读操作,此操作会将全部未读消息标记为已读,是否继续?", yes: function () {
+                    $.get(baseUrl,function (data) {
+                        if (data) {
+                            top.$cy.sysNotice.flush();
+                            window.location.reload();
+                        }
+                    })
+                }
+            });
+        })
     })
-    $(".markReadAll").click(function () {
-        var baseUrl = $(this).data("baseurl");
-
-        $cy.confirm({
-            message: "将要执行全部已读操作,此操作会将全部未读消息标记为已读,是否继续?", yes: function () {
-                $.get(baseUrl,function (data) {
-                    if (data) {
-                        $cy.info("全部已读操作执行完毕.",function () {
-
-                        })
-                    }
-                })
-            }
-        });
-    })
-
-    l
 </script>
 </body>
 </html>

@@ -35,6 +35,8 @@
         $("#inputForm").validate({
 
         });
+
+        top.$cy.sysNotice.flush();
     })
 </script>
 </body>
