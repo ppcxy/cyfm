@@ -24,6 +24,7 @@
     request.setAttribute("current", current);
     request.setAttribute("begin", begin);
     request.setAttribute("end", end);
+    System.out.println(page.getSize());
     request.setAttribute("pageSize", page.getSize());
 
 %>
@@ -60,13 +61,12 @@
             <label><span class="seperator"></span>每页
                 <select class="form-control input-xsmall input-sm input-inline"
                         onchange="jumpPage($(this).val(), 1);">
-                    <option value="5" <c:if test="${pageSize eq 5}">selected="selected" </c:if>>5</option>
-                    <option value="10" <c:if test="${pageSize eq 10}">selected="selected" </c:if>>10</option>
-                    <option value="15" <c:if test="${pageSize eq 15}">selected="selected" </c:if>>15</option>
-                    <option value="20" <c:if test="${pageSize eq 20}">selected="selected" </c:if>>20</option>
-                    <option value="50" <c:if test="${pageSize eq 50}">selected="selected" </c:if>>50</option>
-                    <option value="100" <c:if test="${pageSize eq 100}">selected="selected" </c:if>>100</option>
-                    <option value="200" <c:if test="${pageSize eq 200}">selected="selected" </c:if>>200</option>
+                    <option value="5" <c:if test="${pageSize == 5}">selected="selected" </c:if>>5</option>
+                    <option value="10" <c:if test="${pageSize == 10}">selected="selected" </c:if>>10</option>
+                    <option value="15" <c:if test="${pageSize == 15}">selected="selected" </c:if>>15</option>
+                    <option value="20" <c:if test="${pageSize == 20}">selected="selected" </c:if>>20</option>
+                    <option value="50" <c:if test="${pageSize == 50}">selected="selected" </c:if>>50</option>
+                    <option value="100" <c:if test="${pageSize == 100}">selected="selected" </c:if>>100</option>
                 </select>
                 条
             </label>

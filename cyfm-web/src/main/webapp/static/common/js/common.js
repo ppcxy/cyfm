@@ -935,6 +935,19 @@ $cy = function () {
         },
         //url操作工具
         urlTools: {
+            queryString: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                var q = window.location.pathname.substr(1).match(reg_rewrite);
+                if (r != null) {
+                    return unescape(r[2]);
+                } else if (q != null) {
+                    return unescape(q[2]);
+                } else {
+                    return null;
+                }
+            },
             //重置排序
             resetSortUrl: function (url) {
                 if (!url) {
@@ -1113,9 +1126,18 @@ jQuery(document).ready(function () {
         }
         return true;
     });
+
     //查询框中内容有变化未提交查询时变色.
     $("form.form-search :input").change(function () {
         $("form.form-search button[type=submit]").addClass("blue");
+    })
+
+    $("form.form-search").submit(function () {
+        var pageSize = $cy.urlTools.queryString("page.size");
+        if(pageSize){
+            $(this).append("<input type='hidden' name='page.size' value='" + pageSize + "'>")
+        }
+        return true;
     })
 });
 
