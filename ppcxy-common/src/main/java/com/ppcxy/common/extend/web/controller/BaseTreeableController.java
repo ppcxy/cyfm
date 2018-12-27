@@ -132,7 +132,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
 
 
         if (m == null) {
-            redirectAttributes.addFlashAttribute(Constants.ERROR, "您修改的数据不存在！");
+            redirectAttributes.addFlashAttribute(Constants.ERROR_MESSAGE, "您修改的数据不存在！");
             return redirectToUrl(viewName("success"));
         }
 
@@ -215,7 +215,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
         List<M> mList = baseService.findAllWithNoPageNoSort(searchable);
         for (M m : mList) {
             if (m.isRoot()) {
-                redirectAttributes.addFlashAttribute(Constants.ERROR, "您删除的数据中包含根节点，根节点不能删除");
+                redirectAttributes.addFlashAttribute(Constants.ERROR_MESSAGE, "您删除的数据中包含根节点，根节点不能删除");
                 return redirectToUrl(backURL);
             }
         }
@@ -324,7 +324,7 @@ public abstract class BaseTreeableController<M extends AbstractEntity<ID> & Tree
         }
 
         if (target.isRoot() && !moveType.equals("inner")) {
-            model.addAttribute(Constants.ERROR, "不能移动到根节点之前或之后");
+            model.addAttribute(Constants.ERROR_MESSAGE, "不能移动到根节点之前或之后");
             return showMoveForm(request, async, source, searchable, model);
         }
 

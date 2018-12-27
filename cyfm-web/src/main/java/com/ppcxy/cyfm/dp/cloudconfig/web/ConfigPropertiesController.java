@@ -72,7 +72,7 @@ public class ConfigPropertiesController extends BaseCRUDController<ConfigPropert
     public String create(String application, String profile, @RequestParam("sourceManageId") SourceManage sourceManage, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         
         if (configPropertiesService.existsProfile(sourceManage)) {
-            redirectAttributes.addFlashAttribute(Constants.ERROR, String.format("已存在此数据源的配置项 [profile=%s].", configPropertiesService.queryProfile(sourceManage).get("profile")));
+            redirectAttributes.addFlashAttribute(Constants.ERROR_MESSAGE, String.format("已存在此数据源的配置项 [profile=%s].", configPropertiesService.queryProfile(sourceManage).get("profile")));
             return redirectToUrl(backURL);
         }
         configPropertiesService.genDataTaskConfig(application, profile, sourceManage);

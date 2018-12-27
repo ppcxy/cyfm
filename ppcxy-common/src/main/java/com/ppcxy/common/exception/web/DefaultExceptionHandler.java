@@ -2,6 +2,7 @@ package com.ppcxy.common.exception.web;
 
 import com.netflix.hystrix.exception.HystrixBadRequestException;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
+import com.ppcxy.common.Constants;
 import com.ppcxy.common.exception.web.entity.ExceptionResponse;
 import com.ppcxy.common.utils.LogUtils;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -40,14 +41,14 @@ public class DefaultExceptionHandler {
     public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
         LogUtils.logError("用户权限验证失败", e);
         ExceptionResponse exceptionResponse = ExceptionResponse.from(e);
-
+        
         ModelAndView mv = new ModelAndView();
-        mv.addObject("error", exceptionResponse);
+        mv.addObject(Constants.ERROR, exceptionResponse);
         mv.setViewName("error/exception");
-
+        
         return mv;
     }
-
+    
     /**
      * 没有权限 异常
      * <p/>
@@ -58,15 +59,15 @@ public class DefaultExceptionHandler {
     public ModelAndView handleTypeMismatchException(NativeWebRequest request, TypeMismatchException e) {
         LogUtils.logError("参数绑定异常", e);
         ExceptionResponse exceptionResponse = ExceptionResponse.from("参数绑定错误.", e);
-
+        
         ModelAndView mv = new ModelAndView();
-        mv.addObject("error", exceptionResponse);
+        mv.addObject(Constants.ERROR, exceptionResponse);
         mv.setViewName("error/exception");
-
+        
         return mv;
     }
-
-
+    
+    
     /**
      * 处理RestException.
      */
@@ -74,14 +75,14 @@ public class DefaultExceptionHandler {
     public final ResponseEntity<?> handleException(RestException ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(MediaTypes.TEXT_PLAIN_UTF_8));
-
+        
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(ex.status)) {
             request.setAttribute("javax.servlet.error.exception", ex, 0);
         }
-
+        
         return new ResponseEntity(ex.getMessage(), headers, ex.status);
     }
-
+    
     /**
      * 处理JSR311 Validation异常.
      */
@@ -91,11 +92,11 @@ public class DefaultExceptionHandler {
         String body = JsonMapper.nonEmptyMapper().toJson(errors);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(MediaTypes.TEXT_PLAIN_UTF_8));
-
+        
         return new ResponseEntity(body, headers, HttpStatus.BAD_REQUEST);
     }
-
-
+    
+    
     /**
      * 处理Hystrix Runtime异常, 分为两类:
      * 一类是Command内部抛出异常(返回500).
@@ -105,27 +106,27 @@ public class DefaultExceptionHandler {
     public final ResponseEntity<?> handleException(HystrixRuntimeException ex, WebRequest request) {
         HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
         String message = ex.getMessage();
-
+        
         HystrixRuntimeException.FailureType type = ex.getFailureType();
-
+        
         // 对命令抛出的异常进行特殊处理
         if (type.equals(HystrixRuntimeException.FailureType.COMMAND_EXCEPTION)) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
             message = Exceptions.getErrorMessageWithNestedException(ex);
         }
-
+        
         LogUtils.logError(message, ex);
-
+        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(MediaTypes.TEXT_PLAIN_UTF_8));
-
+        
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute("javax.servlet.error.exception", ex, 0);
         }
-
+        
         return new ResponseEntity(ex.getMessage(), headers, status);
     }
-
+    
     /**
      * 处理Hystrix ClientException异常(返回404).
      * ClientException表明是客户端请求参数本身的问题, 不计入异常次数统计。
@@ -134,11 +135,11 @@ public class DefaultExceptionHandler {
     public final ResponseEntity<?> handleException(HystrixBadRequestException ex, WebRequest request) {
         String message = Exceptions.getErrorMessageWithNestedException(ex);
         LogUtils.logError(message, ex);
-
+        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(MediaTypes.TEXT_PLAIN_UTF_8));
-
+        
         return new ResponseEntity(ex.getMessage(), headers, HttpStatus.BAD_REQUEST);
-
+        
     }
 }

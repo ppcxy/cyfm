@@ -69,7 +69,7 @@ public class SQLExecutorController extends BaseController {
         final boolean isDQL = lowerCaseSQL.startsWith("select");
         
         if (!isDML && !isDQL) {
-            model.addAttribute(Constants.ERROR, "您执行的SQL不允许，只允许insert、update、delete、select");
+            model.addAttribute(Constants.ERROR_MESSAGE, "您执行的SQL不允许，只允许insert、update、delete、select");
             return showSQLForm();
         }
         try {
@@ -118,7 +118,7 @@ public class SQLExecutorController extends BaseController {
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
-            model.addAttribute(Constants.ERROR, sw.toString());
+            model.addAttribute(Constants.ERROR_MESSAGE, sw.toString());
         }
         
         return showSQLForm();

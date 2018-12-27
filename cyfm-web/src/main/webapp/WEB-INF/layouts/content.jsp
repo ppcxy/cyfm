@@ -23,7 +23,7 @@
     <sitemesh:head/>
 </head>
 <body>
-<c:if test="${not empty message or not empty error}">
+<c:if test="${not empty message or not empty errorMessage}">
     <cy:showMessage/>
 </c:if>
 <c:if test="${not empty page && not customToolbar}">

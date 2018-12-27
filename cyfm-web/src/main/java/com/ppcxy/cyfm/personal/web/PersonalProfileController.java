@@ -69,24 +69,24 @@ public class PersonalProfileController extends BaseController<User, Long> {
             RedirectAttributes redirectAttributes) {
         
         if (email == null || !email.matches(User.EMAIL_PATTERN)) {
-            model.addAttribute(Constants.ERROR, "请输入正确的邮箱地址");
+            model.addAttribute(Constants.ERROR_MESSAGE, "请输入正确的邮箱地址");
             return updateInfoForm(user, model);
         }
         
         if (tel == null || !tel.matches(User.MOBILE_PHONE_NUMBER_PATTERN)) {
-            model.addAttribute(Constants.ERROR, "请输入正确的手机号");
+            model.addAttribute(Constants.ERROR_MESSAGE, "请输入正确的手机号");
             return updateInfoForm(user, model);
         }
         
         User emailDbUser = userService.findByEmail(email);
         if (emailDbUser != null && !emailDbUser.equals(user)) {
-            model.addAttribute(Constants.ERROR, "邮箱地址已经被其他人使用，请换一个");
+            model.addAttribute(Constants.ERROR_MESSAGE, "邮箱地址已经被其他人使用，请换一个");
             return updateInfoForm(user, model);
         }
         
         User telNumberDbUser = userService.findByTel(tel);
         if (telNumberDbUser != null && !telNumberDbUser.equals(user)) {
-            model.addAttribute(Constants.ERROR, "手机号已经被其他人使用，请换一个");
+            model.addAttribute(Constants.ERROR_MESSAGE, "手机号已经被其他人使用，请换一个");
             return updateInfoForm(user, model);
         }
         
@@ -121,17 +121,17 @@ public class PersonalProfileController extends BaseController<User, Long> {
         
         
         if (!passwordService.matches(user, oldPassword)) {
-            model.addAttribute(Constants.ERROR, "旧密码不正确");
+            model.addAttribute(Constants.ERROR_MESSAGE, "旧密码不正确");
             return changePasswordForm(user, model);
         }
         
         if (StringUtils.isEmpty(newPassword1) || StringUtils.isEmpty(newPassword2)) {
-            model.addAttribute(Constants.ERROR, "必须输入新密码");
+            model.addAttribute(Constants.ERROR_MESSAGE, "必须输入新密码");
             return changePasswordForm(user, model);
         }
         
         if (!newPassword1.equals(newPassword2)) {
-            model.addAttribute(Constants.ERROR, "两次输入的密码不一致");
+            model.addAttribute(Constants.ERROR_MESSAGE, "两次输入的密码不一致");
             return changePasswordForm(user, model);
         }
         

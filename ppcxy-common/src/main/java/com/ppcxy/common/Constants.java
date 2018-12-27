@@ -14,11 +14,17 @@ public interface Constants {
      * 消息key
      */
     String MESSAGE = "message";
-
+    
+    
     /**
      * 错误key
      */
     String ERROR = "error";
+    
+    /**
+     * 错误key
+     */
+    String ERROR_MESSAGE = "errorMessage";
 
     /**
      * 上个页面地址

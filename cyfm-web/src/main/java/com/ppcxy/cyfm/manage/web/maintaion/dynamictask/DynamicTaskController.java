@@ -106,7 +106,7 @@ public class DynamicTaskController extends BaseCRUDController<DynamicTaskDefinit
             dynamicTaskApi.startTask(ids);
             redirectAttributes.addFlashAttribute(Constants.MESSAGE, "启动任务成功");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute(Constants.ERROR, "启动任务失败");
+            redirectAttributes.addFlashAttribute(Constants.ERROR_MESSAGE, "启动任务失败");
         }
         
         

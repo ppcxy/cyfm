@@ -419,13 +419,13 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     
     private boolean canImport(final MultipartFile file, final Model model) {
         if (file == null || file.isEmpty()) {
-            model.addAttribute(Constants.ERROR, "请选择要导入的文件");
+            model.addAttribute(Constants.ERROR_MESSAGE, "请选择要导入的文件");
             return false;
         }
         
         String filename = file.getOriginalFilename().toLowerCase();
         if (!(filename.endsWith("xls") || filename.endsWith("xlsx"))) {
-            model.addAttribute(Constants.ERROR, "导入的文件格式错误，允许的格式：xls、xlsx");
+            model.addAttribute(Constants.ERROR_MESSAGE, "导入的文件格式错误，允许的格式：xls、xlsx");
             return false;
         }
         

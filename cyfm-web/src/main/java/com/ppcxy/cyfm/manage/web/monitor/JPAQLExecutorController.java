@@ -96,7 +96,7 @@ public class JPAQLExecutorController extends BaseController {
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
-            model.addAttribute(Constants.ERROR, sw.toString());
+            model.addAttribute(Constants.ERROR_MESSAGE, sw.toString());
         }
         
         return showQLForm();
