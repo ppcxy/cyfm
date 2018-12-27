@@ -237,3 +237,8 @@ div.listTableWrap {
     /*border-right: 1px solid #ccc;*/
     width: 100%;
 }
+/*处理content.jsp模板出现长页面纵向滚动条紧挨页面内容磕碜*/
+div.content-wrap{
+    padding-right: 5px;
+    padding-bottom: 5px;
+}

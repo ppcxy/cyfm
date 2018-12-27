@@ -31,7 +31,7 @@
         <cy:listToolBarActions/>
     </div>
 </c:if>
-<div>
+<div class="content-wrap">
 <sitemesh:body/>
 </div>
 <script>
