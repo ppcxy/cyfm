@@ -150,7 +150,7 @@ $cy = function () {
     };
     //消息弹出
     var info = function (message, callback) {
-        layer.alert(message, {
+        top.layer.alert(message, {
             skin: 'layui-layer-lan'
             , title: '消息(3秒后自动关闭)'
             , content: message
@@ -163,7 +163,7 @@ $cy = function () {
     };
     //警告弹出
     var warn = function (message, callback) {
-        layer.alert(message, {
+        top.layer.alert(message, {
             skin: 'layui-layer-lan'
             , title: '警告(5秒后自动关闭)'
             , content: message
@@ -191,7 +191,7 @@ $cy = function () {
     };
     //错误弹出
     var error = function (message, callback) {
-        layer.alert(message, {
+        top.layer.alert(message, {
             skin: 'layui-layer-lan'
             , title: '错误消息'
             , content: message
@@ -885,7 +885,7 @@ $cy = function () {
                             results = getFirstSelectedCheckbox($("table", $("#user_choose iframe", top.document)[0].contentWindow.document))
                         }
 
-                        if (results.size() === 0) {
+                        if (!results || results.size() === 0) {
                             warn("请选择用户后确认...")
                         } else {
                             configs.callback(results.eq(0).data("show"), results);

@@ -14,7 +14,7 @@
         body{
             min-width: auto;
         }
- 
+
     </style>
 </head>
 <body>
@@ -41,21 +41,23 @@
                 <th>用户名</th>
                 <th>用户姓名</th>
                 <th>Email</th>
+                <th>团队</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${choosePage.content}" var="user">
                 <tr>
-                    <td class="check"><input name="ids" type="checkbox" value="${user.id}" data-id="${user.id}" data-username="${user.username}" data-name="${user.name}" data-email="${user.email}" data-tel="${user.tel}" data-show="${user.name}[${user.username}]"></td>
+                    <td class="check"><input name="ids" type="checkbox" value="${user.id}" data-id="${user.id}" data-username="${user.username}" data-name="${user.name}" data-email="${user.email}"  data-tel="${user.tel}" data-show="${user.name}[${user.username}]"></td>
                     <td>${user.username}</td>
                     <td>${user.name}</td>
                     <td>${user.email}</td>
+                    <td>${empty user.team ? '无' : user.team.name}</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-<cy:pagination page="${choosePage}" paginationSize="5"></cy:pagination>
+    <cy:pagination page="${choosePage}" paginationSize="5"></cy:pagination>
 </div>
 </body>
 </html>
