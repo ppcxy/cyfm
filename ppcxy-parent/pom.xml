@@ -18,7 +18,7 @@
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mybatis.version>3.2.7</mybatis.version>
         <spring-data-jpa.version>1.6.4.RELEASE</spring-data-jpa.version>
-        <druid-version>1.0.21</druid-version>
+        <druid-version>1.1.10</druid-version>
         <jcaptcha.version>2.0-alpha-1</jcaptcha.version>
         <jsoup.version>1.8.3</jsoup.version>
         <jhlabs.version>2.0.235</jhlabs.version>

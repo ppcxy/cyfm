@@ -398,8 +398,8 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
                         export.ready("导出数据", ShiroUserInfoUtils.getUsername(), realPath);
                         Page<T> page = null;
                         do {
-                            searchable.setPage(searchable.getPage().getPageNumber() + 1, 200);
                             page = baseService.findAll(searchable);
+                            searchable.setPage(searchable.getPage().getPageNumber() + 1, 200);
                             export.additionalDataForBean(page.getContent());
                         } while (page.hasNext());
                         
@@ -415,7 +415,6 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         
         return "success";
     }
-    
     
     private boolean canImport(final MultipartFile file, final Model model) {
         if (file == null || file.isEmpty()) {
