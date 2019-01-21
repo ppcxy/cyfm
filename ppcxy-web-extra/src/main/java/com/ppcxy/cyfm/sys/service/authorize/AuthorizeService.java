@@ -13,6 +13,7 @@ import com.ppcxy.cyfm.sys.entity.resource.Resource;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.permission.PermissionService;
 import com.ppcxy.cyfm.sys.service.resource.ResourceService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -61,6 +62,11 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
             while (iterator.hasNext()) {
                 RoleResourcePermission next = iterator.next();
                 Resource resource = resourceService.findOne(next.getResourceId());
+                
+                //忽略对空标识资源项的授权
+                if (StringUtils.isBlank(resource.getIdentity())) {
+                    continue;
+                }
                 
                 Iterator<Long> permidsIterator = next.getPermissionIds().iterator();
                 while (permidsIterator.hasNext()) {

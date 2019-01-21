@@ -144,7 +144,10 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         
         //如果用户没有声明 资源标识  且父也没有，那么就为空
         if (!hasResourceIdentity) {
-            return "";
+            Resource parent = findOne(resource.getParentId());
+            if (StringUtils.isBlank(parent.getIdentity())) {
+                return findActualResourceIdentity(parent);
+            }
         }
         
         
@@ -154,17 +157,17 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
             s.deleteCharAt(length - 1);
         }
         
-        //如果有儿子 最后拼一个*
-        boolean hasChildren = false;
-        for (Resource r : findAll()) {
-            if (resource.getId().equals(r.getParentId())) {
-                hasChildren = true;
-                break;
-            }
-        }
-        if (hasChildren) {
-            s.append(":*");
-        }
+        ////如果有儿子 最后拼一个*
+        //boolean hasChildren = false;
+        //for (Resource r : findAll()) {
+        //    if (resource.getId().equals(r.getParentId())) {
+        //        hasChildren = true;
+        //        break;
+        //    }
+        //}
+        //if (hasChildren) {
+        //    s.append(":*");
+        //}
         
         return s.toString();
     }
