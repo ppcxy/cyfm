@@ -44,17 +44,16 @@
         </dependency>
 
 
-
         <!-- 工作流引擎开始 -->
         <!--<dependency>-->
-            <!--<groupId>org.flowable</groupId>-->
-            <!--<artifactId>flowable-engine</artifactId>-->
-            <!--<version>6.2.1</version>-->
+        <!--<groupId>org.flowable</groupId>-->
+        <!--<artifactId>flowable-engine</artifactId>-->
+        <!--<version>6.2.1</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.flowable</groupId>-->
-            <!--<artifactId>flowable-spring</artifactId>-->
-            <!--<version>6.2.1</version>-->
+        <!--<groupId>org.flowable</groupId>-->
+        <!--<artifactId>flowable-spring</artifactId>-->
+        <!--<version>6.2.1</version>-->
         <!--</dependency>-->
         <!-- 工作流引擎结束-->
 
@@ -96,8 +95,8 @@
 
         <!-- AOP begin -->
         <!--<dependency>-->
-            <!--<groupId>org.aspectj</groupId>-->
-            <!--<artifactId>aspectjrt</artifactId>-->
+        <!--<groupId>org.aspectj</groupId>-->
+        <!--<artifactId>aspectjrt</artifactId>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -124,6 +123,10 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
         </dependency>
 
         <!-- spring data access -->
@@ -495,7 +498,7 @@
             </exclusions>
         </dependency>
         <!-- poi end -->
-        
+
         <!-- OTHER TOOLS begin -->
         <dependency>
             <groupId>org.freemarker</groupId>

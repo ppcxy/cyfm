@@ -21,26 +21,26 @@
             <artifactId>springside-utils</artifactId>
             <scope>compile</scope>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-extension</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-metrics</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-redis</artifactId>
-            <optional>true</optional>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-core</artifactId>
+             <optional>true</optional>
+         </dependency>
+         <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-extension</artifactId>
+             <optional>true</optional>
+         </dependency>
+         <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-metrics</artifactId>
+             <optional>true</optional>
+         </dependency>
+         <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-redis</artifactId>
+             <optional>true</optional>
+         </dependency>-->
         <!-- SPRINGSIDE end -->
 
         <!-- PERSISTENCE begin -->
@@ -211,7 +211,7 @@
             <version>${quartz.version}</version>
         </dependency>
         <!-- TIMER end-->
-        
+
         <!-- joda -->
         <dependency>
             <groupId>org.ocpsoft.prettytime</groupId>
@@ -333,21 +333,21 @@
             <artifactId>powermock-api-mockito</artifactId>
         </dependency>
 
-       <!-- <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <classifier>tests</classifier>
-            &lt;!&ndash; for xxxDemo class &ndash;&gt;
-            <scope>compile</scope>
-        </dependency>
+        <!-- <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-core</artifactId>
+             <classifier>tests</classifier>
+             &lt;!&ndash; for xxxDemo class &ndash;&gt;
+             <scope>compile</scope>
+         </dependency>
 
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-extension</artifactId>
-            <classifier>tests</classifier>
-            &lt;!&ndash; for xxxDemo class &ndash;&gt;
-            <scope>compile</scope>
-        </dependency>-->
+         <dependency>
+             <groupId>org.springside</groupId>
+             <artifactId>springside-extension</artifactId>
+             <classifier>tests</classifier>
+             &lt;!&ndash; for xxxDemo class &ndash;&gt;
+             <scope>compile</scope>
+         </dependency>-->
 
         <!-- selenium 2.0 -->
         <dependency>

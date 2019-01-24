@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.ppcxy.cyfm.sys.repository.mybatis;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
 import com.ppcxy.cyfm.showcase.data.UserData;
 import com.ppcxy.cyfm.sys.entity.user.User;
@@ -60,4 +62,13 @@ public class UserMybatisDaoTest extends SpringTransactionalTestCase {
         assertThat(userDao.get(id)).isNull();
     }
     
+    @Test
+    public void userPage() throws Exception {
+        Map<String, Object> parameter = Maps.newHashMap();
+        
+        Page<User> page = PageHelper.startPage(1, 3).doSelectPage(()-> userDao.search(parameter));
+    
+        assertThat(page.getTotal()).isEqualTo(6);
+        assertThat(page.getResult().size()).isEqualTo(3);
+    }
 }
