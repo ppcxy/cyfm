@@ -12,8 +12,8 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -35,7 +35,7 @@ public class CustomSqlSessionFactoryBean extends SqlSessionFactoryBean {
         //将首先通过ClassLoader.getResource("META-INF")加载非模式路径部分
         //然后进行遍历模式匹配
         try {
-            List<String> result = new ArrayList<String>();
+            Set<String> result = new HashSet<>();
             Resource[] resources = resolver.getResources(typeAliasesPackage);
             if (resources != null && resources.length > 0) {
                 MetadataReader metadataReader = null;
