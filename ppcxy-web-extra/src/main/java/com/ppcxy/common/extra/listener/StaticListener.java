@@ -11,11 +11,13 @@ import org.springframework.util.ResourceUtils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 /**
  * 监听器-启动过程根据当前数据源进行数据初始化操作.
@@ -83,31 +85,32 @@ public class StaticListener implements ServletContextListener {
 
         System.out.println(String.format("=============>%s", "运行模式:") + runModel);
         System.out.println(String.format("=============>%s", "存储类型:") + dbType);
+        System.out.println(String.format("=============>%s", "因对于生产环境存在风险，暂时取消数据库初始化和更新能力。") + dbType);
 
-        if ("init".equals(runModel)) {
-            try {
-                switch (dbType) {
-                    case "mysql":
-                        initDbMysql();
-                        break;
-                    default:
-                        initDbH2();
-                }
-
-                prop.setProperty("run.model", "update");
-                FileOutputStream fos = new FileOutputStream(propFile);
-                // 将Properties集合保存到流中
-                prop.store(fos, new Date().toString() + " update run model from init to update.");
-                fos.close();// 关闭流
-            } catch (FileNotFoundException e) {
-                System.out.println("严重错误:未找到用来初始化数据的脚本..." + e.getMessage());
-                System.exit(3);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if ("update".equals(runModel)) {
-            update();
-        }
+        //if ("init".equals(runModel)) {
+        //    try {
+        //        switch (dbType) {
+        //            case "mysql":
+        //                initDbMysql();
+        //                break;
+        //            default:
+        //                initDbH2();
+        //        }
+        //
+        //        prop.setProperty("run.model", "update");
+        //        FileOutputStream fos = new FileOutputStream(propFile);
+        //        // 将Properties集合保存到流中
+        //        prop.store(fos, new Date().toString() + " update run model from init to update.");
+        //        fos.close();// 关闭流
+        //    } catch (FileNotFoundException e) {
+        //        System.out.println("严重错误:未找到用来初始化数据的脚本..." + e.getMessage());
+        //        System.exit(3);
+        //    } catch (IOException e) {
+        //        e.printStackTrace();
+        //    }
+        //} else if ("update".equals(runModel)) {
+        //    update();
+        //}
     }
 
     /**

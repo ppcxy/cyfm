@@ -24,6 +24,7 @@
 <a class="btn btn-primary create" href="${ctx}/dp/cloudConfig/create"><i class="fa fa-plus"></i> 添加</a>
 <div class="items">
     <c:forEach items="${configs}" var="config">
+        <c:if test="${config.application eq 'datatask-executor'}">
         <div class="item">
             <h3>APPLICATION: ${config.application}-${config.profile}-${config.label} <small><button class="btn btn-xs red delete" data-application="${config.application}" data-profile="${config.profile}">删除</button></small></h3>
             <div class="content-items">
@@ -34,6 +35,7 @@
                 </ul>
             </div>
         </div>
+        </c:if>
     </c:forEach>
 </div>
 

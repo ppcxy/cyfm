@@ -1,6 +1,8 @@
 package com.ppcxy.cyfm.manage.entity.maintaion.notification;
 
 import com.ppcxy.common.entity.IdEntity;
+import com.ppcxy.common.repository.jpa.support.annotation.EnableQueryCache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,6 +16,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "cy_maintain_notification_data")
+@EnableQueryCache
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class NotificationData extends IdEntity {
     
     /**

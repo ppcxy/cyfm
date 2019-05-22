@@ -1,11 +1,11 @@
 
 package com.ppcxy.cyfm.sys.web.user;
 
-import com.google.common.collect.Maps;
 import com.ppcxy.common.Constants;
 import com.ppcxy.common.web.controller.BaseCRUDController;
 import com.ppcxy.cyfm.sys.entity.permission.Role;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.entity.user.UserStatus;
 import com.ppcxy.cyfm.sys.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,18 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/sys/user")
 public class UserController extends BaseCRUDController<User, Long> {
-    
-    private static Map<String, String> allStatus = Maps.newHashMap();
-    
-    static {
-        allStatus.put("enabled", "有效");
-        allStatus.put("disabled", "无效");
-    }
     
     @Autowired
     private UserService userService;
@@ -41,7 +33,7 @@ public class UserController extends BaseCRUDController<User, Long> {
     @Override
     protected void preResponse(Model model) {
         super.preResponse(model);
-        model.addAttribute("allStatus", allStatus);
+        model.addAttribute("allStatus", UserStatus.values());
         model.addAttribute("allRoles", userService.getAllRole());
     }
     

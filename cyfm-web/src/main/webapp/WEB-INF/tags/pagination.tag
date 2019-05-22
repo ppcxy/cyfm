@@ -6,6 +6,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
+    if (page == null) {
+        return;
+    }
     if (showMeg == null) {
         showMeg = true;
     }
@@ -17,17 +20,22 @@
 
     if (page.getTotalPages() < paginationSize) {
         begin = 1;
-    } else  if (end - begin < paginationSize) {
+    } else if (end - begin < paginationSize) {
         begin = end - paginationSize + 1;
     }
 
     request.setAttribute("current", current);
     request.setAttribute("begin", begin);
     request.setAttribute("end", end);
-    System.out.println(page.getSize());
     request.setAttribute("pageSize", page.getSize());
 
 %>
+<style>
+    .page-bar .page-size {
+        padding: 0px 2px;
+        width: 48px !important;
+    }
+</style>
 <div class="page-bar" style="padding:5px 0px">
     <div class="pagin col-md-5 col-sm-10" style="margin-top: 0px;padding:0;">
         <% if (showMeg) {%>
@@ -44,8 +52,9 @@
                 </c:otherwise>
             </c:choose>
             <input type="text" class="pagination-panel-input form-control input-mini input-inline input-sm"
+                   disabled="disabled"
                    maxlenght="5" style="text-align:center; margin: 0 5px;" value="${current}"
-                   onblur="jumpPage('${pageSize}', $(this).val());"/>
+                   onchange="jumpPage('${pageSize}', $(this).val());"/>
             <c:choose>
                 <c:when test="${page.lastPage}">
                     <a href="javascript:;" class="btn btn-sm default next disabled" title="下一页" style="height: 28px;"><i
@@ -59,7 +68,7 @@
             </c:choose>
             共<i class="blue">${page.totalPages}</i>页，<i class="blue">${page.totalElements}</i> 条数据,
             <label><span class="seperator"></span>每页
-                <select class="form-control input-xsmall input-sm input-inline"
+                <select class="form-control input-xsmall input-sm input-inline page-size"
                         onchange="jumpPage($(this).val(), 1);">
                     <option value="5" <c:if test="${pageSize == 5}">selected="selected" </c:if>>5</option>
                     <option value="10" <c:if test="${pageSize == 10}">selected="selected" </c:if>>10</option>
@@ -73,15 +82,18 @@
         </div>
         <% } %>
     </div>
-    <div class="paginList visible-lg-block visible-md-block dataTables_paginate paging_bootstrap_full_number col-md-7 col-sm-10" style="padding:0;">
+    <div class="paginList visible-lg-block visible-md-block dataTables_paginate paging_bootstrap_full_number col-md-7 col-sm-10"
+         style="padding:0;">
         <ul class="pagination pull-right" style="margin: 0px;">
             <% if (page.hasPreviousPage()) {%>
-            <li class="paginItem"><a href="javascript:;" style="width: 54px" onclick="jumpPage('${pageSize}', 1);" title="首页"><span>首页</span></a></li>
+            <li class="paginItem"><a href="javascript:;" style="width: 54px" onclick="jumpPage('${pageSize}', 1);"
+                                     title="首页"><span>首页</span></a></li>
             <%--<li class="paginItem"><a href="?page.pn=${current-1}"><i class="fa fa-angle-left"></i></a></li>--%>
             <%--<li><a href="?page=1&sortType=${sortType}&${searchParams}">&lt;&lt;</a></li>--%>
             <%--<li><a href="?page=${current-1}&sortType=${sortType}&${searchParams}">&lt;</a></li>--%>
             <%} else {%>
-            <li class="paginItem disabled"><a href="javascript:;" style="width: 54px" title="首页"><span>首页</span></a></li>
+            <li class="paginItem disabled"><a href="javascript:;" style="width: 54px" title="首页"><span>首页</span></a>
+            </li>
             <%--<li class="paginItem"><a href="javascript:;" class="disabled"><i class="fa fa-angle-left"></i></a></li>--%>
             <%} %>
 
@@ -92,7 +104,8 @@
                         <%--<li class="active"><a href="?page=${i}&sortType=${sortType}&${searchParams}">${i}</a></li>--%>
                     </c:when>
                     <c:otherwise>
-                        <li class="paginItem"><a href="javascript:;" onclick="jumpPage('${pageSize}', ${i});">${i}</a></li>
+                        <li class="paginItem"><a href="javascript:;" onclick="jumpPage('${pageSize}', ${i});">${i}</a>
+                        </li>
                         <%--<li><a href="?page=${i}&sortType=${sortType}&${searchParams}">${i}</a></li>--%>
                     </c:otherwise>
                 </c:choose>
@@ -100,13 +113,15 @@
 
             <% if (page.hasNextPage()) {%>
             <%--<li class="paginItem"><a href="?page.pn=${current+1}"><i class="fa fa-angle-right"></i></a></li>--%>
-            <li class="paginItem"><a href="javascript:;" style="width: 54px" onclick="jumpPage('${pageSize}', ${page.totalPages});"
+            <li class="paginItem"><a href="javascript:;" style="width: 54px"
+                                     onclick="jumpPage('${pageSize}', ${page.totalPages});"
                                      title="尾页"><span>尾页</span></a></li>
             <%--<li><a href="?page=${current+1}&sortType=${sortType}&${searchParams}">&gt;</a></li>--%>
             <%--<li><a href="?page=${page.totalPages}&sortType=${sortType}&${searchParams}">&gt;&gt;</a></li>--%>
             <%} else {%>
             <%--<li class="paginItem"><a href="javascript:;" class="disabled"><i class="fa fa-angle-right"></i></a></li>--%>
-            <li class="paginItem disabled"><a href="javascript:;" title="尾页" style="width: 54px"><span>尾页</span></a></li>
+            <li class="paginItem disabled"><a href="javascript:;" title="尾页" style="width: 54px"><span>尾页</span></a>
+            </li>
             <%} %>
         </ul>
     </div>
@@ -114,7 +129,7 @@
     <div class="clearfix"></div>
 </div>
 <script type="text/javascript">
-    function jumpPage(pageSize,jumpNumber) {
+    function jumpPage(pageSize, jumpNumber) {
         if (jumpNumber >${page.totalPages}) {
             jumpNumber = ${page.totalPages};
         }
@@ -122,8 +137,15 @@
             jumpNumber = 1;
         }
 
-        $("#hideJumpA").attr("href", "?page.size=" + pageSize + "&page.pn=" + jumpNumber + "&" + $('form.form-search').serialize() + "&" + $cy.urlTools.findSortParam(currentUrl)).find("span").click();
+        $("#hideJumpA").attr("href", "?page.total=${page.totalElements}&page.size=" + pageSize + "&page.pn=" + jumpNumber + "&" + $('form.form-search').serialize() + "&" + $cy.urlTools.findSortParam(currentUrl)).find("span").click();
     }
+
+    $(function () {
+        // 你肯定不信，这是处理osx下 safari bug用的。。。
+        setTimeout(function () {
+            $(".pagination-panel-input:disabled").removeAttr("disabled")
+        }, 300);
+    })
 </script>
 
 <%--

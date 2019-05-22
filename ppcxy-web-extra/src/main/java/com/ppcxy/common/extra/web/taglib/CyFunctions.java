@@ -17,14 +17,14 @@ import java.util.Iterator;
  * <p>Version: 1.0
  */
 public class CyFunctions {
-
-
+    
+    
     public static boolean in(Iterable iterable, Object obj) {
         if(iterable == null) {
             return false;
         }
         Iterator iterator = iterable.iterator();
-
+        
         while(iterator.hasNext()) {
             if(iterator.next().equals(obj)) {
                 return true;
@@ -32,7 +32,7 @@ public class CyFunctions {
         }
         return false;
     }
-
+    
     /**
      * TODO 判断是否崔在指定id的组织机构
      *
@@ -50,7 +50,7 @@ public class CyFunctions {
         //}
         return false;
     }
-
+    
     /**
      * TODO 判断是否存储指定id的工作职务
      *
@@ -68,7 +68,7 @@ public class CyFunctions {
         //}
         return false;
     }
-
+    
     /**
      * 判断是否存储指定id的资源
      *
@@ -86,7 +86,7 @@ public class CyFunctions {
         }
         return true;
     }
-
+    
     /**
      * 判断是否存储指定id的权限
      *
@@ -105,8 +105,8 @@ public class CyFunctions {
         //}
         return true;
     }
-
-
+    
+    
     /**
      * 判断是否存储指定id的角色
      *
@@ -125,5 +125,9 @@ public class CyFunctions {
         //}
         return true;
     }
-
+    
+    public static double abs(double number) {
+        return Math.abs(number);
+    }
+    
 }

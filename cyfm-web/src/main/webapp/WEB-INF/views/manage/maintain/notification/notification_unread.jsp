@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-    <title>通知管理</title>
+  <title>通知管理</title>
     <style>
         body{
             min-width: auto;
@@ -134,39 +134,39 @@
     </ul>
 </div>
 <script>
-    $("button.showDetails").click(function () {
-        var $item = $(this).parents("li.item")
+      $("button.showDetails").click(function () {
+          var $item = $(this).parents("li.item")
 
-        var id = $item.data("id");
-        var title = $item.find(".subject .details").text();
-        var content = $item.find(".content .details").html();
+          var id = $item.data("id");
+          var title = $item.find(".subject .details").text();
+          var content = $item.find(".content .details").html();
 
-        var message = top.layer.alert(content, {
-            skin: 'layui-layer-lan'
-            , title: title
-            , closeBtn: 0
-            , shift: 5 //动画类型
-        }, function(){
-            $.get("${ctx}/manage/maintain/notification/markRead/" + id,function (result) {
-                top.$cy.sysNotice.flush()
-            });
-            top.layer.close(message)
-        });
+          var message = top.layer.alert(content, {
+              skin: 'layui-layer-lan'
+              , title: title
+              , closeBtn: 0
+              , shift: 5 //动画类型
+          }, function(){
+              $.get("${ctx}/manage/maintain/notification/markRead/" + id,function (result) {
+                  top.$cy.sysNotice.flush()
+              });
+              top.layer.close(message)
+          });
 
-        $item.remove();
-        $("li.external .bold").text($(".notice_list li").size()-1);
+          $item.remove();
+          $("li.external .bold").text($(".notice_list li").size()-1);
 
-    })
+      })
 
-    $("button.markRead").click(function () {
-        var $item = $(this).parents("li.item")
-        var id = $item.data("id");
-
-        $.get("${ctx}/manage/maintain/notification/markRead/" + id,function (result) {
-            top.$cy.sysNotice.flush()
-        });
-        $item.remove();
-    })
+      $("button.markRead").click(function () {
+          var $item = $(this).parents("li.item")
+          var id = $item.data("id");
+          
+          $.get("${ctx}/manage/maintain/notification/markRead/" + id,function (result) {
+              top.$cy.sysNotice.flush()
+          });
+          $item.remove();
+      })
 </script>
 </body>
 </html>

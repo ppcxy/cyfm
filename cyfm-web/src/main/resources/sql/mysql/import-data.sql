@@ -28,12 +28,12 @@ INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE
 INSERT INTO cy_maintain_notification_template (id, NAME, SYSTEM, TITLE, TEMPLATE, DELETED) VALUES (7, 'excelImportError', 'system', '导入Excel失败', '导入Excel失败了，请把错误报告给管理员，可能的失败原因：文件格式不对；错误码：{error}', 0);
 
 
-INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(1,'admin','管理员','admin@springside.org.cn','13888888888','691b14d79bf0fa2215f155235df5e670b64394cc','7efbd59d9741d34f','enabled',1,0,'2012-01-01 00:00:00');
-INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(2,'user','Calvin','user@springside.org.cn','13211111112','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date)VALUES(3,'user2','Jack','jack@springside.org.cn','13211111113','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(4,'user3','Kate','kate@springside.org.cn','13211111114','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(5,'user4','Sawyer','sawyer@springside.org.cn','13211111115','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
-INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(6,'user5','Ben','ben@springside.org.cn','13211111116','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','enabled',1,0,'2012-01-01 00:00:00');
+INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(1,'admin','管理员','admin@springside.org.cn','13888888888','691b14d79bf0fa2215f155235df5e670b64394cc','7efbd59d9741d34f','normal',1,0,'2012-01-01 00:00:00');
+INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(2,'user','Calvin','user@springside.org.cn','13211111112','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','normal',1,0,'2012-01-01 00:00:00');
+INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date)VALUES(3,'user2','Jack','jack@springside.org.cn','13211111113','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','normal',1,0,'2012-01-01 00:00:00');
+INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(4,'user3','Kate','kate@springside.org.cn','13211111114','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','normal',1,0,'2012-01-01 00:00:00');
+INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(5,'user4','Sawyer','sawyer@springside.org.cn','13211111115','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','normal',1,0,'2012-01-01 00:00:00');
+INSERT INTO cy_sys_user (id, username, name, email,tel, password, salt, status, team_id,deleted,create_date) VALUES(6,'user5','Ben','ben@springside.org.cn','13211111116','2488aa0c31c624687bd9928e0a5d29e7d1ed520b','6d65d24122c30500','normal',1,0,'2012-01-01 00:00:00');
 
 
 INSERT INTO cy_sys_resource (id, name, icon, `_identity`, parent_id, parent_ids, url, weight, is_show, resource_type) VALUES (1, '系统功能', 'fa fa-sun-o', 'root', 0, '0', '/manage/index/', 2, true, 0);

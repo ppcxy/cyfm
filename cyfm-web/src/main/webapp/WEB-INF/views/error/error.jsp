@@ -3,6 +3,7 @@
 <%@ page import="com.ppcxy.common.entity.search.exception.SearchException" %>
 <%@ page import="com.ppcxy.common.exception.BaseException" %>
 <%@ page import="com.ppcxy.common.utils.LogUtils" %>
+<%@ page import="org.apache.shiro.authc.AuthenticationException" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <!DOCTYPE html>
@@ -37,6 +38,7 @@
         Throwable exception = (Throwable) request.getAttribute("javax.servlet.error.exception");
         request.setAttribute("exception", exception);
         request.setAttribute("baseException", exception instanceof BaseException);
+        request.setAttribute("authenticationException", exception instanceof AuthenticationException);
         request.setAttribute("searchException", exception instanceof SearchException);
 
     %>
@@ -51,11 +53,15 @@
             <cy:showMessage
                     errorMessage="<h4 style='display:inline;'>系统异常！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
         </c:if>
+        <c:if test="${authenticationException}">
+            <cy:showMessage
+                    errorMessage="<h4 style='display:inline;'>登录验证错误！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
+        </c:if>
         <c:if test="${searchException}">
             <cy:showMessage
                     errorMessage="<h4 style='display:inline;'>查询参数错误！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
         </c:if>
-        <c:if test="${not baseException && not searchException}">
+        <c:if test="${not baseException && not authenticationException && not searchException}">
             <cy:showMessage
                     errorMessage="<h3 style='display:inline;'>网络服务出现问题！</h3><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;请刷新后尝试重新访问。如果仍然无法解决，者联系管理员解决此问题！&nbsp;&nbsp;&nbsp;&nbsp;<refresh><a href='${url}' class='btn btn-danger'>刷新页面</a></refresh>"/>
         </c:if>
@@ -72,5 +78,10 @@
         </shiro:hasRole>
     </c:if>
 </div>
+<script>
+    $(function () {
+        $cy.waitingOver();
+    })
+</script>
 </body>
 </html>

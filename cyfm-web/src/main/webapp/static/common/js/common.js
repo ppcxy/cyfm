@@ -1,5 +1,6 @@
 $cy = function () {
     var noticeTimer;
+    var longPollingAjax;
     var $notice_count;
     var $notification_list;
     var pollingUrl = ctx + "/polling";
@@ -13,7 +14,7 @@ $cy = function () {
         "</a></li>"
 
     var longPolling = function (url, callback, auto) {
-        $.ajax({
+        longPollingAjax = $.ajax({
             type: 'post',
             url: url,
             async: true,
@@ -32,7 +33,7 @@ $cy = function () {
                         function () {
                             longPolling(url, callback, auto);
                         },
-                        1000
+                        5000
                     );
                 }
             },
@@ -70,7 +71,9 @@ $cy = function () {
         //console.log("lc");
         longPolling(pollingUrl + "?flush=true", function (data) {
             refreshNotification(data);
+            longPollingAjax.abort();
             clearTimeout(noticeTimer);
+
             longPolling(pollingUrl, function (data) {
                 console.debug("长轮训获取推送...");
                 if (data) {
@@ -91,7 +94,7 @@ $cy = function () {
 
             var id = $item.data("id");
             var title = $item.find(".details").text();
-            var content = $item.data("content");
+            var content = $item.data("content").replace(/{ctx}/g, _ctx);
 
             var message = top.layer.alert(content, {
                 skin: 'layui-layer-lan'
@@ -108,13 +111,30 @@ $cy = function () {
             $item.remove();
             $("li.external .bold").text($(".notice_list li").size() - 1);
         });
+
+        document.addEventListener("visibilitychange", function () {
+            console.log(document.visibilityState);
+            if (document.visibilityState == "hidden") {
+                console.debug('页面失去焦点，不在接受推送数据...');
+                longPollingAjax.abort();
+                clearTimeout(noticeTimer);
+            } else if (document.visibilityState == "visible") {
+                console.debug('页面获得焦点，立即刷新推送数据...');
+                flushPolling();
+            }
+        });
     };
 
 
     //当前页面刷新,避免冲洗提交表单的刷新操作
     //刷新页面
     var refreshPage = function () {
-        window.location.href = window.location.href;
+        console.debug("刷新页面")
+        var whref = window.location.href;
+        if (whref.lastIndexOf("#") == whref.length - 1) {
+            whref = whref.substring(0, whref.length - 1);
+        }
+        window.location.href = whref;
     };
     //锁屏加载
     var waiting = function (message, timeout) {
@@ -129,10 +149,15 @@ $cy = function () {
 
     };
     //结束任何锁屏
-    var waitingOver = function () {
+    var waitingOver = function (current) {
         layer.closeAll('loading');
         layer.closeAll('dialog');
         layer.closeAll('tips');
+        if (current) {
+            top.layer.closeAll('loading');
+            top.layer.closeAll('dialog');
+            top.layer.closeAll('tips');
+        }
     };
     //关闭我(当我是弹出框时)
     var closeme = function (nosync) {
@@ -155,7 +180,7 @@ $cy = function () {
             , title: '消息(3秒后自动关闭)'
             , content: message
             , time: 3000
-            , zindex: 10000
+            , zindex: 16777271
             , closeBtn: 0
             , btn: ['关闭']
             , shift: 5 //动画类型
@@ -169,7 +194,7 @@ $cy = function () {
             , content: message
             , time: 5000
             , icon: 0
-            , zindex: 10000
+            , zindex: 16777271
             , closeBtn: 0
             , btn: ['关闭']
             , shift: 5 //动画类型
@@ -183,7 +208,7 @@ $cy = function () {
             , content: message
             , time: 3000
             , icon: 1
-            , zindex: 10000
+            , zindex: 16777271
             , shift: 5 //动画类型
             , closeBtn: 0
             , btn: ['关闭']
@@ -196,7 +221,7 @@ $cy = function () {
             , title: '错误消息'
             , content: message
             , icon: 2
-            , zindex: 10000
+            , zindex: 16777271
             , closeBtn: 0
             , btn: ['关闭']
             , shift: 5 //动画类型
@@ -248,8 +273,10 @@ $cy = function () {
     //初始化时间控件
     var initDatePick = function () {
         // 时间组建初始化
-        $('[data-format]').each(function (index, obj) {
+        $('.datepicker[data-format]').each(function (index, obj) {
             var format = $(obj).data('format');
+            var event = $(obj).data('event');
+            console.debug(format, event)
             var type = 'datetime';
             var istime = true;
             if (format == 'both') {
@@ -261,7 +288,7 @@ $cy = function () {
                 format = 'HH:mm:ss';
                 type = 'time';
             } else {
-                format = 'yyyy-MM-dd HH:mm:ss';
+                format = $(this).data("format");
             }
 
             laydate.render({
@@ -270,7 +297,8 @@ $cy = function () {
                 format: format,
                 istoday: true,
                 isclear: true, //是否显示清空
-                issure: true
+                issure: true,
+                trigger: event ? event : "focus",
                 //festival: true
             });
         })
@@ -518,12 +546,16 @@ $cy = function () {
                 if ($table.is(".table-sort")) {
                     new TableDragSortResize($table[0], {
                         cidAttrName: 'data-tid',
+                        resizeable: true,
                         sort: {
                             callback: function (cell, type, event) {
                                 if ($table.is(".table-ajax")) {
                                     //TODO 自行实现
                                     try {
-                                        tableAjaxSort(cell, type, event);
+                                        var isSort = tableAjaxSort(cell, type, event);
+                                        if (!isSort) {
+                                            return false;
+                                        }
                                     } catch (e) {
                                         console.error("未实现 tableAjaxSort(cell, type, event) 方法.")
                                     }
@@ -595,7 +627,7 @@ $cy = function () {
                         } else {
                             beginCheck = 'no';
                         }
-                        return false;
+                        return true;
                     }
 
                     //shift+d 删除选中行
@@ -1044,6 +1076,36 @@ $cy = function () {
 
 }();
 
+// Handles the go to top button at the footer
+var handleGoTop = function () {
+    var offset = 300;
+    var duration = 500;
+
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
+        $(window).bind("touchend touchcancel touchleave", function (e) {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    } else {  // general
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    }
+
+    $('.scroll-to-top').click(function (e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    });
+};
+
 //=================================
 //当前是否在iframe中
 var isFrame = top != window;
@@ -1074,13 +1136,13 @@ jQuery(document).ready(function () {
                 ev.keyCode = 0;
                 ev.returnValue = false;
             }
-
             $cy.refreshPage();
             return false;
         }
         //空格快速关闭提示框
         if ((ev.keyCode == 32)) {
-            var $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn', top.document).children('a,input,button').eq(0);
+            console.debug("空格关闭提示")
+            var $btn = top.$('.layui-layer[type=dialog]:last .layui-layer-btn').children('a,input,button').eq(0);
 
             if ($btn.size() <= 0) {
                 $btn = $('.layui-layer[type=dialog]:last .layui-layer-btn').children('a,input,button').eq(0);
@@ -1134,7 +1196,7 @@ jQuery(document).ready(function () {
 
     $("form.form-search").submit(function () {
         var pageSize = $cy.urlTools.queryString("page.size");
-        if(pageSize){
+        if (pageSize) {
             $(this).append("<input type='hidden' name='page.size' value='" + pageSize + "'>")
         }
         return true;
@@ -1145,10 +1207,12 @@ jQuery(document).ready(function () {
 //初始化页面
 $(function () {
     $(".data-ajax").click(function () {
+        console.debug("ajax 提交...", this);
         var href = $(this).data("ajax-href");
         var callback = $(this).data("ajax-callback")
         $.ajax({
             type: "get",
+            cache: false,
             url: href,
             dataType: "text",
             success: function (data) {
@@ -1157,18 +1221,39 @@ $(function () {
         })
     })
 
+    $(".data-select").click(function () {
+        var href = $(this).data("ajax-href");
+        top.layer.open({
+            id: 'data-select',
+            type: 2,
+            title: '数据列查询',
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: false,
+            area: ['893px', '600px'],
+            content: href,
+            btn: ['确定'],
+            yes: function (index, layero) {
+                var childFrameWindow = top.layer.getChildFrameWindow(index)
+                childFrameWindow.sub(index);
+            }
+
+        });
+    })
+
     //锁屏加载
     window.onbeforeunload = function () {
         if (!$cy.validate.submiting()) {
             setTimeout(function () {
                 console.debug("加载页面锁屏状态", $cy.validate.submiting());
-                top.$cy.waiting();
+                top.$cy.waiting("", 20000);
             }, 100);
         }
     };
 
     $cy.handleUniform();
     $cy.initDatePick();
+    handleGoTop();
 
     //需要直接初始化的.
     if ($.validator) {
@@ -1180,7 +1265,7 @@ $(function () {
     //点击左树后将焦点切换到table
     setTimeout(function () {
         if ($("#inputForm").size() == 0) {
-            $('a').focus().blur();
+            $('a:first').focus().blur();
         } else {
             // 为了能快速返回,暂时禁用第一个可输入框获取焦点
             // $("#inputForm input:visible:not([readonly],[disabled])").eq(0).focus()

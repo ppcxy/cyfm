@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+﻿<%@ page contentType="text/html;charset=UTF-8"%>
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -33,7 +33,7 @@
     <script>
         var topHeight = 46;
         var placeHeight = 55;
-        var pageLrMargin = 20;
+        var pageLrMargin = 16;
 
         window.paceOptions = {
             ajax: {
@@ -52,10 +52,11 @@
 
             $("div.manage-main").css("width", width - sidebarWidth - pageLrMargin + "px").css("height", height - topHeight - placeHeight);
         }
-        
+
         $(function () {
             setTimeout(function () {
                 $("#rightFrame").on("load", function () {
+                    console.debug("加载页面完毕解锁.");
                     top.$cy.waitingOver();
                 });
             }, 500);
@@ -81,9 +82,9 @@
             width: 100%;
             height: 100%;
         }
-         div.page-logo a{
-             line-height: 46px;
-         }
+        div.page-logo a{
+            line-height: 46px;
+        }
     </style>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -104,7 +105,7 @@
                 <c:forEach items="${roots}" var="root">
                     <li class="classic-menu-dropdown ${root.id == rootId ? 'active' : ''}">
                         <a href="${ctx}/manage/${root.id}/">
-                            ${root.name} <span class="${root.id == rootId ? 'selected' : ''}"></span>
+                                ${root.name} <span class="${root.id == rootId ? 'selected' : ''}"></span>
                         </a>
                     </li>
                 </c:forEach>
@@ -202,7 +203,7 @@
                         </li>
                         <li>
                             <ul class="dropdown-menu-list scroller notification-list" style="height: 250px;" data-handle-color="#637283">
-                                
+
                             </ul>
                         </li>
                     </ul>
@@ -263,7 +264,7 @@
                                 <i class="icon-close"></i>
                             </a>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="快速查找...">
                                 <span class="input-group-btn">
                                             <a href="javascript:;" class="btn submit">
                                                 <i class="icon-magnifier"></i>
@@ -274,7 +275,7 @@
                         <!-- END RESPONSIVE QUICK SEARCH FORM -->
                     </li>
                     <%--<li class="heading">--%>
-                        <%--<h3 class="uppercase">系统管理</h3>--%>
+                    <%--<h3 class="uppercase">系统管理</h3>--%>
                     <%--</li>--%>
                     <c:forEach items="${menus}" var="m" varStatus="s">
                         <li class="nav-item ${s.index eq 0 ? 'start active open' : ''}">
@@ -293,8 +294,8 @@
                     </c:forEach>
                 </ul>
                 <%--<iframe src="${ctx}/manage/left/1/" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame"--%>
-                        <%--title="leftFrame" frameborder=no--%>
-                        <%--border=0></iframe>--%>
+                <%--title="leftFrame" frameborder=no--%>
+                <%--border=0></iframe>--%>
             </div>
         </div>
         <div class="page-content-wrapper">
@@ -308,15 +309,15 @@
                     <div class="page-toolbar">
                         <%-- TODO page-toobar--%>
                         <%--<div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">--%>
-                            <%--<i class="icon-calendar"></i>&nbsp;--%>
-                            <%--<span class="thin uppercase hidden-xs nowtime">2018年01月01日 00:00:00</span>&nbsp;--%>
-                            <%--<i class="fa fa-angle-down"></i>--%>
+                        <%--<i class="icon-calendar"></i>&nbsp;--%>
+                        <%--<span class="thin uppercase hidden-xs nowtime">2018年01月01日 00:00:00</span>&nbsp;--%>
+                        <%--<i class="fa fa-angle-down"></i>--%>
                         <%--</div>--%>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="manage-main">
-                    <iframe src="${ctx}/manage/index/" name="rightFrame" id="rightFrame" title="rightFrame" frameborder=no border=0></iframe>
+                    <iframe src="${ctx}/manage/index/" name="rightFrame" id="rightFrame" title="" frameborder=no border=0></iframe>
                 </div>
             </div>
         </div>
@@ -365,13 +366,13 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active page-quick-sidebar-chat" id="quick_sidebar_tab_1">
-                       111222
+                        111222
                     </div>
                     <div class="tab-pane page-quick-sidebar-alerts" id="quick_sidebar_tab_2">
-                       333444
+                        333444
                     </div>
                     <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
-                       111222333444555
+                        111222333444555
                     </div>
                 </div>
             </div>

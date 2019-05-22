@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<form enctype="multipart/form-data" method="post" action="${ctx}/filestore/upload" id="fileupload" >
+<form enctype="multipart/form-data"  method="post" action="${ctx}/filestore/upload" id="fileupload" >
     <div class="container">
         <div>
             <%--<input type="hidden" id="ctx" value="">--%>
@@ -111,7 +111,7 @@
                 <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
             </td>
             <td class="start">{% if (!o.options.autoUpload) { %}
-                <button class="btn btn-primary">
+                <button type="button" class="btn btn-primary">
                     <span>{%=locale.fileupload.start%}</span>
                 </button>
             {% } %}</td>
@@ -119,7 +119,7 @@
             <td colspan="2"></td>
         {% } %}
         <td class="cancel">{% if (!i) { %}
-            <button class="btn btn-warning">
+            <button type="button" class="btn btn-warning">
                 <span>{%=locale.fileupload.cancel%}</span>
             </button>
         {% } %}</td>
@@ -146,7 +146,7 @@
             <td class="size" ><span>上传成功</span></td>
         {% } %}
         <td class="delete" >
-            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="${ctx}/{%=file.delete_url%}">
+            <button type="button" class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                 <span>{%=locale.fileupload.destroy%}</span>
             </button>
         </td>

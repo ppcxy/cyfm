@@ -50,4 +50,10 @@
         <function-signature>boolean existsRole(java.lang.Long,java.lang.Boolean)</function-signature>
     </function>
 
+    <function>
+        <description>判断指定id的角色是否存在，第一个参数是id，第二个参数是onlyDisplayShow(是否仅显示可见的)</description>
+        <name>abs</name>
+        <function-class>com.ppcxy.common.extra.web.taglib.CyFunctions</function-class>
+        <function-signature>double abs(double)</function-signature>
+    </function>
 </taglib>

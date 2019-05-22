@@ -10,6 +10,9 @@ public interface DsmConstant {
     // 占位符
     public static final String placeholder = "%S";
     
+    // #写法实例
+    public static final String SYS_NAME = "天翔统一数据平台";
+    
     public static final String SYS_DATABASE_NAME = "MYSQL";
     
     public static final String MYSQL = "MYSQL";
@@ -68,7 +71,7 @@ public interface DsmConstant {
     public static final String ORACLE_TABLE_NAME = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER=?";
     
     // Oracle查字段
-    public static final String ORACLE_COLUMN_NAME = "SELECT COLUMN_NAME AS COLUMN_NAME,(DATA_TYPE || '(' || cast(DATA_LENGTH as VARCHAR(50))  || ')') AS COLUMN_TYPE FROM ALL_TAB_COLUMNS WHERE OWNER=(select user from dual) AND TABLE_NAME=?";
+    public static final String ORACLE_COLUMN_NAME = "SELECT COLUMN_NAME AS COLUMN_NAME,  case when DATA_PRECISION is not null then (DATA_TYPE || '(' || cast(DATA_PRECISION as VARCHAR(5))  || ','|| cast(DATA_SCALE as VARCHAR(5)) ||')') else (DATA_TYPE || '(' || cast(DATA_LENGTH as VARCHAR(50))  || ')') end AS COLUMN_TYPE FROM ALL_TAB_COLUMNS WHERE OWNER=(select user from dual) AND TABLE_NAME=?";
     
     
 }

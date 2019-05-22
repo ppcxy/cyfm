@@ -1,13 +1,16 @@
 package com.ppcxy.common.web.controller;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ppcxy.common.Constants;
 import com.ppcxy.common.entity.AbstractEntity;
 import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.common.spring.SpringContextHolder;
+import com.ppcxy.common.utils.CamelCaseUtils;
 import com.ppcxy.common.utils.ShiroUserInfoUtils;
-import com.ppcxy.common.utils.excel.support.impl.ExcelDatasExportUtils;
+import com.ppcxy.common.utils.excel.model.DataColumn;
+import com.ppcxy.common.utils.excel.model.FieldMeta;
 import com.ppcxy.common.utils.excel.support.impl.ExcelDatasImpontUtils;
 import com.ppcxy.common.web.bind.annotation.PageableDefaults;
 import com.ppcxy.common.web.controller.permission.PermissionList;
@@ -23,13 +26,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.JoinColumn;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * 基础CRUD 控制器
@@ -50,7 +54,6 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     public void setBaseService(BaseService<T, ID> baseService) {
         this.baseService = baseService;
     }
-    
     
     /**
      * 用于设置通用数据,默认行为干预请覆盖 befor after,或者直接覆盖具体方法.
@@ -385,33 +388,8 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @PageableDefaults(sort = {"id=desc"})
     @ResponseBody
     public String exportExcel(final Searchable searchable, final String exportModel, final String title, HttpServletRequest request) {
-        final ExcelDatasExportUtils<T> export = new ExcelDatasExportUtils<>(entityClass);
         
-        final String realPath = request.getServletContext().getRealPath("/");
-        try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (exportModel.equals("all")) {
-                        searchable.setPage(0, 200);
-                        //TODO 导出全部需要按照分页异步导出
-                        export.ready("导出数据", ShiroUserInfoUtils.getUsername(), realPath);
-                        Page<T> page = null;
-                        do {
-                            page = baseService.findAll(searchable);
-                            searchable.setPage(searchable.getPage().getPageNumber() + 1, 200);
-                            export.additionalDataForBean(page.getContent());
-                        } while (page.hasNext());
-                        
-                        export.complete();
-                    } else {
-                        export.exportTableDatas(title != null ? title : entityClass.getName(), baseService.findAll(searchable).getContent(), ShiroUserInfoUtils.getUsername(), realPath);
-                    }
-                }
-            }).start();
-        } catch (Exception e) {
-            return "error";
-        }
+        baseService.exportData2Excel(permissionList.getResourceIdentity(), entityClass, searchable, title, exportModel);
         
         return "success";
     }
@@ -435,6 +413,15 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     public String importExcel(String title, Model model) {
         model.addAttribute("title", title);
         return "common/excel/importExcelForm";
+    }
+    
+    @RequestMapping(value = "selectData", method = RequestMethod.GET)
+    public String selectData(Model model) {
+        List<DataColumn> dataColumns = initColumns(entityClass);
+        
+        model.addAttribute("modelName", permissionList.getResourceIdentity());
+        model.addAttribute("datacolumn", dataColumns);
+        return "common/excel/selectDataExcelForm";
     }
     
     @RequestMapping(value = "importExcel", method = RequestMethod.POST)
@@ -487,7 +474,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             try {
                 model.addAttribute("entity", BeanUtils.cloneBean(baseService.findOne(id)));
             } catch (Exception e) {
-                
+            
             }
             
         }
@@ -498,5 +485,53 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
                               ServletRequestDataBinder binder) throws Exception {
         //对于需要转换为Date类型的属性，使用DateEditor进行处理
         binder.registerCustomEditor(Date.class, new DateEditor());
+    }
+    
+    
+    /**
+     * 根据类去初始化列信息
+     *
+     * @param dataClass
+     */
+    public List<DataColumn> initColumns(Class dataClass) {
+        List<DataColumn> columns = Lists.newArrayList();
+        
+        if (columns.size() == 0) {
+            Field[] fs = dataClass.getDeclaredFields();
+            
+            columns.add(new DataColumn("数据库主键", "id"));
+            
+            for (Field field : fs) {
+                DataColumn dataColumn = new DataColumn();
+                dataColumn.setColumnName(field.getName());
+                //获取字段中包含fieldMeta的注解
+                FieldMeta meta = field.getAnnotation(FieldMeta.class);
+                if (meta != null) {
+                    dataColumn.setTitle(meta.description());
+                    if (meta.isRef()) {
+                        dataColumn.setRefColumnName(meta.refColumn());
+                    }
+                }
+                
+                JoinColumn joinColumn = field.getAnnotation(JoinColumn.class);
+                if (joinColumn != null) {
+                    String refColumnName = joinColumn.referencedColumnName();
+                    if (org.apache.commons.lang3.StringUtils.isNotBlank(refColumnName)) {
+                        String refColumn = CamelCaseUtils.toCamelCase(refColumnName);
+                        dataColumn.setRefColumnName(refColumn);
+                    }
+                }
+                columns.add(dataColumn);
+            }
+            
+            Collections.sort(columns, new Comparator<DataColumn>() {
+                @Override
+                public int compare(DataColumn o1, DataColumn o2) {
+                    return o1.getOrder() - o2.getOrder();
+                }
+            });
+        }
+        
+        return columns;
     }
 }

@@ -358,6 +358,9 @@
         }
 
         function _mouseMove(event) {
+            if ($(this.table).is(".table-ajax")) {
+                return;
+            }
             // ie8 support
             event = getEvent(event);
 
@@ -474,8 +477,11 @@
         // table
         this.table = table;
         // header row
-        this.hr = table.rows[0];
+        this.hr = $(table).find("thead tr:last")[0];
         // number of columns
+        if (!this.hr) {
+            return;
+        }
         this.nc = this.hr.cells.length;
         // number of rows
         this.nr = table.rows.length;
@@ -539,7 +545,9 @@
 
             if (this.options.restoreState) {
                 //TODO BUG 存储key发生了变换
-                this.pm = restoreState('table-drag-sort-resize', this.table, 'drag');
+                if (!$(this.table).is(".table-ajax")) {
+                    this.pm = restoreState('table-drag-sort-resize', this.table, 'drag');
+                }
                 if (globalOptions.sort.restoreState) {
                     restoreState('table-drag-sort-resize', this.table, 'sort');
                 }
@@ -926,6 +934,7 @@
             restoreState: true,
             fixed: true,
             cidAttrName: "id",
+            resizeable: true,
             sort: {
                 restoreState: true,
                 callback: $.noop,
@@ -958,11 +967,13 @@
             });
 
             // <i class="fa fa-arrow-circle-o-up"></i>
-            cell.innerHTML = '<div class=\"resize-base\"><div class=\"resize-elem\"></div><div class=\"resize-text\">' + cell.innerHTML + '</div></div>';
+            if (options.resizeable) {
+                cell.innerHTML = '<div class=\"resize-base\"><div class=\"resize-elem\"></div><div class=\"resize-text\">' + cell.innerHTML + '</div></div>';
 
-            addEvent(cell.childNodes[0].childNodes[0], 'mousedown', function (event) {
-                resizeHandler._mouseDown(event);
-            });
+                addEvent(cell.childNodes[0].childNodes[0], 'mousedown', function (event) {
+                    resizeHandler._mouseDown(event);
+                });
+            }
         }
     }
 

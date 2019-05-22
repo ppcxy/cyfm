@@ -17,12 +17,14 @@
     </shiro:hasPermission>
     <shiro:hasPermission name="${resourceIdentity}:delete">
         <c:if test="${batchDelete}">
-            <a class="btn btn-warning delete batch" data-baseurl="${ctx}/${viewPrefix}/batch/delete?ids={id}"><i
-                    class="fa fa-trash-o"></i> 批量删除</a>
+            <a class="btn btn-warning delete batch" data-baseurl="${ctx}/${viewPrefix}/batch/delete?ids={id}">
+                <i class="fa fa-trash-o"></i> 批量删除
+            </a>
         </c:if>
         <c:if test="${not batchDelete}">
-            <a class="btn btn-warning delete" data-baseurl="${ctx}/${viewPrefix}/delete/{id}"><i
-                    class="fa fa-trash-o"></i> 删除</a>
+            <a class="btn btn-warning delete" data-baseurl="${ctx}/${viewPrefix}/delete/{id}">
+                <i class="fa fa-trash-o"></i> 删除
+            </a>
         </c:if>
     </shiro:hasPermission>
     <shiro:hasPermission name="${resourceIdentity}:custom">
@@ -32,16 +34,16 @@
                 <i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
             </button>
             <ul class="dropdown-menu">
-                <shiro:hasPermission name="${resourceIdentity}:export">
-                    <li title="当前查询条件本页数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=current" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出当前数据</a></li>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="${resourceIdentity}:export">
-                    <li title="当前查询条件全部数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=all" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出全部数据</a></li>
-                    <li class="divider"></li>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="${resourceIdentity}:import">
-                    <li><a href="javascript:;"><i class="fa fa-file-excel-o"></i>导入数据</a></li>
-                </shiro:hasPermission>
+            <shiro:hasPermission name="${resourceIdentity}:export">
+                <li title="当前查询条件本页数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=current" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出当前数据</a></li>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="${resourceIdentity}:export">
+                <li title="当前查询条件全部数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=all" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出全部数据</a></li>
+                <li class="divider"></li>
+            </shiro:hasPermission>
+                <li title="查看可用数据列"><a class="data-select" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/selectData" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>查看可用数据列</a>
+                </li>
+                <li class="divider"></li>
                 <li class="divider"></li>
                 <li class="more_list">
                 </li>
@@ -68,3 +70,4 @@
         </li>
     </ul>
 </shiro:hasPermission>
+

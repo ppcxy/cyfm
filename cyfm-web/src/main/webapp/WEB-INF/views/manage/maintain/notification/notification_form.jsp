@@ -22,7 +22,7 @@
                 <label class="control-label">通知内容:</label>
                 <div class="controls">
                     <div style="border:1px solid #ccc;padding:10px;background: #eee">
-                        ${entity.content}
+                        <cy:ctxReplace content="${entity.content}"/>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,6 @@
         $("#inputForm").validate({
 
         });
-
         top.$cy.sysNotice.flush();
     })
 </script>

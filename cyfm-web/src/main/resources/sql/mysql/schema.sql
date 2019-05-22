@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS cy_excel_template;
+
 DROP TABLE IF EXISTS cy_sys_user_role;
 
 DROP TABLE IF EXISTS cy_sys_role;
@@ -34,6 +36,14 @@ DROP TABLE IF EXISTS bus_join_system;
 
 DROP TABLE IF EXISTS bus_remote_api;
 
+create table cy_excel_template
+(
+    id int auto_increment
+        primary key,
+    template_id varchar(500) null,
+    resource_identity varchar(500) null
+);
+
 
 
 CREATE TABLE cy_sys_role (
@@ -57,6 +67,7 @@ CREATE TABLE cy_sys_user (
   status VARCHAR(32),
   team_id BIGINT,
   create_date DATETIME ,
+  totp_secret varchar(4000),
   deleted TINYINT DEFAULT 0,
   PRIMARY KEY (id)
 )

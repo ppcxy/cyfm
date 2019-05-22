@@ -38,23 +38,24 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <%--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>--%>
     <link href="${ctx}/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="${ctx}/static/manage/css/login-soft.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/manage/css/login-soft.css?1" rel="stylesheet" type="text/css"/>
     <!-- END PAGE LEVEL SCRIPTS -->
     <!-- BEGIN THEME STYLES -->
     <link href="${ctx}/static/common/styles/components.css" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/common/styles/plugins.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/manage/css/layout.css?2" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="${ctx}/static/manage/css/darkblue.css?2" rel="stylesheet" type="text/css"/>
-    <link href="${ctx}/static/common/styles/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/common/styles/custom.css?6" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="${ctx}/static/images/favicon.ico"/>
+
     <style>
         .loginbox-body {
             width: 320px;
@@ -166,7 +167,7 @@
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="${ctx}/static/manage/js/login-soft.js?1" type="text/javascript"></script>
 
-<script src="${ctx}/static/manage/js/cloud.js" type="text/javascript"></script>
+<script src="${ctx}/static/manage/js/cloud.js?1" type="text/javascript"></script>
 <script language="javascript">
     $(function () {
         $(".valid-alert .close").click(function () {
@@ -192,3 +193,4 @@
 </body>
 
 </html>
+

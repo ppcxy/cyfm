@@ -56,6 +56,13 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
+
+        <!-- mybatis -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- PERSISTENCE end -->
 
         <!-- jcaptcha 验证码 -->
@@ -371,6 +378,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 数据连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- h2 如果生产数据库不是H2，解开下面的注释-->
         <dependency>
             <groupId>com.h2database</groupId>

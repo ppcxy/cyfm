@@ -33,7 +33,7 @@
                 <div class="control-group">
                     <label for="name">用户姓名</label>
                     <div class="controls">
-                        <input type="input" id="name" name="name" value="${user.name}" class="form-control" placeholder="5到20个汉字、字母、数字或下划线"/>
+                        <input type="input" id="name" name="name" value="${user.name}" class="form-control" readonly placeholder="5到20个汉字、字母、数字或下划线"/>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="control-group">
                     <label for="email">邮箱</label>
                     <div class="controls">
-                        <input type="email" id="email" name="email" value="${user.email}" class="form-control" placeholder="zzzzz@163.com"/>
+                        <input type="email" id="email" name="email" value="${user.email}" class="form-control" readonly placeholder="zzzzz@163.com"/>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="control-group">
                     <label for="tel">手机号</label>
                     <div class="controls">
-                        <input type="tel" id="tel" name="tel" value="${user.tel}" class="form-control validate[required,custom[tel],ajax[ajaxCall]]" placeholder="如15666666520"/>
+                        <input type="input" id="tel" name="tel" value="${user.tel}" class="form-control required" readonly placeholder="如15666666520"/>
                     </div>
                 </div>
             </div>
@@ -63,9 +63,48 @@
 <script>
     $(function () {
         $cy.handleUniform();
-        $("#inputForm").validate({
-
-        });
+        <%--$("#inputForm").validate({--%>
+        <%--    rules: {--%>
+        <%--        name: {--%>
+        <%--            required: true--%>
+        <%--            ,stringCheck: true--%>
+        <%--            , rangelength: [2, 20]--%>
+        <%--        }--%>
+        <%--        , tel: {--%>
+        <%--            mobile: true,--%>
+        <%--            remote: {                               //验证用户名是否存在--%>
+        <%--                type: "POST",--%>
+        <%--                url: "${ctx}/sys/user/checkTel",--%>
+        <%--                data: {--%>
+        <%--                    'oldTel': '${user.tel}'--%>
+        <%--                    , 'tel': function () {--%>
+        <%--                        return $("#tel").val();--%>
+        <%--                    }--%>
+        <%--                }--%>
+        <%--            }--%>
+        <%--        }--%>
+        <%--        , email: {--%>
+        <%--            remote: {                               //验证用户名是否存在--%>
+        <%--                type: "POST",--%>
+        <%--                url: "${ctx}/sys/user/checkEmail",--%>
+        <%--                data: {--%>
+        <%--                    'oldEmail': '${user.email}'--%>
+        <%--                    , 'email': function () {--%>
+        <%--                        return $("#email").val();--%>
+        <%--                    }--%>
+        <%--                }--%>
+        <%--            }--%>
+        <%--        }--%>
+        <%--    }--%>
+        <%--    , messages: {--%>
+        <%--        email: {--%>
+        <%--            remote: "邮箱已被其他用户使用."--%>
+        <%--        }--%>
+        <%--        ,tel: {--%>
+        <%--            remote: "手机号码已经被其他用户使用."--%>
+        <%--        }--%>
+        <%--    }--%>
+        <%--});--%>
     })
 </script>
 </body>

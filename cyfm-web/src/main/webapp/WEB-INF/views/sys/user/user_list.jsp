@@ -31,8 +31,7 @@
 </div>
 <%--用来控制table横向滚动条的div--%>
 <div class="listTableWrap">
-	<table id="contentTable" data-tid="user"
-		   class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
+	<table id="contentTable" data-tid="${modelName}" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
 		<thead>
 		<tr>
 			<th class="check"><input type="checkbox"></th>
@@ -51,7 +50,7 @@
 				<td>${user.name}&nbsp;</td>
 				<td>${user.email}&nbsp;</td>
 				<td>${user.roleNames}&nbsp;</td>
-				<td>${allStatus[user.status]}&nbsp;</td>
+				<td>${user.status.info}&nbsp;</td>
 					<%-- 根据权限显示按钮 --%>
 			</tr>
 		</c:forEach>

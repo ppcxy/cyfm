@@ -1,8 +1,8 @@
 package com.ppcxy.cyfm.filestore.upload.web;
 
 import com.google.common.collect.Lists;
-import com.ppcxy.common.config.SystemConfigs;
 import com.ppcxy.common.exception.BaseException;
+import com.ppcxy.common.extra.conf.SystemConfigs;
 import com.ppcxy.common.utils.ImagesUtils;
 import com.ppcxy.common.utils.LogUtils;
 import com.ppcxy.common.utils.MessageUtils;
@@ -58,7 +58,7 @@ public class UploadController {
     @RequestMapping
     public String upload(HttpServletRequest request, Model model) {
         
-        model.addAttribute("uploadParam", FileUploadModel.newInstance(FileUploadUtils.IMAGE_EXTENSION));
+        model.addAttribute("uploadParam", FileUploadModel.newInstance(FileUploadUtils.DEFAULT_ALLOWED_EXTENSION));
         
         return "filestore/upload/fileupload";
     }
@@ -82,7 +82,7 @@ public class UploadController {
             return ajaxUploadResponse;
         }
         
-        FileUploadModel fileUploadModel = FileUploadModel.newInstance(FileUploadUtils.IMAGE_EXTENSION);
+        FileUploadModel fileUploadModel = FileUploadModel.newInstance(FileUploadUtils.DEFAULT_ALLOWED_EXTENSION);
         
         for (MultipartFile file : files) {
             String filename = FileUploadUtils.cleanFileNameSpecialChar(file.getOriginalFilename());

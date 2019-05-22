@@ -137,13 +137,9 @@
             background: #f8f8f8;
             border-top: 1px solid #ccc;
         }
-        div.footer-menu-bar li:first-child {
-            float: left;
-            padding: 25px 10px 25px 25px;
-        }
         div.footer-menu-bar li {
             float: left;
-            padding: 25px 10px 25px 10px;
+            padding: 25px;
         }
 
         div.footer-menu-bar li .menu-icon{
@@ -209,7 +205,7 @@
 <div class="footer-menu-bar">
     <ul>
     <c:forEach items="${roots}" var="root" varStatus="s">
-        <li><a href="${ctx}/manage?root=${root.id}" class="bottom-menu"><i class="${root.icon} icon-large menu-icon"></i></a></li>
+        <li><a href="${ctx}/manage/${root.id}" class="bottom-menu"><i class="${root.icon} icon-large menu-icon"></i></a></li>
     </c:forEach>
     </ul>
 </div>

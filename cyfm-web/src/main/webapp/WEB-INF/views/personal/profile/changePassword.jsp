@@ -16,23 +16,20 @@
                 <div class="control-group">
                     <label for="oldPassword" class="control-label">旧密码</label>
                     <div class="controls">
-                        <input type="password" id="oldPassword" name="oldPassword"
-                               class="form-control validate[required]"/>
+                        <input type="password" id="oldPassword" name="oldPassword" class="form-control validate[required]"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label for="newPassword1" class="control-label">新密码</label>
                     <div class="controls">
-                        <input type="password" id="newPassword1" name="newPassword1"
-                               class="form-control validate[required,custom[includeSpace],minSize[5],maxSize[25]]" maxlength="25" placeholder="请输入5-25位的新密码"/>
+                        <input type="password" id="newPassword1" name="newPassword1" class="form-control validate[required,custom[includeSpace],minSize[5],maxSize[25]]" maxlength="25" placeholder="请输入5-25位的新密码"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label for="newPassword2" class="control-label">确认新密码</label>
                     <div class="controls">
-                        <input type="password" id="newPassword2" name="newPassword2"
-                               class="form-control validate[required,equals[newPassword1]]" placeholder="重复输入新密码确认"/>
+                        <input type="password" id="newPassword2" name="newPassword2" class="form-control validate[required,equals[newPassword1]]" placeholder="重复输入新密码确认"/>
                     </div>
                 </div>
 

@@ -11,6 +11,7 @@ import com.ppcxy.common.service.BaseService;
 import com.ppcxy.common.service.UserLogUtils;
 import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.entity.user.UserStatus;
 import com.ppcxy.cyfm.sys.repository.jpa.permission.RoleDao;
 import com.ppcxy.cyfm.sys.repository.jpa.user.UserDao;
 import com.ppcxy.cyfm.sys.service.authorize.AuthorizeService;
@@ -21,6 +22,7 @@ import org.apache.shiro.exception.UserNotExistsException;
 import org.apache.shiro.exception.UserPasswordNotMatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -94,7 +96,7 @@ public class UserService extends BaseService<User, Long> {
         
         // TODO 本人不可以禁用本人账号...
         if (ShiroUserInfoUtils.getUsername().equals(user.getUsername())) {
-            user.setStatus("enabled");
+            user.setStatus(UserStatus.normal);
         }
         
         if (StringUtils.isNotBlank(user.getPlainPassword())) {
@@ -163,35 +165,49 @@ public class UserService extends BaseService<User, Long> {
             throw new UserPasswordNotMatchException();
         }
         
-        User user = null;
-        
-        //此处需要走代理对象，目的是能走缓存切面
-        //UserService proxyUserService = (UserService) AopContext.currentProxy();
-        
-        if (maybeUsername(loginName)) {
-            user = findByUsername(loginName);
-        }
-        
-        if (user == null && maybeEmail(loginName)) {
-            user = findByEmail(loginName);
-        }
-        
-        if (user == null && maybeTel(loginName)) {
-            user = findByTel(loginName);
-        }
-        
-        if (user == null) {
-            UserLogUtils.log(
-                    loginName,
-                    "loginError",
-                    "user is not exists!");
-            
-            throw new UserNotExistsException();
-        }
+        User user = getUserByLoginName(loginName);
         
         passwordService.validate(user, password);
         
-        if (user.getStatus() == "disabled") {
+        if (user.getStatus() == UserStatus.blocked) {
+            UserLogUtils.log(
+                    loginName,
+                    "loginError",
+                    "user is blocked!");
+            throw new UserBlockedException("异常锁定.");
+        }
+        
+        UserLogUtils.log(
+                loginName,
+                "loginByTotpSuccess",
+                "");
+        return user;
+    }
+    
+    public User loginByTotp(String loginName, String code) {
+        if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(code)) {
+            UserLogUtils.log(
+                    loginName,
+                    "loginError",
+                    "loginName is empty");
+            throw new UserNotExistsException();
+        }
+        //密码如果不在指定范围内 肯定错误
+        if (code.length() < 6) {
+            UserLogUtils.log(
+                    loginName,
+                    "loginError",
+                    "password length error! password is between {} and {}",
+                    User.PASSWORD_MIN_LENGTH, User.PASSWORD_MAX_LENGTH);
+            
+            throw new UserPasswordNotMatchException();
+        }
+        
+        User user = getUserByLoginName(loginName);
+        
+        passwordService.validateTotpCode(user, code);
+        
+        if (user.getStatus() == UserStatus.blocked) {
             UserLogUtils.log(
                     loginName,
                     "loginError",
@@ -204,6 +220,35 @@ public class UserService extends BaseService<User, Long> {
                 loginName,
                 "loginSuccess",
                 "");
+        return user;
+    }
+    
+    private User getUserByLoginName(String loginName) {
+        User user = null;
+        
+        //此处需要走代理对象，目的是能走缓存切面
+        UserService proxyUserService = (UserService) AopContext.currentProxy();
+        
+        if (maybeUsername(loginName)) {
+            user = proxyUserService.findByUsername(loginName);
+        }
+        
+        if (user == null && maybeEmail(loginName)) {
+            user = proxyUserService.findByEmail(loginName);
+        }
+        
+        if (user == null && maybeTel(loginName)) {
+            user = proxyUserService.findByTel(loginName);
+        }
+        
+        if (user == null) {
+            UserLogUtils.log(
+                    loginName,
+                    "loginError",
+                    "user is not exists!");
+            
+            throw new UserNotExistsException();
+        }
         return user;
     }
     

@@ -18,20 +18,20 @@
 <div class="row-fluid tool ui-toolbar">
     <div>
         <div class="btn-group">
-            <button class="btn blue btn-custom btn-batch-version">
+            <button type="button" class="btn blue btn-custom btn-batch-version">
                 <i class="icon-plus"></i>
                 版本+1
             </button>
-            <button class="btn yellow btn-custom btn-clear-version">
+            <button type="button" class="btn yellow btn-custom btn-clear-version">
                 <i class="icon-eraser"></i>
                 清空版本
             </button>
-            <button class="btn green btn-custom btn-batch-compress">
+            <button type="button" class="btn green btn-custom btn-batch-compress">
                 <i class="icon-magic"></i>
                 压缩js/css
             </button>
             <div class="btn-group last">
-                <button class="btn red btn-custom dropdown-toggle" data-toggle="dropdown" href="#">
+                <button type="button" class="btn red btn-custom dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="icon-retweet"></i>
                     切换版本
                     <span class="caret"></span>
@@ -86,7 +86,7 @@
                     <a class="btn btn-xs green btn-compress">压缩</a>
 
                     <div class="btn-group">
-                        <button type="" class="btn btn-xs red dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="true">
+                        <button type="button" class="btn btn-xs red dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-ellipsis-horizontal"></i> 切换版本 <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu pull-right">

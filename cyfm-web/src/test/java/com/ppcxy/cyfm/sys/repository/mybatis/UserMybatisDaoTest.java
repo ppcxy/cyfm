@@ -8,12 +8,15 @@ package com.ppcxy.cyfm.sys.repository.mybatis;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Maps;
+import com.ppcxy.common.Profiles;
 import com.ppcxy.cyfm.showcase.data.UserData;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import java.util.List;
@@ -23,6 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
 @ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-cyfm.xml"})
+@Transactional(transactionManager = "transactionManager")
+@ActiveProfiles(Profiles.UNIT_TEST)
 public class UserMybatisDaoTest extends SpringTransactionalTestCase {
     
     @Autowired
@@ -67,8 +72,9 @@ public class UserMybatisDaoTest extends SpringTransactionalTestCase {
         Map<String, Object> parameter = Maps.newHashMap();
         
         Page<User> page = PageHelper.startPage(1, 3).doSelectPage(()-> userDao.search(parameter));
-    
+        
         assertThat(page.getTotal()).isEqualTo(6);
         assertThat(page.getResult().size()).isEqualTo(3);
     }
+    
 }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/static/plugins/simditor/simditor.css" />
     <link rel="stylesheet" href="${ctx}/static/plugins/simditor/extensions/html/simditor-html.css" media="screen" charset="utf-8" />
     <link rel="stylesheet" href="${ctx}/static/plugins/simditor/extensions/markdown/simditor-markdown.css" media="screen" charset="utf-8" />
-    <title>dialog演示</title>
+    <title>角色详情</title>
     <script type="text/javascript" src="${ctx}/static/plugins/simditor/module.js"></script>
     <script type="text/javascript" src="${ctx}/static/plugins/simditor/hotkeys.js"></script>
     <script type="text/javascript" src="${ctx}/static/plugins/simditor/uploader.js"></script>
@@ -28,23 +28,23 @@
 </head>
 <body>
 <div>
-    <button class="btn btn-xs btn-default" onclick="$cy.waiting();setTimeout(function() {
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.waiting();setTimeout(function() {
         $cy.waitingOver();
     },10000);">加载10秒
     </button>
 
 
-    <button class="btn btn-xs btn-default" onclick="$cy.waiting('加载中.');setTimeout(function() {
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.waiting('加载中.');setTimeout(function() {
         $cy.waitingOver()
     },5000);">等待加载
     </button>
 
 
-    <button class="btn btn-xs btn-default" onclick="$cy.info('这是一段提示信息.')">提示消息</button>
-    <button class="btn btn-xs btn-default" onclick="$cy.success('这是一段成功消息.')">成功消息</button>
-    <button class="btn btn-xs btn-default" onclick="$cy.warn('这是一段警告消息.')">警告消息</button>
-    <button class="btn btn-xs btn-default" onclick="$cy.error('这是一段错误消息.')">错误消息</button>
-    <button class="btn btn-xs btn-default" onclick="$cy.confirm({message:'这是一段确认信息.',yes:function() {
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.info('这是一段提示信息.')">提示消息</button>
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.success('这是一段成功消息.')">成功消息</button>
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.warn('这是一段警告消息.')">警告消息</button>
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.error('这是一段错误消息.')">错误消息</button>
+    <button type="button" class="btn btn-xs btn-default" onclick="$cy.confirm({message:'这是一段确认信息.',yes:function() {
         alert('点击了确定');
     },no:function() {
         alert('点击了取消');
@@ -52,17 +52,17 @@
     </button>
 
 
-    <button class="btn btn-xs btn-default"
+    <button type="button" class="btn btn-xs btn-default"
             onclick="$cy.tools.chooseUser({callback:function(show,results){alert(show)}})">用户选择控件
     </button>
 
 
-    <button class="btn btn-xs btn-default" onclick="upload()">文件上传</button>
+    <button type="button" class="btn btn-xs btn-default" onclick="upload()">文件上传</button>
 
 </div>
 <div>
     <input type="text">
-    <input type="text" class="" data-format="both">
+    <input type="text" class="datepicker" data-format="both">
 </div>
 
 <div>
@@ -104,7 +104,7 @@
                         console.debug('add file', data)
                         break;
                     case 'delete':
-                        console.debug('delete file', data)
+                        console.log('delete file', data)
                         break;
                 }
             }

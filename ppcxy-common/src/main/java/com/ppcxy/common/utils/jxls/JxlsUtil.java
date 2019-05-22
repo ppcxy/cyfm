@@ -86,6 +86,14 @@ public class JxlsUtil {
     }
     return null;
   }
+  public static File getTemplateForDir(String dir,String name){
+    /*String templatePath = JxlsUtil.class.getClassLoader().getResource(TEMPLATE_PATH).getPath();*/
+    File template = new File(dir);
+    if (template.exists()) {
+      return template;
+    }
+    return null;
+  }
   
   // 日期格式化
   public String dateFmt(Date date, String fmt) {
@@ -114,4 +122,5 @@ public class JxlsUtil {
   public Object ifelse(boolean b, Object o1, Object o2) {
     return b ? o1 : o2;
   }
+  
 }

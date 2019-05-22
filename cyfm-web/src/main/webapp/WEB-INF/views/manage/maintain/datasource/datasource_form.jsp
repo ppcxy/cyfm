@@ -9,7 +9,7 @@
 <div class="portlet box editBox">
     <div class="portlet-title"><span>数据源信息</span></div>
     <div class="portlet-body form">
-        <form:form id="inputForm" modelAttribute="entity" method="post">
+        <form:form id="inputForm"  modelAttribute="entity" method="post">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
             <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
@@ -25,7 +25,7 @@
                 <div class="controls">
                     <form:select path="dsType" cssClass="form-control required">
                         <form:option label="请选择" value=""/>
-                        <form:options items="${dsTypes}" itemLabel="info"></form:options>
+                        <form:options items="${dsTypes}"  itemLabel="info"></form:options>
                     </form:select>
                 </div>
             </div>
@@ -85,7 +85,7 @@
         $("#inputForm").validate({});
 
         $("#validate_datasource_btn").click(function () {
-            $cy.waiting();
+            $cy.waiting("",60000);
 
             var dbName = $("#dbName").val();
             var dbType = $("#dbType").val();
@@ -129,15 +129,17 @@
                             alert: false
                         })
                     } else {
-                        $cy.error("校验失败,未能连接到数据库,请检查配置.",function () {
+                        $cy.error("校验失败,未能连接到数据库,请检查配置.",function (index, layero) {
                             $cy.waitingOver();
+                            top.layer.close(index);
                         })
                     }
 
                 },
                 error:function () {
-                    $cy.error("校验过程发生错误,请重新尝试.",function () {
+                    $cy.error("校验过程发生错误,请重新尝试.",function (index, layero) {
                         $cy.waitingOver();
+                        top.layer.close(index);
                     })
                 }
             });

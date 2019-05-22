@@ -45,7 +45,7 @@
         }
 
         .mobile-content {
-            padding: 65px 10px 50px 10px;
+            padding: 65px 5px 50px 5px;
         }
     </style>
     <!-- ================================= JS 区域 ========================================== -->
@@ -64,11 +64,11 @@
 </head>
 <body>
 <!--导航-->
-<div class="mobile-page-header navbar navbar-default navbar-fixed-top">
+<div class="mobile-page-header navbar navbar-default navbar-fixed-top hidden">
     <div class="container-full">
         <div class="navbar-header">
-            <button type="button" class="btn btn-default btn-back " style="left:8px;top:10px"><i
-                    class="fa fa-angle-left icon-large"></i> 返回
+            <button type="button" class="btn btn-default btn-back " style="left:8px;top:10px">
+                <i class="fa fa-angle-left icon-large"></i> 返回
             </button>
 
             <button type="button" class="btn-menu navbar-toggle" data-toggle="collapse" data-target="#navBar">
@@ -95,7 +95,7 @@
 </div>
 <div class="clearfix"></div>
 <div class="mobile-content">
-    <c:if test="${not empty message or not empty  errorMessage}">
+    <c:if test="${not empty message or not empty errorMessage}">
         <cy:showMessage/>
     </c:if>
     <c:if test="${not empty page && not customToolbar}">
@@ -105,6 +105,16 @@
     </c:if>
     <sitemesh:body/>
 </div>
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="scroll-box">
+        <div class="scroll">&nbsp;</div>
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
 <script>
     $cy.handleUniform();
     var index = parent.layer.getFrameIndex(window.name);
@@ -112,6 +122,45 @@
         $cy.place.appendUrl(document.title.substring("${cy_systemName}".length + 1), urlPrefix, urlSuffix);
     }
     <cy:showFieldError commandName="entity"/>
+</script>
+<script>
+    if (window === top) {
+        $(".mobile-page-header").removeClass("hidden");
+    }else{
+        $(".mobile-content").css({"padding-top": "5px"});
+    }
+    var theadTop = 0;
+
+    function updateTheadTop() {
+        theadTop = $("#contentTable thead").position().top-55
+    }
+
+    $(function () {
+        setTimeout(function(){
+            var $thead = $("#contentTable thead");
+            if ($thead.size() > 0) {
+                theadTop = $thead.position().top-55;
+                /**
+                 * scroll handle
+                 * @param {event} e -- scroll event
+                 */
+                function scrollHandle(e) {
+                    var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+                    if (scrollTop > theadTop) {
+                        $thead.find("th").css({
+                            "transform": "translateY(" + (scrollTop - theadTop) + "px)"
+                        });
+                    } else if (scrollTop == 0) {
+                        $thead.find("th").css({
+                            "transform": "",
+                        });
+                    }
+                }
+
+                window.addEventListener('scroll', scrollHandle)
+            }
+        },100)
+    });
 </script>
 </body>
 </html>

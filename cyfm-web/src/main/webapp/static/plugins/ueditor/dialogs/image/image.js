@@ -111,7 +111,7 @@
     }
 
 
-    /* 初始化对其方式的点击事件 */
+    /* 初始化对齐方式的点击事件 */
     function initAlign(){
         /* 点击align图标 */
         domUtils.on($G("alignIcon"), 'click', function(e){

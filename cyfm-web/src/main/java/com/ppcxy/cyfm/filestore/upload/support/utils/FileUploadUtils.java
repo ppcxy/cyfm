@@ -4,7 +4,6 @@ import com.ppcxy.common.utils.LogUtils;
 import com.ppcxy.common.utils.security.Coder;
 import com.ppcxy.cyfm.filestore.upload.support.exception.FileNameLengthLimitExceededException;
 import com.ppcxy.cyfm.filestore.upload.support.exception.InvalidExtensionException;
-import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -106,7 +105,7 @@ public class FileUploadUtils {
             result.reject("upload.not.allow.media.extension");
         } catch (InvalidExtensionException e) {
             result.reject("upload.not.allow.extension");
-        } catch (FileUploadBase.FileSizeLimitExceededException e) {
+        } catch (FileSizeLimitExceededException e) {
             result.reject("upload.exceed.maxSize");
         } catch (FileNameLengthLimitExceededException e) {
             result.reject("upload.filename.exceed.length");

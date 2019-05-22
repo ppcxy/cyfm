@@ -75,11 +75,11 @@ public class DownloadUtils {
         
         if (isIE) {
             displayFilename = URLEncoder.encode(displayFilename, "UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename=\"" + displayFilename + "\"");
         } else {
             displayFilename = new String(displayFilename.getBytes("UTF-8"), "ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment;filename=" + displayFilename);
         }
+        
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + displayFilename + "\"");
         
         OutputStream os = null;
         

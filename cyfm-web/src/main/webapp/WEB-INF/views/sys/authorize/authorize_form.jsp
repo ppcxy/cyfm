@@ -21,15 +21,13 @@
             <div class="form-group">
                 <label for="userId" class="control-label">用户id:</label>
                 <div class="controls">
-                    <input type="text" id="userId" name="userId" value="${entity.userId}"
-                           class="form-control required"/>
+                    <input type="text" id="userId" name="userId" value="${entity.userId}" class="form-control required"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="targetId" class="control-label">授权对象id:</label>
                 <div class="controls">
-                    <input type="text" id="targetId" name="targetId" value="${entity.targetId}"
-                           class="form-control required"/>
+                    <input type="text" id="targetId" name="targetId" value="${entity.targetId}" class="form-control required"/>
                 </div>
             </div>
 

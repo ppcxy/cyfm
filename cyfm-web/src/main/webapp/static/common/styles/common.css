@@ -67,7 +67,7 @@
     height: 28px;
     border: 1px solid #DDD;
     text-align: center;
-    line-height: 32px;
+    line-height: 30px;
     border-left: none;
     color: #3399d5;
 }
@@ -107,11 +107,8 @@
 .pagin .paginList .paginItem.more a {
     color: #737373;
 }
-.pagin .paginList .paginItem a i{
-    margin-top: 9px;
-    font-size: 18px;
-}
-.pagin .paginList .paginItem a.disabled i {
+
+.pagin .paginList .paginItem a.disabled {
     color: #cccccc;
     
 }

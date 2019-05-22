@@ -15,6 +15,6 @@
 <!-- 插件扩展区 end-->
 
 <link href="${ctx}/static/common/styles/components.css" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/common/styles/common.css" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/common/styles/custom.css" type="text/css" rel="stylesheet" />
+<link href="${ctx}/static/common/styles/common.css?6" type="text/css" rel="stylesheet" />
+<link href="${ctx}/static/common/styles/custom.css?6" type="text/css" rel="stylesheet" />
 <!-- ===================== Css 公用区域结束 ===================== -->

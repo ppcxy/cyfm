@@ -98,7 +98,6 @@ public class NotificationController extends BaseCRUDController<NotificationData,
         return "true";
     }
     
-    
     @RequestMapping(value = "markRead", method = RequestMethod.GET)
     public String markRead(@RequestParam("ids") Long[] ids, @RequestParam(value = Constants.BACK_URL, required = false) String backURL, RedirectAttributes redirectAttributes) {
         notificationDataService.markRead(ids);

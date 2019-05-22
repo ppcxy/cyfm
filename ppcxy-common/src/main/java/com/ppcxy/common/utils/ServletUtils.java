@@ -1,6 +1,8 @@
 package com.ppcxy.common.utils;
 
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URL;
@@ -47,25 +49,48 @@ public class ServletUtils {
         return false;
     }
     
+    public static String loadRealPath() {
+        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        return request.getServletContext().getRealPath("/");
+    }
+    
+    /**
+     * FIXME 一个暂时性的，可能会出现问题的获取contentPath方法，不合理。
+     *
+     * @return
+     */
     public static String loadContentPath() {
-        String result = "";
-        URL resource = ServletUtils.class.getClassLoader().getResource("");
-        
-        if (resource.toString().indexOf("orkspaces") != -1 || resource.toString().indexOf("project") != -1 || resource.toString().indexOf("tomcat") != -1) {
-            return "";
+        try {
+            HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+            
+            //如果当先线程中存在 request
+            if (request != null) {
+                return request.getContextPath();
+            }
+        } catch (IllegalStateException e) {
+            //如果当前线程非request线程
+            String result = "";
+            URL resource = ServletUtils.class.getClassLoader().getResource("");
+            
+            //FIXME 开发环境在工作区内情况直接使用root
+            if (resource.toString().contains("orkspaces") || resource.toString().contains("project")) {
+                return "";
+            }
+            
+            Pattern pattern = Pattern.compile("(/[\\w\\-]+)/WEB-INF/classes/");///([\w\-]+)/WEB-INF/classes/
+            Matcher matcher = pattern.matcher(resource.toString());
+            
+            //当条件满足时，将返回true，否则返回false
+            if (matcher.find()) {
+                result = matcher.group(1);
+            }
+            
+            if ("/ROOT".equals(result)) {
+                return "";
+            }
+            return result;
         }
         
-        Pattern pattern = Pattern.compile("/([\\w\\-]+)/WEB-INF/classes/");///([\w\-]+)/WEB-INF/classes/
-        Matcher matcher = pattern.matcher(resource.toString());
-        
-        //当条件满足时，将返回true，否则返回false
-        if (matcher.find()) {
-            result = matcher.group(1);
-        }
-        
-        if (result.endsWith("apps")) {
-            return "";
-        }
-        return result;
+        return "";
     }
 }

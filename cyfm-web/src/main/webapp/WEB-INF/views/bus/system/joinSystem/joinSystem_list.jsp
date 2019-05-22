@@ -6,18 +6,18 @@
 </head>
 
 <body>
- <div class="tools search-toolbar">
-   <div class="toolbar-right">
+<div class="tools search-toolbar">
+    <div class="toolbar-right">
        <form class="form-search form-inline text-right" action="#">
          <div class="form-group">
              <label>接入系统名称：</label> <input type="text" name="search.sysName_like" class="form-control input-small" value="${param['search.sysName_like']}">
              <button type="submit" class="btn btn-default" id="search_btn">查询</button>
          </div>
        </form>
-   </div>
- </div>
+    </div>
+</div>
 <div class="listTableWrap">
-    <table id="contentTable" data-tid="joinSystem" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
+    <table id="contentTable" data-tid="${modelName}" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
@@ -37,7 +37,7 @@
                 <td>${joinSystem.sysName}</td>
                 <td>${joinSystem.sysAddress}</td>
                 <td>${joinSystem.sysBasePath}</td>
-                <td>${joinSystem.loginApiPath}</td>
+                <td>/login/</td>
                 <td>${joinSystem.authUsername}</td>
                 <td>********</td>
                 <td>${joinSystem.requstMethod}</td>
