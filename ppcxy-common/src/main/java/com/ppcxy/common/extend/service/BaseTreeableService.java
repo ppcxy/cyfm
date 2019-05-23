@@ -10,6 +10,7 @@ import com.ppcxy.common.entity.search.filter.SearchFilter;
 import com.ppcxy.common.entity.search.filter.SearchFilterHelper;
 import com.ppcxy.common.extend.entity.Treeable;
 import com.ppcxy.common.repository.jpa.RepositoryHelper;
+import com.ppcxy.common.repository.jpa.support.hibernate.HibernateUtils;
 import com.ppcxy.common.service.BaseService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -23,65 +24,72 @@ import java.util.Set;
 @Transactional
 public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeable<ID>, ID extends Serializable>
         extends BaseService<M, ID> {
-
+    
     private final String DELETE_CHILDREN_QL;
     private final String UPDATE_CHILDREN_PARENT_IDS_QL;
     private final String FIND_SELF_AND_NEXT_SIBLINGS_QL;
     private final String FIND_NEXT_WEIGHT_QL;
-
+    
     private RepositoryHelper repositoryHelper;
-
+    
     protected BaseTreeableService() {
-
+        
         Class<M> entityClass = Reflections.getClassGenricType(getClass(), 0);
         repositoryHelper = new RepositoryHelper(entityClass);
         String entityName = repositoryHelper.getEntityName(entityClass);
-
-
+        
+        
         DELETE_CHILDREN_QL = String.format("delete from %s where id=?1 or parentIds like concat(?2, %s)", entityName, "'%'");
-
+        
         UPDATE_CHILDREN_PARENT_IDS_QL =
                 String.format("update %s set parentIds=(?1 || substring(parentIds, length(?2)+1)) where parentIds like concat(?2, %s)", entityName, "'%'");
-
+        
         FIND_SELF_AND_NEXT_SIBLINGS_QL =
                 String.format("from %s where parentIds = ?1 and weight>=?2 order by weight asc", entityName);
-
+        
         FIND_NEXT_WEIGHT_QL =
                 String.format("select case when max(weight) is null then 1 else (max(weight) + 1) end from %s where parentId = ?1", entityName);
-
+        
     }
-
+    
     @Override
     public M save(M m) {
         if (m.getWeight() == null) {
             m.setWeight(nextWeight(m.getParentId()));
         }
+        HibernateUtils.getCache(repositoryHelper.getEntityManager()).evictEntityRegion(m.getClass());
         return super.save(m);
     }
-
+    
+    @Override
+    public M update(M m) {
+        HibernateUtils.getCache(repositoryHelper.getEntityManager()).evictEntityRegion(m.getClass());
+        return super.update(m);
+    }
+    
     @Transactional
     public void deleteSelfAndChild(M m) {
         repositoryHelper.batchUpdate(DELETE_CHILDREN_QL, m.getId(), m.makeSelfAsNewParentIds());
     }
-
+    
     public void deleteSelfAndChild(List<M> mList) {
         for (M m : mList) {
             deleteSelfAndChild(m);
         }
     }
-
+    
     public void appendChild(M parent, M child) {
         child.setParentId(parent.getId());
         child.setParentIds(parent.makeSelfAsNewParentIds());
         child.setWeight(nextWeight(parent.getId()));
         save(child);
     }
-
+    
     public int nextWeight(ID id) {
         return repositoryHelper.<Integer>findOne(FIND_NEXT_WEIGHT_QL, id);
     }
-
-
+    
+    
     /**
      * 移动节点
      * 根节点不能移动
@@ -94,12 +102,12 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
         if (source == null || target == null || source.isRoot()) { //根节点不能移动
             return;
         }
-
+        
         //如果是相邻的兄弟 直接交换weight即可
         boolean isSibling = source.getParentId().equals(target.getParentId());
         boolean isNextOrPrevMoveType = "next".equals(moveType) || "prev".equals(moveType);
         if (isSibling && isNextOrPrevMoveType && Math.abs(source.getWeight() - target.getWeight()) == 1) {
-
+            
             //无需移动
             if ("next".equals(moveType) && source.getWeight() > target.getWeight()) {
                 return;
@@ -107,8 +115,8 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
             if ("prev".equals(moveType) && source.getWeight() < target.getWeight()) {
                 return;
             }
-
-
+            
+            
             int sourceWeight = source.getWeight();
             source.setWeight(target.getWeight());
             target.setWeight(sourceWeight);
@@ -116,12 +124,12 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
             update(target);
             return;
         }
-
+        
         //移动到目标节点之后
         if ("next".equals(moveType)) {
             List<M> siblings = findSelfAndNextSiblings(target.getParentIds(), target.getWeight());
             siblings.remove(0);//把自己移除
-
+            
             if (siblings.size() == 0) { //如果没有兄弟了 则直接把源的设置为目标即可
                 int nextWeight = nextWeight(target.getParentId());
                 updateSelftAndChild(source, target.getParentId(), target.getParentIds(), nextWeight);
@@ -131,10 +139,10 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
                 target = siblings.get(0); //否则，相当于插入到实际目标节点下一个节点之前
             }
         }
-
+        
         //移动到目标节点之前
         if ("prev".equals(moveType)) {
-
+            
             List<M> siblings = findSelfAndNextSiblings(target.getParentIds(), target.getWeight());
             //兄弟节点中包含源节点
             if (siblings.contains(source)) {
@@ -156,15 +164,15 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
                 source.setWeight(firstWeight);
                 updateSelftAndChild(source, target.getParentId(), target.getParentIds(), source.getWeight());
             }
-
+            
             return;
         }
         //否则作为最后孩子节点
         int nextWeight = nextWeight(target.getId());
         updateSelftAndChild(source, target.getId(), target.makeSelfAsNewParentIds(), nextWeight);
     }
-
-
+    
+    
     /**
      * 把源节点全部变更为目标节点
      *
@@ -180,7 +188,7 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
         String newSourceChildrenParentIds = source.makeSelfAsNewParentIds();
         repositoryHelper.batchUpdate(UPDATE_CHILDREN_PARENT_IDS_QL, newSourceChildrenParentIds, oldSourceChildrenParentIds);
     }
-
+    
     /**
      * 查找目标节点及之后的兄弟  注意：值与越小 越排在前边
      *
@@ -191,8 +199,8 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
     protected List<M> findSelfAndNextSiblings(String parentIds, int currentWeight) {
         return repositoryHelper.<M>findAll(FIND_SELF_AND_NEXT_SIBLINGS_QL, parentIds, currentWeight);
     }
-
-
+    
+    
     /**
      * 查看与name模糊匹配的名称
      *
@@ -201,10 +209,10 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
      */
     public Set<String> findNames(Searchable searchable, String name, ID excludeId) {
         M excludeM = findOne(excludeId);
-
+        
         searchable.addSearchFilter("name", SearchOperator.like, name);
         addExcludeSearchFilter(searchable, excludeM);
-
+        
         return Sets.newHashSet(
                 Lists.transform(
                         findAll(searchable).getContent(),
@@ -216,37 +224,37 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
                         }
                 )
         );
-
+        
     }
-
-
+    
+    
     /**
      * 查询子子孙孙
      *
      * @return
      */
     public List<M> findChildren(List<M> parents, Searchable searchable) {
-
+        
         if (parents.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
-
+        
         SearchFilter first = SearchFilterHelper.newCondition("parentIds", SearchOperator.prefixLike, parents.get(0).makeSelfAsNewParentIds());
         SearchFilter[] others = new SearchFilter[parents.size() - 1];
         for (int i = 1; i < parents.size(); i++) {
             others[i - 1] = SearchFilterHelper.newCondition("parentIds", SearchOperator.prefixLike, parents.get(i).makeSelfAsNewParentIds());
         }
         searchable.or(first, others);
-
+        
         List<M> children = findAllWithSort(searchable);
         return children;
     }
-
+    
     public List<M> findAllByName(Searchable searchable, M excludeM) {
         addExcludeSearchFilter(searchable, excludeM);
         return findAllWithSort(searchable);
     }
-
+    
     /**
      * 查找根和一级节点
      *
@@ -256,7 +264,7 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
     public List<M> findRootAndChild(Searchable searchable) {
         searchable.addSearchParam("parentId_eq", 0);
         List<M> models = findAllWithSort(searchable);
-
+        
         if (models.size() == 0) {
             return models;
         }
@@ -266,12 +274,12 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
         }
         searchable.removeSearchFilter("parentId_eq");
         searchable.addSearchParam("parentId_in", ids);
-
+        
         models.addAll(findAllWithSort(searchable));
-
+        
         return models;
     }
-
+    
     public Set<ID> findAncestorIds(Iterable<ID> currentIds) {
         Set<ID> parents = Sets.newHashSet();
         for (ID currentId : currentIds) {
@@ -279,7 +287,7 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
         }
         return parents;
     }
-
+    
     public Set<ID> findAncestorIds(ID currentId) {
         Set ids = Sets.newHashSet();
         M m = findOne(currentId);
@@ -293,7 +301,7 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
         }
         return ids;
     }
-
+    
     /**
      * 递归查询祖先
      *
@@ -305,11 +313,11 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
             return Collections.EMPTY_LIST;
         }
         String[] ids = StringUtils.tokenizeToStringArray(parentIds, "/");
-
+        
         return Lists.reverse(findAllWithNoPageNoSort(Searchable.newSearchable().addSearchFilter("id", SearchOperator.in, ids)));
     }
-
-
+    
+    
     public void addExcludeSearchFilter(Searchable searchable, M excludeM) {
         if (excludeM == null) {
             return;
@@ -317,6 +325,6 @@ public abstract class BaseTreeableService<M extends AbstractEntity<ID> & Treeabl
         searchable.addSearchFilter("id", SearchOperator.ne, excludeM.getId());
         searchable.addSearchFilter("parentIds", SearchOperator.suffixNotLike, excludeM.makeSelfAsNewParentIds());
     }
-
-
+    
+    
 }
