@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
+import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
-import org.springframework.data.repository.query.QueryLookupStrategy;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -23,32 +23,33 @@ import java.io.Serializable;
  */
 public class SimpleBaseRepositoryFactoryBean<R extends JpaRepository<M, ID>, M, ID extends Serializable>
         extends JpaRepositoryFactoryBean<R, M, ID> {
-
-    public SimpleBaseRepositoryFactoryBean() {
+    
+    public SimpleBaseRepositoryFactoryBean(Class<? extends R> repositoryInterface) {
+        super(repositoryInterface);
     }
-
+    
     protected RepositoryFactorySupport createRepositoryFactory(EntityManager entityManager) {
         return new SimpleBaseRepositoryFactory(entityManager);
     }
 }
 
 class SimpleBaseRepositoryFactory<M, ID extends Serializable> extends JpaRepositoryFactory {
-
+    
     private EntityManager entityManager;
-
+    
     public SimpleBaseRepositoryFactory(EntityManager entityManager) {
         super(entityManager);
         this.entityManager = entityManager;
     }
-
-    protected Object getTargetRepository(RepositoryMetadata metadata) {
-        Class<?> repositoryInterface = metadata.getRepositoryInterface();
-
+    
+    protected Object getTargetRepository(RepositoryInformation information) {
+        Class<?> repositoryInterface = information.getRepositoryInterface();
+        
         if (isBaseRepository(repositoryInterface)) {
-
-            JpaEntityInformation<M, ID> entityInformation = getEntityInformation((Class<M>) metadata.getDomainType());
+            
+            JpaEntityInformation<M, ID> entityInformation = getEntityInformation((Class<M>) information.getDomainType());
             SimpleBaseRepository repository = new SimpleBaseRepository<M, ID>(entityInformation, entityManager);
-
+            
             SearchableQuery searchableQuery = AnnotationUtils.findAnnotation(repositoryInterface, SearchableQuery.class);
             if (searchableQuery != null) {
                 String countAllQL = searchableQuery.countAllQuery();
@@ -63,29 +64,24 @@ class SimpleBaseRepositoryFactory<M, ID extends Serializable> extends JpaReposit
                 if (callbackClass != null && callbackClass != SearchCallback.class) {
                     repository.setSearchCallback(BeanUtils.instantiate(callbackClass));
                 }
-
+                
                 repository.setJoins(searchableQuery.joins());
-
+                
             }
-
+            
             return repository;
         }
-        return super.getTargetRepository(metadata);
+        return super.getTargetRepository(information);
     }
-
+    
     protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
         if (isBaseRepository(metadata.getRepositoryInterface())) {
             return SimpleBaseRepository.class;
         }
         return super.getRepositoryBaseClass(metadata);
     }
-
+    
     private boolean isBaseRepository(Class<?> repositoryInterface) {
         return BaseRepository.class.isAssignableFrom(repositoryInterface);
-    }
-
-    @Override
-    protected QueryLookupStrategy getQueryLookupStrategy(QueryLookupStrategy.Key key) {
-        return super.getQueryLookupStrategy(key);
     }
 }

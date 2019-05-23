@@ -41,7 +41,7 @@
         <% if (showMeg) {%>
         <div class="message">
             <c:choose>
-                <c:when test="${page.firstPage}">
+                <c:when test="${page.first}">
                     <a href="javascript:;" class="btn btn-sm default prev disabled" style="height: 28px;" title="上一页"><i
                             class="fa fa-angle-left"></i></a>
                 </c:when>
@@ -56,7 +56,7 @@
                    maxlenght="5" style="text-align:center; margin: 0 5px;" value="${current}"
                    onchange="jumpPage('${pageSize}', $(this).val());"/>
             <c:choose>
-                <c:when test="${page.lastPage}">
+                <c:when test="${page.last}">
                     <a href="javascript:;" class="btn btn-sm default next disabled" title="下一页" style="height: 28px;"><i
                             class="fa fa-angle-right"></i></a>
                 </c:when>
@@ -85,7 +85,7 @@
     <div class="paginList visible-lg-block visible-md-block dataTables_paginate paging_bootstrap_full_number col-md-7 col-sm-10"
          style="padding:0;">
         <ul class="pagination pull-right" style="margin: 0px;">
-            <% if (page.hasPreviousPage()) {%>
+            <% if (page.hasPrevious()) {%>
             <li class="paginItem"><a href="javascript:;" style="width: 54px" onclick="jumpPage('${pageSize}', 1);"
                                      title="首页"><span>首页</span></a></li>
             <%--<li class="paginItem"><a href="?page.pn=${current-1}"><i class="fa fa-angle-left"></i></a></li>--%>
@@ -111,7 +111,7 @@
                 </c:choose>
             </c:forEach>
 
-            <% if (page.hasNextPage()) {%>
+            <% if (page.hasNext()) {%>
             <%--<li class="paginItem"><a href="?page.pn=${current+1}"><i class="fa fa-angle-right"></i></a></li>--%>
             <li class="paginItem"><a href="javascript:;" style="width: 54px"
                                      onclick="jumpPage('${pageSize}', ${page.totalPages});"

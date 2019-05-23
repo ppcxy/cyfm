@@ -224,20 +224,20 @@ public class JdbcPagination {
         return !content.isEmpty();
     }
 
-    public boolean hasNextPage() {
+    public boolean hasNext() {
         return getCurrentPage() < getTotalPages();
     }
 
-    public boolean isLastPage() {
-        return !hasNextPage();
+    public boolean isLast() {
+        return !hasNext();
     }
 
-    public boolean hasPreviousPage() {
+    public boolean hasPrevious() {
         return getCurrentPage() > 1;
     }
 
-    public boolean isFirstPage() {
-        return !hasPreviousPage();
+    public boolean isFirst() {
+        return !hasPrevious();
     }
 
     public JdbcTemplate getJdbcTemplate() {

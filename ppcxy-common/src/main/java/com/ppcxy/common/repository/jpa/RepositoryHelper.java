@@ -31,10 +31,10 @@ public class RepositoryHelper {
      */
     public RepositoryHelper(Class<?> entityClass) {
         this.entityClass = entityClass;
-    
+        
         EnableQueryCache enableQueryCacheAnnotation =
                 AnnotationUtils.findAnnotation(entityClass, EnableQueryCache.class);
-    
+        
         boolean enableQueryCache = false;
         if (enableQueryCacheAnnotation != null) {
             enableQueryCache = enableQueryCacheAnnotation.value();
@@ -76,18 +76,11 @@ public class RepositoryHelper {
      * @return
      */
     public <M> List<M> findAll(final String ql, final Searchable searchable, final SearchCallback searchCallback) {
-    
-        assertConverted(searchable);
-        StringBuilder s = new StringBuilder(ql);
-        searchCallback.prepareQL(s, searchable);
-        searchCallback.prepareOrder(s, searchable);
-        Query query = getEntityManager().createQuery(s.toString());
-        applyEnableQueryCache(query);
-        searchCallback.setValues(query, searchable);
-        searchCallback.setPageable(query, searchable);
-    
+        Query query = queryBuilder(ql, searchable, searchCallback);
+        
         return query.getResultList();
     }
+    
     
     /**
      * <p>按条件统计<br/>
@@ -100,15 +93,15 @@ public class RepositoryHelper {
      * @return
      */
     public long count(final String ql, final Searchable searchable, final SearchCallback searchCallback) {
-    
+        
         assertConverted(searchable);
-    
+        
         StringBuilder s = new StringBuilder(ql);
         searchCallback.prepareQL(s, searchable);
         Query query = getEntityManager().createQuery(s.toString());
         applyEnableQueryCache(query);
         searchCallback.setValues(query, searchable);
-    
+        
         return (Long) query.getSingleResult();
     }
     
@@ -121,19 +114,11 @@ public class RepositoryHelper {
      * @return
      */
     public <M> M findOne(final String ql, final Searchable searchable, final SearchCallback searchCallback) {
-    
-        assertConverted(searchable);
-    
-        StringBuilder s = new StringBuilder(ql);
-        searchCallback.prepareQL(s, searchable);
-        searchCallback.prepareOrder(s, searchable);
-        Query query = getEntityManager().createQuery(s.toString());
-        applyEnableQueryCache(query);
-        searchCallback.setValues(query, searchable);
-        searchCallback.setPageable(query, searchable);
+        Query query = queryBuilder(ql, searchable, searchCallback);
+        
         query.setMaxResults(1);
         List<M> result = query.getResultList();
-    
+        
         if (result.size() > 0) {
             return result.get(0);
         }
@@ -149,10 +134,10 @@ public class RepositoryHelper {
      * @see RepositoryHelper#findAll(String, Pageable, Object...)
      */
     public <M> List<M> findAll(final String ql, final Object... params) {
-    
+        
         //此处必须 (Pageable) null  否则默认有调用自己了 可变参列表
         return findAll(ql, (Pageable) null, params);
-    
+        
     }
     
     /**
@@ -166,7 +151,7 @@ public class RepositoryHelper {
      * @return
      */
     public <M> List<M> findAll(final String ql, final Pageable pageable, final Object... params) {
-    
+        
         Query query = getEntityManager().createQuery(ql + prepareOrder(pageable != null ? pageable.getSort() : null));
         applyEnableQueryCache(query);
         setParameters(query, params);
@@ -174,7 +159,7 @@ public class RepositoryHelper {
             query.setFirstResult(pageable.getOffset());
             query.setMaxResults(pageable.getPageSize());
         }
-    
+        
         return query.getResultList();
     }
     
@@ -189,11 +174,11 @@ public class RepositoryHelper {
      * @return
      */
     public <M> List<M> findAll(final String ql, final Sort sort, final Object... params) {
-    
+        
         Query query = getEntityManager().createQuery(ql + prepareOrder(sort));
         applyEnableQueryCache(query);
         setParameters(query, params);
-    
+        
         return query.getResultList();
     }
     
@@ -208,9 +193,9 @@ public class RepositoryHelper {
      * @return
      */
     public <M> M findOne(final String ql, final Object... params) {
-    
+        
         List<M> list = findAll(ql, new PageRequest(0, 1), params);
-    
+        
         if (list.size() > 0) {
             return list.get(0);
         }
@@ -227,11 +212,11 @@ public class RepositoryHelper {
      * @return
      */
     public long count(final String ql, final Object... params) {
-    
+        
         Query query = entityManager.createQuery(ql);
         applyEnableQueryCache(query);
         setParameters(query, params);
-    
+        
         return (Long) query.getSingleResult();
     }
     
@@ -244,10 +229,10 @@ public class RepositoryHelper {
      * @return
      */
     public int batchUpdate(final String ql, final Object... params) {
-    
+        
         Query query = getEntityManager().createQuery(ql);
         setParameters(query, params);
-    
+        
         return query.executeUpdate();
     }
     
@@ -283,12 +268,12 @@ public class RepositoryHelper {
     }
     
     
-    public <T> JpaEntityInformation<T, ?> getMetadata(Class<T> entityClass) {
-        return JpaEntityInformationSupport.getMetadata(entityClass, entityManager);
+    public <T> JpaEntityInformation<T, ?> getEntityInformation(Class<T> entityClass) {
+        return JpaEntityInformationSupport.getEntityInformation(entityClass, entityManager);
     }
     
     public String getEntityName(Class<?> entityClass) {
-        return getMetadata(entityClass).getEntityName();
+        return getEntityInformation(entityClass).getEntityName();
     }
     
     
@@ -303,6 +288,19 @@ public class RepositoryHelper {
         if (enableQueryCache) {
             query.setHint("org.hibernate.cacheable", true);//开启查询缓存
         }
+    }
+    
+    private Query queryBuilder(String ql, Searchable searchable, SearchCallback searchCallback) {
+        Query query = null;
+        assertConverted(searchable);
+        StringBuilder s = new StringBuilder(ql);
+        searchCallback.prepareQL(s, searchable);
+        searchCallback.prepareOrder(s, searchable);
+        query = getEntityManager().createQuery(s.toString());
+        applyEnableQueryCache(query);
+        searchCallback.setValues(query, searchable);
+        searchCallback.setPageable(query, searchable);
+        return query;
     }
     
 }

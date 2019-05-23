@@ -22,6 +22,8 @@ public interface DsmConstant {
     public static final String ORACLE = "ORACLE";
     
     
+    public static final String H2_DRIVER = "org.h2.Driver";
+    
     //mysql constant***********************************************
     // 数据库驱动mysql
     public static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
