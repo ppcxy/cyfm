@@ -22,29 +22,32 @@ public class ExcelTemplateController {
     private ExcelTemplateService excelTemplateService;
     @Autowired
     private StoreFilesDao storeFilesDao;
-      @RequestMapping(value = "/add",method = RequestMethod.POST)
-      @ResponseBody
-      public String add(ExcelTemplate excelTemplate){
-
-          excelTemplateService.save(excelTemplate);
-          return "yes";
-      }
-    @RequestMapping(value = "/findresource",method = RequestMethod.POST)
+    
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-      public Object findresource(String resource){
-          ExcelTemplate excelTemplate = excelTemplateService.findByResourceIdentity(resource);
-        List<StoreFiles>  list =  new ArrayList<>();
-          if(excelTemplate != null &&excelTemplate.getTemplateId() != null && !"".equals(excelTemplate.getTemplateId())){
-              String [] files = excelTemplate.getTemplateId().split(",");
-              for(String file: files){
-                  list.add(storeFilesDao.findOne(file));
-              }
-          }
-        Map<String,Object> map = new HashMap<>();
-          map.put("files",list);
-          map.put("excelTemplate",excelTemplate);
-          return map;
-      }
-
-      
+    public String add(ExcelTemplate excelTemplate) {
+        
+        excelTemplateService.save(excelTemplate);
+        return "yes";
+    }
+    
+    @RequestMapping(value = "/findresource", method = RequestMethod.POST)
+    @ResponseBody
+    public Object findresource(String resource) {
+        ExcelTemplate excelTemplate = excelTemplateService.findByResourceIdentity(resource);
+        List<StoreFiles> list = new ArrayList<>();
+        if (excelTemplate != null) {
+            String[] files = excelTemplate.getTemplateId().split(",");
+            for (String file : files) {
+                list.add(storeFilesDao.findOne(file));
+            }
+        }
+        
+        Map<String, Object> map = new HashMap<>();
+        map.put("files", list);
+        map.put("excelTemplate", excelTemplate);
+        return map;
+    }
+    
+    
 }

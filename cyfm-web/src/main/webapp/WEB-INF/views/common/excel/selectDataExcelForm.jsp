@@ -47,19 +47,22 @@
         var excelid = "";
         var fileData = [];
         $(function () {
-                 var resource = $("#resource").val();
+            var resource = $("#resource").val();
             $.ajax({
                 type: 'post',
                 url: "${ctx}/excel/excelTemplate/findresource",
                 cache: false,
                 dataType: "json",
-                data:{"resource":resource},
+                data: {"resource": resource},
                 success: function (data) {
                     console.log(data)
+                    if(!data.excelTemplate){
+                        return;
+                    }
                     excelid = data.excelTemplate.id;
                     var files = data.files;
-                    for (var i=0;i<files.length;i++) {
-                        $(".template").append("<li class='file' data-id='"+files[i].id+"' style='width: 250px; height: 30px;'><div style='width: 250px; height: 30px;'><a > " + files[i].realName + "</a><a onclick='removeFile(this)' class='btn btn-xs red pull-right'>移除</a></div></li>")
+                    for (var i = 0; i < files.length; i++) {
+                        $(".template").append("<li class='file' data-id='" + files[i].id + "' style='width: 250px; height: 30px;'><div style='width: 250px; height: 30px;'><a > " + files[i].realName + "</a><a onclick='removeFile(this)' class='btn btn-xs red pull-right'>移除</a></div></li>")
                         fileData.push(files[i].id)
                     }
                 }
