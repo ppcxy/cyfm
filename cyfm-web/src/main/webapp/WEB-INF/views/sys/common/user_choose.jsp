@@ -23,12 +23,12 @@
         <div class="toolbar-right">
             <form class="form-search form-inline text-right" action="#">
                 <div class="form-group">
-                    <label>关键字(用户名,用户姓名, Email)：</label>
-                    <input type="text" name="search.keyword_custom" class="form-control input-small"
-                           value="${param['search.keyword_custom']}">
-                    <button type="submit" class="btn btn-default" id="search_btn">查询</button>
+                    <label>关键字(用户名,用户姓名, Email)：<input type="text" name="search.keyword_custom"
+                                                       class="form-control input-small"
+                                                       value="${param['search.keyword_custom']}">
+                        <button type="submit" class="btn btn-default" id="search_btn">查询</button>
+                    </label>
                 </div>
-
             </form>
         </div>
     </div>

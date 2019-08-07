@@ -13,7 +13,6 @@
 		<form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
 			<div class="form-body">
 				<input type="hidden" name="id" value="${entity.id}"/>
-				<div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
 				<div class="form-group">
 					<label for="username" class="control-label">登录名:</label>
 					<div class="controls">

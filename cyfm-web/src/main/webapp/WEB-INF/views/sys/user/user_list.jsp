@@ -15,16 +15,15 @@
 	<div class="toolbar-right">
 		<form class="form-search form-inline text-right" action="#">
 			<div class="form-group">
-					<label>登录名：</label> <input type="text" name="search.username_like" class="form-control input-small" value="${param['search.username_like']}">
-			</div>
+				<label>登录名：<input type="text" name="search.username_like" class="form-control input-small"
+								  value="${param['search.username_like']}"></label>
+				<label>电子邮箱：<input type="text" name="search.email_like" class="form-control input-small"
+								   value="${param['search.email_like']}"></label>
+				<label>手机号：<input type="text" name="search.tel_like" class="form-control input-small"
+								  value="${param['search.tel_like']}"></label>
+            </div>
 			<div class="form-group">
-				<label>电子邮箱：</label> <input type="text" name="search.email_like" class="form-control input-small" value="${param['search.email_like']}">
-			</div>
-			<div class="form-group">
-				<label>手机号：</label> <input type="text" name="search.tel_like" class="form-control input-small" value="${param['search.tel_like']}">
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-default" id="search_btn">查询</button>
+				<label><button type="submit" class="btn btn-default" id="search_btn">查询</button></label>
 			</div>
 		</form>
 	</div>

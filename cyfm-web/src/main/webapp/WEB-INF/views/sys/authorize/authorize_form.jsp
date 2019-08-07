@@ -11,7 +11,6 @@
         <form:form id="inputForm" modelAttribute="entity" action="#" method="post">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
-            <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
             <div class="form-group">
                 <form:label path="authType" cssClass="control-label">授权类型:</form:label>
                 <div class="controls">

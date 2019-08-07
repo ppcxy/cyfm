@@ -163,6 +163,9 @@
 
     //TODO 打开参数注释
     function saveState(key, table, name, prop) {
+        if (!table.getAttribute(globalOptions.cidAttrName)) {
+            return;
+        }
         // ie in offline mode can't use localStorage,
         // use alternative storage like
         // https://github.com/andris9/simpleStorage
@@ -195,6 +198,10 @@
     }
 
     function restoreState(key, table, name) {
+        if (!table.getAttribute(globalOptions.cidAttrName)) {
+            return;
+        }
+
         var nc = table.rows[0].cells.length,
             pm = new Array(nc);
         for (var i = 0; i < nc; i++) {
@@ -915,6 +922,48 @@
         };
     })();
 
+    function ResetTableResize(table, options) {
+        // check input
+        if (table && table.tagName !== 'TABLE') {
+            console.log('ERROR: DOM element/input is not a table!');
+            return;
+        }
+
+        // check empty table
+        if (!(table && table.rows && table.rows.length > 0)) {
+            console.log('WARNING: Empty table.');
+            return;
+        }
+
+        globalOptions = options = $.extend({
+            distance: 10,
+            minWidth: 80,
+            restoreState: true,
+            fixed: true,
+            cidAttrName: "id",
+            resizeable: true,
+            sort: {
+                restoreState: true,
+                callback: $.noop,
+                localEnable: true
+            }
+        }, options);
+
+        var state = loadState('table-drag-sort-resize'),
+            //TODO 增加了id之外的标识设定规则
+            id = globalOptions.cidAttrName + "-" + table.getAttribute(globalOptions.cidAttrName),
+            index = findIndex(state, id);
+
+
+        // place element
+        if (index >= 0) {
+            //TODO 追加而不是替换历史设定
+            state[index] = {};
+        }
+
+        localStorage.setItem('table-drag-sort-resize', JSON.stringify(state));
+    }
+
     function TableDragSortResize(table, options) {
         // check input
         if (table && table.tagName !== 'TABLE') {
@@ -980,9 +1029,13 @@
     // export
 
     if (typeof module !== 'undefined' && module.exports) {
-        module.exports = TableDragSortResize;
+        module.exports = {
+            TableDragSortResize: TableDragSortResize,
+            ResetTableResize: ResetTableResize
+        }
     } else {
         window.TableDragSortResize = TableDragSortResize;
+        window.ResetTableResize = ResetTableResize;
     }
 
     // polyfills and public code snippets

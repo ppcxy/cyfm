@@ -9,18 +9,15 @@
 <div class="portlet box editBox">
     <div class="portlet-title"><span>通知模板信息</span></div>
     <div class="portlet-body form">
-        <form:form id="inputForm" modelAttribute="entity" action="#" method="post">
+        <form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
-            <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
-
             <div class="form-group">
                 <form:label path="system" cssClass="control-label">所属系统</form:label>
                 <div class="controls">
                     <form:select path="system" cssClass="form-control " items="${notificationSystems}" itemLabel="info"></form:select>
                 </div>
             </div>
-
             <div class="form-group">
                 <form:label path="name">模板名称</form:label>
                 <div class="controls">

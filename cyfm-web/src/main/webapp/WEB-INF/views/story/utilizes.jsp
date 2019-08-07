@@ -8,7 +8,6 @@
 		});
 	</script>
 </head>
-
 <body>
 	<h1>工具类演示</h1>
 	<h2>XML/JSON操作演示</h2>

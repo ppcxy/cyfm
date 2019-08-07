@@ -287,8 +287,6 @@ $cy = function () {
             } else if (format == 'time') {
                 format = 'HH:mm:ss';
                 type = 'time';
-            } else {
-                format = $(this).data("format");
             }
 
             laydate.render({
@@ -525,6 +523,12 @@ $cy = function () {
         // table组件工具
         // update to 2018-10-11 代码重构,使所有初始化范围固定在$table里,默认仅初始化当前选择器获取到的第一个table
         table: {
+            resetTableResize: function (table) {
+                new ResetTableResize(table, {
+                    cidAttrName: 'data-tid'
+                })
+                window.location.reload();
+            },
             //获取第一个选中行
             getFirstSelectedCheckbox: getFirstSelectedCheckbox,
             //获取全部选中行
@@ -689,7 +693,11 @@ $cy = function () {
                         if (beginCheck == 'no') {
                             beginCheck = $('tr.selected').find('td.check input[type=checkbox]');
                         }
-                        selectTR.addClass('selected').siblings().removeClass('selected');
+                        if (selectTR.is(".selected")){
+                            selectTR.removeClass("selected");
+                        } else{
+                            selectTR.addClass('selected').siblings().removeClass('selected');
+                        }
 
                         var tdCheckBox = selectTR.find('td.check').find('input[type=checkbox]');
 
@@ -699,6 +707,7 @@ $cy = function () {
                             var ev = window.event || event;
                             if (ev.shiftKey) {
                                 var beginChecked = beginCheck.is(':checked');
+
                                 if (checked != beginChecked) {
                                     tdCheckBox.prop('checked', !checked);
                                     var beginIndex = beginCheck.parents('tr').index();
@@ -710,6 +719,9 @@ $cy = function () {
                                     }
                                     for (var i = beginIndex + 1; i <= endIndex; i++) {
                                         $('tr').eq(i).find('td.check input[type=checkbox]').prop('checked', !checked);
+                                        if (!checked) {
+                                            $('tr').eq(i).addClass("selected");
+                                        }
                                     }
                                 }
                                 $.uniform.update($('td.check input[type=checkbox]'));
@@ -883,7 +895,7 @@ $cy = function () {
 
                 return uuid.join('');
             },
-            //用户选择组价
+            //用户选择组件
             chooseUser: function (options) {
 
                 var configs = {
@@ -1023,6 +1035,16 @@ $cy = function () {
         },
         //toolbar 操作
         toolbar: {
+            addMoreDivider: function () {
+                var $toolsMore = $('.toolbar .more');
+                if ($toolsMore.is(':hidden')) {
+                    $toolsMore.removeClass('hidden');
+                }
+
+                var $toolsMoreList = $toolsMore.find('.more_list');
+
+                $('<li class="divider"></li>').insertBefore($toolsMoreList, null)
+            },
             //在更多按钮中添加操作项
             addMore: function (options) {
                 var $toolsMore = $('.toolbar .more');
@@ -1076,6 +1098,46 @@ $cy = function () {
 
 }();
 
+
+$.fn.extend({
+    "preventScroll":function(){
+        $(this).each(function(){
+            var _this = this;
+            if(navigator.userAgent.indexOf('Firefox') >= 0){   //firefox
+                _this.addEventListener('DOMMouseScroll',function(e){
+                    _this.scrollTop += e.detail > 0 ? 60 : -60;
+                    e.preventDefault();
+                },false);
+            }else{
+                var startY=endY=scrollTop=0;
+                var preventStart=false;
+                _this.addEventListener('touchstart',function(e){
+                    preventStart=true;
+                    scrollTop=_this.scrollTop;
+                    var touch = event.targetTouches[0];
+                    startY=touch.pageY;
+                    e.preventDefault();
+                });
+                _this.addEventListener('touchmove',function(e){
+                    if(!preventStart) return;
+                    var touch = event.targetTouches[0];
+                    endY=touch.pageY;
+                    _this.scrollTop = scrollTop+(endY-startY)*-1;
+                    e.preventDefault();
+                });
+                _this.addEventListener('touchend',function(){
+                    preventStart=false;
+                });
+                _this.onmousewheel = function(e){
+                    e = e || window.event;
+                    _this.scrollTop += e.wheelDelta > 0 ? -60 : 60;
+                    return false;
+                };
+            }
+        })
+    }
+});
+
 // Handles the go to top button at the footer
 var handleGoTop = function () {
     var offset = 300;
@@ -1103,6 +1165,34 @@ var handleGoTop = function () {
         e.preventDefault();
         $('html, body').animate({scrollTop: 0}, duration);
         return false;
+    });
+};
+
+// Handles Bootstrap Tooltips.
+var handleTooltips = function() {
+    // global tooltips
+    $('.tooltips').tooltip();
+
+    // portlet tooltips
+    $('.portlet > .portlet-title .fullscreen').tooltip({
+        container: 'body',
+        title: 'Fullscreen'
+    });
+    $('.portlet > .portlet-title > .tools > .reload').tooltip({
+        container: 'body',
+        title: 'Reload'
+    });
+    $('.portlet > .portlet-title > .tools > .remove').tooltip({
+        container: 'body',
+        title: 'Remove'
+    });
+    $('.portlet > .portlet-title > .tools > .config').tooltip({
+        container: 'body',
+        title: 'Settings'
+    });
+    $('.portlet > .portlet-title > .tools > .collapse, .portlet > .portlet-title > .tools > .expand').tooltip({
+        container: 'body',
+        title: 'Collapse/Expand'
     });
 };
 
@@ -1254,6 +1344,10 @@ $(function () {
     $cy.handleUniform();
     $cy.initDatePick();
     handleGoTop();
+    handleTooltips();
+
+
+
 
     //需要直接初始化的.
     if ($.validator) {

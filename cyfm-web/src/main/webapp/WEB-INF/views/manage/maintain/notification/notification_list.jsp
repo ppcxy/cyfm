@@ -15,7 +15,7 @@
         </shiro:hasPermission>
         <div class="btn-group more">
             <button type="button" class="btn  btn-default dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bars"></i> 更多 <i class="fa fa-angle-down"></i>
+                <i class="fa fa-bars"></i> <span class="hidden-xs">更多</span><i class="fa fa-angle-down hidden-xs"></i>
             </button>
             <ul class="dropdown-menu">
                 <li class="more_list">
@@ -29,13 +29,14 @@
             <li>
                 <div class="btn-group config">
                     <button type="button" class="btn btn-default dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-cog"></i> 设置 <i class="fa fa-angle-down"></i>
+                        <i class="fa fa-cog"></i> <span class="hidden-xs">设置</span> <i class="fa fa-angle-down hidden-xs"></i>
                     </button>
                     <ul class="dropdown-menu pull-right">
                         <li class="more_list">
+                            <a onclick="javascript:$cy.table.resetTableResize($('table')[0])">重置表格</a>
                             <a onclick="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
                             <a onclick="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
-                            <a onclick="javascript:$('.search-toolbar').toggle()">显示/隐藏查询</a>
+                            <a onclick="javascript:$('.search-toolbar').toggle();updateTheadTop();">显示/隐藏查询</a>
                         </li>
                     </ul>
                 </div>
@@ -47,7 +48,8 @@
     <div class="toolbar-right">
         <form class="form-search form-inline text-right" action="#">
             <div class="form-group">
-                <label>通知标题：</label> <input type="text" name="search.title_like" class="form-control input-small" value="${param['search.title_like']}">
+                <label>通知标题：</label> <input type="text" name="search.title_like" class="form-control input-small"
+                                            value="${param['search.title_like']}">
             </div>
             <div class="form-group">
                 <label>所属系统：</label>
@@ -74,14 +76,15 @@
             <div class="form-group">
                 <label>通知时间：</label>
                 <div class="input-group">
-                    <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}" data-format="date">
-                    <span class="input-group-addon">到</span>
-                    <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}" data-format="date">
+                    <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}"
+                           data-format="date">
+                    <span class="input-group-addon">至：</span>
+                    <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}"
+                           data-format="date">
                 </div>
-
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default" id="search_btn">查询</button>
+                <label><button type="submit" class="btn btn-default" id="search_btn">查询</button></label>
             </div>
         </form>
     </div>

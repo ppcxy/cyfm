@@ -9,12 +9,13 @@
  <div class="tools search-toolbar">
    <div class="toolbar-right">
        <form class="form-search form-inline text-right" action="#">
-         <div class="form-group">
-             <label>角色名称：</label>
-             <input type="text" name="search.name_like" class="form-control input-small" value="${param['search.name_like']}">
-             <button type="submit" class="btn btn-default" id="search_btn">查询</button>
-         </div>
-
+           <div class="form-group">
+               <label>角色名称：<input type="text" name="search.name_like" class="form-control input-small"
+                                  value="${param['search.name_like']}"></label>
+           </div>
+           <div class="form-group">
+               <label><button type="submit" class="btn btn-default" id="search_btn">查询</button></label>
+           </div>
        </form>
    </div>
  </div>

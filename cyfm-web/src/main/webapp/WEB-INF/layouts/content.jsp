@@ -35,7 +35,7 @@
     </div>
 </c:if>
 <div class="content-wrap">
-<sitemesh:body/>
+    <sitemesh:body/>
 </div>
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -75,7 +75,9 @@
     var theadTop = 0;
 
     function updateTheadTop() {
-        theadTop = $("#contentTable thead").position().top+5
+        if ($("#contentTable thead").position()){
+            theadTop = $("#contentTable thead").position().top+5
+        }
     }
 
     $(function () {

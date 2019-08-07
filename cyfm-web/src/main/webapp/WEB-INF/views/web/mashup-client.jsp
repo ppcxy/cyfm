@@ -21,7 +21,6 @@
 			}
 	</script>
 </head>
-
 <body>
 	<h1>Mashup演示</h1>
 

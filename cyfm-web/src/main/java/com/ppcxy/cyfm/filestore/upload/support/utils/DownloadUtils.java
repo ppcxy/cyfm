@@ -41,8 +41,6 @@ public class DownloadUtils {
     
     
     public static void download(HttpServletRequest request, HttpServletResponse response, String displayName, byte[] bytes) throws IOException {
-        
-        
         if (ArrayUtils.isEmpty(bytes)) {
             response.setContentType("text/html;charset=utf-8");
             response.setCharacterEncoding("utf-8");
@@ -57,8 +55,24 @@ public class DownloadUtils {
     
     
     public static void download(HttpServletRequest request, HttpServletResponse response, String displayName, BufferedInputStream is) throws IOException {
+        downloadResponse(request, response, displayName);
         
+        response.setContentType("application/x-download");
+        response.setContentLength(is.available());
         
+        OutputStream os = null;
+        
+        try {
+            os = response.getOutputStream();
+            IOUtils.copy(is, os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+    }
+    
+    public static void downloadResponse(HttpServletRequest request, HttpServletResponse response, String displayName) throws IOException {
         String userAgent = request.getHeader("User-Agent");
         boolean isIE = (userAgent != null) && (userAgent.toLowerCase().indexOf("msie") != -1);
         
@@ -66,9 +80,6 @@ public class DownloadUtils {
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "must-revalidate, no-transform");
         response.setDateHeader("Expires", 0L);
-        
-        response.setContentType("application/x-download");
-        response.setContentLength(is.available());
         
         String displayFilename = displayName.substring(displayName.lastIndexOf("_") + 1);
         displayFilename = displayFilename.replace(" ", "_");
@@ -78,13 +89,13 @@ public class DownloadUtils {
         } else {
             displayFilename = new String(displayFilename.getBytes("UTF-8"), "ISO8859-1");
         }
-        
         response.setHeader("Content-Disposition", "attachment;filename=\"" + displayFilename + "\"");
-        
+    }
+    
+    public static void downloadFile(HttpServletResponse response, File file) throws IOException {
+        BufferedInputStream is = new BufferedInputStream(new FileInputStream(file));
         OutputStream os = null;
-        
         try {
-            
             os = response.getOutputStream();
             IOUtils.copy(is, os);
         } catch (Exception e) {
@@ -92,5 +103,7 @@ public class DownloadUtils {
         } finally {
             IOUtils.closeQuietly(is);
         }
+        
+        os.flush();
     }
 }

@@ -23,7 +23,7 @@
         <div class="portlet box editBox">
             <div class="portlet-title"><span>全局操作</span></div>
             <div class="portlet-body form">
-                <div class="form-body">
+                    <div class="form-body">
                     <div>
                         <a class="btn btn-evict-all btn-danger">失效整个二级缓存</a>
                         <a class="btn btn-clear-all btn-danger">清空二级缓存，重新计算</a>
@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <cyform:label path="entityNames">集合缓存：</cyform:label>
                             <div class="controls">
-                                <select id="collectionRoleNames" name="collectionRoleNames" cssClass="form-control" multiple="true">
+                                <select id="collectionRoleNames" name="collectionRoleNames"  cssClass="form-control" multiple="true">
                                     <c:forEach items="${collectionRoleNames}" var="e">
                                         <option value="${e}" title="${e}">${e}</option>
                                     </c:forEach>
@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <cyform:label path="entityNames">查询缓存：</cyform:label>
                             <div class="controls">
-                                <select id="queries" name="queries" cssClass="form-control" multiple="true">
+                                <select id="queries" name="queries"  cssClass="form-control" multiple="true">
                                     <c:forEach items="${queries}" var="e">
                                         <option value="${e}" title="${e}">${e}</option>
                                     </c:forEach>
@@ -174,7 +174,7 @@
                         type: "GET",
                         dataType: "text",
                         success: function (data) {
-                            $cy.waitingOver();
+                           $cy.waitingOver();
                             $cy.success(data)
                         }
                     });

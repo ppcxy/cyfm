@@ -9,10 +9,9 @@
 <div class="portlet box editBox">
     <div class="portlet-title"><span>任务信息</span></div>
     <div class="portlet-body form">
-        <form:form id="inputForm" modelAttribute="entity" action="#" method="post">
+        <form:form id="inputForm"  modelAttribute="entity" action="#" method="post">
             <div class="form-body">
                 <input type="hidden" name="id" value="${entity.id}"/>
-                <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
                 <div class="form-group">
                     <label for="name" class="control-label">任务名称:</label>
                     <div class="controls">

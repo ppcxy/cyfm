@@ -9,15 +9,18 @@
  <div class="tools search-toolbar">
    <div class="toolbar-right">
        <form class="form-search form-inline text-right" action="#">
-         <div class="form-group">
-             <label>任务名称：</label> <input type="text" name="search.name_like" class="form-control input-small" value="${param['search.name_like']}">
-             <button type="submit" class="btn btn-default" id="search_btn">查询</button>
-         </div>
+           <div class="form-group">
+               <label>任务名称：<input type="text" name="search.name_like" class="form-control input-small"
+                                  value="${param['search.name_like']}"></label>
+           </div>
+           <div class="form-group">
+               <label><button type="submit" class="btn btn-default" id="search_btn">查询</button></label>
+           </div>
        </form>
    </div>
  </div>
 <div class="listTableWrap">
-    <table id="contentTable" data-tid="task" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
+    <table id="contentTable" data-tid="${modelName}" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
         <tr>
             <th class="check"><input type="checkbox"></th>
@@ -57,7 +60,7 @@
             icon: ""
         });
 
-        $(".btn.delete").click(function() {
+        $(".btn.delete").addClass("custom").click(function() {
             var checkbox = $cy.table.getAllSelectedCheckbox($("#contentTable"));
             if(!checkbox.length) {
                 return;

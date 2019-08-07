@@ -8,7 +8,6 @@
 		});
 	</script>
 </head>
-
 <body>
 	<h1>Persistence高级演示</h1>
 	<h2>Mybatis演示</h2>

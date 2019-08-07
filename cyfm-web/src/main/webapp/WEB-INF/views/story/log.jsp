@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="baseUrl" value="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"/>
-
 <html>
 <head>
 	<title>日志高级演示</title>
@@ -11,7 +10,6 @@
 		});
 	</script>
 </head>
-
 <body>
 	<h1>日志高级演示</h1>
 

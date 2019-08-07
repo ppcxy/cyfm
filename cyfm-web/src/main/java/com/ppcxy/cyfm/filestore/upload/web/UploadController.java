@@ -182,20 +182,19 @@ public class UploadController {
     @ResponseBody
     public void downloadLocal(@RequestParam(value = "fileIds", required = false) String[] fileIds, HttpServletRequest request, HttpServletResponse response) {
         //解决中文乱码问题
-        String filename = null;
+        
+        String downloadFileName = null;
         File downloadFile = null;
         
         if (fileIds.length == 1) {
-            filename = "file";
-            
             StoreFiles sf = storeFilesService.findOne(fileIds[0]);
-            // TODO 获取下载的 File
+            
             downloadFile = new File(sf.getLocation());
+            downloadFileName = sf.getRealName();
         } else {
             
-            filename = "打包下载[" + fileIds.length + "个文件]" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".zip";
-            
-            String destPath = System.getProperty("java.io.tmpdir") + filename;
+            String basedir = UUID.randomUUID().toString();
+            String destPath = System.getProperty("java.io.tmpdir") + basedir;
             
             List<File> srcFiles = Lists.newArrayList();
             
@@ -205,17 +204,16 @@ public class UploadController {
                 srcFiles.add(new File(sf.getLocation()));
             }
             
-            String zipName = UUID.randomUUID().toString();
-            
-            if (!PackageZipUtils.zip(srcFiles, destPath, zipName)) {
+            if (!PackageZipUtils.zip(srcFiles, destPath, basedir)) {
                 throw new BaseException("文件打包失败,未能找到所选定的所有文件.");
             }
             
             downloadFile = new File(destPath);
+            downloadFileName = String.format("打包下载[%s 等 " + fileIds.length + " 个文件]" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".zip", srcFiles.get(0).getName());
         }
         
         try {
-            DownloadUtils.download(request, response, downloadFile, filename);
+            DownloadUtils.download(request, response, downloadFile, downloadFileName);
         } catch (IOException e) {
             throw new BaseException("文件下载失败,未找到要下载的文件.", e);
         }

@@ -62,7 +62,7 @@
         }
 
         div.mobile-main .nav a:hover h2 {
-            color: #fff;
+            color: #ff0000;
         }
 
         div.mobile-main div.top-title {
@@ -84,11 +84,11 @@
         }
 
         div.mobile-main .nav a div.root-icon {
-            padding: 8x;
-            background: rgba(77, 186, 255, 0.51); /* 一些不支持背景渐变的浏览器 */
-            background: -moz-linear-gradient(top, rgba(185, 217, 178, 0.35), rgba(29, 24, 237, 0.25));
-            background: -o-linear-gradient(top, rgba(185, 217, 178, 0.35), rgba(29, 24, 237, 0.25));
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(10, 6, 205, 0.6)), to(rgba(12, 4, 241, 0.59)));
+            padding: 8px;
+            background: rgba(3, 1, 255, 0.81); /* 一些不支持背景渐变的浏览器 */
+            background: -moz-linear-gradient(top, rgba(118, 172, 238, 1), rgba(109, 177, 179, 0.8));
+            background: -o-linear-gradient(top, rgba(118, 172, 238, 1), rgba(118, 172, 238, 0.8));
+            background: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(118, 172, 238, 1)), to(rgba(118, 172, 238, 0.8)));
             border-radius: 9px !important;
         }
 
@@ -106,7 +106,7 @@
 
         div.mobile-main{
             margin-bottom: 65px;
-            
+
         }
         div.mobile-main .menu-group{
             padding-bottom: 15px;
@@ -144,6 +144,34 @@
 
         div.footer-menu-bar li .menu-icon{
             font-size: 35px;
+        }
+
+        ul.nav li a{
+            background: transparent !important;
+            broder-radius:10px;
+        }
+
+        ul.nav li a:link {
+            text-decoration: none;
+            color: transparent
+        }
+
+        ul.nav li a:active {
+            text-decoration: blink
+        }
+
+        ul.nav li a:hover {
+            text-decoration: underline;
+            color: transparent;
+        }
+
+        ul.nav li a:hover .root-icon{
+            background: rgba(8, 10, 255, 0.5);
+        }
+
+        ul.nav li a:visited {
+            text-decoration: none;
+            color: transparent
         }
 
     </style>
@@ -190,7 +218,7 @@
     <c:forEach items="${menus}" var="m">
         <dd class="menu-group">
             <div class="title">
-                <i class="${m.icon} icon-large"></i> ${m.name}
+                <i class="${m.icon}"></i> ${m.name}
             </div>
             <ul class="nav">
                 <c:forEach items="${m.children}" var="c">
@@ -204,10 +232,19 @@
 </div>
 <div class="footer-menu-bar">
     <ul>
-    <c:forEach items="${roots}" var="root" varStatus="s">
-        <li><a href="${ctx}/manage/${root.id}" class="bottom-menu"><i class="${root.icon} icon-large menu-icon"></i></a></li>
-    </c:forEach>
+        <c:forEach items="${roots}" var="root" varStatus="s">
+            <li><a href="${ctx}/manage/${root.id}" class="bottom-menu"><i class="${root.icon} icon-large menu-icon"></i></a></li>
+        </c:forEach>
     </ul>
 </div>
+
+<script>
+    document.body.onselectstart = function () {
+        return false;
+    };
+    document.body.onmousedown = function () {
+        return false;
+    };
+</script>
 </body>
 </html>

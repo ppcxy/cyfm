@@ -8,7 +8,6 @@
 		});
 	</script>
 </head>
-
 <body>
 	<h1>可运行War演示</h1>
 

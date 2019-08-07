@@ -11,7 +11,6 @@
     <div class="portlet-body form">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
-            <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
             <div class="form-group">
                 <label class="control-label">通知标题:</label>
                 <div class="controls">

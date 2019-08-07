@@ -12,14 +12,12 @@
         <form:form id="inputForm"  modelAttribute="entity" method="post">
         <div class="form-body">
             <input type="hidden" name="id" value="${entity.id}"/>
-            <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
             <div class="form-group">
                 <label for="dsName" class="control-label">数据源名称:</label>
                 <div class="controls">
                     <input type="text" id="dsName" name="dsName" value="${entity.dsName}" class="form-control required" placeholder="数据源名称"/>
                 </div>
             </div>
-
             <div class="form-group">
                 <form:label path="dsType" cssClass="control-label">数据源类型</form:label>
                 <div class="controls">
@@ -29,7 +27,6 @@
                     </form:select>
                 </div>
             </div>
-
             <div class="form-group">
                 <label name="dbName">库名</label>
                 <div class="controls">

@@ -3,7 +3,6 @@ package com.ppcxy.common.utils.jxls;
 import jxl.write.WriteException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -29,12 +28,12 @@ public class MergeCommand extends AbstractCommand {
     private String rows;    //合并的行数
     private Area area;
     private CellStyle cellStyle;    //第一个单元格的样式
- 
+    
     @Override
     public String getName() {
         return "merge";
     }
- 
+    
     @Override
     public Command addArea(Area area) {
         if (super.getAreaList().size() >= 1) {
@@ -43,7 +42,7 @@ public class MergeCommand extends AbstractCommand {
         this.area = area;
         return super.addArea(area);
     }
- 
+    
     @Override
     public Size applyAt(CellRef cellRef, Context context) {
         int rows = 1, cols = 1;
@@ -59,7 +58,7 @@ public class MergeCommand extends AbstractCommand {
                 cols = NumberUtils.toInt(colsObj.toString());
             }
         }
- 
+        
         if(rows > 1 || cols > 1){
             Transformer transformer = this.getTransformer();
             if(transformer instanceof PoiTransformer){
@@ -71,55 +70,57 @@ public class MergeCommand extends AbstractCommand {
         area.applyAt(cellRef, context);
         return new Size(1, 1);
     }
- 
+    
     protected Size poiMerge(CellRef cellRef, Context context, PoiTransformer transformer, int rows, int cols){
         Sheet sheet = transformer.getWorkbook().getSheet(cellRef.getSheetName());
         CellRangeAddress region = new CellRangeAddress(
-                cellRef.getRow(), 
-                cellRef.getRow() + rows - 1, 
-                cellRef.getCol(), 
+                cellRef.getRow(),
+                cellRef.getRow() + rows - 1,
+                cellRef.getCol(),
                 cellRef.getCol() + cols - 1);
         sheet.addMergedRegion(region);
- 
+        
         //合并之后单元格样式会丢失，以下操作将合并后的单元格恢复成合并前第一个单元格的样式
         area.applyAt(cellRef, context);
         if(cellStyle == null){
             PoiCellData cellData = (PoiCellData)transformer.getCellData(cellRef);
             //如果取不到，向上在取一行
             if (cellData ==null) {
-                cellRef.setRow(cellRef.getRow() - 1);
+                int oldRow = cellRef.getRow();
+                cellRef.setRow(area.getStartCellRef().getRow());
                 cellData = (PoiCellData)transformer.getCellData(cellRef);
-                cellRef.setRow(cellRef.getRow() + 1);
+                cellRef.setRow(oldRow);
             }
-            cellStyle = cellData.getCellStyle();
-            //if(cellData.getCellValue()!=null && !"".equals(cellData.getCellValue()))  {
-                cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-                cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-                cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
-                cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
-    
-            //}
-      
+            if (cellData != null) {
+                cellStyle = cellData.getCellStyle();
+                //if (cellData.getCellValue() != null && !"".equals(cellData.getCellValue())) {
+                //    cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+                //    cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+                //    cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+                //    cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+                //}
+                
+            }
         }
         setRegionStyle(cellStyle, region, sheet);
         return new Size(cols, rows);
     }
- 
+    
     protected Size jexcelMerge(CellRef cellRef, Context context, JexcelTransformer transformer, int rows, int cols){
         try {
             transformer.getWritableWorkbook().getSheet(cellRef.getSheetName())
-                .mergeCells(
-                        cellRef.getRow(), 
-                        cellRef.getCol(), 
-                        cellRef.getRow() + rows - 1 , 
-                        cellRef.getCol() + cols - 1);
+                    .mergeCells(
+                            cellRef.getRow(),
+                            cellRef.getCol(),
+                            cellRef.getRow() + rows - 1 ,
+                            cellRef.getCol() + cols - 1);
             area.applyAt(cellRef, context);
         } catch (WriteException e) {
             throw new IllegalArgumentException("合并单元格失败");
         }
         return new Size(cols, rows);
     }
- 
+    
     private static void setRegionStyle(CellStyle cs, CellRangeAddress region, Sheet sheet) {
         for (int i = region.getFirstRow(); i <= region.getLastRow(); i++) {
             Row row = sheet.getRow(i);
@@ -135,19 +136,19 @@ public class MergeCommand extends AbstractCommand {
             }
         }
     }
- 
+    
     public String getCols() {
         return cols;
     }
- 
+    
     public void setCols(String cols) {
         this.cols = cols;
     }
- 
+    
     public String getRows() {
         return rows;
     }
- 
+    
     public void setRows(String rows) {
         this.rows = rows;
     }

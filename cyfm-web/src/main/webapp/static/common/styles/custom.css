@@ -304,9 +304,10 @@ div.content-wrap {
 .scroll-box::-webkit-scrollbar {
     height: 20px;
 }
+
 /*定义滚动条的轨道颜色、内阴影及圆角*/
 .scroll-box::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.0);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .0);
     background-color: transparent;
     /*border-radius: 3px;*/
 }
@@ -326,13 +327,42 @@ div.content-wrap {
 
 /*定义右下角汇合处的样式*/
 .scroll-box::-webkit-scrollbar-corner {
-    background:transparent;
+    background: transparent;
     border: 0;
 }
+
 .scroll-box .scroll {
-    background-color: rgba(255,255,255,.9);
+    background-color: rgba(255, 255, 255, .9);
 }
 
 .listTableWrap::-webkit-scrollbar {
     height: 0px;
+}
+
+/**
+处理查询框中select对齐问题
+ */
+.search-toolbar select.form-control {
+    display: inline;
+}
+
+/* 处理选项卡过多换行后对齐问题，主要针对手机端 */
+.tabbable-line > .nav-tabs > li {
+    border-bottom: 4px solid transparent;
+}
+
+/* colorpicker css */
+.input-group.color .input-group-btn i {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    right: 6px;
+}
+.radio-list > label.radio-inline {
+    padding-left: 0;
+    margin-left: 0;
+    padding-right: 20px;
+    margin-right: 10px;
 }

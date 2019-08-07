@@ -12,7 +12,6 @@
         <form:form id="inputForm" modelAttribute="entity" action="#" method="post">
             <div class="form-body">
                 <input type="hidden" name="id" value="${entity.id}"/>
-                <div id="messageBox" class="alert alert-error form-control controls" style="display:none">输入有误，请先更正。</div>
                 <div class="form-group">
                     <label for="name" class="control-label">角色名称:</label>
                     <div class="controls">
@@ -31,14 +30,12 @@
                         <textarea id="description" name="description" class="form-control">${entity.description}</textarea>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="permissions" class="control-label">非资源权限设定:</label>
                     <div class="controls">
                         <textarea id="permissions" name="permissions" class="form-control required">${entity.permissions}</textarea>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div id="selectedResourcePermssion">
                         <label for="selectedResourcePermssion" class="control-label">资源权限设定:</label>
@@ -86,9 +83,7 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="clearfix"></div>
-
                 <div class="form-group">
                     <div class="border">
                         <div id="resourceInfo" class="col-xs-9">

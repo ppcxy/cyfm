@@ -8,7 +8,6 @@
 		});
 	</script>
 </head>
-
 <body>
 	<h1>JMS演示</h1>
 

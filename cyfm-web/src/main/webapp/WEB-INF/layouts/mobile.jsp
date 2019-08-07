@@ -79,14 +79,14 @@
             <ul class="nav navbar-nav">
                 <li><a href="${ctx}/">主页</a></li>
                 <%--<li class="dropdown">--%>
-                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
-                        <%--产品中心<span class="caret"></span>--%>
-                    <%--</a>--%>
-                    <%--<ul class="dropdown-menu pull-right" role="menu">--%>
-                        <%--<li><a href="#">SmartCall智能呼</a></li>--%>
-                        <%--<li><a href="#">运营管理平台ＯＭＳ</a></li>--%>
-                        <%--<li><a href="#">客户关系管理系统</a></li>--%>
-                    <%--</ul>--%>
+                <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
+                <%--产品中心<span class="caret"></span>--%>
+                <%--</a>--%>
+                <%--<ul class="dropdown-menu pull-right" role="menu">--%>
+                <%--<li><a href="#">SmartCall智能呼</a></li>--%>
+                <%--<li><a href="#">运营管理平台ＯＭＳ</a></li>--%>
+                <%--<li><a href="#">客户关系管理系统</a></li>--%>
+                <%--</ul>--%>
 
                 <%--</li>--%>
             </ul>
@@ -132,7 +132,9 @@
     var theadTop = 0;
 
     function updateTheadTop() {
-        theadTop = $("#contentTable thead").position().top-55
+        if ($("#contentTable thead").position()){
+            theadTop = $("#contentTable thead").position().top-55
+        }
     }
 
     $(function () {
