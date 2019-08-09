@@ -70,15 +70,15 @@
 	</div>
 </div>
 <script>
-	$(function () {
-		$cy.handleUniform();
+    $(function () {
+        $cy.handleUniform();
         $("#inputForm").validate({
             rules: {
                 username: {
                     required: true
-                    ,stringCheck: true
+                    , stringCheck: true
                     , rangelength: [2, 20]
-                    , remote: {                               //验证用户名是否存在
+                    , remote: {//后台验证唯一性
                         type: "POST",
                         url: "${ctx}/sys/user/checkUsername",
                         data: {
@@ -89,14 +89,14 @@
                         }
                     }
                 },
-				name: {
+                name: {
                     required: true
-                    ,stringCheck: true
+                    , stringCheck: true
                     , rangelength: [2, 20]
-				}
+                }
                 , tel: {
-					mobile: true,
-                    remote: {                               //验证用户名是否存在
+                    mobile: true,
+                    remote: {//后台验证唯一性
                         type: "POST",
                         url: "${ctx}/sys/user/checkTel",
                         data: {
@@ -108,7 +108,7 @@
                     }
                 }
                 , email: {
-                    remote: {                               //验证用户名是否存在
+                    remote: {//后台验证唯一性
                         type: "POST",
                         url: "${ctx}/sys/user/checkEmail",
                         data: {
@@ -124,15 +124,15 @@
                 username: {
                     remote: "用户名已被其他用户使用."
                 }
-                ,email: {
+                , email: {
                     remote: "邮箱已被其他用户使用."
                 }
-                ,tel: {
+                , tel: {
                     remote: "手机号码已经被其他用户使用."
                 }
             }
         });
-	})
+    })
 </script>
 </body>
 </html>

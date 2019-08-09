@@ -63,48 +63,6 @@
 <script>
     $(function () {
         $cy.handleUniform();
-        <%--$("#inputForm").validate({--%>
-        <%--    rules: {--%>
-        <%--        name: {--%>
-        <%--            required: true--%>
-        <%--            ,stringCheck: true--%>
-        <%--            , rangelength: [2, 20]--%>
-        <%--        }--%>
-        <%--        , tel: {--%>
-        <%--            mobile: true,--%>
-        <%--            remote: {                               //验证用户名是否存在--%>
-        <%--                type: "POST",--%>
-        <%--                url: "${ctx}/sys/user/checkTel",--%>
-        <%--                data: {--%>
-        <%--                    'oldTel': '${user.tel}'--%>
-        <%--                    , 'tel': function () {--%>
-        <%--                        return $("#tel").val();--%>
-        <%--                    }--%>
-        <%--                }--%>
-        <%--            }--%>
-        <%--        }--%>
-        <%--        , email: {--%>
-        <%--            remote: {                               //验证用户名是否存在--%>
-        <%--                type: "POST",--%>
-        <%--                url: "${ctx}/sys/user/checkEmail",--%>
-        <%--                data: {--%>
-        <%--                    'oldEmail': '${user.email}'--%>
-        <%--                    , 'email': function () {--%>
-        <%--                        return $("#email").val();--%>
-        <%--                    }--%>
-        <%--                }--%>
-        <%--            }--%>
-        <%--        }--%>
-        <%--    }--%>
-        <%--    , messages: {--%>
-        <%--        email: {--%>
-        <%--            remote: "邮箱已被其他用户使用."--%>
-        <%--        }--%>
-        <%--        ,tel: {--%>
-        <%--            remote: "手机号码已经被其他用户使用."--%>
-        <%--        }--%>
-        <%--    }--%>
-        <%--});--%>
     })
 </script>
 </body>

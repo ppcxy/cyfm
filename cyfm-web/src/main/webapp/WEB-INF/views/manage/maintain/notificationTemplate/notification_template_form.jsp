@@ -54,7 +54,7 @@
                     required: true
                     , variable: true
                     , rangelength: [4, 20]
-                    , remote: {                               //验证用户名是否存在
+                    , remote: {//后台验证唯一性
                         type: "POST",
                         url: "${ctx}/manage/maintain/notificationTemplate/validate",
                         data: {
@@ -75,7 +75,6 @@
             }
         });
     })
-
 </script>
 </body>
 </html>

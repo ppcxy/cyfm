@@ -63,9 +63,9 @@
             rules: {
                 name: {
                     required: true
-                    ,stringCheck: true
-                    , rangelength: [1, 30]
-                    , remote: {                               //验证用户名是否存在
+                    , stringCheck: true
+                    , rangelength: [2, 30]
+                    , remote: {//后台验证唯一性
                         type: "POST",
                         url: "${ctx}/manage/maintain/dynamicTask/validate",
                         data: {
@@ -78,13 +78,13 @@
                     }
                 }
             },
-            messages:{
-                name:{
+            messages: {
+                name: {
                     remote: "任务名称已被使用."
                 }
             }
         });
-        $("[name=cron]").dblclick(function(){
+        $("[name=cron]").dblclick(function () {
             var index = layer.open({
                 title: "执行表达式编辑器",
                 type: 2,
