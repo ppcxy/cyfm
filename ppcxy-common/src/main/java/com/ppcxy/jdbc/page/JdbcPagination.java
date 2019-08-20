@@ -124,7 +124,7 @@ public class JdbcPagination {
         setCurrentPage(pageNumber);
         // 计算总记录数
         StringBuffer totalSQL = new StringBuffer(" SELECT count(*) as count FROM ( ");
-        int orderIndex = sql.toUpperCase().indexOf("ORDER");
+        int orderIndex = sql.toUpperCase().lastIndexOf(" ORDER ");
         if (orderIndex != -1) {
             totalSQL.append(sql.substring(0, orderIndex));
         } else {
