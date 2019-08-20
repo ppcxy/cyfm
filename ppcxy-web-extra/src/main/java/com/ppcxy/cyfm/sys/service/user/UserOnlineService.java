@@ -1,6 +1,7 @@
 package com.ppcxy.cyfm.sys.service.user;
 
 import com.ppcxy.common.service.BaseService;
+import com.ppcxy.common.utils.LogUtils;
 import com.ppcxy.cyfm.sys.entity.user.UserOnline;
 import com.ppcxy.cyfm.sys.repository.jpa.user.UserOnlineDao;
 import org.springframework.data.domain.Page;
@@ -12,24 +13,30 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ *
  */
 @Service
 @Transactional(value = "transactionManager")
 public class UserOnlineService extends BaseService<UserOnline, String> {
-
+    
     private UserOnlineDao getUserOnlineRepository() {
         return (UserOnlineDao) baseRepository;
     }
-
+    
     /**
      * 上线
      *
      * @param userOnline
      */
     public void online(UserOnline userOnline) {
-        save(userOnline);
+        try {
+            save(userOnline);
+        } catch (Exception e) {
+            /// 上线状态同步错误
+            LogUtils.logError("上线状态同步错误", e);
+        }
     }
-
+    
     /**
      * 下线
      *
@@ -47,7 +54,7 @@ public class UserOnlineService extends BaseService<UserOnline, String> {
 //            userLastOnlineService.lastOnline(UserLastOnline.fromUserOnline(userOnline));
 //        }
     }
-
+    
     /**
      * 批量下线
      *
@@ -56,7 +63,7 @@ public class UserOnlineService extends BaseService<UserOnline, String> {
     public void batchOffline(List<String> needOfflineIdList) {
         getUserOnlineRepository().batchDelete(needOfflineIdList);
     }
-
+    
     /**
      * 无效的UserOnline
      *
@@ -65,6 +72,6 @@ public class UserOnlineService extends BaseService<UserOnline, String> {
     public Page<UserOnline> findExpiredUserOnlineList(Date expiredDate, Pageable pageable) {
         return getUserOnlineRepository().findExpiredUserOnlineList(expiredDate, pageable);
     }
-
-
+    
+    
 }

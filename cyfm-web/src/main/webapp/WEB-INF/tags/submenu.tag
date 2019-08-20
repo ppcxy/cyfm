@@ -9,10 +9,10 @@
         <li class="nav-item">
             <a href="<%=menuUrl(request, menu.getUrl())%>" class="nav-link " target="rightFrame" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}">
                 <i class="${menu.icon}"></i>
-                <span class="title">${menu.name}</span>
+                <span class="title tooltips" data-placement="bottom" data-original-title="${menu.name}"><cy:digest content="${menu.name}" length="9"></cy:digest></span>
                 <span class="selected"></span>
-                <%--标记新功能支持--%>
-                <%--<span class="badge badge-roundless badge-danger">New</span>--%>
+                    <%--标记新功能支持--%>
+                    <%--<span class="badge badge-roundless badge-danger">New</span>--%>
             </a>
         </li>
     </c:when>
@@ -20,7 +20,7 @@
         <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="${menu.icon}"></i>
-                <span class="title">${menu.name}</span>
+                <span class="title"><cy:digest content="${menu.name}" length="9"></cy:digest></span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu" style="display: none;">

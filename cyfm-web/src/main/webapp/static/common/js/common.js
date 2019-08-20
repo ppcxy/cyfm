@@ -693,9 +693,9 @@ $cy = function () {
                         if (beginCheck == 'no') {
                             beginCheck = $('tr.selected').find('td.check input[type=checkbox]');
                         }
-                        if (selectTR.is(".selected")){
+                        if (selectTR.is(".selected")) {
                             selectTR.removeClass("selected");
-                        } else{
+                        } else {
                             selectTR.addClass('selected').siblings().removeClass('selected');
                         }
 
@@ -1093,42 +1093,129 @@ $cy = function () {
         //错误消息
         error: error,
         //确认操作消息
-        confirm: confirm
+        confirm: confirm,
+        //使用引导
+        guide: {
+            form: function (joyrideKey, joyRideTip, review) {
+                if (!joyRideTip) {
+                    joyRideTip = "#joyRideTipContent";
+                }
+                if (!review) {
+                    review = ".portlet-title span";
+                }
+                $(joyRideTip).joyride({
+                    autoStart: true,
+                    // modal: true,
+                    expose: true,
+                    localStorage: true,
+                    localStorageKey: joyrideKey,
+                    postRideCallback: function (index, tip) {
+                        $('.scroll-to-top').click();
+                        $cy.info("可以通过点击表单标题看引导信息！", function (index, layero) {
+                            top.layer.close(index);
+                            setTimeout(function () {
+                                $('.tooltips').tooltip('show');
+                            }, 0);
+
+                        });
+                    }
+                });
+                $(review)
+                    .addClass("tooltips")
+                    .attr("data-placement", "right")
+                    .attr("data-original-title", "点击查看引导")
+                    .click(function () {
+                        localStorage.removeItem(joyrideKey);
+                        $(joyRideTip).joyride("destroy");
+                        $cy.guide.form(joyrideKey, joyRideTip);
+                    });
+            },
+            //在更多按钮中添加操作项
+            list: function (joyrideKey, joyRideTip) {
+                console.debug("guide for list")
+
+                if (!joyRideTip) {
+                    joyRideTip = "#joyRideTipContent";
+                    $("body").append("<ol id=\"joyRideTipContent\" class=\"hidden\">\n" +
+                        "    <li data-text=\"开始\" class=\"custom\" data-options=\"tipAnimation:fade\">\n" +
+                        "        <h4>新手引导</h4>\n" +
+                        "        <p>点击开始，了解此界面使用方式。</p>\n" +
+                        "    </li>\n" +
+                        "    <li data-target=\".toolbar\" data-button=\"下一项\" data-options=\"tipLocation:right\">\n" +
+                        "        <h4>表格操作按钮区</h4>\n" +
+                        "        <p>对表格数据进行操作，添加、修改、删除、更多（导出数据、特有功能）等操作。</p>\n" +
+                        "    </li>\n" +
+                        "    <li data-target=\".toolbar-right .config\" data-button=\"下一项\" data-options=\"tipLocation:left\">\n" +
+                        "        <h4>设置按钮</h4>\n" +
+                        "        <p>辅助功能折叠按钮，一些辅助功能集合。</p>\n" +
+                        "    </li>\n" +
+                        "    <li data-target=\".form-search\" data-button=\"下一项\" data-options=\"tipLocation:top\">\n" +
+                        "        <h4>条件检索区</h4>\n" +
+                        "        <p>可以通过输入检索条件，筛选列表数据。</p>\n" +
+                        "    </li>\n" +
+                        "    <li data-target=\".listTableWrap\" data-button=\"下一项\" data-options=\"tipLocation:top\">\n" +
+                        "        <h4>数据表格区域</h4>\n" +
+                        "        <p>列表数据区域，可通过点击表头对数据进行排序，拖动表头调整列宽；可以通过双击行进入详情\\编辑界面。</p>\n" +
+                        "    </li>\n" +
+                        "</ol>");
+                }
+                $(joyRideTip).joyride({
+                    autoStart: true,
+                    modal: true,
+                    expose: true,
+                    localStorage: true,
+                    localStorageKey: joyrideKey,
+                    postRideCallback: function (index, tip) {
+                        $('.scroll-to-top').click();
+                        $cy.info("可以通过点击右上角 “设置” 按钮中的 “查看引导” 选项，查看引导！", function (index, layero) {
+                            top.layer.close(index);
+                        });
+                    }
+                });
+
+                $(".toolbar-right .config .more_list").append("<a class='open-guide'>查看引导</a>");
+                $(".open-guide").click(function () {
+                    localStorage.removeItem(joyrideKey);
+                    $(joyRideTip).joyride("destroy");
+                    $cy.guide.list(joyrideKey);
+                });
+            }
+        }
     }
 
 }();
 
 
 $.fn.extend({
-    "preventScroll":function(){
-        $(this).each(function(){
+    "preventScroll": function () {
+        $(this).each(function () {
             var _this = this;
-            if(navigator.userAgent.indexOf('Firefox') >= 0){   //firefox
-                _this.addEventListener('DOMMouseScroll',function(e){
+            if (navigator.userAgent.indexOf('Firefox') >= 0) {   //firefox
+                _this.addEventListener('DOMMouseScroll', function (e) {
                     _this.scrollTop += e.detail > 0 ? 60 : -60;
                     e.preventDefault();
-                },false);
-            }else{
-                var startY=endY=scrollTop=0;
-                var preventStart=false;
-                _this.addEventListener('touchstart',function(e){
-                    preventStart=true;
-                    scrollTop=_this.scrollTop;
+                }, false);
+            } else {
+                var startY = endY = scrollTop = 0;
+                var preventStart = false;
+                _this.addEventListener('touchstart', function (e) {
+                    preventStart = true;
+                    scrollTop = _this.scrollTop;
                     var touch = event.targetTouches[0];
-                    startY=touch.pageY;
+                    startY = touch.pageY;
                     e.preventDefault();
                 });
-                _this.addEventListener('touchmove',function(e){
-                    if(!preventStart) return;
+                _this.addEventListener('touchmove', function (e) {
+                    if (!preventStart) return;
                     var touch = event.targetTouches[0];
-                    endY=touch.pageY;
-                    _this.scrollTop = scrollTop+(endY-startY)*-1;
+                    endY = touch.pageY;
+                    _this.scrollTop = scrollTop + (endY - startY) * -1;
                     e.preventDefault();
                 });
-                _this.addEventListener('touchend',function(){
-                    preventStart=false;
+                _this.addEventListener('touchend', function () {
+                    preventStart = false;
                 });
-                _this.onmousewheel = function(e){
+                _this.onmousewheel = function (e) {
                     e = e || window.event;
                     _this.scrollTop += e.wheelDelta > 0 ? -60 : 60;
                     return false;
@@ -1169,7 +1256,7 @@ var handleGoTop = function () {
 };
 
 // Handles Bootstrap Tooltips.
-var handleTooltips = function() {
+var handleTooltips = function () {
     // global tooltips
     $('.tooltips').tooltip();
 
@@ -1345,8 +1432,6 @@ $(function () {
     $cy.initDatePick();
     handleGoTop();
     handleTooltips();
-
-
 
 
     //需要直接初始化的.
