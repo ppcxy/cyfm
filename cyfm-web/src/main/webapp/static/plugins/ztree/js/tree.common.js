@@ -5,11 +5,11 @@ $.zTree = {
     selectTreeTemplate: '<div id="treeContent{id}" class="treeContent" style="display:none; position: absolute;">{tree}</div>',
 
     autocompleteTemplate: '<div class="control-group tree-search" style="margin-top:5px;">' +
-    //TODO WEEP 搜索框'<label for="searchName{id}">名称</label>' +
-    '<div class="controls">' +
-    '<input type="text" id="searchName{id}" class="input-medium" placeholder="模糊匹配 回车键查询"/>' +
-    '</div>' +
-    '</div>',
+        //TODO WEEP 搜索框'<label for="searchName{id}">名称</label>' +
+        '<div class="controls">' +
+        '<input type="text" id="searchName{id}" class="input-medium" placeholder="模糊匹配 回车键查询"/>' +
+        '</div>' +
+        '</div>',
 
     /**
      * 初始化可移动树
@@ -95,8 +95,8 @@ $.zTree = {
             setting.view.removeHoverDom = null;
         }
 
-        if (config, setting) {
-            setting = $.extend(true, config.setting, setting);
+        if (config.setting) {
+            setting = $.extend(true, {}, config.setting, setting);
             config.setting = setting;
         }
 
@@ -247,16 +247,16 @@ $.zTree = {
             config.autocomplete.input = $("#searchName" + id);
             config.autocomplete.async = config.autocomplete.async || config.async;
             config.autocomplete.select = config.autocomplete.select || function (event, ui) { //按照名字搜索
-                    var searchName = ui.item.value;
-                    //console.log(searchName)
-                    var url = config.loadUrl + "&searchName=" + searchName;
-                    zTree.destroy();
-                    $.getJSON(url, function (zNodes) {
-                        if (zNodes.length > 0) { //如果没找到节点就不必展示
-                            zTree = $.fn.zTree.init($("#" + treeSelect), setting, zNodes);
-                        }
-                    });
-                };
+                var searchName = ui.item.value;
+                //console.log(searchName)
+                var url = config.loadUrl + "&searchName=" + searchName;
+                zTree.destroy();
+                $.getJSON(url, function (zNodes) {
+                    if (zNodes.length > 0) { //如果没找到节点就不必展示
+                        zTree = $.fn.zTree.init($("#" + treeSelect), setting, zNodes);
+                    }
+                });
+            };
             config.autocomplete.source = config.autocomplete.source
                 || config.urlPrefix + "/ajax/autocomplete?1=1" +
                 (config.excludeId ? "&excludeId=" + config.excludeId : "") +
@@ -425,17 +425,17 @@ $.zTree = {
                 config.autocomplete.input = $("#searchName" + id);
                 config.autocomplete.async = config.autocomplete.async || config.async;
                 config.autocomplete.select = config.autocomplete.select || function (event, ui) { //按照名字搜索
-                        var searchName = ui.item.value;
-                        var url = config.loadUrl + "&searchName=" + searchName;
-                        zTree.destroy();
-                        $.getJSON(url, function (zNodes) {
-                            var zNodesLength = zNodes.length;
-                            if (zNodesLength > 0) { //如果没找到节点就不必展示
-                                $.zTree.prepareZNodes(zNodes, config);
-                                zTree = $.fn.zTree.init($("#" + treeSelect), setting, zNodes);
-                            }
-                        });
-                    };
+                    var searchName = ui.item.value;
+                    var url = config.loadUrl + "&searchName=" + searchName;
+                    zTree.destroy();
+                    $.getJSON(url, function (zNodes) {
+                        var zNodesLength = zNodes.length;
+                        if (zNodesLength > 0) { //如果没找到节点就不必展示
+                            $.zTree.prepareZNodes(zNodes, config);
+                            zTree = $.fn.zTree.init($("#" + treeSelect), setting, zNodes);
+                        }
+                    });
+                };
                 config.autocomplete.source = config.autocomplete.source
                     || config.urlPrefix + "/ajax/autocomplete?1=1" +
                     (config.excludeId ? "&excludeId=" + config.excludeId : "") +
