@@ -15,8 +15,8 @@
     <meta name="meta.decorator" content="content" />
     <meta name="decorator" content="content" />
     <%@include file="/WEB-INF/views/common/import-css.jspf" %>
-    <link href="${ctx}/static/manage/css/layout.css?2" rel="stylesheet" type="text/css"/>
-    <link href="${ctx}/static/manage/css/darkblue.css?2" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/manage/css/layout.css?5" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/manage/css/darkblue.css?5" rel="stylesheet" type="text/css"/>
     <style>
         body{
             -webkit-user-select:none;
@@ -460,6 +460,44 @@
         });
     }
 
+    $("[data-target-type]").each(function () {
+        var targetType = $(this).data("target-type");
+        switch (targetType) {
+            // case "default":;
+            // case "ajax":
+            case "blank":
+                $(this).attr("target", "_blank");
+                break;
+            case "self":
+                $(this).attr("target", "_self");
+                break;
+            case "dialog":
+                var menuHref = $(this).attr("href");
+                $(this).click(function () {
+                    layer.open({
+                        type: 2,
+                        area:['1024px','650px'],
+                        content: menuHref
+                    });
+                    return false;
+                });
+                break
+            case "fullDialog":
+                var menuHref = $(this).attr("href");
+                $(this).click(function () {
+                    var index = layer.open({
+                        type: 2,
+                        content: menuHref
+                    });
+                    layer.full(index);
+                    return false;
+                });
+                break
+            default:
+                $(this).attr("target", "rightFrame");
+                break;
+        }
+    });
 </script>
 </body>
 </html>

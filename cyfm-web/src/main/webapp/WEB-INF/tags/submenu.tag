@@ -7,7 +7,7 @@
 <c:choose>
     <c:when test="${!menu.hasChildren}">
         <li class="nav-item">
-            <a href="<%=menuUrl(request, menu.getUrl())%>" class="nav-link " target="rightFrame" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}">
+            <a href="<%=menuUrl(request, menu.getUrl())%>" class="nav-link " target="rightFrame" nav-n="${parentName},${menu.name},<%=menuUrl(request, menu.getUrl())%>,${menu.menuType}" data-target-type="${menu.menuType}">
                 <i class="${menu.icon}"></i>
                 <span class="title tooltips" data-placement="bottom" data-original-title="${menu.name}"><cy:digest content="${menu.name}" length="9"></cy:digest></span>
                 <span class="selected"></span>
