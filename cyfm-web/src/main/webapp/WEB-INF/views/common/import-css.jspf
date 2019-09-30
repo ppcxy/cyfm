@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!-- ================================= Css 公用区域开始 ========================================== -->
 <link type="image/x-icon" href="${ctx}/static/images/favicon.ico" rel="shortcut icon">
 

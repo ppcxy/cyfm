@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%-- The jQuery UI widget factory, can be omitted if jQuery UI is already included --%>
 <script type="text/javascript" src="${ctx}/static/plugins/upload/js/vendor/jquery.ui.widget.js"></script>
 <%-- The Templates plugin is included to render the upload/download listings --%>

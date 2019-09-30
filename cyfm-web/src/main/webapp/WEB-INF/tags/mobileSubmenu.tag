@@ -21,7 +21,7 @@
             </a>
             <ul class="sub-menu">
                 <c:forEach items="${menu.children}" var="menu2">
-                    <cy:submenu menu="${menu2}" parentName="${parentName},${menu.name}"/>
+                    <cy:mobileSubmenu menu="${menu2}" parentName="${parentName},${menu.name}"/>
                 </c:forEach>
             </ul>
         </li>

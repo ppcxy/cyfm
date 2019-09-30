@@ -28,10 +28,10 @@ public class PreSiteMeshFilter extends BaseFilter implements Filter {
         
         String requestType = request.getHeader("X-Requested-With");
         if ("XMLHttpRequest".equals(requestType)) {
+            request.setAttribute("com.opensymphony.sitemesh.APPLIED_ONCE", Boolean.TRUE);
             chain.doFilter(request, response);
             return;
         }
-        
         
         String header = request.getHeader("User-Agent").toLowerCase();
         if (header.indexOf("android") != -1 || header.indexOf("phone") != -1 || header.indexOf("pad") != -1) {

@@ -104,7 +104,7 @@
                 <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->
                 <c:forEach items="${roots}" var="root">
                     <li class="classic-menu-dropdown ${root.id == rootId ? 'active' : ''}">
-                        <a href="${ctx}/manage/${root.id}/">
+                        <a href="${ctx}/desktop/${root.id}/">
                                 ${root.name} <span class="${root.id == rootId ? 'selected' : ''}"></span>
                         </a>
                     </li>
@@ -303,7 +303,7 @@
                 <div class="page-bar place">
                     <ul class="page-breadcrumb placeul">
                         <li class="default">
-                            <a href="${ctx}/manage/index/" target="rightFrame">首页</a>
+                            <a href="${ctx}/desktop/index/" target="rightFrame">首页</a>
                         </li>
                     </ul>
                     <div class="page-toolbar">
@@ -317,7 +317,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="manage-main">
-                    <iframe src="${ctx}/manage/index/" name="rightFrame" id="rightFrame" title="" frameborder=no border=0></iframe>
+                    <iframe src="${ctx}/desktop/index/" name="rightFrame" id="rightFrame" title="" frameborder=no border=0></iframe>
                 </div>
             </div>
         </div>

@@ -56,7 +56,11 @@ $cy = function () {
     function refreshNotification(data) {
         $notification_list.html("");
 
-        $notice_count.text(data.unreadNotificationsCount);
+        if (data.unreadNotificationsCount == 0) {
+            $notice_count.text("")
+        }else{
+            $notice_count.text(data.unreadNotificationsCount);
+        }
 
         $(data.unreadNotifications).each(function (i, o) {
             var notice = $(notice_template)
@@ -186,20 +190,6 @@ $cy = function () {
             , shift: 5 //动画类型
         }, callback);
     };
-    //警告弹出
-    var warn = function (message, callback) {
-        top.layer.alert(message, {
-            skin: 'layui-layer-lan'
-            , title: '警告(5秒后自动关闭)'
-            , content: message
-            , time: 5000
-            , icon: 0
-            , zindex: 16777271
-            , closeBtn: 0
-            , btn: ['关闭']
-            , shift: 5 //动画类型
-        }, callback);
-    };
     //成功弹出
     var success = function (message, callback) {
         layer.alert(message, {
@@ -214,6 +204,20 @@ $cy = function () {
             , btn: ['关闭']
         }, callback);
     };
+    //警告弹出
+    var warn = function (message, callback) {
+        top.layer.alert(message, {
+            skin: 'layui-layer-lan'
+            , title: '警告'
+            , content: message
+            , icon: 0
+            , zindex: 16777271
+            , closeBtn: 0
+            , btn: ['关闭']
+            , shift: 5 //动画类型
+        }, callback);
+    };
+
     //错误弹出
     var error = function (message, callback) {
         top.layer.alert(message, {
@@ -239,19 +243,24 @@ $cy = function () {
             yes: $.noop,
             no: $.noop
         }, options);
-        layer.confirm(opts.message, {
+        top.layer.confirm(opts.message, {
             area: [opts.width, opts.height]
             , title: opts.title
             , icon: 3
             , btn: opts.btn //按钮
         }, function (index, layero) {
             if (opts.yes) {
-                opts.yes();
+                opts.yes(index, layero);
             }
-            layer.close(index);
-        }, function () {
+            if (top) {
+                top.layer.close(index);
+            }
+        }, function (index, layero) {
             if (opts.no) {
-                opts.no();
+                opts.no(index, layero);
+            }
+            if (top) {
+                top.layer.close(index);
             }
         });
     };
@@ -778,7 +787,7 @@ $cy = function () {
                         }
 
                         if ($(this).hasClass('delete')) {
-                            confirm({
+                            opts.no(index, layero)({
                                 message: '将要执行删除数据操作,是否继续?', yes: function () {
                                     window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
                                 }
@@ -1069,6 +1078,24 @@ $cy = function () {
         sysNotice: {
             init: initNotice,
             flush: flushPolling
+        },
+        scrollTo: function (el, offeset) {
+            var pos = (el && el.size() > 0) ? el.offset().top : 0;
+
+            if (el) {
+                if ($('body').hasClass('page-header-fixed')) {
+                    pos = pos - $('.page-header').height();
+                } else if ($('body').hasClass('page-header-top-fixed')) {
+                    pos = pos - $('.page-header-top').height();
+                } else if ($('body').hasClass('page-header-menu-fixed')) {
+                    pos = pos - $('.page-header-menu').height();
+                }
+                pos = pos + (offeset ? offeset : -1 * el.height());
+            }
+
+            $('html,body').animate({
+                scrollTop: pos
+            }, 'slow');
         },
         //表单加工美化
         handleUniform: handleUniform,
@@ -1423,8 +1450,8 @@ $(function () {
         if (!$cy.validate.submiting()) {
             setTimeout(function () {
                 console.debug("加载页面锁屏状态", $cy.validate.submiting());
-                top.$cy.waiting("", 20000);
-            }, 100);
+                top.$cy.waiting("", 10000);
+            }, 800);
         }
     };
 
@@ -1451,9 +1478,9 @@ $(function () {
         }
     }, 100);
 
-    if (parent !== top) {
+    if (parent !== top && top.$cy) {
         setTimeout(function () {
             top.$cy.waitingOver();
-        }, 500);
+        }, 800);
     }
 });

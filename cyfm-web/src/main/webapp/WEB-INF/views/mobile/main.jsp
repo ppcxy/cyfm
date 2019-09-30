@@ -233,7 +233,7 @@
 <div class="footer-menu-bar">
     <ul>
         <c:forEach items="${roots}" var="root" varStatus="s">
-            <li><a href="${ctx}/manage/${root.id}" class="bottom-menu"><i class="${root.icon} icon-large menu-icon"></i></a></li>
+            <li><a href="${ctx}/desktop/${root.id}" class="bottom-menu"><i class="${root.icon} icon-large menu-icon"></i></a></li>
         </c:forEach>
     </ul>
 </div>

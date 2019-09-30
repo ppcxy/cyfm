@@ -1,7 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!-- ================================= JS 公用区域开始 ========================================== -->
 <script>
     var ctx = _ctx = "${ctx}";
 </script>
+<!--[if lt IE 9]>
+<script src="${ctx}/static/plugins/respond.min.js"></script>
+<script src="${ctx}/static/plugins/excanvas.min.js"></script>
+<![endif]-->
+
 <!-- 插件扩展区 bengin-->
 <script src="${ctx}/static/plugins/angularjs/angular.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>

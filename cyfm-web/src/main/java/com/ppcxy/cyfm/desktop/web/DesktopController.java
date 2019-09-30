@@ -1,4 +1,4 @@
-package com.ppcxy.cyfm.manage.web;
+package com.ppcxy.cyfm.desktop.web;
 
 import com.ppcxy.common.web.bind.annotation.CurrentUser;
 import com.ppcxy.cyfm.sys.entity.user.User;
@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
  * Created by weep on 2016-5-16.
  */
 @Controller
-@RequestMapping(value = "/manage")
-public class ManageController {
+@RequestMapping(value = "/desktop")
+public class DesktopController {
     @Resource
     private ResourceService resourceService;
     
@@ -29,7 +29,7 @@ public class ManageController {
     //}
     @RequestMapping
     public String main() {
-        return "redirect:/manage/2/";
+        return "redirect:/desktop/2/";
     }
     
     @RequestMapping(value = "{rootId}")
@@ -41,16 +41,16 @@ public class ManageController {
         model.addAttribute("menus", resourceService.findMenus(user, rootId));
         
         if (Servlets.getCookie("skin", request) != null && "mobile".equals(Servlets.getCookie("skin", request).getValue())) {
-            return "mobile/main";
+            return "desktop/mobile/main";
         }
         
-        return "manage/main";
+        return "desktop/main";
     }
     
     
     @RequestMapping(value = "/index")
     public String index() {
-        return "manage/index";
+        return "desktop/index";
     }
     
 }

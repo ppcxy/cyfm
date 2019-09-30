@@ -11,7 +11,7 @@ public interface DsmConstant {
     public static final String placeholder = "%S";
     
     // #写法实例
-    public static final String SYS_NAME = "天翔统一数据平台";
+    public static final String SYS_NAME = "CYFM";
     
     public static final String SYS_DATABASE_NAME = "MYSQL";
     

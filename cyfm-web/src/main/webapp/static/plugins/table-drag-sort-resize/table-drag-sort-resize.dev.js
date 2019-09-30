@@ -243,7 +243,7 @@
                                 if (pm[i] != start) {
                                     //TODO 寻找挪移节点当前的index
                                     start = pm.indexOf(start);
-                                    pm.move(start, end);
+                                    arrayMove(pm,start, end);
                                     moveTableColumn(table, start, end);
                                 }
                             }
@@ -724,7 +724,7 @@
                     layerTwo.style.left = left + width + borderSpacing - borderLeftWidth + 'px';
 
                     // shift
-                    this.pm.move(start, end);
+                    arrayMove(this.pm,start, end);
                     // set new column
                     this.lc = end;
                 }
@@ -1101,8 +1101,8 @@
     }
 
     // http://stackoverflow.com/questions/2440700/reordering-arrays
-    Array.prototype.move = function (from, to) {
-        this.splice(to, 0, this.splice(from, 1)[0]);
+    function arrayMove(m,from, to) {
+        m.splice(to, 0, m.splice(from, 1)[0]);
     };
 
 })();
