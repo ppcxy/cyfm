@@ -5,6 +5,7 @@ import com.ppcxy.common.Constants;
 import com.ppcxy.common.web.controller.BaseCRUDController;
 import com.ppcxy.cyfm.sys.entity.permission.Role;
 import com.ppcxy.cyfm.sys.entity.permission.RoleResourcePermission;
+import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.service.permission.PermissionService;
 import com.ppcxy.cyfm.sys.service.permission.RoleService;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -87,6 +89,32 @@ public class RoleController extends BaseCRUDController<Role, Long> {
         fillResourcePermission(role, resourceIds, permissionIds);
         
         return super.update(model, role, result, backURL, redirectAttributes);
+    }
+    
+    @RequestMapping(value = "/roleAllot/{id}", method = RequestMethod.GET)
+    public String roleDetails(@PathVariable(value = "id") Role role, Model model) {
+        super.beforView(model, role);
+        
+        List<User> users = roleService.findUsers(role);
+        model.addAttribute("role", role);
+        model.addAttribute("users", users);
+        return viewName("details");
+    }
+    
+    @RequestMapping(value = "/roleAllot/add/{type}", method = RequestMethod.POST)
+    @ResponseBody
+    public String allotRoleDetails(@PathVariable(value = "type") String type, Long roleId, @RequestParam(name = "targetIds") Long[] targetIds, Model model) {
+        super.beforUpdateForm(null, model);
+        roleService.addRoleAllot(type, roleId, targetIds);
+        return "success";
+    }
+    
+    @RequestMapping(value = "/roleAllot/remove/{type}", method = RequestMethod.POST)
+    @ResponseBody
+    public String removeRoleDetails(@PathVariable(value = "type") String type, Long roleId, Long targetId, Model model) {
+        super.beforUpdateForm(null, model);
+        roleService.removeRoleAllot(type, roleId, targetId);
+        return "success";
     }
     
     private void fillResourcePermission(Role role, Long[] resourceIds, Long[][] permissionIds) {
