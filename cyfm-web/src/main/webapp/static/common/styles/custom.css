@@ -249,9 +249,10 @@ div.content-wrap {
     padding: 1px;
     text-align: center;
     position: fixed;
-    bottom: 2px;
+    bottom: 0px;
     z-index: 10000;
     display: block;
+    background: #fff;
 }
 
 .scroll-to-top {
@@ -286,14 +287,15 @@ div.content-wrap {
     /* 992px */
     .scroll-to-top {
         right: 5px;
+        bottom: 5px;
     }
 }
 
 @media (max-width: 991px) {
     /* 991px */
     .scroll-to-top {
-        bottom: 20px;
-        right: 10px;
+        bottom: 5px;
+        right: 5px;
     }
 
     .scroll-to-top > i {
@@ -336,7 +338,7 @@ div.content-wrap {
 }
 
 .listTableWrap::-webkit-scrollbar {
-    height: 0px;
+    height: 10px;
 }
 
 /**
@@ -360,9 +362,11 @@ div.content-wrap {
     height: 20px;
     right: 6px;
 }
-.radio-list > label.radio-inline {
-    padding-left: 0;
-    margin-left: 0;
-    padding-right: 20px;
-    margin-right: 10px;
+
+.content-wrap {
+    margin-bottom: 5px;
+}
+
+.listTableWrap {
+    height: 400px;
 }

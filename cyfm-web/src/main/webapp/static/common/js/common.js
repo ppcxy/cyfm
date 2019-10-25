@@ -787,7 +787,7 @@ $cy = function () {
                         }
 
                         if ($(this).hasClass('delete')) {
-                            opts.no(index, layero)({
+                            confirm({
                                 message: '将要执行删除数据操作,是否继续?', yes: function () {
                                     window.location.href = baseUrl.replace('{id}', checkItemVal) + (baseUrl.indexOf('?') > 0 ? '&' : '?') + 'BackURL=' + encodeBackURL();
                                 }
