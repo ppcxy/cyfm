@@ -32,7 +32,6 @@ public class Resource extends IdEntity implements Treeable<Long> {
      * 资源标识符 用于权限匹配的 如sys:resource
      */
     private String identity;
-    
     /**
      * 点击后前往的地址
      * 菜单才有
