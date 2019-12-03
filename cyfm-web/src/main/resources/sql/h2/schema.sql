@@ -54,6 +54,7 @@ CREATE TABLE cy_sys_user (
   status      VARCHAR(32),
   team_ID     BIGINT,
   create_DATE DATETIME,
+  totp_secret varchar(4000),
   deleted     INT    DEFAULT 0,
   PRIMARY KEY (id)
 );
