@@ -11,7 +11,7 @@
 
 ## 使用方式
 
-1. 运行根目录下的quick-start.sh 或 quick-start.bat.
+1. 运行根目录下的quick-start.sh 或 quick-start.bat （环境变量请使用 jdk7 或者 jdk8）.
 >* 将modules安装到本地maven仓库.
 >* 等待下载依赖后,自动启动演示项目.
 
