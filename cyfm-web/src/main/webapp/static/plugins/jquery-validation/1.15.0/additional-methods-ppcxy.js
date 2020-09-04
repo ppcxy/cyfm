@@ -1,10 +1,10 @@
 //变量名命名规则
 jQuery.validator.addMethod("variable", function(value, element){
-    return this.optional(element) ||/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
+    return this.optional(element) || /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
 }, "以字母或下划线开头的字母数字组合");
 //字母数字
 jQuery.validator.addMethod("alnum", function(value, element){
-    return this.optional(element) ||/^[a-zA-Z0-9]+$/.test(value);
+    return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 }, "只能包括英文字母和数字");
 // 汉字
 jQuery.validator.addMethod("chinese", function(value, element){
@@ -15,9 +15,13 @@ jQuery.validator.addMethod("chinese", function(value, element){
 jQuery.validator.addMethod("chinesePlus", function(value, element){
     return this.optional(element) ||/^[\u0391-\uFFE5]+$/.test(value);
 }, "不允许包含特殊符号!");
+// 字符验证-非特殊符号
+jQuery.validator.addMethod("notIncludeSpace", function(value, element){
+    return this.optional(element) || value.indexOf(" ") < 0;
+}, "不允许包含空格!");
 // 字符验证-非特殊字符
 jQuery.validator.addMethod("stringCheck", function(value, element) {
-    return this.optional(element) || /[\u4E00-\u9FA5\uF900-\uFA2DA-Za-z0-9_]+$/.test(value);
+    return this.optional(element) || /^[\u4E00-\u9FA5\uF900-\uFA2DA-Za-z0-9_]+$/.test(value);
 }, "只能包括中文字、英文字母、数字和下划线");
 
 
