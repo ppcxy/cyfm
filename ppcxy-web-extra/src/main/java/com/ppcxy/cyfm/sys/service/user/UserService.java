@@ -10,6 +10,7 @@ import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.common.service.UserLogUtils;
 import com.ppcxy.common.utils.ShiroUserInfoUtils;
+import com.ppcxy.cyfm.sys.entity.permission.Role;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.entity.user.UserStatus;
 import com.ppcxy.cyfm.sys.repository.jpa.permission.RoleDao;
@@ -26,14 +27,12 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.mapper.JsonMapper;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 用户管理 service
@@ -169,12 +168,12 @@ public class UserService extends BaseService<User, Long> {
         
         passwordService.validate(user, password);
         
-        if (user.getStatus() == UserStatus.blocked) {
+        if (user.getStatus() != UserStatus.normal) {
             UserLogUtils.log(
                     loginName,
                     "loginError",
-                    "user is blocked!");
-            throw new UserBlockedException("异常锁定.");
+                    "user is {}!", user.getStatus());
+            throw new UserBlockedException(user.getStatus().getInfo());
         }
         
         UserLogUtils.log(
@@ -229,7 +228,7 @@ public class UserService extends BaseService<User, Long> {
         //此处需要走代理对象，目的是能走缓存切面
         UserService proxyUserService = (UserService) AopContext.currentProxy();
         
-        if (maybeUsername(loginName)) {
+        if (maybeUsername(loginName) || loginName.length() == 32) {
             user = proxyUserService.findByUsername(loginName);
         }
         
@@ -314,12 +313,16 @@ public class UserService extends BaseService<User, Long> {
         );
     }
     
-    public Object getAllRole() {
-        return roleDao.findAll();
+    public List<Role> getAllRole() {
+        return roleDao.findAll(new Sort(Sort.Direction.ASC, "name"));
     }
     
     @Override
     public Page<User> findAll(Searchable searchable) {
         return super.findAll(searchable);
+    }
+    
+    public List<User> findByTeamId(Long id) {
+        return ((UserDao) baseRepository).findByTeamId(id);
     }
 }

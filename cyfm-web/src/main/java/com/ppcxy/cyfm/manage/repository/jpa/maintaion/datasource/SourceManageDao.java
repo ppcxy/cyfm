@@ -7,4 +7,5 @@ import com.ppcxy.cyfm.manage.entity.maintaion.datasource.SourceManage;
  * Created by weep on 2016-5-23.
  */
 public interface SourceManageDao extends BaseRepository<SourceManage, Long> {
+	SourceManage findByDsName(String dsName);
 }

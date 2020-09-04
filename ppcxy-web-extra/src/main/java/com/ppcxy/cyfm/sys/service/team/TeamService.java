@@ -1,12 +1,15 @@
 package com.ppcxy.cyfm.sys.service.team;
 
+import com.google.common.collect.Lists;
 import com.ppcxy.common.entity.search.Searchable;
 import com.ppcxy.common.service.BaseService;
+import com.ppcxy.cyfm.sys.entity.permission.Role;
 import com.ppcxy.cyfm.sys.entity.team.Team;
 import com.ppcxy.cyfm.sys.entity.user.User;
+import com.ppcxy.cyfm.sys.repository.jpa.permission.RoleDao;
 import com.ppcxy.cyfm.sys.repository.jpa.team.TeamDao;
 import com.ppcxy.cyfm.sys.repository.jpa.user.UserDao;
-import org.javasimon.aop.Monitored;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,6 @@ import java.util.List;
  */
 @Service
 @Transactional
-@Monitored
 public class TeamService extends BaseService<Team, Long> {
     @Autowired
     private TeamDao teamDao;
@@ -27,8 +29,15 @@ public class TeamService extends BaseService<Team, Long> {
     @Autowired
     private UserDao userDao;
     
+    @Autowired
+    private RoleDao roleDao;
+    
     public Page<Team> test(Searchable searchable) {
         return teamDao.findAll(searchable);
+    }
+    
+    public void deleteOne(Long id) {
+        teamDao.deleteById(id);
     }
     
     @Override
@@ -90,4 +99,26 @@ public class TeamService extends BaseService<Team, Long> {
         super.delete(team);
     }
     
+    public List<Role> getRolesByTeamId(Long teamId) {
+        List<Role> roles = Lists.newArrayList();
+        
+        Team team = findOne(teamId);
+        
+        if (StringUtils.isNotBlank(team.getDefaultRoles())) {
+            String[] roleValues = team.getDefaultRoles().split(",");
+            
+            for (String roleValue : roleValues) {
+                Role r = roleDao.findByValue(roleValue);
+                if (r != null) {
+                    roles.add(r);
+                }
+            }
+        }
+        
+        return roles;
+    }
+    
+    public Team findByName(String name) {
+        return teamDao.findByName(name);
+    }
 }

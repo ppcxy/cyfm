@@ -12,6 +12,16 @@
     <cache name="demoCache" maxBytesLocalHeap="10M" eternal="false" timeToIdleSeconds="3600"
            timeToLiveSeconds="3600" overflowToDisk="false"/>
 
+    <!-- 用户组关系授权 -->
+    <cache name="userGroupCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
     <!-- 登录记录缓存 锁定10分钟 -->
     <cache name="loginRecordCache"
            maxEntriesLocalHeap="2000"

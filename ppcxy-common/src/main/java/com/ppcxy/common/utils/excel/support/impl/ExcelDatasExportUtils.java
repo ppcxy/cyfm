@@ -3,9 +3,9 @@ package com.ppcxy.common.utils.excel.support.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ppcxy.common.entity.AbstractEntity;
 import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.spring.SpringContextHolder;
+import com.ppcxy.common.utils.LogUtils;
 import com.ppcxy.common.utils.excel.model.DataColumn;
 import com.ppcxy.common.utils.excel.support.ExcelDataAbstract;
 import com.ppcxy.common.utils.jxls.JxlsUtil;
@@ -23,11 +23,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAbstract {
+public class ExcelDatasExportUtils<T> extends ExcelDataAbstract {
     
     private final List<DataColumn> columns = Lists.newArrayList();
     private BufferedOutputStream out = null;
@@ -40,8 +39,10 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
     private String username = null;
     private int rowAccessWindowSize = 200; //内存中保留的行数，超出后会写到磁盘
     private SXSSFSheet currentSheet;
+    
     public ExcelDatasExportUtils() {
     }
+    
     public ExcelDatasExportUtils(Class<T> dataClass) {
         this.columns.addAll(initColumns(dataClass));
     }
@@ -91,7 +92,7 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         
         String resultUrl = null;
         
-        String fileName = generateFilename(username, contextRootPath, "xlsx");
+        String fileName = generateFilename(username, contextRootPath, "xlsx", null);
         File file = new File(fileName);
         BufferedOutputStream out = null;
         SXSSFWorkbook wb = null;
@@ -140,7 +141,6 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
             
             resultUrl = fileName.replace(contextRootPath, "").replace("\\", "/");
         } catch (Exception e) {
-            e.printStackTrace();
             IOUtils.closeQuietly(out);
             Map<String, Object> context = Maps.newHashMap();
             context.put("model", sheetName);
@@ -161,7 +161,7 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         
         //拼装出filename
         //创建导出文件
-        file = new File(generateFilename(username, contextRootPath, "xlsx"));
+        file = new File(generateFilename(username, contextRootPath, "xlsx", null));
         
         try {
             //创建workbook
@@ -297,7 +297,7 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         
         String resultUrl = null;
         
-        String fileName = generateFilename(username, contextRootPath, "xlsx");
+        String fileName = generateFilename(username, contextRootPath, "xlsx", null);
         File file = new File(fileName);
         BufferedOutputStream out = null;
         SXSSFWorkbook wb = null;
@@ -360,24 +360,31 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
         return resultUrl;
     }
     
-    public String exportTableDatasTemplate(String dir, String filename, List<T> datas, final String username, final String contextRootPath) {
-        String resultUrl = null;
-        
-        String fileName = generateFilename(username, contextRootPath, "xlsx");
+    
+    public String exportTableDatasTemplate(String dir, String filename, List<T> datas, final String username, final String contextRootPath, Map<String, Object> map, String filePrefix) {
+        this.username = username;
+        this.contextRootPath = contextRootPath;
+        if (this.sheetName == null) {
+            this.sheetName = filePrefix != null ? filePrefix : "模版导出";
+        }
+        String fileName = generateFilename(username, contextRootPath, "xlsx", filePrefix);
         file = new File(fileName);
         File templateFile = JxlsUtil.getTemplateForDir(dir, filename);
-        Map<String, Object> map = new HashMap<>();
+        
         map.put("listFormDatas", datas);
         try {
+            
+            if (templateFile == null) {
+                throw new BaseException("未找到导出模板。");
+            }
+            
             JxlsUtil.exportExcel(templateFile, file, map);
             // out = new BufferedOutputStream(new FileOutputStream(file));
-            this.username = username;
-            this.contextRootPath = contextRootPath;
-            this.sheetName = "模版导出";
-            String fileNames = file.getAbsolutePath();
-            if (needCompress(file)) {
-                fileNames = compressAndDeleteOriginal(file.getName());
-            }
+            //String fileNames = file.getAbsolutePath();
+            //
+            //if (needCompress(file)) {
+            //	fileNames = compressAndDeleteOriginal(file.getName());
+            //}
             
             long endTime = System.currentTimeMillis();
             
@@ -391,6 +398,7 @@ public class ExcelDatasExportUtils<T extends AbstractEntity> extends ExcelDataAb
             context.put("model", sheetName);
             context.put("error", e.getMessage());
             notification("excelExportError", context);
+            LogUtils.logError("导出过程发生错误: " + sheetName, e);
             throw new BaseException("导出过程发生错误:" + e.getMessage(), e);
         }
         

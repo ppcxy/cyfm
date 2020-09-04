@@ -308,7 +308,7 @@ $(function () {
         });
     });
 
-    var secondList = $(".secondList").children();
+    var secondList = $(".secondList label").children();
     $("#sencond_appoint").click(function () {
         if (this.checked) {
             if ($(secondList).filter(":checked").length == 0) {
@@ -321,7 +321,7 @@ $(function () {
     secondList.change(function () {
         if (secondList.filter(":checked").size()==0){
             if ($(secondList).filter(":checked").length == 0) {
-                $("input[name=second]").eq(0).attr("checked", true);
+                $("input[name=second]").eq(0).attr("checked", true).click();
             }
         }
         var sencond_appoint = $("#sencond_appoint").prop("checked");
@@ -344,7 +344,7 @@ $(function () {
         }
     });
 
-    var minList = $(".minList").children();
+    var minList = $(".minList label").children();
     $("#min_appoint").click(function () {
         if (this.checked) {
             if ($(minList).filter(":checked").length == 0) {
@@ -356,7 +356,7 @@ $(function () {
 
     minList.change(function () {
         if ($(minList).filter(":checked").length == 0) {
-            $("input[name=min]").eq(0).attr("checked", true);
+            $("input[name=min]").eq(0).attr("checked", true).click();;
         }
         var min_appoint = $("#min_appoint").prop("checked");
         if (min_appoint) {
@@ -378,7 +378,7 @@ $(function () {
         }
     });
 
-    var hourList = $(".hourList").children();
+    var hourList = $(".hourList label").children();
     $("#hour_appoint").click(function () {
         if (this.checked) {
             if ($(hourList).filter(":checked").length == 0) {
@@ -390,7 +390,7 @@ $(function () {
 
     hourList.change(function () {
         if ($(hourList).filter(":checked").length == 0) {
-            $("input[name=hour]").eq(0).attr("checked", true);
+            $("input[name=hour]").eq(0).attr("checked", true).click();;
         }
         var hour_appoint = $("#hour_appoint").prop("checked");
         if (hour_appoint) {
@@ -412,7 +412,7 @@ $(function () {
         }
     });
 
-    var dayList = $(".dayList").children();
+    var dayList = $(".dayList label").children();
     $("#day_appoint").click(function () {
         if (this.checked) {
             if ($(dayList).filter(":checked").length == 0) {
@@ -420,6 +420,14 @@ $(function () {
             }
             dayList.eq(0).change();
         }
+    });
+
+    $("input[name=day]").change(function () {
+        if (this.value == 0) {
+            $("[name=week][value='1']")[0].onclick();
+            return;
+        }
+        $("[name=week][value='0']")[0].onclick();
     });
 
     dayList.change(function () {
@@ -443,7 +451,7 @@ $(function () {
         }
     });
 
-    var mouthList = $(".mouthList").children();
+    var mouthList = $(".mouthList label").children();
     $("#mouth_appoint").click(function () {
         if (this.checked) {
             if ($(mouthList).filter(":checked").length == 0) {
@@ -474,7 +482,7 @@ $(function () {
         }
     });
 
-    var weekList = $(".weekList").children();
+    var weekList = $(".weekList label").children();
     $("#week_appoint").click(function () {
         if (this.checked) {
             if ($(weekList).filter(":checked").length == 0) {
@@ -486,6 +494,7 @@ $(function () {
 
     weekList.change(function () {
         var week_appoint = $("#week_appoint").prop("checked");
+
         if (week_appoint) {
             var vals = [];
             weekList.each(function () {
@@ -503,6 +512,14 @@ $(function () {
             item.val(val);
             item.change();
         }
+    });
+
+    $("input[name=week]").change(function () {
+        if (this.value == 0) {
+            $("[name=day][value='1']")[0].onclick();
+            return;
+        }
+        $("[name=day][value='0']")[0].onclick();
     });
 
     $("#cron").val(targetData.val());

@@ -8,9 +8,9 @@ import com.ppcxy.cyfm.sys.repository.jpa.user.UserDao;
 import com.ppcxy.cyfm.sys.service.authorize.AuthorizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -55,12 +55,15 @@ public class RoleService extends BaseService<Role, Long> {
             user.getRoleList().add(role);
             userDao.save(user);
         }
+        
+        authorizeService.refreshAll();
     }
     
     public void removeRoleAllot(Long roleId, Long userId) {
         User user = userDao.findOne(userId);
         user.getRoleList().remove(roleDao.findOne(roleId));
         userDao.save(user);
+        authorizeService.refresh(userId);
     }
     
     public void addRoleAllot(String type, Long roleId, Long[] targetIds) {

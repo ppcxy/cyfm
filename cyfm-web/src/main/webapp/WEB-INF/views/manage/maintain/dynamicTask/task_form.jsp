@@ -63,9 +63,9 @@
             rules: {
                 name: {
                     required: true
-                    , stringCheck: true
-                    , rangelength: [2, 30]
-                    , remote: {//后台验证唯一性
+                    ,stringCheck: true
+                    , rangelength: [1, 30]
+                    , remote: {
                         type: "POST",
                         url: "${ctx}/manage/maintain/dynamicTask/validate",
                         data: {
@@ -78,18 +78,18 @@
                     }
                 }
             },
-            messages: {
-                name: {
+            messages:{
+                name:{
                     remote: "任务名称已被使用."
                 }
             }
         });
-        $("[name=cron]").dblclick(function () {
+        $("[name=cron]").dblclick(function(){
             var index = layer.open({
                 title: "执行表达式编辑器",
                 type: 2,
-                area: ['750px', '400px'],
-                content: "${ctx}/static/plugins/cron-gen/crongen.jsp",
+                area: ['860px', '480px'],
+                content: "${ctx}/static/plugins/cron-gen/crongen.jsp?1",
                 btn: ['确定'],
                 yes: function (index, layero) {
                     layer.close(index);

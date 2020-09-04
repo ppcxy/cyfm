@@ -14,7 +14,7 @@
     </div>
 </div>
 <script>
-    var height = $(".page-content", top.document)[0].clientHeight;
+    var height = $(".page-content", top.document)[0]?$(".page-content", top.document)[0].clientHeight:window.innerHeight;
     $("#treeMain").css("height", height-46);
 </script>
 <script type="text/javascript">

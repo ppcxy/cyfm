@@ -16,10 +16,10 @@
 }
 
 /**
- 
+
  @Name: laydata
  @Author: 贤心
- 
+
  **/
 
 
@@ -111,7 +111,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 
 
 /* 双日历 */
-.layui-laydate-range{width: 546px;}
+.layui-laydate-range{width: 650px;}
 .layui-laydate-range .layui-laydate-main{display: inline-block; vertical-align: middle;}
 .layui-laydate-range .laydate-main-list-0 .laydate-next-m,
 .layui-laydate-range .laydate-main-list-0 .laydate-next-y,
@@ -177,3 +177,10 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-theme-grid .laydate-year-list>li{height: 43px; line-height: 43px;}
 .laydate-theme-grid .laydate-month-list>li{height: 71px; line-height: 71px;}
 
+
+.layui-laydate-range .laydate-day-prev{
+  visibility: hidden;
+}
+.layui-laydate-range .laydate-day-next{
+  visibility: hidden;
+}

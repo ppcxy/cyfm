@@ -59,7 +59,13 @@ $cy = function () {
         if (data.unreadNotificationsCount == 0) {
             $notice_count.text("")
         }else{
-            $notice_count.text(data.unreadNotificationsCount);
+            $notice_count.text(data.unreadNotificationsCount).pulsate({
+                color: "#FF0000",
+                reach: 15,
+                repeat: 20,
+                speed: 600,
+                glow: true
+            });
         }
 
         $(data.unreadNotifications).each(function (i, o) {
@@ -143,7 +149,7 @@ $cy = function () {
     //锁屏加载
     var waiting = function (message, timeout) {
         if (message) {
-            layer.msg(message, {icon: 16, shade: [0.6, '#000']});
+            layer.msg(message, {icon: 16, shade: [0.6, '#000'],time:false});
         } else {
             layer.load('', {
                 shade: [0.4, '#fff'] //0.1透明度的白色背景
@@ -154,12 +160,13 @@ $cy = function () {
     };
     //结束任何锁屏
     var waitingOver = function (current) {
+        console.debug("close")
         layer.closeAll('loading');
-        layer.closeAll('dialog');
+        // layer.closeAll('dialog');
         layer.closeAll('tips');
         if (current) {
             top.layer.closeAll('loading');
-            top.layer.closeAll('dialog');
+            // top.layer.closeAll('dialog');
             top.layer.closeAll('tips');
         }
     };
@@ -178,12 +185,15 @@ $cy = function () {
 
     };
     //消息弹出
-    var info = function (message, callback) {
+    var info = function (message, callback,time) {
+        if (!time) {
+            time = 3;
+        }
         top.layer.alert(message, {
             skin: 'layui-layer-lan'
-            , title: '消息(3秒后自动关闭)'
+            , title: '消息('+time+'秒后自动关闭)'
             , content: message
-            , time: 3000
+            , time: time*1000
             , zindex: 16777271
             , closeBtn: 0
             , btn: ['关闭']
@@ -285,17 +295,20 @@ $cy = function () {
         $('.datepicker[data-format]').each(function (index, obj) {
             var format = $(obj).data('format');
             var event = $(obj).data('event');
+            var type = $(obj).data('type');
             console.debug(format, event)
-            var type = 'datetime';
+            var type = type ? type :'datetime';
             var istime = true;
             if (format == 'both') {
                 format = 'yyyy-MM-dd HH:mm:ss';
-            } else if (format == 'date') {
+            } else if (format == 'date' || format == 'yyyy-MM-dd') {
                 format = 'yyyy-MM-dd';
                 type = 'date';
-            } else if (format == 'time') {
+            } else if (format == 'time' || format == 'HH:mm:ss') {
                 format = 'HH:mm:ss';
                 type = 'time';
+            } else if (format == 'yyyy' || format == 'yyyy'){
+                type = 'year';
             }
 
             laydate.render({
@@ -316,6 +329,7 @@ $cy = function () {
 
         var configs = {
             minLength: 1,
+            extraParams: {},
             enterSearch: false,
             focus: function (event, ui) {
                 jQuery(options.input).val(ui.item.label);
@@ -340,6 +354,7 @@ $cy = function () {
                 }
             })
             .autocomplete({
+                extraParams: configs.extraParams,
                 source: configs.source,
                 minLength: configs.minLength,
                 focus: configs.focus,
@@ -374,6 +389,9 @@ $cy = function () {
         $.each(form.serializeArray(), function () {
             var name = this.name;
             if ($('[name="' + name + '"]').is(':input:hidden')) {
+                return false;
+            }
+            if ($('[name="' + name + '"]').is('.notclear')) {
                 return false;
             }
             url = url.replace(new RegExp(name + "=.*?\&", "g"), '');
@@ -608,9 +626,9 @@ $cy = function () {
                         order = RegExp.$1;
 
                         if (order == 'asc') {
-                            th.addClass('sort-up')
+                            th.removeClass('sort-down').addClass('sort-up')
                         } else if (order == 'desc') {
-                            th.addClass('sort-down')
+                            th.removeClass('sort-up').addClass('sort-down')
                         }
                     }
 
@@ -691,6 +709,8 @@ $cy = function () {
                 //如果没有数据自动添加无数据提示行
                 if ($table.find('tbody tr').size() == 0) {
                     $('<tr></tr>').append($('<td align="center">暂无可查看数据</td>').attr('colspan', $('table.table-list thead th').size())).appendTo($table.find("tbody:not(.nullable)"));
+                    //当表格没有数据时，禁用一部分操作按钮（修改和删除）
+                    $(".tools .toolbar").find("a.btn.delete,a.btn.update").attr("disabled", true);
                     return;
                 }
                 //注册点击行选中当前行
@@ -826,15 +846,21 @@ $cy = function () {
         //页面导航条相关封装
         place: {
             //添加导航节点
-            appendUrl: function (title, url, param) {
-                var item = $("<li><i class=\"fa fa-angle-right\"></i><a target='rightFrame' href='" + url + '?' + param + "'>" + title + "</a></li>");
+            appendUrl: function (title, url, param, target) {
+                if (target === undefined) {
+                    target = this.name;
+                    if (target == undefined) {
+                        target = "rightFrame";
+                    }
+                }
+                var item = $("<li><i class=\"fa fa-angle-right\"></i><a target='"+target+"' href='" + url + '?' + param + "'>" + title + "</a></li>");
 
                 var exist = false;
                 $(".placeul", top.document).find("a").each(function (i, o) {
                     if (o.href.indexOf(url.substring(0, url.length - 1)) != -1) {
                         $(o).parent("li").nextAll().remove();
                         if (param) {
-                            $(o).attr("href", url + '?' + param)
+                            $(o).attr("href", url + '?' + param).attr("target", target);
                         }
                         exist = true;
                         return true;
@@ -908,8 +934,8 @@ $cy = function () {
             chooseUser: function (options) {
 
                 var configs = {
-                    width: '600px',
-                    height: '500px',
+                    width: '800px',
+                    height: '550px',
                     multi: false,
                     okBtn: "确定",
                     cancelBtn: "取消",
@@ -940,6 +966,135 @@ $cy = function () {
 
                         if (!results || results.size() === 0) {
                             warn("请选择用户后确认...")
+                        } else {
+                            configs.callback(results.eq(0).data("show"), results);
+                            top.layer.close(index)
+                        }
+                    }
+                });
+            },
+            //团队选择组件
+            chooseTeam: function (options) {
+
+                var configs = {
+                    width: '750px',
+                    height: '550px',
+                    multi: false,
+                    okBtn: "确定",
+                    cancelBtn: "取消",
+                    callback: $.noop
+                };
+
+                configs = jQuery.extend(configs, options);
+
+                //iframe窗
+                top.layer.open({
+                    id: 'team_choose',
+                    type: 2,
+                    title: '团队选择器',
+                    shadeClose: true,
+                    shade: 0.3,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: [configs.width, configs.height],
+                    content: _ctx + '/sys/common/teamChoose'
+                    , btn: [configs.okBtn, configs.cancelBtn]
+                    , btn1: function (index, layero) {
+                        var results = undefined;
+
+                        if (configs.multi) {
+                            results = getAllSelectedCheckbox($("table", $("#team_choose iframe", top.document)[0].contentWindow.document))
+                        } else {
+                            results = getFirstSelectedCheckbox($("table", $("#team_choose iframe", top.document)[0].contentWindow.document))
+                        }
+
+                        if (!results || results.size() === 0) {
+                            warn("请选择团队后确认...")
+                        } else {
+                            configs.callback(results.eq(0).data("show"), results);
+                            top.layer.close(index)
+                        }
+                    }
+                });
+            },
+            //工作组选择组件
+            chooseWorkGroup: function (options) {
+
+                var configs = {
+                    width: '750px',
+                    height: '550px',
+                    multi: false,
+                    okBtn: "确定",
+                    cancelBtn: "取消",
+                    callback: $.noop
+                };
+
+                configs = jQuery.extend(configs, options);
+
+                //iframe窗
+                top.layer.open({
+                    id: 'workGroup_choose',
+                    type: 2,
+                    title: '工作组选择器',
+                    shadeClose: true,
+                    shade: 0.3,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: [configs.width, configs.height],
+                    content: _ctx + '/sys/common/workGroupChoose'
+                    , btn: [configs.okBtn, configs.cancelBtn]
+                    , btn1: function (index, layero) {
+                        var results = undefined;
+
+                        if (configs.multi) {
+                            results = getAllSelectedCheckbox($("table", $("#workGroup_choose iframe", top.document)[0].contentWindow.document))
+                        } else {
+                            results = getFirstSelectedCheckbox($("table", $("#workGroup_choose iframe", top.document)[0].contentWindow.document))
+                        }
+
+                        if (!results || results.size() === 0) {
+                            warn("请选择工作组后确认...")
+                        } else {
+                            configs.callback(results.eq(0).data("show"), results);
+                            top.layer.close(index)
+                        }
+                    }
+                });
+            },
+            //数据源选择组件
+            chooseDatasource: function (options) {
+
+                var configs = {
+                    width: '750px',
+                    height: '550px',
+                    multi: false,
+                    okBtn: "确定",
+                    cancelBtn: "取消",
+                    callback: $.noop
+                };
+
+                configs = jQuery.extend(configs, options);
+
+                //iframe窗
+                top.layer.open({
+                    id: 'ds_choose',
+                    type: 2,
+                    title: '数据源选择器',
+                    shadeClose: true,
+                    shade: 0.3,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: [configs.width, configs.height],
+                    content: _ctx + '/sys/common/datasourceChoose'
+                    , btn: [configs.okBtn, configs.cancelBtn]
+                    , btn1: function (index, layero) {
+                        var results = undefined;
+
+                        if (configs.multi) {
+                            results = getAllSelectedCheckbox($("table", $("#ds_choose iframe", top.document)[0].contentWindow.document))
+                        } else {
+                            results = getFirstSelectedCheckbox($("table", $("#ds_choose iframe", top.document)[0].contentWindow.document))
+                        }
+
+                        if (!results || results.size() === 0) {
+                            warn("请选择数据源后确认...")
                         } else {
                             configs.callback(results.eq(0).data("show"), results);
                             top.layer.close(index)
@@ -1285,7 +1440,7 @@ var handleGoTop = function () {
 // Handles Bootstrap Tooltips.
 var handleTooltips = function () {
     // global tooltips
-    $('.tooltips').tooltip();
+    $('.tooltips,[data-toggle="tooltip"]').tooltip();
 
     // portlet tooltips
     $('.portlet > .portlet-title .fullscreen').tooltip({

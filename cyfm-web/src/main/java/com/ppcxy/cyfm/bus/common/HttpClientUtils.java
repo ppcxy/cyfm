@@ -277,8 +277,8 @@ public class HttpClientUtils {
         //Cookie: sessionToken=bea67089d7584c9db631ee8a01eb7ed6; JSESSIONID=505A59BB0103239E9D7966970D0964BB.2297; tgw_l7_route=d040be7ea1ecba2e0ebd5581c86e0052
         clientUtils.addCookie("sessionToken", "bea67089d7584c9db631ee8a01eb7ed6", "qy.do1.com.cn", "/");
         clientUtils.addCookie("JSESSIONID", "505A59BB0103239E9D7966970D0964BB.2297", "qy.do1.com.cn", "/");
-    
-    
+        
+        
         //        address=黑龙江省哈尔滨市道里区太行路
 //                &
 //                isWorkDate=0
@@ -313,5 +313,9 @@ public class HttpClientUtils {
         //System.out.println(s);
         
         clientUtils.close();
+    }
+    
+    public CloseableHttpClient engine() {
+        return client;
     }
 }

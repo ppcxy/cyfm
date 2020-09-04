@@ -4,6 +4,7 @@ import com.ppcxy.common.web.bind.annotation.CurrentUser;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.JoinAuthenticationToken;
 import org.apache.shiro.authc.TotpUtil;
 import org.apache.shiro.subject.Subject;
@@ -20,8 +21,17 @@ public class AuthJoinController {
     
     private static final String JOIN_SYSTEM_URL_TEMPLATE = "%s/auth/join/accept?code=%s&loginName=%s&redirectUrl=%s";
     
+    /**
+     * 根据当前用户的TOTP密匙，和目标系统目标地址生成TOTP一次性认证
+     *
+     * @param user
+     * @param joinSystemName
+     * @param redirectUrl
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     @RequestMapping
-    public String join(@CurrentUser User user, String joinSystemName, String redirectUrl) throws UnsupportedEncodingException {
+    public String join(@CurrentUser User user, String joinSystemName, String redirectUrl)  {
         if (StringUtils.isBlank(joinSystemName)) {
             return "redirect:/";
         }
@@ -30,9 +40,21 @@ public class AuthJoinController {
             redirectUrl = "/";
         }
         
-        return "redirect:" + String.format(JOIN_SYSTEM_URL_TEMPLATE, joinSystemName, TotpUtil.generate(user.getTotpSecret()), URLEncoder.encode(user.getUsername(), "UTF-8"), redirectUrl);
+        try {
+            return "redirect:" + String.format(JOIN_SYSTEM_URL_TEMPLATE, joinSystemName, TotpUtil.generate(user.getTotpSecret()), URLEncoder.encode(user.getUsername(), "UTF-8"), redirectUrl);
+        } catch (Exception e) {
+            throw new AuthenticationException("请联系管理员添加平台统一登录授权。");
+        }
     }
     
+    /**
+     * 接受TOTP一次性验证登录并重定向到目标地址
+     *
+     * @param loginName
+     * @param code
+     * @param redirectUrl
+     * @return
+     */
     @RequestMapping("accept")
     public String join(String loginName, String code, String redirectUrl) {
         Subject subject = SecurityUtils.getSubject();
@@ -54,13 +76,13 @@ public class AuthJoinController {
         return "redirect:" + redirectUrl;
     }
     
-    private void loginByTotp(String loginName, String code, Subject subject) {
-        JoinAuthenticationToken token = new JoinAuthenticationToken();
-        token.setUsername(loginName);
-        token.setToken(code);
-        subject.login(token);
-    }
-    
+    /**
+     * ajax 方式TOTP一次性认证
+     *
+     * @param loginName
+     * @param code
+     * @return
+     */
     @RequestMapping("ajax")
     @ResponseBody
     public String join(String loginName, String code) {
@@ -68,5 +90,12 @@ public class AuthJoinController {
         loginByTotp(loginName, code, subject);
         
         return Boolean.TRUE.toString();
+    }
+    
+    private void loginByTotp(String loginName, String code, Subject subject) {
+        JoinAuthenticationToken token = new JoinAuthenticationToken();
+        token.setUsername(loginName);
+        token.setToken(code);
+        subject.login(token);
     }
 }

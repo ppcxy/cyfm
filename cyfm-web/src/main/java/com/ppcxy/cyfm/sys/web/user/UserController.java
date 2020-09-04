@@ -7,6 +7,7 @@ import com.ppcxy.cyfm.sys.entity.permission.Role;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import com.ppcxy.cyfm.sys.entity.user.UserStatus;
 import com.ppcxy.cyfm.sys.service.user.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +63,9 @@ public class UserController extends BaseCRUDController<User, Long> {
         for (Long roleId : checkedRoleList) {
             Role role = new Role(roleId);
             user.getRoleList().add(role);
+        }
+        if (StringUtils.isBlank(user.getPlainPassword())) {
+            user.setPlainPassword("123123");
         }
         return super.create(model, user, result, backURL, redirectAttributes);
     }

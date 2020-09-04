@@ -19,4 +19,7 @@ public interface UserDao extends BaseRepository<User, Long> {
     
     @Query("select u from User u where exists (select r from Role r where r = ?1 and r member of u.roleList) order by u.name")
     List<User> findByRole(Role role);
+    
+    @Query("select u from User u where u.team.id = ?1")
+    List<User> findByTeamId(Long id);
 }

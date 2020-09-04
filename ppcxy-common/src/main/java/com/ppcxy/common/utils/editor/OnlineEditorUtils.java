@@ -16,8 +16,8 @@ import java.util.*;
  * <p>Version: 1.0
  */
 public class OnlineEditorUtils {
-
-    private static final String DATE_PATTERN = "yyyy-MM-dd hh:mm:ss";
+    
+    private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String CSS_DIRECTORY = "ztree_folder";
     private static final String CSS_FILE = "ztree_file";
     private static final FileFilter DIRECTORY_FILTER = new FileFilter() {
@@ -26,8 +26,8 @@ public class OnlineEditorUtils {
             return file.isDirectory();
         }
     };
-
-
+    
+    
     public static Map<Object, Object> extractFileInfoMap(File currentFile, String rootPath, long id, long parentId)
             throws UnsupportedEncodingException {
         Map<Object, Object> info = extractFileInfoMap(currentFile, rootPath);
@@ -35,7 +35,7 @@ public class OnlineEditorUtils {
         info.put("pId", parentId);
         return info;
     }
-
+    
     public static Map<Object, Object> extractFileInfoMap(File currentFile, String rootPath)
             throws UnsupportedEncodingException {
         Map<Object, Object> info = Maps.newHashMap();
@@ -55,33 +55,33 @@ public class OnlineEditorUtils {
         info.put("lastModifiedForLong", currentFile.lastModified());
         return info;
     }
-
+    
     private static final String[] CAN_EDIT_EXTENSION = new String[] {
-        "js", "css", "html", "htm", "jsp", "jspx", "tld", "tag", "xml", "properties", "txt"
+            "js", "css", "html", "htm", "jsp", "jspx", "tld", "tag", "xml", "properties", "txt"
     };
-
+    
     private static boolean canEdit(String name) {
         name = name.toLowerCase();
-       for(String extension : CAN_EDIT_EXTENSION) {
-           if(name.endsWith(extension)) {
-               return true;
-           }
-       }
+        for(String extension : CAN_EDIT_EXTENSION) {
+            if(name.endsWith(extension)) {
+                return true;
+            }
+        }
         return false;
     }
-
+    
     public static boolean hasParent(File currentFile, String rootPath) {
         return !currentFile.getPath().equals(rootPath);
     }
-
+    
     public static boolean hasSubFiles(File file) {
         File[] subFiles = file.listFiles(DIRECTORY_FILTER);
         return subFiles != null && subFiles.length > 0;
     }
-
-
+    
+    
     public static void sort(final List<Map<Object, Object>> files, final Sort sort) {
-
+        
         Collections.sort(files, new Comparator<Map<Object, Object>>() {
             @Override
             public int compare(Map<Object, Object> o1, Map<Object, Object> o2) {
@@ -94,20 +94,20 @@ public class OnlineEditorUtils {
                     String n2 = (String) o2.get("name");
                     Boolean n1IsDirecoty = (Boolean)o1.get("isDirectory");
                     Boolean n2IsDirecoty = (Boolean)o2.get("isDirectory");
-
+                    
                     if(n1IsDirecoty.equals(Boolean.TRUE) && n2IsDirecoty.equals(Boolean.FALSE)) {
                         return -1;
                     } else if(n1IsDirecoty.equals(Boolean.FALSE) && n2IsDirecoty.equals(Boolean.TRUE)) {
                         return 1;
                     }
-
+                    
                     if (nameOrder.getDirection() == Sort.Direction.ASC) {
                         return n1.compareTo(n2);
                     } else {
                         return -n1.compareTo(n2);
                     }
                 }
-
+                
                 Sort.Order lastModifiedOrder = sort.getOrderFor("lastModified");
                 if (lastModifiedOrder != null) {
                     Long l1 = (Long) o1.get("lastModifiedForLong");
@@ -118,7 +118,7 @@ public class OnlineEditorUtils {
                         return -l1.compareTo(l2);
                     }
                 }
-
+                
                 Sort.Order sizeOrder = sort.getOrderFor("size");
                 if (sizeOrder != null) {
                     Long s1 = (Long) o1.get("size");
@@ -129,13 +129,13 @@ public class OnlineEditorUtils {
                         return -s1.compareTo(s2);
                     }
                 }
-
-
+                
+                
                 return 0;
             }
         });
-
+        
     }
-
-
+    
+    
 }

@@ -15,7 +15,7 @@
         </shiro:hasPermission>
         <div class="btn-group more">
             <button type="button" class="btn  btn-default dropdown-toggle no-disabled" data-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bars"></i> <span class="hidden-xs">更多</span><i class="fa fa-angle-down hidden-xs"></i>
+                <i class="fa fa-bars"></i> <span class="hidden-xs">更多</span> <i class="fa fa-angle-down hidden-xs"></i>
             </button>
             <ul class="dropdown-menu">
                 <li class="more_list">
@@ -52,36 +52,39 @@
                                             value="${param['search.title_like']}">
             </div>
             <div class="form-group">
-                <label>所属系统：</label>
-                <select name="search.system_eq" class="form-control input-small">
-                    <option value="">请选择</option>
-                    <c:forEach items="${systemList}" var="system">
-                        <option value="${system}">${system.info}</option>
-                    </c:forEach>
-                </select>
+                <label>所属系统：
+                    <select name="search.system_eq" class="form-control input-small">
+                        <option value="">请选择</option>
+                        <c:forEach items="${systemList}" var="system">
+                            <option value="${system}">${system.info}</option>
+                        </c:forEach>
+                    </select>
+                </label>
             </div>
             <div class="form-group">
-                <label>阅读状态：</label>
-                <select name="search.read_eq" class="form-control input-small">
-                    <option value="">全部</option>
-                    <c:forEach items="${readList}" var="read">
-                        <option value="${read.value}">${read.info}</option>
-                    </c:forEach>
-                </select>
+                <label>阅读状态：
+                    <select name="search.read_eq" class="form-control input-small">
+                        <option value="">全部</option>
+                        <c:forEach items="${readList}" var="read">
+                            <option value="${read.value}">${read.info}</option>
+                        </c:forEach>
+                    </select>
+                </label>
                 <script>
                     $("[name='search.read_eq']").val("${param['search.read_eq']}")
                     $("[name='search.system_eq']").val("${param['search.system_eq']}")
                 </script>
             </div>
             <div class="form-group">
-                <label>通知时间：</label>
-                <div class="input-group">
-                    <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}"
-                           data-format="date">
-                    <span class="input-group-addon">至：</span>
-                    <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}"
-                           data-format="date">
-                </div>
+                <label>通知时间：
+                    <div class="input-group">
+                        <input type="text" name="search.date_gte" class="form-control" value="${param['search.date_gte']}"
+                               data-format="date">
+                        <span class="input-group-addon">至：</span>
+                        <input type="text" name="search.date_lte" class="form-control" value="${param['search.date_lte']}"
+                               data-format="date">
+                    </div>
+                </label>
             </div>
             <div class="form-group">
                 <label><button type="submit" class="btn btn-default" id="search_btn">查询</button></label>

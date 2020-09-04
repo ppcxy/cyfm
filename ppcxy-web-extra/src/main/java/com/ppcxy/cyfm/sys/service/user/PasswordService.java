@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
@@ -20,6 +21,7 @@ import javax.annotation.PostConstruct;
  *
  */
 @Service
+@Transactional
 public class PasswordService {
     public static final String HASH_ALGORITHM = "SHA-1";
     public static final int HASH_INTERATIONS = 1024;

@@ -1,7 +1,6 @@
 package com.ppcxy.common.utils.jxls;
 
 import org.jxls.area.Area;
-import org.jxls.command.AbstractCommand;
 import org.jxls.command.CellRefGenerator;
 import org.jxls.command.Command;
 import org.jxls.command.SheetNameGenerator;
@@ -20,9 +19,9 @@ import java.util.List;
  * 增加retainEmpty属性，当items为null或size为0时，也保留当前一行数据的格式
  * 循环增加下标变量“var_index”。如var="item"，获取下标方法：${item_index}
  */
-public class EachCommand extends AbstractCommand {
+public class EachCommand extends org.jxls.command.EachCommand {
     public enum Direction {RIGHT, DOWN}
- 
+    
     private String var;
     private String items;
     private String select;
@@ -30,17 +29,17 @@ public class EachCommand extends AbstractCommand {
     private Direction direction = Direction.DOWN;
     private CellRefGenerator cellRefGenerator;
     private String multisheet;
- 
+    
     private String retainEmpty; //当集合大小为0时，是否最少保留一行空行数据
  
-    public EachCommand() {
+    /*public EachCommand() {
     }
  
-    /**
+    *//**
      * @param var       name of the key in the context to contain each collection items during iteration
      * @param items     name of the collection bean in the context
      * @param direction defines processing by rows (DOWN - default) or columns (RIGHT)
-     */
+     *//*
     public EachCommand(String var, String items, Direction direction) {
         this.var = var;
         this.items = items;
@@ -57,33 +56,33 @@ public class EachCommand extends AbstractCommand {
             this.area = area;
             addArea(this.area);
         }
-    }
- 
-    /**
+    }*/
+    
+    /* *//**
      * @param var              name of the key in the context to contain each collection items during iteration
      * @param items            name of the collection bean in the context
      * @param area             body area for this command
      * @param cellRefGenerator generates target cell ref for each collection item during iteration
-     */
+     *//*
     public EachCommand(String var, String items, Area area, CellRefGenerator cellRefGenerator) {
         this(var, items, area, (Direction) null);
         this.cellRefGenerator = cellRefGenerator;
     }
  
-    /**
+    *//**
      * Gets iteration directino
      *
      * @return current direction for iteration
-     */
+     *//*
     public Direction getDirection() {
         return direction;
     }
  
-    /**
+    *//**
      * Sets iteration direction
      *
      * @param direction
-     */
+     *//*
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
@@ -92,92 +91,92 @@ public class EachCommand extends AbstractCommand {
         this.direction = Direction.valueOf(direction);
     }
  
-    /**
+    *//**
      * Gets defined cell ref generator
      *
      * @return current {@link CellRefGenerator} instance or null
-     */
+     *//*
     public CellRefGenerator getCellRefGenerator() {
         return cellRefGenerator;
     }
- 
+
     public void setCellRefGenerator(CellRefGenerator cellRefGenerator) {
         this.cellRefGenerator = cellRefGenerator;
     }
- 
+
     public String getName() {
         return "each";
     }
- 
-    /**
+
+    *//**
      * Gets current variable name for collection item in the context during iteration
      *
      * @return collection item key name in the context
-     */
+     *//*
     public String getVar() {
         return var;
     }
- 
-    /**
+
+    *//**
      * Sets current variable name for collection item in the context during iteration
      *
      * @param var
-     */
+     *//*
     public void setVar(String var) {
         this.var = var;
     }
- 
-    /**
+
+    *//**
      * Gets collection bean name
      *
      * @return collection bean name in the context
-     */
+     *//*
     public String getItems() {
         return items;
     }
- 
-    /**
+
+    *//**
      * Sets collection bean name
      *
      * @param items collection bean name in the context
-     */
+     *//*
     public void setItems(String items) {
         this.items = items;
     }
- 
-    /**
+
+    *//**
      * Gets current 'select' expression for filtering out collection items
      *
      * @return current 'select' expression or null if undefined
-     */
+     *//*
     public String getSelect() {
         return select;
     }
- 
-    /**
+
+    *//**
      * Sets current 'select' expression for filtering collection
      *
      * @param select filtering expression
-     */
+     *//*
     public void setSelect(String select) {
         this.select = select;
     }
- 
-    /**
+
+    *//**
      * @return Context variable name holding a list of Excel sheet names to output the collection to
-     */
+     *//*
     public String getMultisheet() {
         return multisheet;
     }
- 
+
     /**
      * Sets name of context variable holding a list of Excel sheet names to output the collection to
      * @param multisheet
-     */
+     *//*
     public void setMultisheet(String multisheet) {
         this.multisheet = multisheet;
     }
- 
+*/
     @Override
     public Command addArea(Area area) {
         if (area == null) {
@@ -189,8 +188,9 @@ public class EachCommand extends AbstractCommand {
         this.area = area;
         return super.addArea(area);
     }
- 
+    
     @SuppressWarnings("rawtypes")
+    @Override
     public Size applyAt(CellRef cellRef, Context context) {
         Collection itemsCollection = Util.transformToCollectionObject(getTransformationConfig().getExpressionEvaluator(), items, context);
         int width = 0;
@@ -239,7 +239,7 @@ public class EachCommand extends AbstractCommand {
         }
         return new Size(width, height);
     }
- 
+    
     @SuppressWarnings("unchecked")
     private List<String> extractSheetNameList(Context context) {
         try {
@@ -248,13 +248,13 @@ public class EachCommand extends AbstractCommand {
             throw new JxlsException("Failed to get sheet names from " + multisheet, e);
         }
     }
- 
+    
     public String getRetainEmpty() {
         return retainEmpty;
     }
- 
+    
     public void setRetainEmpty(String retainEmpty) {
         this.retainEmpty = retainEmpty;
     }
- 
+    
 }

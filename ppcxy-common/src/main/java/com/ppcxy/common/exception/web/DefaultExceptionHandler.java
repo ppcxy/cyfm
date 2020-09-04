@@ -3,6 +3,7 @@ package com.ppcxy.common.exception.web;
 import com.netflix.hystrix.exception.HystrixBadRequestException;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.ppcxy.common.Constants;
+import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.exception.web.entity.ExceptionResponse;
 import com.ppcxy.common.utils.LogUtils;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -13,7 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +33,13 @@ import java.util.Map;
  */
 @ControllerAdvice
 public class DefaultExceptionHandler {
+    
+    @ExceptionHandler(RestClientException.class)
+    public ResponseEntity<String> throwRestException(RestClientException restClientException) {
+        LogUtils.logError("rest 调用异常。", restClientException);
+        return new ResponseEntity<String>("网络发生异常，请稍后重试。",
+                HttpStatus.BAD_REQUEST);
+    }
     
     /**
      * 没有权限 异常
@@ -64,6 +74,30 @@ public class DefaultExceptionHandler {
         mv.addObject(Constants.ERROR, exceptionResponse);
         mv.setViewName("error/exception");
         
+        return mv;
+    }
+    
+    /**
+     * 权限鉴定异常
+     * <p/>
+     * 后续根据不同的需求定制即可
+     */
+    @ExceptionHandler({BaseException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ModelAndView baseException(NativeWebRequest request, BaseException e) {
+        LogUtils.logError("已处理的系统异常", e);
+        ExceptionResponse exceptionResponse = ExceptionResponse.from(e);
+        
+        ModelAndView mv = new ModelAndView();
+        mv.addObject(Constants.ERROR, exceptionResponse);
+        
+        String requestType = request.getHeader("X-Requested-With");
+        if ("XMLHttpRequest".equals(requestType)) {
+            mv.setViewName("error/exception");
+        } else {
+            mv.setViewName("error/error");
+        }
         return mv;
     }
     

@@ -17,7 +17,7 @@
     <!-- ================================= Css 区域 ========================================== -->
     <%@include file="/WEB-INF/views/common/import-css.jspf" %>
     <style>
-        .mobile-content .search-toolbar {
+        .mobile-content .search-toolbar:not(.not-hidden) {
             display: none;
         }
 
@@ -78,6 +78,7 @@
         <div class="collapse navbar-collapse navbar-right" id="navBar">
             <ul class="nav navbar-nav">
                 <li><a href="${ctx}/">主页</a></li>
+                <li><a href="${ctx}/exitSystem">退出系统</a></li>
                 <%--<li class="dropdown">--%>
                 <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
                 <%--产品中心<span class="caret"></span>--%>
@@ -138,30 +139,30 @@
     }
 
     $(function () {
+        var $wrap = $(".listTableWrap:not(.mobel-not-auto)");
         setTimeout(function(){
-            var $thead = $("#contentTable thead");
+            var $thead = $wrap.find("#contentTable thead");
             if ($thead.size() > 0) {
-                theadTop = $thead.position().top-55;
+                theadTop = $thead.position().top;
                 /**
                  * scroll handle
                  * @param {event} e -- scroll event
                  */
                 function scrollHandle(e) {
-                    var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-                    if (scrollTop > theadTop) {
-                        $thead.find("th").css({
-                            "transform": "translateY(" + (scrollTop - theadTop) + "px)"
-                        });
-                    } else if (scrollTop == 0) {
-                        $thead.find("th").css({
-                            "transform": "",
-                        });
-                    }
+                    var scrollTop = $wrap.scrollTop();
+
+                    $thead.find("tr").css({
+                        "transform": "translateY(" + (scrollTop) + "px)"
+                    });
                 }
 
-                window.addEventListener('scroll', scrollHandle)
+                $wrap.on('scroll', scrollHandle)
             }
         },100)
+
+        setTimeout(function () {
+            $cy.waitingOver();
+        },500);
     });
 </script>
 </body>

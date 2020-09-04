@@ -13,25 +13,25 @@ import java.util.Map.Entry;
  */
 public class JdbcSeachFilter {
     public enum Operator {
-        EQ, LIKE, GT, LT, GTE, LTE, IN
+        EQ, NE, LIKE, GT, LT, GTE, LTE, IN
     }
-
+    
     public String fieldName;
     public Object value;
     public Operator operator;
-
+    
     public JdbcSeachFilter(String fieldName, Operator operator, Object value) {
         this.fieldName = fieldName;
         this.value = value;
         this.operator = operator;
     }
-
+    
     /**
      * searchParams中key的格式为OPERATOR_FIELDNAME
      */
     public static Map<String, JdbcSeachFilter> parse(Map<String, Object> searchParams) {
         Map<String, JdbcSeachFilter> filters = Maps.newHashMap();
-
+        
         for (Entry<String, Object> entry : searchParams.entrySet()) {
             // 过滤掉空值
             String key = entry.getKey();
@@ -39,28 +39,28 @@ public class JdbcSeachFilter {
             if (StringUtils.isBlank((String) value)) {
                 continue;
             }
-
+            
             // 拆分operator与filedAttribute
             String[] names = StringUtils.split(key, "_");
             if (names.length < 2) {
                 throw new IllegalArgumentException(key + " is not a valid search filter name");
             }
-
+            
             String filedName = null;
             Operator operator = null;
             if (names.length == 2) {
                 filedName = names[0];
-                operator = Operator.valueOf(names[1]);
+                operator = Operator.valueOf(names[1].toUpperCase());
             } else {
                 filedName = key.substring(0, key.lastIndexOf("_"));
-                operator = Operator.valueOf(key.substring(key.lastIndexOf("_") + 1));
+                operator = Operator.valueOf(key.substring(key.lastIndexOf("_") + 1).toUpperCase());
             }
-
+            
             // 创建searchFilter
             JdbcSeachFilter filter = new JdbcSeachFilter(filedName, operator, value);
             filters.put(key, filter);
         }
-
+        
         return filters;
     }
 }

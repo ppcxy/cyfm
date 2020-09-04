@@ -5,10 +5,12 @@ import com.ppcxy.cyfm.filestore.upload.entity.StoreFiles;
 import com.ppcxy.cyfm.filestore.upload.support.utils.FileUploadUtils;
 import com.ppcxy.cyfm.sys.entity.user.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 
 @Service
+@Transactional
 public class StoreFilesService extends BaseService<StoreFiles, String> {
     
     public StoreFiles addFile(String filename, long fileSize, String contentType, User user,  String filePath, String identity, String secondIdentity, String tag) {

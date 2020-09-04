@@ -72,7 +72,7 @@ public class EhcacheMonitorController extends BaseController {
         Element element = cacheManager.getCache(cacheName).get(key);
         
         
-        String dataPattern = "yyyy-MM-dd hh:mm:ss";
+        String dataPattern = "yyyy-MM-dd HH:mm:ss";
         Map<String, Object> data = Maps.newHashMap();
         data.put("objectValue", element.getObjectValue().toString());
         data.put("size", PrettyMemoryUtils.prettyByteSize(element.getSerializedSize()));

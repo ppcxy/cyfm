@@ -72,6 +72,10 @@ li {
     list-style: none;
 }
 
+form label{
+    font-weight: 500;
+}
+
 form input.error {
     border: solid 1px red;
 }
@@ -178,6 +182,9 @@ table.table-condensed span {
     padding-right: 5px;
 }
 
+table.table-condensed .action span {
+    padding: 0;
+}
 table.table-condensed .switch {
     text-align: center;
 }
@@ -369,4 +376,12 @@ div.content-wrap {
 
 .listTableWrap {
     height: 400px;
+}
+
+.check div.checker{
+    position: inherit;
+}
+
+.layui-layer-content label{
+    line-height: 15px;
 }

@@ -57,8 +57,8 @@ public abstract class ExcelDataAbstract {
      * @param extension
      * @return
      */
-    protected String generateFilename(final String username, final String contextRootPath, final String extension) {
-        return generateFilename(username, contextRootPath, null, extension);
+    protected String generateFilename(final String username, final String contextRootPath, final String extension, String filePrefix) {
+        return generateFilename(username, contextRootPath, null, extension, filePrefix);
     }
     
     /**
@@ -70,13 +70,13 @@ public abstract class ExcelDataAbstract {
      * @param extension
      * @return
      */
-    private String generateFilename(final String username, final String contextRootPath, Integer index, final String extension) {
+    private String generateFilename(final String username, final String contextRootPath, Integer index, final String extension, String filePrefix) {
         String path = FilenameUtils.concat(contextRootPath, storePath);
         path = FilenameUtils.concat(path, username);
         path = FilenameUtils.concat(
                 path,
-                EXPORT_FILENAME_PREFIX + "_" +
-                        DateFormatUtils.format(new Date(), "yyyyMMddHHmmssSSS") +
+                (filePrefix != null ? (filePrefix) : EXPORT_FILENAME_PREFIX) + "_" +
+                        DateFormatUtils.format(new Date(), "yyyy_MM_dd_HH_mm_ss") +
                         (index != null ? ("_" + index) : "") +
                         "." + extension);
         
@@ -88,7 +88,7 @@ public abstract class ExcelDataAbstract {
             }
             return path;
         }
-        return generateFilename(username, contextRootPath, extension);
+        return generateFilename(username, contextRootPath, extension, filePrefix);
     }
     
     
@@ -108,6 +108,14 @@ public abstract class ExcelDataAbstract {
                     case "class java.util.Date":
                     case "class java.sql.Timestamp":
                         cell.setCellValue(DateFormatUtils.ISO_DATETIME_FORMAT.format((Date) cellValue));
+                        break;
+                    case "class java.lang.Float":
+                        BigDecimal bd = new BigDecimal((Float) cellValue);
+                        bd = bd.setScale(2, BigDecimal.ROUND_HALF_DOWN);
+                        cell.setCellValue(bd.doubleValue());
+                        break;
+                    case "class java.lang.Double":
+                        cell.setCellValue((Double) cellValue);
                         break;
                     case "class java.math.BigDecimal":
                         cell.setCellValue(((BigDecimal) cellValue).doubleValue());

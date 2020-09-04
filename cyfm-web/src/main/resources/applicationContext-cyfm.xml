@@ -8,6 +8,7 @@
     <import resource="security/applicationContext-shiro.xml"/>
 
     <!-- optional -->
+    <import resource="cache/applicationContext-redis.xml"/>
     <import resource="cache/applicationContext-ehcache.xml"/>
     <import resource="email/applicationContext-email.xml"/>
     <!--<import resource="jmx/applicationContext-jmx.xml"/>-->

@@ -54,7 +54,10 @@
             data:{"resource":resource},
             success: function (data) {
                 console.log(data)
-                excelid = data.excelTemplate.id;
+                if (data.excelTemplate) {
+                    excelid = data.excelTemplate.id;
+                }
+
                 var files = data.files;
                 for (var i=0;i<files.length;i++) {
                     $(".template").append("<li class='file' data-id='"+files[i].id+"' style='width: 250px; height: 30px;'><div style='width: 250px; height: 30px;'><a > " + files[i].realName + "</a><a onclick='removeFile(this)' class='btn btn-xs red pull-right'>移除</a></div></li>")
@@ -103,20 +106,33 @@
         $(".file").each(function (i, o) {
             files.push($(o).data("id"));
         });
-        var   templateId = files.join(",");
-        $.ajax({
-            type: 'post',
-            url: "${ctx}/excel/excelTemplate/add",
-            cache: false,
-            dataType: "text",
-            data:{"id":excelid,"templateId":templateId,"resourceIdentity":resourceIdentity},
-            success: function (data) {
-                $cy.info("上传成功!");
-                top.layer.close(index);
+        var templateId = files.join(",");
+        if (templateId) {
+            $.ajax({
+                type: 'post',
+                url: "${ctx}/excel/excelTemplate/add",
+                cache: false,
+                dataType: "text",
+                data:{"id":excelid,"templateId":templateId,"resourceIdentity":resourceIdentity},
+                success: function (data) {
+                    $cy.info("更新成功!");
+                    top.layer.close(index);
 
-            }
-        })
-
+                }
+            });
+        } else {
+            $.ajax({
+                type: 'post',
+                url: "${ctx}/excel/excelTemplate/add",
+                cache: false,
+                dataType: "text",
+                data:{"id":excelid,"templateId":'',"resourceIdentity":resourceIdentity},
+                success: function (data) {
+                    $cy.info("更新成功!");
+                    top.layer.close(index);
+                }
+            });
+        }
     }
 </script>
 </body>

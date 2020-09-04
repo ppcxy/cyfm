@@ -18,12 +18,21 @@ public class DynamicFiltersUtil {
 	private String whereSql;
 	
 	private DynamicFiltersUtil(String queryPageSql) {
+		if (queryPageSql.toUpperCase().contains("ORDER BY")) {
+			int lastKhIndex = queryPageSql.lastIndexOf(") ");
+			
+			int orderByIndex = queryPageSql.toUpperCase().lastIndexOf("ORDER BY");
+			if (orderByIndex > lastKhIndex) {
+				orderBySql = new StringBuffer(queryPageSql.toString().substring(orderByIndex));
+				queryPageSql = new StringBuilder(queryPageSql).delete(orderByIndex, orderByIndex + orderBySql.length()).toString();
+			}
+		}
 		this.queryPageSql = new StringBuffer(queryPageSql);
 	}
 	
 	/**
 	 * 实例化工具类实例.
-	 *
+	 *q
 	 * @param sql
 	 * @return
 	 */
@@ -49,6 +58,9 @@ public class DynamicFiltersUtil {
 				switch (filter.operator) {
 					case EQ:
 						resultBuffer.append(filter.fieldName).append("='").append(filter.value).append("'");
+						break;
+					case NE:
+						resultBuffer.append(filter.fieldName).append("<>'").append(filter.value).append("'");
 						break;
 					case LIKE:
 						resultBuffer.append(filter.fieldName).append(" like '%").append(filter.value).append("%'");
@@ -87,8 +99,8 @@ public class DynamicFiltersUtil {
 	 */
 	public DynamicFiltersUtil addSoft(String byName, String order) {
 		StringBuffer softSb = null;
-		if (orderBySql == null || "".equals(orderBySql)) {
-			softSb = new StringBuffer(" order by ");
+		if (StringUtils.isBlank(orderBySql)) {
+			softSb = new StringBuffer(" ORDER BY ");
 			softSb.append(byName).append(" ").append(order);
 			this.orderBySql = softSb;
 			return this;
@@ -119,11 +131,11 @@ public class DynamicFiltersUtil {
 		String groupByStr = "";
 		
 		//TODO 为了处理查询语句结尾是group by语句，存在不必要性
-		String tsql = queryPageSql.toString().toLowerCase();
-		if (tsql.contains("group by")) {
-			int groupByIndex = tsql.lastIndexOf("group by");
-			int lastKhIndex = tsql.lastIndexOf(") ");
-			
+		String tsql = queryPageSql.toString().toUpperCase();
+		int lastKhIndex = tsql.lastIndexOf(") ");
+		
+		if (tsql.toUpperCase().contains(" GROUP BY ")) {
+			int groupByIndex = tsql.toUpperCase().lastIndexOf("GROUP BY");
 			if (groupByIndex > lastKhIndex) {
 				groupByStr = queryPageSql.toString().substring(groupByIndex);
 				queryPageSql.delete(groupByIndex, groupByIndex + groupByStr.length());
@@ -137,8 +149,8 @@ public class DynamicFiltersUtil {
 		
 		if (StringUtils.isNotBlank(groupByStr)) {
 			queryPageSql.append(groupByStr);
-			
 		}
+		
 		if (orderBySql != null && !"".equals(orderBySql)) {
 			queryPageSql.append(orderBySql);
 		}
@@ -146,4 +158,7 @@ public class DynamicFiltersUtil {
 		return queryPageSql.toString();
 	}
 	
+	public void clearSort() {
+		this.orderBySql = null;
+	}
 }

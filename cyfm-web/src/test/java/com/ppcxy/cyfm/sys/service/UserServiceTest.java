@@ -47,7 +47,7 @@ public class UserServiceTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        ShiroTestUtils.mockSubject(new ShiroUser(3l, "foo", "Foo"));
+        ShiroTestUtils.mockSubject(new ShiroUser(3l, 1l, "foo", "Foo"));
     }
     
     @After

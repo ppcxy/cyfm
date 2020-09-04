@@ -88,7 +88,10 @@ public class UserDBRealm extends AuthorizingRealm {
         }
         
         byte[] salt = Encodes.decodeHex(user.getSalt());
-        return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getUsername(), user.getName()), user.getPassword(),
+        if (user.getTeam() == null) {
+            throw new AuthenticationException("当前用户未分配团队，无法登陆。");
+        }
+        return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getTeam().getId(), user.getUsername(), user.getName()), user.getPassword(),
                 ByteSource.Util.bytes(salt), getName());
     }
     

@@ -11,8 +11,9 @@
 <head>
     <title>用户选择</title>
     <style>
-        body{
-            min-width: auto;
+        .container{
+            padding-left: 8px;
+            padding-right: 8px;
         }
 
     </style>
@@ -23,16 +24,24 @@
         <div class="toolbar-right">
             <form class="form-search form-inline text-right" action="#">
                 <div class="form-group">
+                    <shiro:hasRole name="Admin">
+                        <label><sys:showRtLevelName level='1' defaultName='团队' suffix="："/><input type="text" name="search.team.name_like"
+                                                                                                  class="form-control input-small"
+                                                                                                  value="${param['search.team.name_like']}">
+                        </label>
+                    </shiro:hasRole>
                     <label>关键字(用户名,用户姓名, Email)：<input type="text" name="search.keyword_custom"
                                                        class="form-control input-small"
                                                        value="${param['search.keyword_custom']}">
+                    </label>
+                    <label>
                         <button type="submit" class="btn btn-default" id="search_btn">查询</button>
                     </label>
                 </div>
             </form>
         </div>
     </div>
-    <div class="listTableWrap">
+    <div class="">
         <table id="contentTable" data-tid="user_choose"
                class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
             <thead>
@@ -41,7 +50,8 @@
                 <th>用户名</th>
                 <th>用户姓名</th>
                 <th>Email</th>
-                <th>团队</th>
+                <th><sys:showRtLevelName level='1' defaultName='团队' suffix=""/></th>
+                <th><sys:showRtLevelName level='2' defaultName='工作组' suffix=""/></th>
             </tr>
             </thead>
             <tbody>
@@ -52,6 +62,7 @@
                     <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td>${empty user.team ? '无' : user.team.name}</td>
+                    <td>${user.workGroups}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -59,5 +70,12 @@
     </div>
     <cy:pagination page="${choosePage}" paginationSize="5"></cy:pagination>
 </div>
+<script>
+    $(function () {
+        if ($("tbody tr").size()==1) {
+            $("tbody tr td:visible:eq(2)").click();
+        }
+    });
+</script>
 </body>
 </html>

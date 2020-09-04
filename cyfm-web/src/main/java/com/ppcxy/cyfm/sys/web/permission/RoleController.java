@@ -103,7 +103,7 @@ public class RoleController extends BaseCRUDController<Role, Long> {
     
     @RequestMapping(value = "/roleAllot/add/{type}", method = RequestMethod.POST)
     @ResponseBody
-    public String allotRoleDetails(@PathVariable(value = "type") String type, Long roleId, @RequestParam(name = "targetIds") Long[] targetIds, Model model) {
+    public String allotRoleDetails(@PathVariable(value = "type") String type, Long roleId,@RequestParam(name = "targetIds") Long[] targetIds, Model model) {
         super.beforUpdateForm(null, model);
         roleService.addRoleAllot(type, roleId, targetIds);
         return "success";
@@ -162,7 +162,7 @@ public class RoleController extends BaseCRUDController<Role, Long> {
     @RequestMapping(value = "checkValue")
     @ResponseBody
     public String checkValue(@RequestParam("oldValue") String oldValue, @RequestParam("value") String value) {
-        if (value.equals(oldValue)) {
+        if (value.equalsIgnoreCase(oldValue)) {
             return "true";
         } else if (roleService.findByValue(value) == null) {
             return "true";

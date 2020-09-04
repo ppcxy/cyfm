@@ -40,7 +40,7 @@ public class PermissionController extends BaseCRUDController<Permission, Long> {
     @RequestMapping(value = "checkValue")
     @ResponseBody
     public String checkValue(@RequestParam("oldValue") String oldValue, @RequestParam("value") String value) {
-        if (value.equals(oldValue)) {
+        if (value.equalsIgnoreCase(oldValue)) {
             return "true";
         } else if (permissionService.findByValue(value) == null) {
             return "true";

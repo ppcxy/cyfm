@@ -7,7 +7,7 @@ $.zTree = {
     autocompleteTemplate: '<div class="control-group tree-search" style="margin-top:5px;">' +
         //TODO WEEP 搜索框'<label for="searchName{id}">名称</label>' +
         '<div class="controls">' +
-        '<input type="text" id="searchName{id}" class="input-medium" placeholder="模糊匹配 回车键查询"/>' +
+        '<input type="text" id="searchName{id}" class="input-medium" placeholder="{placeholder}"/>' +
         '</div>' +
         '</div>',
 
@@ -230,6 +230,9 @@ $.zTree = {
 
         var id = new Date().getTime();
         var treeStr = (autocomplateEnable ? this.autocompleteTemplate : '') + this.treeTemplate;
+
+        treeStr = treeStr.replace("{placeholder}",autocomplateEnable && config.autocomplete.placeholder ? config.autocomplete.placeholder : '模糊匹配 回车键查询');
+
         var container = null;
         if (config.containerId) {
             container = $("#" + config.containerId);
@@ -264,6 +267,11 @@ $.zTree = {
 
             config.treeId = treeSelect;
             $cy.initAutocomplete(config.autocomplete);
+
+            if (config.autocomplete.callback) {
+                config.autocomplete.input.blur = config.autocomplete.callback;
+            }
+
         }
 
         return treeSelect;

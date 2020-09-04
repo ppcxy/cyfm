@@ -25,15 +25,21 @@
             user-select:none;
             overflow: hidden;
         }
+        .page-header.navbar .page-logo .logo-default {
+            margin: 0 0 0 0;
+        }
     </style>
     <%@include file="/WEB-INF/views/common/import-js.jspf"%>
     <script src="${ctx}/static/manage/js/metronic.js" type="text/javascript"></script>
     <script src="${ctx}/static/manage/js/layout.js" type="text/javascript"></script>
+    <script src="${ctx}/static/manage/js/skin-config.js?17" type="text/javascript"></script>
     <script src="${ctx}/static/manage/js/quick-sidebar.js" type="text/javascript"></script>
     <script>
+        showPlace = false;
         var topHeight = 46;
         var placeHeight = 55;
         var pageLrMargin = 16;
+        var footerHeight = 35;
 
         window.paceOptions = {
             ajax: {
@@ -50,7 +56,7 @@
 
             var sidebarWidth = $(".page-sidebar").width();
 
-            $("div.manage-main").css("width", width - sidebarWidth - pageLrMargin + "px").css("height", height - topHeight - placeHeight);
+            $("div.manage-main").css("width", width - sidebarWidth - pageLrMargin + "px").css("height", height - topHeight - placeHeight - footerHeight);
         }
 
         $(function () {
@@ -71,7 +77,6 @@
                     layoutManageMain();
                 }, 200);
             })
-
         })
     </script>
     <style>
@@ -91,9 +96,9 @@
 <div class="page-wrapper">
     <div class="page-header -i navbar navbar-fixed-top">
         <div class="page-logo">
-            <a href="${ctx}/">
-                <%--<img src="${ctx}/static/images/logo.png" width="22" alt="logo" class="logo-default">--%>
-                <b class="logo-default">${cy_systemName}</b>
+            <a href="${ctx}/" class="tooltips" title="${cy_systemName}" data-placement="bottom">
+                <img src="${ctx}/static/images/logo.png" width="150" alt="logo" class="logo-default">
+                <b class="logo-default"></b>
             </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
@@ -104,9 +109,18 @@
                 <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->
                 <c:forEach items="${roots}" var="root">
                     <li class="classic-menu-dropdown ${root.id == rootId ? 'active' : ''}">
-                        <a href="${ctx}/desktop/${root.id}/">
-                                ${root.name} <span class="${root.id == rootId ? 'selected' : ''}"></span>
-                        </a>
+                        <c:choose>
+                            <c:when test="${root.resourceType eq 'rightFrame'}">
+                                <a href="${ctx}/desktop/${root.id}/">
+                                        ${root.name} <span class="${root.id == rootId ? 'selected' : ''}"></span>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${ctx}${root.url}" target="_${root.resourceType}">
+                                        ${root.name} <span class="${root.id == rootId ? 'selected' : ''}"></span>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                     </li>
                 </c:forEach>
                 <%--                <li class="classic-menu-dropdown">--%>
@@ -218,10 +232,29 @@
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
                             <a href="${ctx}/personal/profile" target="rightFrame">
-                                <i class="icon-user"></i> 我的信息 </a>
+                                <i class="icon-user"></i> 个人中心 </a>
                         </li>
                         <li class="divider">
                         </li>
+                        <c:if test="${!existPreUser}">
+                            <shiro:hasRole name="Admin">
+                                <li>
+                                    <a href="javascript:void(0);" onclick="$cy.tools.chooseUser({callback: function (show, result) {$cy.confirm({message: '是否切换到用户：' + show, yes: function () {window.location.href = '${ctx}/sys/admin/switchToUser?userName=' + result.data('username');}})}})">
+                                        <i class="icon-user"></i> 切换用户 </a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                            </shiro:hasRole>
+                        </c:if>
+                        <c:if test="${existPreUser}">
+                            <li>
+                                <a href="${ctx}/sys/admin/mainJob">
+                                    <i class="icon-retweet"></i> 返回主用户
+                                </a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                        </c:if>
                         <li>
                             <a href="javascript:;" onclick="lockScreen()">
                                 <i class="icon-lock"></i> 锁定屏幕 </a>
@@ -232,8 +265,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
+                <li class="dropdown dropdown-quick-sidebar-toggler-1">
+                    <a title="退出系统" onclick="$cy.confirm({title:'退出系统',message:'是否退出系统？', yes:function(i,o){window.location.href='${ctx}/exitSystem'}})" href1="javascript:;" class="dropdown-toggle">
                         <i class="icon-logout"></i>
                     </a>
                 </li>
@@ -258,14 +291,14 @@
                         <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
                         <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                         <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-                        <form class="sidebar-search" action="${ctx}/" method="POST">
+                        <form class="sidebar-search" action="#" method="POST">
                             <a href="javascript:;" class="remove">
                                 <i class="icon-close"></i>
                             </a>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="快速查找...">
+                                <input type="text" name="searchText" value="${searchText}" class="form-control" placeholder="快速查找...">
                                 <span class="input-group-btn">
-                                            <a href="javascript:;" class="btn submit">
+                                            <a href="javascript:void(0);" class="btn submit">
                                                 <i class="icon-magnifier"></i>
                                             </a>
                                         </span>
@@ -284,7 +317,7 @@
                                 <span class="selected"></span>
                                 <span class="arrow ${s.index eq 0 ? 'open' : ''}"></span>
                             </a>
-                            <ul class="sub-menu" style="max-height: 300px;overflow-y:auto;">
+                            <ul class="sub-menu">
                                 <c:forEach items="${m.children}" var="c">
                                     <cy:submenu menu="${c}" parentName="${m.name}"/>
                                 </c:forEach>
@@ -302,25 +335,129 @@
                 <div class="page-bar place">
                     <ul class="page-breadcrumb placeul">
                         <li class="default">
-                            <a href="${ctx}/desktop/index/" target="rightFrame">首页</a>
+                            <a href="${ctx}${root.url}" target="rightFrame">首页</a>
                         </li>
                     </ul>
                     <div class="page-toolbar">
-                        <%-- TODO page-toobar--%>
-                        <%--<div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">--%>
-                        <%--<i class="icon-calendar"></i>&nbsp;--%>
-                        <%--<span class="thin uppercase hidden-xs nowtime">2018年01月01日 00:00:00</span>&nbsp;--%>
-                        <%--<i class="fa fa-angle-down"></i>--%>
-                        <%--</div>--%>
+                        <!-- BEGIN STYLE CUSTOMIZER -->
+                        <div class="theme-panel hidden-xs hidden-sm">
+                            <div class="toggler hidden">
+                            </div>
+                            <div class="toggler-close">
+                            </div>
+                            <div class="theme-options">
+                                <div class="theme-option theme-colors clearfix">
+						<span>
+						皮肤设定 </span>
+                                    <ul>
+                                        <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default">
+                                        </li>
+                                        <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue">
+                                        </li>
+                                        <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue">
+                                        </li>
+                                        <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey">
+                                        </li>
+                                        <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
+                                        </li>
+                                        <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						皮肤风格 </span>
+                                    <select class="layout-style-option form-control input-sm">
+                                        <option value="square" selected="selected">方角</option>
+                                        <option value="rounded">圆角</option>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						布局 </span>
+                                    <select class="layout-option form-control input-sm">
+                                        <option value="fluid" selected="selected">全屏</option>
+                                        <option value="boxed">居中</option>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						头部 </span>
+                                    <select class="page-header-option form-control input-sm">
+                                        <option value="fixed" selected="selected">固定</option>
+                                        <option value="default">默认</option>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						顶部菜单下拉</span>
+                                    <select class="page-header-top-dropdown-style-option form-control input-sm">
+                                        <option value="light" selected="selected">浅色</option>
+                                        <option value="dark">深色</option>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						侧边栏模式</span>
+                                    <select class="sidebar-option form-control input-sm">
+                                        <option value="fixed" selected="selected">固定</option>
+                                        <%--<option value="default">经典</option>--%>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						侧边栏菜单 </span>
+                                    <select class="sidebar-menu-option form-control input-sm">
+                                        <option value="accordion" selected="selected">折叠模式</option>
+                                        <%--<option value="hover">悬浮模式</option>--%>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						侧边栏样式 </span>
+                                    <select class="sidebar-style-option form-control input-sm">
+                                        <option value="default" selected="selected">默认</option>
+                                        <option value="light">经典</option>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						侧边栏位置 </span>
+                                    <select class="sidebar-pos-option form-control input-sm">
+                                        <option value="left" selected="selected">左侧</option>
+                                        <option value="right">右侧</option>
+                                    </select>
+                                </div>
+                                <div class="theme-option">
+						<span>
+						底部版权信息 </span>
+                                    <select class="page-footer-option form-control input-sm">
+                                        <option value="fixed" selected="selected">固定</option>
+                                        <%--<option value="default" >默认</option>--%>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END STYLE CUSTOMIZER -->
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="manage-main">
-                    <iframe src="${ctx}/desktop/index/" name="rightFrame" id="rightFrame" title="" frameborder=no border=0></iframe>
+                    <iframe src="${ctx}${root.url}" name="rightFrame" id="rightFrame" title="" frameborder=no border=0></iframe>
                 </div>
             </div>
         </div>
     </div>
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            <%@include file="/WEB-INF/views/common/footer.jsp"%>
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <!-- END FOOTER -->
     <!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
     <div class="page-quick-sidebar-wrapper">
@@ -390,17 +527,6 @@
                 $cy.place.clean()
             }
         });
-
-        $('.title').click(function () {
-            $(this).addClass("open").siblings().remove("open")
-            var $ul = $(this).next('ul');
-            $('dd').find('ul').slideUp();
-            if ($ul.is(':visible')) {
-                $(this).next('ul').slideUp();
-            } else {
-                $(this).next('ul').slideDown();
-            }
-        });
     })
 </script>
 <script type="text/javascript">
@@ -438,10 +564,11 @@
 
 </script>
 <script>
+    window.name = "mainFrame";
     Metronic.init(); // init metronic core componets
     Layout.init(); // init layout
     QuickSidebar.init(); // init quick sidebar
-
+    skinConf.init(); // init skin features
     function lockScreen(message) {
         if (!message) {
             message = "您已锁屏离开";
@@ -462,8 +589,8 @@
     $("[data-target-type]").each(function () {
         var targetType = $(this).data("target-type");
         switch (targetType) {
-            // case "default":;
-            // case "ajax":
+                // case "default":;
+                // case "ajax":
             case "blank":
                 $(this).attr("target", "_blank");
                 break;

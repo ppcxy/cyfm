@@ -9,7 +9,7 @@
 <link href="${ctx}/static/plugins/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet" />
 
 <link href="${ctx}/static/plugins/jquery-validation/1.15.0/validate.css" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.3.custom.css" type="text/css" rel="stylesheet" />
+<link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.3.custom.css?1" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/plugins/jquery-ui-bootstrap/css/layout-default-1.3.0.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/plugins/uniform/css/uniform.default.min.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
@@ -24,5 +24,5 @@
 
 <link href="${ctx}/static/common/styles/components.css" type="text/css" rel="stylesheet" />
 <link href="${ctx}/static/common/styles/common.css?7" type="text/css" rel="stylesheet" />
-<link href="${ctx}/static/common/styles/custom.css?12" type="text/css" rel="stylesheet" />
+<link href="${ctx}/static/common/styles/custom.css?14" type="text/css" rel="stylesheet" />
 <!-- ===================== Css 公用区域结束 ===================== -->

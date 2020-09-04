@@ -28,11 +28,50 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="name" class="control-label">团队区域:</label>
+                    <div class="controls">
+                        <input type="text" id="city" name="city" value="${entity.city}" class="form-control required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">团队标识:</label>
+                    <div class="controls">
+                        <input type="text" id="sign" name="sign" maxlength="20" value="${entity.sign}" class="form-control required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">默认角色标识（团队管理员创建用户默认带有角色）:</label>
+                    <div class="controls">
+                        <input type="text" id="defaultRoles" name="defaultRoles" value="${entity.defaultRoles}" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="master" class="control-label">管理人员:</label>
                     <div class="controls">
                         <input type="text" id="masterInfo" value="${entity.master.showName}"
                                class="form-control required" readonly/>
                         <input type="hidden" id="master" name="master" value="${entity.master.id}"/>
+                        <input type="hidden" id="oldMaster" name="oldMaster" value="${entity.master.id}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">最大成员数量:</label>
+                    <div class="controls">
+                        <input type="number" id="maxMemberCount" name="maxMemberCount" value="${empty entity.maxMemberCount ? 10 : entity.maxMemberCount}" class="form-control required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">默认子系统:</label>
+                    <div class="controls">
+                        <select id="rootMenuId" name="rootMenuId" class="form-control">
+                            <option value="0">请选择</option>
+                            <c:forEach items="${rootMenus}" var="m">
+                                <option value="${m.id}">${m.name}</option>
+                            </c:forEach>
+                        </select>
+                        <script>
+                            $("#rootMenuId").val("${entity.rootMenuId}");
+                        </script>
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,7 +102,35 @@
 </div>
 <script>
     $(function () {
-        $("#inputForm").validate({});
+        $("#inputForm").validate({
+            rules: {
+                name: {
+                    required: true
+                    ,stringCheck: true
+                    , rangelength: [2, 20]
+                    , remote: {
+                        type: "POST",
+                        url: "${ctx}/sys/team/checkTeamName",
+                        data: {
+                            'oldName': '${entity.name}'
+                            , 'name': function () {
+                                return $("#name").val();
+                            }
+                        }
+                    }
+                },
+                sign:{
+                    minlength:3,
+                    maxlength:20,
+                    variable:true
+                }
+            },
+            messages: {
+                name:{
+                    remote: "名称已被使用，请修改。"
+                }
+            }
+        });
 
         $("#masterInfo").focus(function () {
             $cy.tools.chooseUser({

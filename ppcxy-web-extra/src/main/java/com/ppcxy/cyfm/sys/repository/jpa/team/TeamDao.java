@@ -9,8 +9,13 @@ import org.springframework.data.jpa.repository.Query;
  * Created by weep on 2016-5-16.
  */
 public interface TeamDao extends BaseRepository<Team, Long> {
-
+    @Modifying
+    @Query(value = "delete from Team where id=?1")
+    void deleteById(Long id);
+    
     @Modifying
     @Query(value = "update User o set o.team=null  where o.team.id=?1")
     void removeAllMember(Long teamId);
+    
+    Team findByName(String name);
 }

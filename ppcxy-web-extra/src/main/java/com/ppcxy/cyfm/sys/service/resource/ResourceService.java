@@ -13,8 +13,8 @@ import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -127,29 +127,17 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         if (resource == null) {
             return null;
         }
-        
-        StringBuilder s = new StringBuilder(resource.getIdentity());
-        
         boolean hasResourceIdentity = !StringUtils.isEmpty(resource.getIdentity());
-        
-        //TODO 迭代父菜单拥有权限则子菜单有用权限的设定权限方式，暂时不采用
-        //Resource parent = findOne(resource.getParentId());
-        //while (parent != null) {
-        //    if (!StringUtils.isEmpty(parent.getIdentity())) {
-        //        s.insert(0, parent.getIdentity() + ":");
-        //        hasResourceIdentity = true;
-        //    }
-        //    parent = findOne(parent.getParentId());
-        //}
         
         //如果用户没有声明 资源标识  且父也没有，那么就为空
         if (!hasResourceIdentity) {
             Resource parent = findOne(resource.getParentId());
-            if (StringUtils.isBlank(parent.getIdentity())) {
+            if (parent != null && StringUtils.isBlank(parent.getIdentity())) {
                 return findActualResourceIdentity(parent);
             }
         }
         
+        StringBuilder s = new StringBuilder(resource.getIdentity());
         
         //如果最后一个字符是: 因为不需要，所以删除之
         int length = s.length();
@@ -168,7 +156,6 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         //if (hasChildren) {
         //    s.append(":*");
         //}
-        
         return s.toString();
     }
     
@@ -225,9 +212,10 @@ public class ResourceService extends BaseTreeableService<Resource, Long> {
         
         
         //如果权限字符串中的资源 是 以资源为前缀 则有权限 如a:b 具有a:b的权限
-        if (permissionResourceIdentity.startsWith(actualResourceIdentity)) {
-            return true;
-        }
+        //FIXME 如果具有长串权限，则会自动赋予前缀权限，这不是预期想要的
+        //if (permissionResourceIdentity.startsWith(actualResourceIdentity)) {
+        //    return true;
+        //}
         
         
         //模式匹配

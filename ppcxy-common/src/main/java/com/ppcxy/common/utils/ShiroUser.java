@@ -4,22 +4,31 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
+ * 自定义Authentication对象，使得Subject除了携带用户的账号外还可以携带更多信息.
  */
 public class ShiroUser implements Serializable {
     
     public Long id;
+    public Long teamId;
     public String username;
     public String name;
     
-    public ShiroUser(Long id, String username, String name) {
+    public ShiroUser() {
+    }
+    
+    public ShiroUser(Long id, Long teamId, String username, String name) {
         this.id = id;
+        this.teamId = teamId;
         this.username = username;
         this.name = name;
     }
     
     public Long getId() {
         return id;
+    }
+    
+    public Long getTeamId() {
+        return teamId;
     }
     
     public String getUsername() {
@@ -29,7 +38,6 @@ public class ShiroUser implements Serializable {
     public String getName() {
         return name;
     }
-    
     
     /**
      * 本函数输出将作为默认的<shiro:principal/>输出.

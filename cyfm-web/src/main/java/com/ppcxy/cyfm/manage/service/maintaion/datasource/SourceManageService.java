@@ -4,11 +4,16 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.ppcxy.common.exception.BaseException;
 import com.ppcxy.common.service.BaseService;
 import com.ppcxy.common.spring.SpringContextHolder;
+import com.ppcxy.common.utils.ShiroUserInfoUtils;
 import com.ppcxy.cyfm.manage.entity.maintaion.datasource.SourceManage;
+import com.ppcxy.cyfm.manage.repository.jpa.maintaion.datasource.SourceManageDao;
 import com.ppcxy.manage.maintain.datasource.support.DataSourceGenerates;
 import com.ppcxy.manage.maintain.datasource.support.DsourceTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * Created by weep on 2016-5-23.
@@ -16,6 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class SourceManageService extends BaseService<SourceManage, Long> {
+
+    @Autowired
+    private SourceManageDao sourceManageDao;
+    
+    public DsourceTemplate genDsTemplate(String dsName) {
+        
+        return genDsTemplate(sourceManageDao.findByDsName(dsName));
+    }
     
     public DsourceTemplate genDsTemplate(SourceManage sourceManage) {
         
@@ -33,6 +46,14 @@ public class SourceManageService extends BaseService<SourceManage, Long> {
         return dsourceTemplate;
     }
     
+    @Override
+    public SourceManage save(SourceManage entity) {
+        entity.setCreateDate(new Date());
+        entity.setTeamId(ShiroUserInfoUtils.getTeamId());
+        entity.setCreator(ShiroUserInfoUtils.getUsername());
+        return super.save(entity);
+    }
+    
     public boolean validateDatasource(SourceManage sourceManage) {
         DataSourceGenerates dataSourceGenerates = DataSourceGenerates.newInstance();
         DruidDataSource druidDataSource = dataSourceGenerates.genDataSource(sourceManage.getDsName(), sourceManage.loadConDriver(), sourceManage.loadConUrl(), sourceManage.getDbUsername(), sourceManage.getDbPassword());
@@ -47,4 +68,5 @@ public class SourceManageService extends BaseService<SourceManage, Long> {
         }
         return result;
     }
+    
 }

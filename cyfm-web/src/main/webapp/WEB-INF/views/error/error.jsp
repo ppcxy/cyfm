@@ -6,6 +6,8 @@
 <%@ page import="org.apache.shiro.authc.AuthenticationException" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
+<%@ page import="org.apache.shiro.session.StoppedSessionException" %>
+<%@ page import="org.apache.shiro.SecurityUtils" %>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -40,6 +42,7 @@
         request.setAttribute("baseException", exception instanceof BaseException);
         request.setAttribute("authenticationException", exception instanceof AuthenticationException);
         request.setAttribute("searchException", exception instanceof SearchException);
+        request.setAttribute("stoppedSessionException", exception instanceof StoppedSessionException);
 
     %>
 
@@ -49,22 +52,29 @@
     </c:if>
 
     <c:if test="${statusCode ne 404}">
-        <c:if test="${baseException}">
-            <cy:showMessage
-                    errorMessage="<h4 style='display:inline;'>系统异常！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
-        </c:if>
-        <c:if test="${authenticationException}">
-            <cy:showMessage
-                    errorMessage="<h4 style='display:inline;'>登录验证错误！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
-        </c:if>
-        <c:if test="${searchException}">
-            <cy:showMessage
-                    errorMessage="<h4 style='display:inline;'>查询参数错误！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
-        </c:if>
-        <c:if test="${not baseException && not authenticationException && not searchException}">
-            <cy:showMessage
-                    errorMessage="<h3 style='display:inline;'>网络服务出现问题！</h3><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;请刷新后尝试重新访问。如果仍然无法解决，者联系管理员解决此问题！&nbsp;&nbsp;&nbsp;&nbsp;<refresh><a href='${url}' class='btn btn-danger'>刷新页面</a></refresh>"/>
-        </c:if>
+        <c:choose>
+            <c:when test="${baseException}">
+                <cy:showMessage
+                        errorMessage="<h4 style='display:inline;'>系统异常！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
+            </c:when>
+            <c:when test="${authenticationException}">
+                <cy:showMessage
+                        errorMessage="<h4 style='display:inline;'>登录验证错误！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
+            </c:when>
+            <c:when test="${searchException}">
+                <cy:showMessage
+                        errorMessage="<h4 style='display:inline;'>查询参数错误！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;${exception.message}</a>"/>
+            </c:when>
+            <c:when test="${stoppedSessionException}">
+                <cy:showMessage errorMessage="<h4 style='display:inline;'>登录已过期！</h4><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;登录超时，请重新登录&nbsp;&nbsp;&nbsp;&nbsp;<refresh><a href='${url}' class='btn btn-danger'>重新登录</a></refresh>"/>
+                <%SecurityUtils.getSubject().logout();%>
+            </c:when>
+            <c:otherwise>
+                <cy:showMessage
+                        errorMessage="<h3 style='display:inline;'>网络服务出现问题！</h3><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;请刷新后尝试重新访问。如果仍然无法解决，者联系管理员解决此问题！&nbsp;&nbsp;&nbsp;&nbsp;<refresh><a href='${url}' class='btn btn-danger'>刷新页面</a></refresh>"/>
+            </c:otherwise>
+        </c:choose>
+
         <shiro:hasRole name="dev_user">
             <c:if test="${not empty exception}">
                 <%
@@ -80,7 +90,7 @@
 </div>
 <script>
     $(function () {
-        $cy.waitingOver();
+        //$cy.waitingOver(); 无需关闭各种弹出层。
     })
 </script>
 </body>

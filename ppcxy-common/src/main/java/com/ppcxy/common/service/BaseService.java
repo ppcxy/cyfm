@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -223,7 +224,7 @@ public abstract class BaseService<T extends AbstractEntity, ID extends Serializa
                                 Map<String, Object> fileMap = jdbcTemplate.queryForMap("SELECT * FROM fs_files WHERE id = ?", file);
                                 
                                 
-                                export.exportTableDatasTemplate(fileMap.get("location").toString(), fileMap.get("real_name").toString(), findAllWithNoPageNoSort(searchable), ShiroUserInfoUtils.getUsername(), realPath);
+                                export.exportTableDatasTemplate(fileMap.get("location").toString(), fileMap.get("real_name").toString(), findAllWithNoPageNoSort(searchable), ShiroUserInfoUtils.getUsername(), realPath,new HashMap<>(),null);
                             }
                             
                         } else {
@@ -246,7 +247,7 @@ public abstract class BaseService<T extends AbstractEntity, ID extends Serializa
                                 Map<String, Object> fileMap = jdbcTemplate.queryForMap("SELECT * FROM fs_files WHERE id = ? ", file);
                                 
                                 
-                                export.exportTableDatasTemplate(fileMap.get("location").toString(), fileMap.get("real_name").toString(), findAll(searchable).getContent(), ShiroUserInfoUtils.getUsername(), realPath);
+                                export.exportTableDatasTemplate(fileMap.get("location").toString(), fileMap.get("real_name").toString(), findAll(searchable).getContent(), ShiroUserInfoUtils.getUsername(), realPath,new HashMap<>(),null);
                             }
                             
                         } else {

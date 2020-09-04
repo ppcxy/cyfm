@@ -19,8 +19,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springside.modules.utils.Collections3;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
@@ -64,7 +63,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
                 Resource resource = resourceService.findOne(next.getResourceId());
                 
                 //忽略对空标识资源项的授权
-                if (StringUtils.isBlank(resource.getIdentity())) {
+                if (resource==null || StringUtils.isBlank(resource.getIdentity())) {
                     continue;
                 }
                 
@@ -100,6 +99,7 @@ public class AuthorizeService extends BaseService<Authorize, Long> {
     public void refresh(Long userId) {
         cacheUserPermissions.remove(userId);
         resourceMenuCacheAspect.evict(userId);
+        userCacheAspect.evictId(String.valueOf(userId));
     }
     
     

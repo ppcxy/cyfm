@@ -31,12 +31,12 @@ import java.util.List;
  * <p/>
  */
 public class OnlineWebSessionManager extends DefaultWebSessionManager {
-
+    
     private static final Logger log = LoggerFactory.getLogger(OnlineWebSessionManager.class);
-
-
+    
+    
     private UserOnlineService userOnlineService;
-
+    
     public void setUserOnlineService(UserOnlineService userOnlineService) {
         this.userOnlineService = userOnlineService;
     }
@@ -46,12 +46,12 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
         ApplicationContext context = event.getApplicationContext();
         this.setUserOnlineService(context.getBean(UserOnlineService.class));
     }
-
+    
     @Override
     protected void onStart(Session session, SessionContext context) {
         super.onStart(session, context);
     }
-
+    
     @Override
     public void setAttribute(SessionKey sessionKey, Object attributeKey, Object value) throws InvalidSessionException {
         super.setAttribute(sessionKey, attributeKey, value);
@@ -60,7 +60,7 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
             s.markAttributeChanged();
         }
     }
-
+    
     private boolean needMarkAttributeChanged(Object attributeKey) {
         if (attributeKey == null) {
             return false;
@@ -78,7 +78,7 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
         }
         return true;
     }
-
+    
     @Override
     public Object removeAttribute(SessionKey sessionKey, Object attributeKey) throws InvalidSessionException {
         Object removed = super.removeAttribute(sessionKey, attributeKey);
@@ -86,10 +86,10 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
             OnlineSession s = (OnlineSession) doGetSession(sessionKey);
             s.markAttributeChanged();
         }
-
+        
         return removed;
     }
-
+    
     /**
      * 验证session是否有效 用于删除过期session
      */
@@ -98,14 +98,14 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
         if (log.isInfoEnabled()) {
             log.info("invalidation sessions...");
         }
-
+        
         int invalidCount = 0;
-
+        
         int timeout = (int) getGlobalSessionTimeout();
         Date expiredDate = DateUtils.addMilliseconds(new Date(), 0 - timeout);
         PageRequest pageRequest = new PageRequest(0, 100);
         Page<UserOnline> page = userOnlineService.findExpiredUserOnlineList(expiredDate, pageRequest);
-
+        
         //改成批量过期删除
         while (page.hasContent()) {
             List<String> needOfflineIdList = Lists.newArrayList();
@@ -128,7 +128,7 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
                     invalidCount++;
                     needOfflineIdList.add(userOnline.getId());
                 }
-
+                
             }
             if (needOfflineIdList.size() > 0) {
                 try {
@@ -140,8 +140,8 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
             pageRequest = new PageRequest(page.getNumber() + 1, pageRequest.getPageSize());
             page = userOnlineService.findExpiredUserOnlineList(expiredDate, pageRequest);
         }
-
-
+        
+        
         if (log.isInfoEnabled()) {
             String msg = "Finished invalidation session.";
             if (invalidCount > 0) {
@@ -151,9 +151,13 @@ public class OnlineWebSessionManager extends DefaultWebSessionManager {
             }
             log.info(msg);
         }
-
+        
     }
-
+    
+    public void useValidate(Session session, SessionKey key) throws InvalidSessionException {
+        validate(session, key);
+    }
+    
     @Override
     protected Collection<Session> getActiveSessions() {
         throw new UnsupportedOperationException("getActiveSessions method not supported");

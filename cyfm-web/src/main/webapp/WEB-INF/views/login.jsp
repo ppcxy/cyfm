@@ -52,7 +52,7 @@
     <link href="${ctx}/static/common/styles/plugins.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/static/manage/css/layout.css?2" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="${ctx}/static/manage/css/darkblue.css?2" rel="stylesheet" type="text/css"/>
-    <link href="${ctx}/static/common/styles/custom.css?6" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/static/common/styles/custom.css?7" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="${ctx}/static/images/favicon.ico"/>
 
@@ -141,8 +141,11 @@
             </form>
         </div>
     </div>
+
 </div>
-<div class="loginbm">版权所有 2018 <a href="http://www.ppcxy.com">www.ppcxy.com</a> 欢迎反馈使用中遇到的问题.</div>
+
+
+<div class="loginbm">版权所有 2018 <a href="http://www.txauto.net">www.txauto.net</a> .</div>
 <!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->

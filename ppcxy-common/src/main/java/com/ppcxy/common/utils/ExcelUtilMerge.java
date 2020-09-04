@@ -1,9 +1,6 @@
 package com.ppcxy.common.utils;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.util.StringUtils;
 
@@ -11,9 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExcelMergeUtil {
-
-
+public class ExcelUtilMerge {
+    
+    
     /**
      * 获取合并单元格的值
      *
@@ -24,16 +21,16 @@ public class ExcelMergeUtil {
      */
     public static String getMergedRegionValue(Sheet sheet, int row, int column) {
         int sheetMergeCount = sheet.getNumMergedRegions();
-
+        
         for (int i = 0; i < sheetMergeCount; i++) {
             CellRangeAddress ca = sheet.getMergedRegion(i);
             int firstColumn = ca.getFirstColumn();
             int lastColumn = ca.getLastColumn();
             int firstRow = ca.getFirstRow();
             int lastRow = ca.getLastRow();
-
+            
             if (row >= firstRow && row <= lastRow) {
-
+                
                 if (column >= firstColumn && column <= lastColumn) {
                     Row fRow = sheet.getRow(firstRow);
                     Cell fCell = fRow.getCell(firstColumn);
@@ -41,10 +38,10 @@ public class ExcelMergeUtil {
                 }
             }
         }
-
+        
         return null;
     }
-
+    
     /**
      * 如果excel是wps格式，获取合并单元格的cell时，cell会是null，此时不能用该方法，请用getMergedRegionValue(Sheet sheet, int row, int column)
      *
@@ -56,7 +53,7 @@ public class ExcelMergeUtil {
         return getMergedRegionValue(sheet, cell.getRowIndex(),
                 cell.getColumnIndex());
     }
-
+    
     /**
      * 判断合并了行
      *
@@ -81,7 +78,7 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     /**
      * 判断指定的单元格是否是合并单元格
      *
@@ -106,7 +103,7 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     /**
      * 如果excel是wps格式，获取合并单元格的cell时，cell会是null，此时不能用该方法，请用isMergedRegion(Sheet sheet, int row, int column)
      *
@@ -121,7 +118,7 @@ public class ExcelMergeUtil {
         int column = cell.getColumnIndex();
         return isMergedRegion(sheet, row, column);
     }
-
+    
     public static boolean isCellInRegion(int rowIndex, int colIndex,
                                          Region region) {
         if (rowIndex >= region.getFirstRow() && rowIndex <= region.getLastRow()) {
@@ -132,11 +129,11 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     public static boolean isCellInRegion(Cell cell, Region region) {
         return isCellInRegion(cell.getRowIndex(), cell.getColumnIndex(), region);
     }
-
+    
     
     public static Region getMergedRegion(Sheet sheet, int rowIndex, int colIndex) {
         int sheetMergeCount = sheet.getNumMergedRegions();
@@ -159,11 +156,11 @@ public class ExcelMergeUtil {
         }
         return null;
     }
-
+    
     public static Region getMergedRegion(Sheet sheet, Cell cell) {
         return getMergedRegion(sheet, cell.getRowIndex(), cell.getColumnIndex());
     }
-
+    
     /**
      * 判断sheet页中是否含有合并单元格
      *
@@ -173,7 +170,7 @@ public class ExcelMergeUtil {
     public static boolean hasMerged(Sheet sheet) {
         return sheet.getNumMergedRegions() > 0 ? true : false;
     }
-
+    
     /**
      * 合并单元格
      *
@@ -188,7 +185,7 @@ public class ExcelMergeUtil {
         sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol,
                 lastCol));
     }
-
+    
     /**
      * 获取单元格的值
      *
@@ -196,29 +193,29 @@ public class ExcelMergeUtil {
      * @return
      */
     public static String getCellValue(Cell cell) {
-
+        
         if (cell == null)
             return "";
-
-        if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-
+        
+        if (cell.getCellType() == CellType.STRING) {
+            
             return cell.getStringCellValue();
-
-        } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
-
+            
+        } else if (cell.getCellType() == CellType.BOOLEAN) {
+            
             return String.valueOf(cell.getBooleanCellValue());
-
-        } else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
-
+            
+        } else if (cell.getCellType() == CellType.FORMULA) {
+            
             return cell.getCellFormula();
-
-        } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+            
+        } else if (cell.getCellType() == CellType.NUMERIC) {
             return String.valueOf(cell.getNumericCellValue());
         }
         return "";
     }
-
-
+    
+    
     /**
      * 判断Row(行)是否为空行(行本身为null或行中的单元格全部为null)
      *
@@ -248,7 +245,7 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     /**
      * 判断Row(行)是否存在空的单元格或者这行是否存在单元格
      *
@@ -273,7 +270,7 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     /**
      * 判断Sheet是否存在空的行或存在空数据的行
      *
@@ -298,7 +295,7 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     /**
      * 基于指定列数判断Sheet是否存在空的行或存在空数据的行
      *
@@ -328,7 +325,7 @@ public class ExcelMergeUtil {
         }
         return false;
     }
-
+    
     /**
      * 获取表格中空行的行号
      *
@@ -350,7 +347,7 @@ public class ExcelMergeUtil {
         }
         return list;
     }
-
+    
     /**
      * 判断Cell(单元格)是否为空
      *
@@ -365,7 +362,7 @@ public class ExcelMergeUtil {
             return true;
         }
     }
-
+    
     /**
      * 关闭workbook
      *
@@ -380,7 +377,7 @@ public class ExcelMergeUtil {
             }
         }
     }
-
+    
     public static void addDataToRow(Row row, List<String> values) {
         if (values != null && !values.isEmpty()) {
             for (int i = 0; i < values.size(); i++) {
@@ -389,6 +386,6 @@ public class ExcelMergeUtil {
             }
         }
     }
-
-
+    
+    
 }

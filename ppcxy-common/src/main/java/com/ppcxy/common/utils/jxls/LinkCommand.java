@@ -1,8 +1,6 @@
 package com.ppcxy.common.utils.jxls;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.jxls.area.Area;
 import org.jxls.command.AbstractCommand;
@@ -73,7 +71,7 @@ public class LinkCommand extends AbstractCommand {
         if (cell == null) {
             cell = row.createCell(cellRef.getCol());
         }
-        cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+        cell.setCellType(CellType.FORMULA);
         cell.setCellFormula("HYPERLINK(\"" + url + "\",\"" + title + "\")");
         if (!url.equals(title)) {
             cell.setCellValue(title);
@@ -82,7 +80,7 @@ public class LinkCommand extends AbstractCommand {
         CellStyle linkStyle = cell.getCellStyle();
         Font cellFont = transformer.getWorkbook().createFont();
         cellFont.setUnderline((byte) 1);
-        cellFont.setColor(HSSFColor.BLUE.index);
+        cellFont.setColor(IndexedColors.BLUE.index);
         linkStyle.setFont(cellFont);
     }
     

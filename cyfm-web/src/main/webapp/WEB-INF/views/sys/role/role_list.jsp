@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/views/common/taglibs.jspf"%>
 <html>
 <head>
-  <title>角色管理</title>
+    <title>角色管理</title>
 </head>
 <body>
 <div class="tools search-toolbar">
@@ -20,18 +20,20 @@
 <div class="listTableWrap">
     <table id="contentTable" data-tid="${modelName}" class="table table-list table-sort table-striped table-bordered table-hover table-condensed table-advance">
         <thead>
-            <tr>
-                <th class="check"><input type="checkbox"></th>
-                <th data-sort="name">角色名称</th>
-                <th>非资源权限</th>
-                <th class="action">操作</th>
-            </tr>
+        <tr>
+            <th class="check"><input type="checkbox"></th>
+            <th data-sort="name">角色名称</th>
+            <th data-sort="value">角色标识</th>
+            <th>非资源权限</th>
+            <th class="action">操作</th>
+        </tr>
         </thead>
         <tbody>
         <c:forEach items="${page.content}" var="role">
             <tr>
                 <td class="check"><input name="ids" type="checkbox" value="${role.id}"></td>
                 <td>${role.name}&nbsp;</td>
+                <td>${role.value}&nbsp;</td>
                 <td>${role.permissions}&nbsp;</td>
                 <td class="action">
                     <button class="btn btn-xs blue" onclick="showRoleDetails('${role.id}','${role.name}')">实体授权</button>
@@ -46,7 +48,7 @@
     function showRoleDetails(roleId,roleName) {
         top.layer.open({
             type:2,
-            area:['660px','600px'],
+            area:['850px','600px'],
             title:'角色授权实体管理-' + roleName,
             content: "${ctx}/sys/role/roleAllot/"+roleId
         })

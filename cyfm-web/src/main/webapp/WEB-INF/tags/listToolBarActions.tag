@@ -29,21 +29,20 @@
     </shiro:hasPermission>
     <shiro:hasPermission name="${resourceIdentity}:custom">
         <div class="btn-group more">
-            <button type="button" class="btn  btn-default dropdown-toggle no-disabled" data-toggle="dropdown"
+            <button type="button" class="btn btn-default dropdown-toggle no-disabled" data-toggle="dropdown"
                     aria-expanded="false">
-                <i class="fa fa-bars"></i> <span class="hidden-xs">更多</span><i class="fa fa-angle-down hidden-xs"></i>
+                <i class="fa fa-bars"></i> <span class="hidden-xs">更多</span> <i class="fa fa-angle-down hidden-xs"></i>
             </button>
             <ul class="dropdown-menu">
                 <shiro:hasPermission name="${resourceIdentity}:export">
-                    <li title="当前查询条件本页数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=current" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出当前数据</a></li>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="${resourceIdentity}:export">
-                    <li title="当前查询条件全部数据"><a class="data-ajax" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=all" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出全部数据</a></li>
+                    <li title="当前查询条件全部数据"><a class="data-ajax export" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/exportExcel?exportModel=all" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>导出数据</a></li>
                     <li class="divider"></li>
                 </shiro:hasPermission>
-                <li title="查看可用数据列"><a class="data-select" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/selectData" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>查看可用数据列</a>
-                </li>
-                <li class="more_list"></li>
+                <shiro:hasPermission name="${resourceIdentity}:exportConfig">
+                    <li title="查看可用数据列"><a class="data-select" href="javascript:;" data-ajax-href="${ctx}/${viewPrefix}/selectData" data-ajax-callback="$cy.info('导出执行成功,请关注系统消息.')"><i class="fa fa-file-excel-o"></i>查看可用数据列</a>
+                    </li>
+                    <li class="more_list"></li>
+                </shiro:hasPermission>
             </ul>
         </div>
     </shiro:hasPermission>
@@ -57,12 +56,10 @@
                     <i class="fa fa-cog"></i> <span class="hidden-xs">设置</span> <i class="fa fa-angle-down hidden-xs"></i>
                 </button>
                 <ul class="dropdown-menu pull-right">
-                    <li class="more_list">
-                        <a onclick="javascript:$cy.table.resetTableResize($('table')[0])">重置表格</a>
-                        <a onclick="javascript:$cy.urlTools.resetSortUrl()">重置排序</a>
-                        <a onclick="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a>
-                        <a onclick="javascript:$('.search-toolbar').toggle();updateTheadTop();">显示/隐藏查询</a>
-                    </li>
+                    <li><a onclick="javascript:$cy.table.resetTableResize($('table')[0])">重置表格</a></li>
+                    <li><a onclick="javascript:$cy.urlTools.resetSortUrl()">重置排序</a></li>
+                    <li><a onclick="javascript:$cy.urlTools.resetSearchParamUrl()">重置查询</a></li>
+                    <li><a onclick="javascript:$('.search-toolbar').toggle();updateTheadTop();">显示/隐藏查询</a></li>
                 </ul>
             </div>
         </li>

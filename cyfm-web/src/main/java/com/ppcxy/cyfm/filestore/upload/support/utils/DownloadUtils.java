@@ -28,6 +28,9 @@ public class DownloadUtils {
         if (StringUtils.isEmpty(displayName)) {
             displayName = file.getName();
         }
+        if (displayName.toLowerCase().endsWith(".zip")) {
+            System.setProperty("sun.zip.encoding", System.getProperty("sun.jnu.encoding"));
+        }
         
         if (!file.exists() || !file.canRead()) {
             response.setContentType("text/html;charset=utf-8");

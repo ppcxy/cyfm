@@ -3,7 +3,7 @@
     <li class="${action eq '个人资料' ? 'active' : ''}">
         <a href="${ctx}/personal/profile">
             <i class="fa fa-user"></i>
-            个人资料
+            我的资料
         </a>
     </li>
     <li class="${action eq '修改密码' ? 'active' : ''}">

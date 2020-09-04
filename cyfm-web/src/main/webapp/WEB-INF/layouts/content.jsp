@@ -20,17 +20,25 @@
         var $cy = {};
         var showPlace= true;
         var _isMobile = 'createTouch' in document && !('onmousemove' in document)
-            || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
+                || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
     </script>
     <%@include file="/WEB-INF/views/common/import-js.jspf" %>
     <sitemesh:head/>
+    <style>
+        .listTableWrap{
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        var placeTarget = undefined;
+    </script>
 </head>
 <body style="padding: 5px !important;">
 <c:if test="${not empty message or not empty errorMessage}">
     <cy:showMessage/>
 </c:if>
 <c:if test="${not empty page && not customToolbar}">
-    <div class="tools">
+    <div class="tools btn-toolbar">
         <cy:listToolBarActions/>
     </div>
 </c:if>
@@ -66,38 +74,28 @@
 </script>
 <script>
     var index = parent.layer.getFrameIndex(window.name);
-    if (top == parent && !index && showPlace){
-        $cy.place.appendUrl(document.title.substring("${cy_systemName}".length+1), urlPrefix, urlSuffix);
+    if ((top == parent ||  top.name=='mainFrame') && !index && showPlace){
+        $cy.place.appendUrl(document.title.substring("${cy_systemName}".length+1), urlPrefix, urlSuffix, placeTarget);
     }
     <cy:showFieldError commandName="entity"/>
 </script>
 <script>
     var theadTop = 0;
 
-    $(function () {
-        var $wrap = $(".listTableWrap");
-        setTimeout(function () {
-            var $thead = $wrap.find("#contentTable thead");
+    function initTableContentHeight(xz) {
 
-            /**
-             * scroll handle
-             * @param {event} e -- scroll event
-             */
-            function scrollHandle(e) {
-                var scrollTop = $wrap.scrollTop();
-                $thead.find("th").css({
-                    "transform": "translateY(" + (scrollTop - theadTop) + "px)"
-                });
-            }
-
-            $(".listTableWrap").on('scroll', scrollHandle)
-            //}
-        }, 100);
-
-        var xh = 20;
+        if (!xz) {
+            xz = 0;
+        }
+        if (typeof cx != "undefined") {
+            xz = xz + cx;
+        }
+        var xh = 20 + xz;
 
         if ($(".tools .more:visible,.config:visible").size() > 0) {
             xh += 45;
+        } else {
+            // $(".tools:first").hide();
         }
         xh += $(".form-search:visible").height();
         if ($(".nav-tabs").size()>0) {
@@ -107,9 +105,6 @@
             xh += 45;
         }
 
-        if ($(".page-bar:visible").size() > 0) {
-            xh += 45;
-        }
         if ($(".tab-content:visible").size() > 0) {
             // xh += 16;
         }
@@ -118,9 +113,40 @@
         }
 
         var bg = $(window).height() - xh;
-        var tg = $("#contentTable").height();
-        console.log(tg)
-        $(".listTableWrap").height(tg > bg ? bg : tg + 25);
+        var tg = $("#contentTable:visible").height();
+        tg = tg ? tg : 6666;
+        // console.log(tg,bg,tg > bg ? bg : tg + 25)
+        $(".listTableWrap").height(tg > bg ? bg : tg + 25).css({"visibility":"visible"});
+    }
+    $(function () {
+        var $wrap = $(".listTableWrap");
+
+        setTimeout(function () {
+            var $thead = $wrap.find("#contentTable thead");
+            if ($thead.size() > 0) {
+                /**
+                 * scroll handle
+                 * @param {event} e -- scroll event
+                 */
+                function scrollHandle(e) {
+                    var scrollTop = $wrap.scrollTop();
+                    if ((scrollTop - theadTop) == 0) {
+                        $thead.find("tr").css({
+                            "transform": ""
+                        });
+                        return;
+                    }
+                    $thead.find("tr").css({
+                        "transform": "translateY(" + (scrollTop - theadTop) + "px)"
+                    });
+                }
+
+                $wrap.on('scroll', scrollHandle)
+            }
+            //}
+        }, 100);
+
+        initTableContentHeight(20);
     });
 </script>
 </body>

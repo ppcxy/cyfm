@@ -108,9 +108,9 @@ public class ExcelUtil {
     public String getCellValues(Cell aCell) {
         String info = "";
         try {
-            int cellType = aCell.getCellType();
+            CellType cellType = aCell.getCellType();
             switch (cellType) {//格式判断
-                case Cell.CELL_TYPE_NUMERIC:
+                case NUMERIC:
                     
                     if (DateUtil.isCellDateFormatted(aCell)) {// 读取日期格式
                         info = aCell.getNumericCellValue() + "";
@@ -120,11 +120,11 @@ public class ExcelUtil {
                         //info=info.replaceAll(",", "");
                     }
                     break;
-                case Cell.CELL_TYPE_STRING:
+                case STRING:
                     info = aCell.getRichStringCellValue().toString();
                     
                     break;
-                case Cell.CELL_TYPE_FORMULA:
+                case FORMULA:
                     try {
                         info = NumberFormat.getInstance().format(aCell.getNumericCellValue()) + "";
                         info = info.replaceAll(",", "");
@@ -171,9 +171,9 @@ public class ExcelUtil {
     public String getCellValue(Cell aCell) {
         String info = "";
         try {
-            int cellType = aCell.getCellType();
+            CellType cellType = aCell.getCellType();
             switch (cellType) {//格式判断
-                case Cell.CELL_TYPE_NUMERIC:
+                case NUMERIC:
                     if (DateUtil.isCellDateFormatted(aCell)) {// 读取日期格式
                         info = aCell.getNumericCellValue() + "";
                     } else {// 读取数字
@@ -182,10 +182,10 @@ public class ExcelUtil {
                         //info=info.replaceAll(",", "");
                     }
                     break;
-                case Cell.CELL_TYPE_STRING:
+                case STRING:
                     info = aCell.getRichStringCellValue().toString();
                     break;
-                case Cell.CELL_TYPE_FORMULA:
+                case FORMULA:
                     try {
                         info = NumberFormat.getInstance().format(aCell.getNumericCellValue()) + "";
                         info = info.replaceAll(",", "");
@@ -290,6 +290,26 @@ public class ExcelUtil {
         }
         return list;
     }
+    
+    
+    public static List<List<Object>> readExcel(File file, int startRowIndex,
+                                               int startColumnIndex,int endColumnIndex) throws IOException{
+        List<List<Object>> list = new ArrayList<List<Object>>();
+        Workbook wb = getWorkbook(file);
+        if (wb != null) {
+            List<Sheet> allSheets = getAllSheets(wb);
+            for(Sheet sheet:allSheets) {
+                if( sheet!= null) {
+                    List<List<Object>> sheetData = getSheetData(wb, sheet, startRowIndex, startColumnIndex, endColumnIndex);
+                    if(sheetData != null) {
+                        list.addAll(sheetData);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+    
     
     /**
      * 对外提供读取excel的方法， 根据sheet名称读取sheet数据
@@ -757,7 +777,7 @@ public class ExcelUtil {
      */
     public static Object getCellValue(Workbook wb, Cell cell) {
         if (cell == null
-                || (cell.getCellType() == Cell.CELL_TYPE_STRING && StringUtils.isBlank(cell.getStringCellValue()))) {
+                || (cell.getCellType() == CellType.STRING && StringUtils.isBlank(cell.getStringCellValue()))) {
             return null;
         }
         /*if (cell == null) {
@@ -774,18 +794,18 @@ public class ExcelUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// 格式化日期字符串
         DecimalFormat nf = new DecimalFormat("0");// 格式化数字
         
-        int cellType = cell.getCellType();
+        CellType cellType = cell.getCellType();
         switch (cellType) {
-            case Cell.CELL_TYPE_BLANK:
+            case BLANK:
                 // return "";
                 return null;
-            case Cell.CELL_TYPE_BOOLEAN:
+            case BOOLEAN:
                 return cell.getBooleanCellValue();
-            case Cell.CELL_TYPE_ERROR:
+            case ERROR:
                 return cell.getErrorCellValue();
-            case Cell.CELL_TYPE_FORMULA:
+            case FORMULA:
                 return cell.getNumericCellValue();
-            case Cell.CELL_TYPE_NUMERIC:
+            case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
                     String value = sdf.format(cell.getDateCellValue().getTime());
                     return value;
@@ -814,7 +834,7 @@ public class ExcelUtil {
                 String value = df.format(cell.getNumericCellValue()).toString();
                 return value;*/
                 }
-            case Cell.CELL_TYPE_STRING:
+            case STRING:
                 String value = cell.getStringCellValue();
                 if (StringUtils.isBlank(value)) {
                     return null;
@@ -1156,10 +1176,9 @@ public class ExcelUtil {
         if (color instanceof XSSFColor) {
             System.out.println(cell.getAddress() + ": " + ((XSSFColor)color1).getARGBHex());
             map.put("background",((XSSFColor)color1).getARGBHex());
-            
         } else if (color instanceof HSSFColor) {
-            if (! (color instanceof HSSFColor.AUTOMATIC))
-                System.out.println(cell.getAddress() + ": " + ((HSSFColor)color1).getHexString());
+           /* if (! (color instanceof HSSFColor.HSSFColorPredefined.AUTOMATIC))
+                System.out.println(cell.getAddress() + ": " + ((HSSFColor)color1).getHexString());*/
             map.put("background",((HSSFColor)color1).getHexString());
             
         }

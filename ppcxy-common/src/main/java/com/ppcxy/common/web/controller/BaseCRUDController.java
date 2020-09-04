@@ -387,14 +387,14 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
     @RequestMapping(value = "exportExcel")
     @PageableDefaults(sort = {"id=desc"})
     @ResponseBody
-    public String exportExcel(final Searchable searchable, final String exportModel, final String title, HttpServletRequest request) {
+    public String exportExcel(final Searchable searchable, final String exportModel,  String title, HttpServletRequest request) {
         
         baseService.exportData2Excel(permissionList.getResourceIdentity(), entityClass, searchable, title, exportModel);
         
         return "success";
     }
     
-    private boolean canImport(final MultipartFile file, final Model model) {
+    protected boolean canImport( MultipartFile file, final Model model) {
         if (file == null || file.isEmpty()) {
             model.addAttribute(Constants.ERROR_MESSAGE, "请选择要导入的文件");
             return false;
@@ -408,6 +408,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
         
         return true;
     }
+    
     
     @RequestMapping(value = "importExcel", method = RequestMethod.GET)
     public String importExcel(String title, Model model) {
@@ -461,7 +462,7 @@ public abstract class BaseCRUDController<T extends AbstractEntity, ID extends Se
             return "导入过程发生异常,请联系管理员.";
         }
         
-        return "导入成功,导入结果可能有延迟,请刷新查看.";
+        return "执行成功，导入结果可能有延迟，请等待导入完成通知，或刷新查看。";
     }
     
     /**

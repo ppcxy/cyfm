@@ -58,6 +58,8 @@ public class User extends IdEntity {
     //TOTP认证密匙
     private String totpSecret;
     
+    private String workGroups;
+    
     
     @NotNull(message = "{not.null}")
     @Pattern(regexp = USERNAME_PATTERN, message = "{user.username.not.valid}")
@@ -205,6 +207,15 @@ public class User extends IdEntity {
         return String.format("%s[%s]", this.getName(), this.getUsername());
     }
     
+    @Transient
+    public String getWorkGroups() {
+        return workGroups;
+    }
+    
+    public void setWorkGroups(String workGroups) {
+        this.workGroups = workGroups;
+    }
+    
     @Override
     public String toString() {
         return "User{" +
@@ -214,7 +225,7 @@ public class User extends IdEntity {
                 ", tel='" + tel + '\'' +
                 ", status='" + status + '\'' +
                 ", createDate=" + createDate +
-                ", team=" + team.getName() +
+                ", team=" + team != null ? team.getName() : "无" +
                 ", roleList=" + Collections3.convertToString(roleList, "name", ",") +
                 '}';
     }

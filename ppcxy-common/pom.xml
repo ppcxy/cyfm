@@ -22,25 +22,25 @@
             <scope>compile</scope>
         </dependency>
         <!-- <dependency>
-             <groupId>org.springside</groupId>
-             <artifactId>springside-core</artifactId>
-             <optional>true</optional>
-         </dependency>
-         <dependency>
-             <groupId>org.springside</groupId>
-             <artifactId>springside-extension</artifactId>
-             <optional>true</optional>
-         </dependency>
-         <dependency>
-             <groupId>org.springside</groupId>
-             <artifactId>springside-metrics</artifactId>
-             <optional>true</optional>
-         </dependency>
-         <dependency>
-             <groupId>org.springside</groupId>
-             <artifactId>springside-redis</artifactId>
-             <optional>true</optional>
-         </dependency>-->
+			 <groupId>org.springside</groupId>
+			 <artifactId>springside-core</artifactId>
+			 <optional>true</optional>
+		 </dependency>
+		 <dependency>
+			 <groupId>org.springside</groupId>
+			 <artifactId>springside-extension</artifactId>
+			 <optional>true</optional>
+		 </dependency>
+		 <dependency>
+			 <groupId>org.springside</groupId>
+			 <artifactId>springside-metrics</artifactId>
+			 <optional>true</optional>
+		 </dependency>
+		 <dependency>
+			 <groupId>org.springside</groupId>
+			 <artifactId>springside-redis</artifactId>
+			 <optional>true</optional>
+		 </dependency>-->
         <!-- SPRINGSIDE end -->
 
         <!-- PERSISTENCE begin -->
@@ -252,33 +252,40 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.14</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.14</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
-            <version>3.14</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-base</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls</artifactId>
-            <version>2.4.2</version>
         </dependency>
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls-poi</artifactId>
-            <version>1.0.13</version>
         </dependency>
+
+        <!-- cache -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.8.9.RELEASE</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.jxls/jxls-jexcel -->
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls-jexcel</artifactId>
-            <version>1.0.6</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -289,7 +296,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-jexl</artifactId>
-            <version>2.1.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -341,20 +347,20 @@
         </dependency>
 
         <!-- <dependency>
-             <groupId>org.springside</groupId>
-             <artifactId>springside-core</artifactId>
-             <classifier>tests</classifier>
-             &lt;!&ndash; for xxxDemo class &ndash;&gt;
-             <scope>compile</scope>
-         </dependency>
+			 <groupId>org.springside</groupId>
+			 <artifactId>springside-core</artifactId>
+			 <classifier>tests</classifier>
+			 &lt;!&ndash; for xxxDemo class &ndash;&gt;
+			 <scope>compile</scope>
+		 </dependency>
 
-         <dependency>
-             <groupId>org.springside</groupId>
-             <artifactId>springside-extension</artifactId>
-             <classifier>tests</classifier>
-             &lt;!&ndash; for xxxDemo class &ndash;&gt;
-             <scope>compile</scope>
-         </dependency>-->
+		 <dependency>
+			 <groupId>org.springside</groupId>
+			 <artifactId>springside-extension</artifactId>
+			 <classifier>tests</classifier>
+			 &lt;!&ndash; for xxxDemo class &ndash;&gt;
+			 <scope>compile</scope>
+		 </dependency>-->
 
         <!-- selenium 2.0 -->
         <dependency>
@@ -377,8 +383,6 @@
             <artifactId>jetty-jsp</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- 数据连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -403,6 +407,7 @@
             <version>2.0</version>
             <scope>test</scope>
         </dependency>
+
         <!-- TEST end -->
     </dependencies>
 

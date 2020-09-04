@@ -78,7 +78,7 @@ public class DataSourceGenerates {
             ds.setPassword(password);
             ds.setDefaultAutoCommit(true);
             ds.setLoginTimeout(5);
-            ds.setQueryTimeout(5);
+            ds.setQueryTimeout(20);
             ds.setNotFullTimeoutRetryCount(3);
             
             if (ds.getUrl().indexOf("oracle") > -1) {

@@ -1,6 +1,7 @@
 package com.ppcxy.cyfm.filestore.upload.support.utils;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import org.apache.tools.zip.ZipOutputStream;
@@ -29,6 +30,9 @@ public class PackageZipUtils {
             fos = new FileOutputStream(zipFile);
             cos = new CheckedOutputStream(fos, new CRC32());
             zos = new ZipOutputStream(cos);
+            
+            System.setProperty("sun.zip.encoding", System.getProperty("sun.jnu.encoding"));
+            zos.setEncoding(System.getProperty("sun.jnu.encoding"));
             
             ZipOutputStream finalZos = zos;
             
@@ -87,7 +91,7 @@ public class PackageZipUtils {
         }
         
         if (src.isFile()) {
-            compressFile(src, zos, baseDir);
+            compressFile(src, zos, baseDir, false);
         } else if (src.isDirectory()) {
             compressDir(src, zos, baseDir);
         }
@@ -98,35 +102,36 @@ public class PackageZipUtils {
      * 压缩文件
      */
     
-    private static void compressFile(File file, ZipOutputStream zos, String baseDir) {
+    private static void compressFile(File file, ZipOutputStream zos, String baseDir, Boolean closeZos) {
         
         if (!file.exists()) {
             return;
         }
+        
+        if (StringUtils.isNotBlank(baseDir) && !baseDir.endsWith("/") && !baseDir.endsWith("\\")) {
+            baseDir += File.separator;
+            
+        }
+        
         FileInputStream is = null;
-        BufferedInputStream bis = null;
         
         try {
             is = new FileInputStream(file);
-            bis = new BufferedInputStream(is);
             
             ZipEntry entry = new ZipEntry(baseDir + file.getName());
             zos.putNextEntry(entry);
             
-            int count;
-            byte[] buf = new byte[2048];
             
-            while ((count = bis.read(buf)) != -1) {
-                zos.write(buf, 0, count);
+            IOUtils.copy(is, zos);
+        } catch (IOException e) {
+            /// no oper
+        } finally {
+            IOUtils.closeQuietly(is);
+            if (closeZos) {
+                IOUtils.closeQuietly(zos);
             }
             
-        } catch (Exception e) {
-        
-        } finally {
-            IOUtils.closeQuietly(bis);
-            IOUtils.closeQuietly(is);
         }
-        
         
     }
     
@@ -166,7 +171,7 @@ public class PackageZipUtils {
      * @param dest    解压路径
      * @throws Exception
      */
-    public static void unzip(File srcFile, String dest) throws Exception {
+    public static void unzip(File srcFile, String dest) throws IOException {
         
         if (!srcFile.exists()) {
             throw new RuntimeException(srcFile.getPath() + "所指文件不存在");
@@ -180,7 +185,7 @@ public class PackageZipUtils {
         while (entries.hasMoreElements()) {
             
             entry = (ZipEntry) entries.nextElement();
-            System.out.println("解压" + entry.getName());
+            //System.out.println("解压" + entry.getName());
             
             if (entry.isDirectory()) {
                 String dirPath = dest + File.separator + entry.getName();
@@ -199,15 +204,12 @@ public class PackageZipUtils {
                 file.createNewFile();
                 
                 // 将压缩文件内容写入到这个文件中
-                InputStream is = zipFile.getInputStream(entry);
-                FileOutputStream fos = new FileOutputStream(file);
+                InputStream is = null;
+                FileOutputStream fos = null;
+                is = zipFile.getInputStream(entry);
+                fos = new FileOutputStream(file);
                 
-                int count;
-                
-                byte[] buf = new byte[8192];
-                while ((count = is.read(buf)) != -1) {
-                    fos.write(buf, 0, count);
-                }
+                IOUtils.copy(is, fos);
                 
                 IOUtils.closeQuietly(is);
                 IOUtils.closeQuietly(fos);

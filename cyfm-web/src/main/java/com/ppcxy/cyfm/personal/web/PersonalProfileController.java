@@ -14,7 +14,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.regex.Pattern;
 
 /**
  * 当前用户的个人信息
@@ -135,11 +138,39 @@ public class PersonalProfileController extends BaseController<User, Long> {
             return changePasswordForm(user, model);
         }
         
+        if (newPassword1.length() < 5 || newPassword1.length() > 25) {
+            model.addAttribute(Constants.ERROR_MESSAGE, "密码请输入5-25位");
+            return changePasswordForm(user, model);
+        }
         userService.changePassword(user, newPassword1);
         
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "修改密码成功");
         return redirectToUrl(null);
     }
     
+    
+    @RequestMapping(value = "/changeUsername", method = RequestMethod.POST)
+    @ResponseBody
+    public String changePassword(
+            @CurrentUser User user,
+            @RequestParam(value = "newUsername") String newUsername,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+        
+        if (user.getUsername().startsWith("RTUSER_") && Pattern.compile(User.USERNAME_PATTERN).matcher(newUsername).matches()) {
+            User oldUsername = userService.findByUsername(newUsername);
+            if (oldUsername != null) {
+                return "exists";
+            }
+            User du = userService.findOne(user.getId());
+            du.setUsername(newUsername);
+            userService.update(du);
+            redirectAttributes.addFlashAttribute(Constants.MESSAGE, "用户名修改成功");
+            return "true";
+        }
+        
+        return "false";
+        
+    }
     
 }

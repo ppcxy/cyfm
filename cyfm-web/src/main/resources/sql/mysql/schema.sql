@@ -44,32 +44,40 @@ create table cy_excel_template
     resource_identity varchar(500) null
 );
 
-
-
-CREATE TABLE cy_sys_role (
-  id BIGINT  NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL UNIQUE,
-  value VARCHAR(255) NOT NULL UNIQUE,
-  permissions TEXT,
-  description TEXT,
-  PRIMARY KEY (id)
+create table cy_sys_role
+(
+	id bigint auto_increment
+		primary key,
+	name varchar(255) not null,
+	value varchar(255) not null,
+	permissions text null,
+	description text null,
+	constraint name
+		unique (name),
+	constraint value
+		unique (value)
 )
 AUTO_INCREMENT=1000;
 
-CREATE TABLE cy_sys_user (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  username VARCHAR(255) NOT NULL UNIQUE,
-  name VARCHAR(64),
-  password VARCHAR(255),
-  salt VARCHAR(64),
-  email VARCHAR(128),
-  tel VARCHAR (20) UNIQUE,
-  status VARCHAR(32),
-  team_id BIGINT,
-  create_date DATETIME ,
-  totp_secret varchar(4000),
-  deleted TINYINT DEFAULT 0,
-  PRIMARY KEY (id)
+create table cy_sys_user
+(
+	id bigint auto_increment
+		primary key,
+	username varchar(255) not null,
+	name varchar(64) null,
+	password varchar(255) null,
+	salt varchar(64) null,
+	email varchar(128) null,
+	tel varchar(20) null,
+	status varchar(32) null,
+	team_id bigint null,
+	create_date datetime null,
+	deleted tinyint default 0 null,
+	totp_secret varchar(4000) null,
+	constraint tel
+		unique (tel),
+	constraint username
+		unique (username)
 )
 AUTO_INCREMENT = 100;
 
@@ -89,19 +97,60 @@ create table cy_sys_user_detail
 AUTO_INCREMENT = 100;
 
 
-CREATE TABLE cy_sys_user_role (
-  user_id BIGINT NOT NULL,
-  role_id BIGINT NOT NULL,
-  PRIMARY KEY (user_id, role_id)
+create table cy_sys_user_wechat_bind
+(
+	id bigint auto_increment
+		primary key,
+	wechat_openid varchar(55) null,
+	user_id bigint null,
+	bind_date datetime null,
+	subsystem varchar(50) null
 );
 
-CREATE TABLE cy_sys_team (
-  id BIGINT NOT NULL auto_increment,
-  name VARCHAR(255) NOT NULL UNIQUE,
-  master_id BIGINT,
-  PRIMARY KEY (id)
+create table cy_sys_user_role
+(
+	user_id bigint not null,
+	role_id bigint not null,
+	primary key (user_id, role_id)
+);
+
+create table cy_sys_team
+(
+	id bigint auto_increment
+		primary key,
+	name varchar(255) not null,
+	city varchar(255) null,
+	sign varchar(255) null,
+	master_id bigint null,
+	max_member_count bigint null,
+	default_roles varchar(3000) null,
+	root_menu varchar(50) null,
+	root_menu_id bigint null,
+	deleted tinyint default 0 not null,
+	constraint name
+		unique (name)
 )
 AUTO_INCREMENT=1000;
+
+create table cy_sys_work_group
+(
+	id bigint auto_increment
+		primary key,
+	team_id bigint null,
+	name varchar(255) not null,
+	master_id bigint null,
+	deleted tinyint default 0 null,
+	constraint name
+		unique (team_id, name)
+);
+
+create table cy_sys_work_group_user
+(
+	id bigint auto_increment
+		primary key,
+	work_group_id bigint null,
+	user_id bigint null
+);
 
 CREATE TABLE cy_sys_resource
 (
@@ -118,20 +167,81 @@ CREATE TABLE cy_sys_resource
 )
 AUTO_INCREMENT=1000;
 
-CREATE TABLE cy_sys_user_online
+
+create table cy_sys_user_last_online
 (
-  id VARCHAR(255) PRIMARY KEY NOT NULL,
-  host VARCHAR(255),
-  last_access_time DATETIME,
-  online_session LONGTEXT,
-  start_timestamp DATETIME,
-  status VARCHAR(255),
-  system_host VARCHAR(255),
-  timeout BIGINT,
-  user_agent VARCHAR(255),
-  user_id BIGINT,
-  username VARCHAR(255)
+	id bigint auto_increment
+		primary key,
+	USER_ID bigint null,
+	USERNAME varchar(300) null,
+	LAST_UID varchar(255) null,
+	HOST varchar(100) null,
+	USER_AGENT varchar(800) null,
+	SYSTEM_HOST varchar(100) null,
+	LAST_LOGIN_TIMESTAMP datetime null,
+	LAST_STOP_TIMESTAMP datetime null,
+	LOGIN_COUNT bigint null,
+	TOTAL_ONLINE_TIME bigint null,
+	CREATE_DATE datetime default CURRENT_TIMESTAMP not null
 );
+
+create table cy_sys_user_online
+(
+	id varchar(255) not null
+		primary key,
+	host varchar(255) null,
+	last_access_time datetime null,
+	online_session longtext null,
+	start_timestamp datetime null,
+	status varchar(255) null,
+	system_host varchar(255) null,
+	timeout bigint null,
+	user_agent varchar(255) null,
+	user_id bigint null,
+	username varchar(255) null
+);
+
+create trigger trigger_sys_user_off_online
+	after delete
+	on cy_sys_user_online
+	for each row
+	begin
+    DECLARE v_flag INT;
+    IF OLD.user_id IS NOT NULL
+    THEN
+        SELECT (CASE
+                    WHEN exists(SELECT user_id
+                                FROM cy_sys_user_last_online
+                                WHERE user_id = OLD.user_id)
+                        THEN 1
+                    ELSE 0 END) AS val
+        INTO v_flag
+        FROM DUAL;
+    end if;
+
+    IF v_flag = 0
+    THEN
+        INSERT INTO cy_sys_user_last_online
+        (user_id, username, last_uid, host, user_agent, system_host,
+         last_login_timestamp, last_stop_timestamp, login_count, total_online_time)
+        VALUES (OLD.user_id, OLD.username, OLD.id, OLD.host, OLD.user_agent,
+                OLD.system_host, OLD.start_timestamp, OLD.last_access_time, 1,
+                (UNIX_TIMESTAMP(OLD.last_access_time) - UNIX_TIMESTAMP(OLD.start_timestamp)));
+    ELSE
+        UPDATE cy_sys_user_last_online
+        SET username             =OLD.username,
+            last_uid             =OLD.id,
+            host                 =OLD.host,
+            user_agent           =OLD.user_agent,
+            system_host          =OLD.system_host,
+            last_login_timestamp =OLD.start_timestamp,
+            last_stop_timestamp  =OLD.last_access_time,
+            login_count          = login_count + 1,
+            total_online_time    = total_online_time +
+                                   (UNIX_TIMESTAMP(OLD.last_access_time) - UNIX_TIMESTAMP(OLD.start_timestamp))
+        WHERE user_id = OLD.user_id;
+    end if;
+end;
 
 CREATE TABLE cy_sys_permission
 (
@@ -174,18 +284,21 @@ create table cy_maintain_task_definition
 )
 AUTO_INCREMENT=1000;
 
-CREATE TABLE cy_datasource_manage
+create table cy_datasource_manage
 (
-  id BIGINT AUTO_INCREMENT
-    PRIMARY KEY,
-  DS_NAME VARCHAR(200) NOT NULL,
-  DS_TYPE VARCHAR(200) NOT NULL,
-  DB_NAME VARCHAR(200) NOT NULL,
-  DB_TYPE VARCHAR(200) NOT NULL,
-  DB_HOST VARCHAR(200) NOT NULL,
-  DB_PORT VARCHAR(200) NOT NULL,
-  DB_USERNAME VARCHAR(200) NOT NULL,
-  DB_PASSWORD VARCHAR(200) NOT NULL
+	id bigint auto_increment
+		primary key,
+	DS_NAME varchar(200) not null,
+	DS_TYPE varchar(200) not null,
+	DB_NAME varchar(200) not null,
+	DB_TYPE varchar(200) not null,
+	DB_HOST varchar(200) not null,
+	DB_PORT varchar(200) not null,
+	DB_USERNAME varchar(200) not null,
+	DB_PASSWORD varchar(200) not null,
+	create_date datetime null,
+	creator varchar(50) null,
+	team_id bigint null
 )
 AUTO_INCREMENT=1000;
 
@@ -272,4 +385,3 @@ CREATE TABLE BUS_REMOTE_API
     remark VARCHAR(3000)
 )
 AUTO_INCREMENT=1000;
-

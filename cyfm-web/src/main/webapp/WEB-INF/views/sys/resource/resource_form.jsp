@@ -49,10 +49,10 @@
 				<div class="form-group">
 					<form:label path="resourceType">打开方式</form:label>
 					<div>
-					<div class="radio-list">
-						<cyform:radiobuttons
-								path="resourceType" items="${resourceTypes}" itemLabel="info" itemValue="value" cssClass="required"/>
-					</div>
+						<div class="radio-list">
+							<cyform:radiobuttons
+									path="resourceType" items="${resourceTypes}" itemLabel="info" itemValue="value" cssClass="required"/>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -91,12 +91,15 @@
 	<!-- END SAMPLE FORM PORTLET-->
 </div>
 <script>
-    $(function () {
-        $cy.handleUniform();
-        $("#inputForm").validate({
+	$(function () {
+		if ($("#parentId").val() == 0) {
+			$("[name=resourceType]").filter("[value!=rightFrame][value!=blank][value!=self]").attr("disabled", true);
+		}
+		$cy.handleUniform();
+		$("#inputForm").validate({
 
-        });
-    })
+		});
+	})
 </script>
 </body>
 </html>

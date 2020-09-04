@@ -1,13 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- ================================= JS 公用区域开始 ========================================== -->
 <script>
-    var ctx = _ctx = "${ctx}";
+	var ctx = _ctx = "${ctx}";
 </script>
-<!--[if lt IE 9]>
-<script src="${ctx}/static/plugins/respond.min.js"></script>
-<script src="${ctx}/static/plugins/excanvas.min.js"></script>
-<![endif]-->
-
 <!-- 插件扩展区 bengin-->
 <script src="${ctx}/static/plugins/angularjs/angular.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -35,26 +30,73 @@
 
 <!-- 时间插件 begin -->
 <%--<script src="${ctx}/static/plugins/laydate/laydate.dev.js" type="text/javascript"></script>--%>
-<script src="${ctx}/static/plugins/laydate5.0/laydate.dev.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/moment.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/moment-with-locales.js?1" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/laydate5.0/laydate.dev.js?10" type="text/javascript"></script>
 <!-- 时间插件 end-->
 
 <!-- 弹出层 begin -->
-<script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/layer-dialog/layer-dialog.dev.js?3" type="text/javascript"></script>
 <!-- 弹出层 end -->
 
 <!-- validate校验 begin -->
 <script src="${ctx}/static/plugins/jquery-validation/1.15.0/jquery.validate.js" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery-validation/1.15.0/additional-methods.js" type="text/javascript"></script>
-<script src="${ctx}/static/plugins/jquery-validation/1.15.0/additional-methods-ppcxy.js?5" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery-validation/1.15.0/additional-methods-ppcxy.js?8" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery-validation/1.15.0/localization/messages_zh.js" type="text/javascript"></script>
 <!-- validate校验 end -->
 
 <script src="${ctx}/static/plugins/clipboard/clipboard.js"></script>
 <!-- 分布指引 -->
-<script src="${ctx}/static/plugins/jquery-joyride/jquery.joyride-2.1.js?2" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery-joyride/jquery.joyride-2.1.js?4" type="text/javascript"></script>
 <script src="${ctx}/static/plugins/jquery-tipsy/jquery.tipsy.js?4" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="${ctx}/static/plugins/jquery.hotkeys.js?4" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery.cokie.min.js?1" type="text/javascript"></script>
+<script src="${ctx}/static/plugins/jquery-qrcode/jquery.qrcode.min.js?2" type="text/javascript"></script>
 <!-- 插件扩展区 end-->
 
 <!-- cy api封装 -->
-<script src="${ctx}/static/common/js/common.js?45" type="text/javascript"></script>
+<script src="${ctx}/static/common/js/common.js?72" type="text/javascript"></script>
 <!-- ================================= JS 公用区域结束 ========================================== -->
+<script>
+	$(function(){
+		moment.locale("zh-cn");
+		$.ajaxSetup({
+			error: function(jqXHR, textStatus, errorThrown) {
+				if (textStatus == 'abort') {
+					return;
+				}
+				var area = ['600px'];
+				if ($.app && !$.app.isPc()) {
+					area =[document.documentElement.clientWidth - 50 + 'px', document.documentElement.clientHeight - 240 + 'px']
+				}
+
+				console.debug(jqXHR.responseText)
+				if (jqXHR.responseText) {
+					layer.open({
+						title:"提示信息",
+						area:area,
+						content: jqXHR.responseText,//.substring(jqXHR.responseText.indexOf('\<body\>'),jqXHR.responseText.lastIndexOf('\<\/body\>')),
+						btn:["确定"],
+						yes: function (index, layero) {
+							layer.close(index);
+							$cy.waitingOver(true);
+							$.unblockUI();
+						}
+					});
+				}
+			}
+		});
+
+
+		if ($("form.form-search").size()>0) {
+			var d_searchParam = $("form.form-search").serialize()
+			$("a.export[data-ajax-href]").each(function () {
+				$(this).data("ajax-href",$(this).data("ajax-href")+"&"+d_searchParam);
+			});
+		}
+
+	});
+</script>

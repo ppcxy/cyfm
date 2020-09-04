@@ -13,7 +13,7 @@ public class JxlsUtil {
   static {
     //添加自定义指令（可覆盖jxls原指令）
     XlsCommentAreaBuilder.addCommandMapping("image", ImageCommand.class);
-    XlsCommentAreaBuilder.addCommandMapping("each", EachCommand.class);
+    // XlsCommentAreaBuilder.addCommandMapping("each", EachCommand.class);
     XlsCommentAreaBuilder.addCommandMapping("merge", MergeCommand.class);
     XlsCommentAreaBuilder.addCommandMapping("link", LinkCommand.class);
   }
@@ -38,8 +38,8 @@ public class JxlsUtil {
         context.putVar(key, beans.get(key));
       }
     }
-  
-  
+    
+    
     JxlsHelper jxlsHelper = JxlsHelper.getInstance();
     //Transformer transformer = jxlsHelper.createTransformer(is, os);
     //JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();
